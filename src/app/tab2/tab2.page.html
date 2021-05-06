@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-avatar (click)="selectImageSource()" class="profile-pic">
+    <ion-img [src]="myProfileImage"></ion-img>
+  </ion-avatar>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Dummy Text</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Dummy Text
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+</ion-content>
+
+
+  <!-- <div *ngIf="!bookList">
+    <ion-card>
+          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+          <ion-card-header>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+        <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+        <ion-card-header>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+        <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+        <ion-card-header>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-card-header>
+    </ion-card>
+  </div>
+
+
+  <ion-card [routerLink]="['bookdetail', book.id]" button
+  *ngFor="let book of (bookList | async)">
+    <ion-img [src]="book.cropped"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{book.name}}</ion-card-title>
+    </ion-card-header>
+  </ion-card> -->

@@ -1,0 +1,7 @@
+{
+  "name": "ReadARs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="loginFormGroup">
+
+        <ion-item>
+          <ion-label>Username</ion-label>
+          <ion-input formControlName="username" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Password</ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+
+        <ion-button (click)="logIn()" [disabled]="loginFormGroup.invalid" margin-top expand="full">Login</ion-button>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

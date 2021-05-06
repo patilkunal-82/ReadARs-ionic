@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add new book in the library..</ion-title>
+  </ion-toolbar>
+
+
+
+
+
+</ion-header>
+
+<ion-content>
+
+
+    <form [formGroup]="addBookFormGroup">
+
+      <ion-item>
+        <ion-label>Book Name</ion-label>
+        <ion-input formControlName="bookname" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Book Language</ion-label>
+        <ion-select formControlName="booklanguage">
+          <ion-select-option *ngFor="let blanguage of booklanguage" [value]="blanguage">
+                  {{blanguage}}
+        </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+     <ion-item>
+        <ion-label>Book's Author</ion-label>
+        <ion-input formControlName="bookauthor" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Book Description</ion-label>
+        <ion-input formControlName="bookdescription" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-text>Your Rating for the book</ion-text>
+          <ion-range min="1" max="5" tickInterval="1" value="5" pin="true" snaps name="rating"
+          formControlName="bookrating" ></ion-range>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Your address</ion-label>
+        <ion-input formControlName="bookowneraddress" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Your contact number</ion-label>
+        <ion-input formControlName="bookownertelnum" type="text"></ion-input>
+      </ion-item>
+
+      <ion-button (click)="onSubmit()" [disabled]="addBookFormGroup.invalid" margin-top expand="full">Add</ion-button>
+
+    </form>
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+     <ion-fab-button (click)="closeModal()" color="danger">
+       <ion-icon name="close"></ion-icon>
+     </ion-fab-button>
+    </ion-fab>
+
+
+
+</ion-content>

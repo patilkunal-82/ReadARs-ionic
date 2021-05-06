@@ -1,0 +1,87 @@
+<ion-header color="success" [translucent]="true" collapse="condense">
+  <ion-toolbar >
+    <ion-title size="large" >
+      ReadARs
+    </ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
+    <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-card-title style="color: green;" class="display_heading">Search books in ReadARs Library</ion-card-title>
+  </ion-card>
+  <ion-searchbar no-margin [(ngModel)]="searchTerm"
+    (ionChange)="setFilteredItems()" placeholder="Search by book title or language or author..."></ion-searchbar>
+
+  <!-- <ion-card [routerLink]="['bookdetail', book._id]" button  *ngFor="let book of books">
+    <ion-card-header>
+      <ion-card-title>
+        {{book.bookname}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text><strong>{{book.bookdescription}}</strong></ion-text>
+      -- language: <ion-text><strong>{{book.booklanguage}}</strong></ion-text>
+      -- authored by: <ion-text><strong>{{book.bookauthor}}</strong></ion-text>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-text> Available ? : </ion-text>
+      <ion-icon *ngIf="book.isAvailable" name="checkmark-circle" color="success"></ion-icon>
+      <ion-icon *ngIf="book.isReserved || book.isBorrowed" name="close-circle" color="danger"></ion-icon>
+    </ion-card-content>
+  </ion-card> -->
+
+
+
+  <ion-list>
+    <!--<ion-list-header>
+         Books in the library..
+    </ion-list-header> -->
+       <ion-item [routerLink]="['bookdetail', book._id]" button  *ngFor="let book of books">
+         <ion-label>
+           <h2>{{book.bookname}}</h2>
+           <p>{{book.bookdescription}}</p>
+           <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>
+           <p> Available?
+           <ion-icon *ngIf="book.isAvailable" name="checkmark-circle" color="success" ></ion-icon>
+           <ion-icon *ngIf="book.isReserved || book.isBorrowed" name="close-circle" color="danger"></ion-icon>
+           </p>
+         </ion-label>
+       </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreBooks($event)">
+    <!--<ion-infinite-scroll-content loadingText="..loading">
+
+    </ion-infinite-scroll-content> -->
+  </ion-infinite-scroll>
+
+
+</ion-content>
+
+
+<!--
+
+<span [ngClass]="row.isAvailable == true ? 'hide': '' " style="color: red;" class="fa fa-times fa-lg"></span>
+<span [ngClass]="row.isReserved == true || row.isBorrowed == true ? 'hide': '' " style="color: green;" class="fa fa-check-circle fa-lg"></span>
+
+
+
+<ion-skeleton-text animated></ion-skeleton-text>
+<ion-card >
+      <ion-card-content> <strong> As a book reader, follow simple 3 step process.</strong></ion-card-content>
+      <ion-img src="/assets/images/finalimages/searchbooks.jpeg"></ion-img>
+      <ion-card-header>
+        <ion-card-content> <strong>Step1: Search and select book of your interest !</strong></ion-card-content>
+      </ion-card-header>
+</ion-card>
+
+-->

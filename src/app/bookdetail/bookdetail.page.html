@@ -1,0 +1,176 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--  <ion-img [src]="(bookDetail | async)?.image"></ion-img> -->
+
+<ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
+  <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
+  </ion-refresher-content>
+</ion-refresher>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-icon src="../assets/icon/book.svg" size="large"></ion-icon>
+      <ion-card-title>
+        {{book?.bookname}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="color: green;">
+        <p> Book Description: {{book?.bookdescription}}
+        </p>
+        <p> Book Owner: {{book?.bookowner.firstname}} {{book?.bookowner.lastname}}
+        </p>
+        <p> Book Owner's rating: {{book?.bookrating}}
+        </p>
+        <p> Book Owner's address: {{book?.bookowneraddress}}
+        </p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-card-content *ngIf="!available" style="color: red;">
+            {{book?.bookname}} is currently not available ! Please check later..
+          </ion-card-content>
+          <ion-card-content *ngIf="available" style="color: green;">
+            {{book?.bookname}} is available. Click <ion-icon src="../assets/icon/lock-closed.svg"
+            button (click)="reserveBook()"></ion-icon> to reserve !
+            <hr>
+            <ion-icon src="../assets/icon/mail.svg" button (click)="emailOwner()"></ion-icon> or
+            <ion-icon src="../assets/icon/call.svg" button (click)="callOwner()"></ion-icon> the book owner
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon src="../assets/icon/caret-down.svg"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="bottom">
+        <ion-fab-button (click)="addComment()">
+          <ion-icon src="../assets/icon/create.svg" color="primary"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="displayComments()">
+          <ion-icon src="../assets/icon/reader.svg" color="primary"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+
+  </ion-card>
+
+  <ion-card *ngIf="showComments">
+    <ion-card-header>
+      <ion-card-title>
+        What are readers of this book saying .. ?
+      </ion-card-title>
+    </ion-card-header>
+    <ion-slides>
+      <ion-slide *ngFor="let comment of book.comments">
+        <ion-card>
+            <ion-label >
+              <h2 color="primary">{{comment.comment}}</h2>
+              <p color="primary">{{comment.rating}} Stars</p>
+              <h3 color="secondary">by - {{comment.author.firstname}} {{comment.author.lastname}}</h3>
+              <p color="secondary"> on - {{comment.updatedAt | date }}</p>
+            </ion-label>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
+
+  <ion-card padding *ngIf="addComments">
+    <ion-card-title>
+      Post your rating, review on this book
+    </ion-card-title>
+    <ion-card-content>
+      <form [formGroup]="commentFormGroup" #cform="ngForm">
+      <ion-item>
+          <ion-textarea formControlName="comment" type="text" placeholder="Your Comments"></ion-textarea>
+      </ion-item>
+      <ion-item>
+          <ion-text>Your Rating</ion-text>
+          <ion-range min="1" max="5" tickInterval="1" value="5" pin="true" snaps name="rating"
+          formControlName="rating" ></ion-range>
+      </ion-item>
+
+        <!---<ion-item>
+          <ion-label>Password</ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item> -->
+
+        <ion-button (click)="onSubmit()" [disabled]="commentFormGroup.invalid" margin-top expand="full">Submit Comment</ion-button>
+
+      </form>
+
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+
+</ion-content>
+
+<!--
+
+
+          <form novalidate [formGroup]="commentForm" #cform="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+              <mat-slider min="1" max="5" step="1" thumbLabel tickInterval="1" name="rating" formControlName="rating"></mat-slider>
+              <mat-form-field class="full-width">
+                <textarea matInput formControlName="comment" placeholder="Your Comment" rows=12></textarea>
+                <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
+              </mat-form-field>
+            </p>
+            <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
+          </form>
+        </div>
+
+
+-->
+
+
+
+<!-- <ion-card>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label>Duration</ion-label>
+      <ion-chip color="primary">
+        {{(bookDetail | async)?.duration}}
+      </ion-chip>
+    </ion-item>
+    <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-chip color="primary">
+            {{(bookDetail | async)?.category}}
+          </ion-chip>
+      </ion-item>
+      <ion-item>
+          <ion-label>Popularity</ion-label>
+          <ion-chip color="primary">
+              {{(bookDetail | async)?.popularity}}
+            </ion-chip>
+        </ion-item>
+  </ion-list>
+</ion-card>
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="bottom">
+      <ion-fab-button (click)="openModal()">
+        <ion-icon color="success" name="play"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="share()">
+        <ion-icon color="dark" name="share"></ion-icon>
+      </ion-fab-button>
+  </ion-fab-list>
+</ion-fab> -->
