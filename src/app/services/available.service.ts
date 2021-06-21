@@ -22,6 +22,14 @@ export class AvailableService {
     public auth: AuthService,
     private processHTTPMsgService: ProcessHTTPMsgService) { }
 
+    getAvailableBooks(): Observable<Book[]> {
+      if (!this.auth.isLoggedIn()) {
+        return null;
+      }
+      return this.http.get<Book[]>(baseURL + 'available?isAvailable=true')
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
   isAvailable(id: string): Observable<AvailableExists> {
     if (!this.auth.isLoggedIn()) {
       return of({ exists: false, book: null });

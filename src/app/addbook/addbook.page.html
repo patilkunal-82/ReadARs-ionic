@@ -1,26 +1,52 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Add new book in the library..</ion-title>
+<ion-header color="success" [translucent]="true" collapse="condense">
+  <ion-toolbar >
+    <ion-title size="large" 
+               style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;">
+    Add 1 or more books..
+    </ion-title>
   </ion-toolbar>
-
-
-
-
-
-</ion-header>
+</ion-header> 
 
 <ion-content>
 
 
-    <form [formGroup]="addBookFormGroup">
+    <form [formGroup]="addBookFormGroup" #fform="ngForm">
 
       <ion-item>
-        <ion-label>Book Name</ion-label>
+        <ion-label color="medium">Book Name:</ion-label>
         <ion-input formControlName="bookname" type="text"></ion-input>
       </ion-item>
 
+    <!--<ion-item>
+        <ion-label color="medium">Book Cover Image:</ion-label>
+        <ion-input type="file" (change)="onFileChanged($event)" required></ion-input>
+        <ion-thumbnail>
+          <ion-img [src]="imgURL" height="100" *ngIf="imgURL"></ion-img>
+        </ion-thumbnail>
+    </ion-item> -->
+
+     <ion-item>
+          <ion-label color="medium">Book Cover 
+            <ion-icon *ngIf="!capturedImage" src="../assets/icon/camera-outline.svg" (click)="selectImageSource()"></ion-icon>:
+          </ion-label>
+    
+          <ion-thumbnail>
+            <ion-img formControlName="bookcoverimage" [src]="capturedImage" *ngIf="capturedImage" height="100"></ion-img>
+          </ion-thumbnail>
+      </ion-item> 
+
       <ion-item>
-        <ion-label>Book Language</ion-label>
+        <ion-label color="medium">Book Genre:</ion-label>
+        <ion-select formControlName="bookgenre">
+          <ion-select-option *ngFor="let bgenre of bookgenre" [value]="bgenre">
+                  {{bgenre}}
+        </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="medium">Book Language:</ion-label>
         <ion-select formControlName="booklanguage">
           <ion-select-option *ngFor="let blanguage of booklanguage" [value]="blanguage">
                   {{blanguage}}
@@ -29,41 +55,42 @@
       </ion-item>
 
      <ion-item>
-        <ion-label>Book's Author</ion-label>
+        <ion-label color="medium">Book's Author:</ion-label>
         <ion-input formControlName="bookauthor" type="text"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Book Description</ion-label>
+      <!--<ion-item>
+        <ion-label color="medium">Book Description:</ion-label>
         <ion-input formControlName="bookdescription" type="text"></ion-input>
-      </ion-item>
+      </ion-item> -->
 
       <ion-item>
-          <ion-text>Your Rating for the book</ion-text>
+          <ion-text color="medium">Your Rating for the book:</ion-text>
           <ion-range min="1" max="5" tickInterval="1" value="5" pin="true" snaps name="rating"
           formControlName="bookrating" ></ion-range>
       </ion-item>
 
       <ion-item>
-        <ion-label>Your address</ion-label>
+        <ion-label color="medium">Your address:</ion-label>
         <ion-input formControlName="bookowneraddress" type="text"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Your contact number</ion-label>
+        <ion-label color="medium">Your contact number:</ion-label>
         <ion-input formControlName="bookownertelnum" type="text"></ion-input>
       </ion-item>
 
-      <ion-button (click)="onSubmit()" [disabled]="addBookFormGroup.invalid" margin-top expand="full">Add</ion-button>
 
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="onSubmit()" shape="round"  style="color:#1B4F72" 
+          [disabled]="addBookFormGroup.invalid" margin-top expand="full">Submit</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="closeModal()" shape="round" style="color: grey" 
+          margin-top expand="full">Cancel</ion-button>
+        </ion-col>
+      </ion-row>
     </form>
-
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-     <ion-fab-button (click)="closeModal()" color="danger">
-       <ion-icon name="close"></ion-icon>
-     </ion-fab-button>
-    </ion-fab>
-
-
 
 </ion-content>

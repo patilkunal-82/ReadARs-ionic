@@ -8,8 +8,20 @@ import { ModalController } from '@ionic/angular';
 })
 export class ViewcommentsPage implements OnInit {
 
+  bookComments;
+  commentsOnBook;
+  
+
   constructor(private _modalController: ModalController) { }
-  ngOnInit() {}
+
+  ngOnInit() {
+
+      this.commentsOnBook = this.bookComments;
+      console.log("Book ID", this.commentsOnBook._id);
+      console.log("Book ", this.commentsOnBook._id);
+    
+
+  }
 
   closeModal() {
     console.log("inside close modal");

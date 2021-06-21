@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SecurityContext } from '@angular/core';
 import { Book } from '../shared/book';
 
 import { Observable } from 'rxjs';
@@ -7,14 +7,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
 import { AuthService } from './auth.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReadarsService {
 
+  reader = new FileReader();
+  base64Data: any;
+  bookIdImageMap = new Map();
+  sanitizedURL: any;
+  bookIds: string[] ;
+  lbookIds: any[];
+  errMess: string;
+  public url: SafeResourceUrl;
+
   constructor(private http: HttpClient, public auth: AuthService,
-    private processHTTPMsgService: ProcessHTTPMsgService) { }
+    private processHTTPMsgService: ProcessHTTPMsgService, private sanitizer: DomSanitizer) { }
 
 
   /*  addBook(addbook: Book): Observable<Book> {
@@ -53,6 +63,15 @@ export class ReadarsService {
         .pipe(catchError(this.processHTTPMsgService.handleError));
     }
 
+
+    getRecommendedBooks(): Observable<Book[]> {
+      if (!this.auth.isLoggedIn()) {
+        return null;
+      }
+      return this.http.get<Book[]>(baseURL + 'recommended?isRecommended=true')
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
     getReservedBooks(): Observable<Book> {
       if (!this.auth.isLoggedIn()) {
         return null;
@@ -84,10 +103,59 @@ export class ReadarsService {
     }
 
     reserveBook(bookId: string, book: Book) {
-
-      return this.http.put(baseURL + 'books/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 'bookborrowed':book.bookborrowed})
+      return this.http.put(baseURL + 'books/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 
+                           'bookborrowed':book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
+                           'bookcurrentstatus': book.bookcurrentstatus})
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
     }
+
+    recommendBook(bookId: string, book: Book) {
+      return this.http.put(baseURL + 'recommended/' + bookId, {'bookrecommend': book.bookrecommend})
+      .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    }
+
+    // this method gets the url to BLOB and creates an blob object for the image to be displayed
+    /*getBookImage(bookId: string): Observable<SafeResourceUrl> {
+      console.log('Inside book service getBook ' + bookId);
+      return this.http.get(baseURL + 'imageUpload/' + bookId, {responseType: 'blob'})
+        .pipe(
+          map(x => {
+             const urlToBlob = window.URL.createObjectURL(x) // get a URL for the blob
+             console.log(urlToBlob);
+             return this.sanitizer.sanitize (
+                   SecurityContext.RESOURCE_URL,
+                   this.sanitizer.bypassSecurityTrustResourceUrl(urlToBlob));
+                  
+          }
+        ),)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+       
+    }*/
+
+    // this method requests s3 bucket objects from the NodeJS and passes it on to the template to display s3 bucket image
+    getAllImageObjects() {
+      console.log("Inside readars service get all imageobjects");
+      return this.http.get<any[]>(baseURL+'imageUpload/')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+  
+
+    // this method requests s3 bucket url from the NodeJS and passes it on to the template to display s3 bucket image
+    getBookImage(bookId: string) {
+      console.log('Inside readars service getBookImage ' + bookId);
+      return this.http.get(baseURL+'imageUpload/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+    // works with s3 bucket
+    deleteBookImage(id: string) {
+      console.log('Inside readrs service deleteBook image ' + id);
+      return this.http.delete(baseURL + 'imageUpload/' + id)
+      .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    }
+
+
 
 
 

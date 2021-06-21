@@ -1,10 +1,11 @@
 
 import { User } from './user';
+import { Book } from './book'
 
-export class Favorite {
+export interface Favorite {
     _id: string;
     user: User;
-    //dishes: Dish[];
+    books: Book[];
     createdAt: string;
     updatedAt: string;
 }

@@ -8,6 +8,9 @@ import { IonicModule } from '@ionic/angular';
 import { BookdetailPage } from './bookdetail.page';
 import { BookvideoPageModule } from '../bookvideo/bookvideo.module';
 import { ViewcommentsPageModule } from '../viewcomments/viewcomments.module';
+import { QrcodeActivitiesPageModule } from '../qrcode-activities/qrcode-activities.module';
+import { AddbookPageModule } from '../addbook/addbook.module';
+import { AddcommentPageModule } from '../addcomment/addcomment.module';
 
 
 const routes: Routes = [
@@ -20,7 +23,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    
+    AddcommentPageModule,
+    QrcodeActivitiesPageModule,
     ViewcommentsPageModule,
     BookvideoPageModule,
     CommonModule,

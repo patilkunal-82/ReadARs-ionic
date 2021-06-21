@@ -21,6 +21,14 @@ export class BorrowedService {
     public auth: AuthService,
     private processHTTPMsgService: ProcessHTTPMsgService) { }
 
+    getBorrowedBooks(): Observable<Book[]> {
+      if (!this.auth.isLoggedIn()) {
+        return null;
+      }
+      return this.http.get<Book[]>(baseURL + 'borrowed?isBorrowed=true')
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
   isBorrowed(id: string): Observable<BorrowedExists> {
     if (!this.auth.isLoggedIn()) {
       return of({ exists: false, book: null });

@@ -5,3 +5,29 @@
 .skeleton-image {
   height: 175px;
 }
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border: gray solid 1px;
+    margin: 10px auto;
+}
+
+.display_heading {
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.my-custom-menu {
+  --width: 500px;
+}
+ion-toolbar {
+  //--background: #1B4F72;
+  --background: #145A32;
+}
+
+ion-button {
+  --background: #FDFEFE;
+}
+
+

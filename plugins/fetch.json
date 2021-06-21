@@ -10,15 +10,7 @@
   "cordova-plugin-x-socialsharing": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-x-socialsharing"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-email-composer": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-email-composer"
+      "id": "cordova-plugin-x-socialsharing@5.4.4"
     },
     "is_top_level": true,
     "variables": {}
@@ -26,7 +18,7 @@
   "mx.ferreyra.callnumber": {
     "source": {
       "type": "registry",
-      "id": "call-number"
+      "id": "call-number@^1.0.1"
     },
     "is_top_level": true,
     "variables": {}
@@ -85,6 +77,102 @@
       "id": "cordova-plugin-ionic-keyboard@^2.0.5"
     },
     "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-email-composer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-email-composer"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-file": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file@^6.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-sqlite-storage": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-sqlite-storage@^6.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-filepath": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-filepath@^1.6.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-base64-to-gallery": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-base64-to-gallery"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-add-swift-support": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-add-swift-support"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-file-opener2": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-opener2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-codescanner@^8.1.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "com-badrit-base64": {
+    "source": {
+      "type": "registry",
+      "id": "com-badrit-base64"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-advanced-http": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-advanced-http"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-webxr": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-webxr@^1.17.5"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-wkwebview-engine": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-wkwebview-engine@^1.2.1"
+    },
+    "is_top_level": false,
     "variables": {}
   }
 }

@@ -22,32 +22,46 @@ export class SearchedData {
 
     filterItems(searchTerm) {
 
-       console.log("Search Term is", searchTerm);
-       return this.items.filter(item => {
+      console.log("Search Term is", searchTerm);
+      return this.items.filter(item => {
 
-            if(item.bookname.search(searchTerm) == -1) {
-              console.log("not in bookname ");
+           //bookname
+           if(item.bookname.search(searchTerm) == -1) {
+             console.log("not in bookname ");
 
-            }
-            else {
-                return item.bookname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-            }
-            if(item.booklanguage.search(searchTerm) == -1) {
-              console.log("not in booklanguage ");
+           }
+           else {
+               return item.bookname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+           }
+           //booklanguage
+           if(item.booklanguage.search(searchTerm) == -1) {
+             console.log("not in booklanguage ");
 
-            }
-            else {
-                return item.booklanguage.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-            }
-            if(item.bookauthor.search(searchTerm) == -1) {
-              console.log("not in booklanguage ");
+           }
+           else {
+               return item.booklanguage.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+           }
 
-            }
-            else {
-                return item.bookauthor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-            }
+           //bookcurrentstatus
+           if(item.bookcurrentstatus.search(searchTerm) == -1) {
+             console.log("not in bookcurrentstatus ");
 
-        });
+           }
+           else {
+               return item.bookcurrentstatus.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+           }
+
+           //bookauthor
+           if(item.bookauthor.search(searchTerm) == -1) {
+             console.log("not in bookauthor ");
+
+           }
+           else {
+               return item.bookauthor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+           }
+
+         
+       });
 
     }
 

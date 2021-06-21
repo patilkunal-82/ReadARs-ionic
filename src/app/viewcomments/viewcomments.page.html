@@ -1,17 +1,51 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Readers' comments on this book</ion-title>
+<ion-header color="success" [translucent]="true" collapse="condense">
+  <ion-toolbar >
+    <ion-title size="large" 
+               style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;">
+    View Readers' Comments
+    </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> 
+
 
 <ion-content>
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-card class="displaycard">
+    <ion-card-content *ngIf="commentsOnBook">
+        <ion-slides>
+          <ion-slide *ngFor="let comment of commentsOnBook.comments" >
+            
+                <ion-label color="primary">
+                  <h2>{{comment.comment}}</h2>
+                  <ion-chip color="primary">
+                      <p> {{comment.rating}} <ion-icon color="warning" src="../assets/icon/star.svg"></ion-icon></p>
+                  </ion-chip>
+                  <p></p>
+                  <ion-chip color="tertiary">{{comment.author.firstname}} {{comment.author.lastname}}
+                    ({{comment.updatedAt | date }})
+                  </ion-chip>
+                </ion-label>
+       
+          </ion-slide>
+        </ion-slides>
+    </ion-card-content>
+  </ion-card>
+
+  <!--<ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="closeModal()" color="danger">
       <ion-icon name="close"></ion-icon>
     </ion-fab-button>
+  </ion-fab> -->
 
-  </ion-fab>
+    <ion-button  shape="round" size="mini" (click)="closeModal()" expand="block" 
+    margin-top style="color:grey">
+     Close
+    </ion-button>
+
+  
 
 
 </ion-content>
+
+

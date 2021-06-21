@@ -1,26 +1,12 @@
-/*export interface Book {
-    id: string;
-    video_url: string;
-    name: string;
-    description: string;
-    duration: string;
-    created_by: string;
-    image: string;
-    thumbnail: string;
-    cropped: string;
-    file_name_original: string;
-    popularity: string;
-    category_id: string;
-    category: string;
-    keywords: string;
-  }*/
 
   import { User } from './user';
   import { Comment } from './comment';
 
+
   export interface Book {
       _id: string;
       bookname: string;
+      bookgenre: string;
       booklanguage: string;
       bookdescription: string;
       bookowner: User;
@@ -32,7 +18,27 @@
       bookreserved: boolean;
       bookborrowed: boolean;
       comments: Comment[];
+      bookcoverimage: any;
+      bookcurrentuser: string;
+      bookrecommend: boolean;
+      bookcurrentstatus: string;
   }
 
-  export const BookLanguage = ['English', 'Hindi', 'Marathi', 'German', 'Tamil',
-                               'Spanish', 'French', 'Telugu', 'Latin', 'Malyalam'];
+  export const BookActions = ['Lend Or Make Available', 'Remove'];
+
+  export const BookLanguage = ['Bengali', 'Chinese','Dutch', 'English', 'French','German', 'Greek', 'Gujrati', 'Hindi', 'Italian', 
+                               'Japanese', 'Kannada', 'Korean', 'Latin', 'Malyalam','Marathi', 'Odia', 'Persian', 'Russian', 'Spanish',
+                               'Tamil', 'Telugu', 'Thai', 'Tulu', 'Vietnamese', 'Other'];
+
+  export const BookGenre = [ 'Action & Adventure', 'Autobiography','Biography',  'Classics', 'Cookbook','Comic', 'Crime', 'Computers',
+                             'Essays','Fantasy','Food', 'Health', 'Historical Fiction', 'History', 'Horror', 
+                              'Literary Fiction', 'Management','Medical Science','Memoir', 'Mystery', 'Poetry', 'Romance', 'Sci-Fi', 'Self-Help',
+                              'Short Stories', 'Technology','Thriller', 'Travel', 'Women\'s Fiction', 'Other'];  
+
+  export const BookCurrentStatus = ['Available', 'Reserved', 'Borrowed'];
+                              
+  export const CollectionCategory = ['Genre', 'Language'];
+
+  
+                              
+                                                      

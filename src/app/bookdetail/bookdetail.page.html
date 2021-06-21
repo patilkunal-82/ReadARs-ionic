@@ -1,176 +1,220 @@
-<ion-header>
+
+<ion-header color="success" [translucent]="true" collapse="condense">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title></ion-title>
+    <ion-title size="large" 
+               style="font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+               color: darkgreen; font-weight: bolder;">
+    
+    </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> 
+
 
 <ion-content>
 <!--  <ion-img [src]="(bookDetail | async)?.image"></ion-img> -->
+
+<!-- SCAN QR CODE -->
+  
+ <!-- <ion-card>
+  <ion-card-header>
+    <ion-card-title>Barcode/QR Scanning</ion-card-title>
+    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button expand="full" color="success" (click)="scanBarcode()">Scan a Code</ion-button>
+    <div *ngIf="scannedData">
+      <p>
+        Scanned Code Text : <b>{{ scannedData["text"] }}</b>
+      </p>
+      <p>
+        Scanned Code Format : <b>{{ scannedData["format"] }}</b>
+      </p>
+    </div>
+  </ion-card-content>
+</ion-card> -->
+
+<!-- CREATE QR CODE -->
+  <!-- <ion-card>
+  <ion-card-header>
+    <ion-card-title>QR Code Creation</ion-card-title>
+    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-input type="text" [(ngModel)] = "qrData" placeholder="Enter any text"></ion-input>
+    <ion-button expand="full" color="success" (click)="createQRcode()">Create QR code</ion-button>
+    
+    <ion-card>
+      <div *ngIf="createdCode">
+        <p>
+          Created Code Image : <b>{{ createdCode["file"] }}</b>
+        </p>
+        <p>
+          Created Code Format : <b>{{ createdCode["format"] }}</b>
+        </p>
+        
+      </div>
+      <ion-img [src]="capturedImagePath"></ion-img> 
+    </ion-card>
+  </ion-card-content>
+</ion-card> -->
+
+<!-- SHOW QR CODE -->
+<!--<ion-card>
+  <ion-card-header>
+    <ion-card-title>QR Code from Server</ion-card-title>
+    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button expand="full" color="primary" (click)="showServerQRcode()">Show QR code</ion-button>
+  </ion-card-content>
+  <ion-card>
+    <ion-img [src]="this.urlQR"></ion-img> 
+  </ion-card>
+</ion-card> -->
+
+<!-- DELETE QR CODE -->
+<!--<ion-card>
+  <ion-card-header>
+    <ion-card-title>Delete QR Code on Server</ion-card-title>
+    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button expand="full" color="primary" (click)="deleteServerQRcode()">Delete QR code</ion-button>
+  </ion-card-content>
+</ion-card>-->
+
 
 <ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
   <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
   </ion-refresher-content>
 </ion-refresher>
 
+
+<!--<button mat-button (click)="addToFavorites()">
+  <span class="{{favorite ? 'fa fa-heart fa-lg' : 'fa fa-heart-o fa-lg'}}"></span></button> -->
+
+
   <ion-card>
+
+    
+
     <ion-card-header>
-      <ion-icon src="../assets/icon/book.svg" size="large"></ion-icon>
-      <ion-card-title>
+      <ion-card-title class="ion-text-wrap">
         {{book?.bookname}}
       </ion-card-title>
+      <ion-card-subtitle class="ion-text-wrap">
+        Author: {{book?.bookauthor}}
+      </ion-card-subtitle>
+      <!--<ion-img [src]="url" class="bookimage"></ion-img> --> 
     </ion-card-header>
-    <ion-card-content style="color: green;">
-        <p> Book Description: {{book?.bookdescription}}
-        </p>
-        <p> Book Owner: {{book?.bookowner.firstname}} {{book?.bookowner.lastname}}
-        </p>
-        <p> Book Owner's rating: {{book?.bookrating}}
-        </p>
-        <p> Book Owner's address: {{book?.bookowneraddress}}
-        </p>
+    <ion-card-content style="color: darkblue;">
+      <ion-chip color="primary">
+        Available?
+       <ion-icon *ngIf="available && !reserved && !borrowed" name="checkmark-circle" color="success"></ion-icon>
+       <ion-icon *ngIf="reserved && !available && !borrowed"  src="../assets/icon/pause-circle.svg" color="warning"></ion-icon>
+       <ion-icon *ngIf="borrowed && !available && !reserved" name="close-circle" color="danger"></ion-icon>
+       </ion-chip>
+
+       <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button color="darkgreen" size="small">
+          <ion-icon  src="../assets/icon/caret-back.svg" style="color: #145A32;"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="start">
+          <!-- show QR code button available to only those who have requested the current book-->
+          <ion-fab-button *ngIf="(reserved || borrowed) && showQRButtonFlag" (click)="showServerQRcode()">
+            <ion-icon src="../assets/icon/qr-code-sharp.svg" style="color: #145A32;" ></ion-icon>
+          </ion-fab-button>
+          <!--<ion-fab-button (click)="manageFavorites()">
+            <ion-icon color="primary" src="{{favorite ? '../assets/icon/heart.svg' : '../assets/icon/heart-outline.svg'}}"></ion-icon>
+          </ion-fab-button>-->
+          <ion-fab-button (click)="openAddCommentModal()">
+            <ion-icon src="../assets/icon/create.svg" style="color: #145A32;"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-button *ngIf="showCommentFlag" (click)="openViewcommentsModal()">
+            <ion-icon  src="../assets/icon/eye-sharp.svg" style="color: #145A32;"></ion-icon>
+          </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+
+
+
+      <ion-list>
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <h3>Book Owner: {{book?.bookowner.firstname}} {{book?.bookowner.lastname}}</h3>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <p> Owner's Rating: {{book?.bookrating}}<ion-icon color="warning" src="../assets/icon/star.svg"></ion-icon></p>
+            <p> Owner's Address: {{book?.bookowneraddress}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngIf="available">
+        <ion-item>
+            <h2> Reserve</h2>
+            <ion-chip color="success">
+              <ion-icon size="large" color="success" src="../assets/icon/cart.svg" button (click)="reserveBook()"></ion-icon>
+            </ion-chip>
+        </ion-item>
+        <ion-item>
+          <h2> Contact Owner</h2>
+          <ion-chip color="primary">
+            <ion-icon size="large" color="primary" src="../assets/icon/people.svg" button (click)="contactOwner()"></ion-icon>
+          </ion-chip>
+      </ion-item>
+      <ion-item *ngIf="!recommended">
+        <h2> Recommend this book to others ? </h2>
+        <ion-chip color="primary">
+          <ion-icon color="primary" src="../assets/icon/thumbs-up.svg" button (click)="recommendBook()"></ion-icon>
+        </ion-chip>
+    </ion-item>
+      </ion-list>
+
+       
+      <!--<ion-card-subtitle>
+        <strong>Book Description:</strong>{{book?.bookdescription}}
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        <strong>Book Owner:</strong>{{book?.bookowner.firstname}} {{book?.bookowner.lastname}}
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        <strong>Owners' Rating : </strong>{{book?.bookrating}}<ion-icon color="warning" src="../assets/icon/star.svg"></ion-icon>
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        <strong>Owners' Address:</strong>{{book?.bookowneraddress}}
+      </ion-card-subtitle> -->
     </ion-card-content>
-    <ion-row>
+  <!--  <ion-row>
       <ion-col>
-        <ion-card no-margin>
-          <ion-card-content *ngIf="!available" style="color: red;">
-            {{book?.bookname}} is currently not available ! Please check later..
+        <ion-card *ngIf="available" no-margin>
+
+          <ion-card-content color="success">
+            <ion-label color="success"><strong> Reserve </strong></ion-label>
+            <ion-chip color="success">
+              <ion-icon size="large" color="success" src="../assets/icon/cart.svg" button (click)="reserveBook()"></ion-icon>
+            </ion-chip>
           </ion-card-content>
-          <ion-card-content *ngIf="available" style="color: green;">
-            {{book?.bookname}} is available. Click <ion-icon src="../assets/icon/lock-closed.svg"
-            button (click)="reserveBook()"></ion-icon> to reserve !
-            <hr>
-            <ion-icon src="../assets/icon/mail.svg" button (click)="emailOwner()"></ion-icon> or
-            <ion-icon src="../assets/icon/call.svg" button (click)="callOwner()"></ion-icon> the book owner
-          </ion-card-content>
-        </ion-card>
+         <ion-card-content>
+          <ion-label color="primary"><strong> Contact Owner </strong></ion-label>
+          <ion-chip color="primary">
+            <ion-icon size="large" color="primary" src="../assets/icon/people.svg" button (click)="contactOwner()"></ion-icon>
+          </ion-chip>
+         </ion-card-content>
+       </ion-card>
       </ion-col>
-    </ion-row>
-
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-      <ion-fab-button>
-        <ion-icon src="../assets/icon/caret-down.svg"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-list side="bottom">
-        <ion-fab-button (click)="addComment()">
-          <ion-icon src="../assets/icon/create.svg" color="primary"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button (click)="displayComments()">
-          <ion-icon src="../assets/icon/reader.svg" color="primary"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
-    </ion-fab>
+    </ion-row> -->
 
   </ion-card>
 
-  <ion-card *ngIf="showComments">
-    <ion-card-header>
-      <ion-card-title>
-        What are readers of this book saying .. ?
-      </ion-card-title>
-    </ion-card-header>
-    <ion-slides>
-      <ion-slide *ngFor="let comment of book.comments">
-        <ion-card>
-            <ion-label >
-              <h2 color="primary">{{comment.comment}}</h2>
-              <p color="primary">{{comment.rating}} Stars</p>
-              <h3 color="secondary">by - {{comment.author.firstname}} {{comment.author.lastname}}</h3>
-              <p color="secondary"> on - {{comment.updatedAt | date }}</p>
-            </ion-label>
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
-  </ion-card>
-
-  <ion-card padding *ngIf="addComments">
-    <ion-card-title>
-      Post your rating, review on this book
-    </ion-card-title>
-    <ion-card-content>
-      <form [formGroup]="commentFormGroup" #cform="ngForm">
-      <ion-item>
-          <ion-textarea formControlName="comment" type="text" placeholder="Your Comments"></ion-textarea>
-      </ion-item>
-      <ion-item>
-          <ion-text>Your Rating</ion-text>
-          <ion-range min="1" max="5" tickInterval="1" value="5" pin="true" snaps name="rating"
-          formControlName="rating" ></ion-range>
-      </ion-item>
-
-        <!---<ion-item>
-          <ion-label>Password</ion-label>
-          <ion-input formControlName="password" type="password"></ion-input>
-        </ion-item> -->
-
-        <ion-button (click)="onSubmit()" [disabled]="commentFormGroup.invalid" margin-top expand="full">Submit Comment</ion-button>
-
-      </form>
-
-
-    </ion-card-content>
-  </ion-card>
-
-
-
-
+  <!--<ion-card>
+    <ion-img [src]="this.urlQR"></ion-img> 
+  </ion-card> -->
 
 </ion-content>
 
-<!--
 
-
-          <form novalidate [formGroup]="commentForm" #cform="ngForm" (ngSubmit)="onSubmit()">
-            <p>
-              <mat-slider min="1" max="5" step="1" thumbLabel tickInterval="1" name="rating" formControlName="rating"></mat-slider>
-              <mat-form-field class="full-width">
-                <textarea matInput formControlName="comment" placeholder="Your Comment" rows=12></textarea>
-                <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
-              </mat-form-field>
-            </p>
-            <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
-          </form>
-        </div>
-
-
--->
-
-
-
-<!-- <ion-card>
-  <ion-list lines="none">
-    <ion-item>
-      <ion-label>Duration</ion-label>
-      <ion-chip color="primary">
-        {{(bookDetail | async)?.duration}}
-      </ion-chip>
-    </ion-item>
-    <ion-item>
-        <ion-label>Category</ion-label>
-        <ion-chip color="primary">
-            {{(bookDetail | async)?.category}}
-          </ion-chip>
-      </ion-item>
-      <ion-item>
-          <ion-label>Popularity</ion-label>
-          <ion-chip color="primary">
-              {{(bookDetail | async)?.popularity}}
-            </ion-chip>
-        </ion-item>
-  </ion-list>
-</ion-card>
-<ion-fab vertical="top" horizontal="end" slot="fixed">
-  <ion-fab-button>
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-list side="bottom">
-      <ion-fab-button (click)="openModal()">
-        <ion-icon color="success" name="play"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button (click)="share()">
-        <ion-icon color="dark" name="share"></ion-icon>
-      </ion-fab-button>
-  </ion-fab-list>
-</ion-fab> -->

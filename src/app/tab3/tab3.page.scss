@@ -21,3 +21,72 @@
   text-align: center;
   padding: 10px;
 }
+
+.book-card {
+
+    //height:50px;
+    //border: gray solid 1px;
+    margin: 5px;
+    padding: 10px;
+}
+
+.book-image {
+    //width: 300px;
+    //height: 300px;
+    border: gray solid 1px;
+    margin: 5px;
+}
+
+.displaycard {
+  // width: 30vw;
+   //height:30vh;
+  // border: grey solid 1px;
+   margin: 5px;
+   padding: 5px;
+   background-color: whitesmoke;
+ }
+ 
+ .displayinnercard {
+   // width: 30vw;
+    //height:30vh;
+   // border: grey solid 1px;
+    margin-top: auto;
+    margin-left: 30px;
+    padding: 5px;
+    background-color:ghostwhite;
+  }
+
+  .display_heading {
+    margin-left: 0px;
+    padding: 0px;
+  }
+
+  ion-button {
+    --background: #E9F7EF;
+    span{
+      text-align:left;
+      
+    }
+  }
+
+  ion-toolbar {
+    //@at-root: #1B4F72;
+    --background: #145A32;
+  }
+
+  ion-item-option {
+    --background: #F8F9F9;
+  }
+
+  ion-list-header {
+
+    padding-left:0px;
+    display:block;
+    text-align: center;
+   
+  }
+
+  span.ion-text-left {
+    margin-right: auto;
+}
+ 

@@ -1,87 +1,112 @@
+
 <ion-header color="success" [translucent]="true" collapse="condense">
-  <ion-toolbar >
-    <ion-title size="large" >
-      ReadARs
+  <ion-toolbar>
+    <ion-title size="large" 
+               style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;">
+     ReadARs
     </ion-title>
-
   </ion-toolbar>
+</ion-header> 
 
-</ion-header>
 
 <ion-content>
+ 
 
   <ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
     <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card>
-    <ion-card-title style="color: green;" class="display_heading">Search books in ReadARs Library</ion-card-title>
-  </ion-card>
-  <ion-searchbar no-margin [(ngModel)]="searchTerm"
-    (ionChange)="setFilteredItems()" placeholder="Search by book title or language or author..."></ion-searchbar>
-
-  <!-- <ion-card [routerLink]="['bookdetail', book._id]" button  *ngFor="let book of books">
-    <ion-card-header>
-      <ion-card-title>
-        {{book.bookname}}
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-text><strong>{{book.bookdescription}}</strong></ion-text>
-      -- language: <ion-text><strong>{{book.booklanguage}}</strong></ion-text>
-      -- authored by: <ion-text><strong>{{book.bookauthor}}</strong></ion-text>
-    </ion-card-content>
-    <ion-card-content>
-      <ion-text> Available ? : </ion-text>
-      <ion-icon *ngIf="book.isAvailable" name="checkmark-circle" color="success"></ion-icon>
-      <ion-icon *ngIf="book.isReserved || book.isBorrowed" name="close-circle" color="danger"></ion-icon>
-    </ion-card-content>
-  </ion-card> -->
-
-
+  <!--<ion-refresher slot="fixed" (ionRefresh)="clearCache($event)">
+    <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
+    </ion-refresher-content>
+  </ion-refresher>-->
 
   <ion-list>
-    <!--<ion-list-header>
-         Books in the library..
-    </ion-list-header> -->
-       <ion-item [routerLink]="['bookdetail', book._id]" button  *ngFor="let book of books">
-         <ion-label>
-           <h2>{{book.bookname}}</h2>
-           <p>{{book.bookdescription}}</p>
-           <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>
-           <p> Available?
-           <ion-icon *ngIf="book.isAvailable" name="checkmark-circle" color="success" ></ion-icon>
-           <ion-icon *ngIf="book.isReserved || book.isBorrowed" name="close-circle" color="danger"></ion-icon>
-           </p>
-         </ion-label>
-       </ion-item>
+    
+    
+    <ion-list-header color="">
+      <ion-item class="ion-text-center">
+       <ion-icon style="color:  #2C3E50" src="../assets/icon/list.svg"></ion-icon>
+        <ion-label style="color: #17202A   "> ALL THE BOOKS </ion-label>
+      </ion-item>
+    </ion-list-header>
+    <ion-item-sliding>
+      <ion-slides [options]="sliderConfig">
+        <ion-slide *ngFor="let book of books">
+            <!--<ion-img class="bookimage" [src]="(bookIdImageMap.get(book._id))" 
+              [routerLink]="['bookdetail', book._id]" button></ion-img>-->
+            <img-loader class="bookimage" [src]="(bookIdImageMap.get(book._id))" [routerLink]="['bookdetail', book._id]"  
+            useImg (load)="onImageLoad($event)" button></img-loader>
+        </ion-slide>
+      </ion-slides> 
+    </ion-item-sliding>
+ 
+  
+    <ion-list-header color="">
+      <ion-item class="ion-text-center">
+        <ion-icon style="color: #2C3E50 ;" src="../assets/icon/albums.svg"></ion-icon>
+        <ion-label style="color:  #17202A ;"> BOOKS BY CATEGORIES </ion-label>
+      </ion-item>
+    </ion-list-header>
+
+    <ion-select (ionChange)="selectCollectionCategory($event)" interface="popover" placeholder="Choose category..">
+      <ion-select-option *ngFor="let category of collectonCategory" [value]="category"> {{category}}</ion-select-option>
+   </ion-select>
+
+    <ion-item-sliding *ngIf="showGenre">
+      <ion-select (ionChange)="displayGenreCollection($event)" interface="popover" placeholder="Select genre..">
+        <ion-select-option *ngFor="let bgenre of bookgenre" [value]="bgenre"> {{bgenre}}</ion-select-option>
+     </ion-select>
+      <ion-slides [options]="sliderConfig" >
+        <ion-slide *ngFor="let bookGenre of bookGenreCollection" >
+          <!--<ion-img class="bookimage" [src]="(bookIdImageMap.get(bookGenre._id))" 
+                [routerLink]="['bookdetail', bookGenre._id]" button></ion-img>-->
+          <img-loader class="bookimage" [src]="(bookIdImageMap.get(bookGenre._id))" [routerLink]="['bookdetail', bookGenre._id]"  
+                useImg (load)="onImageLoad($event)" button></img-loader>
+        </ion-slide>
+      </ion-slides>
+    </ion-item-sliding>
+    <ion-item-sliding *ngIf="showLanguage">
+      <ion-select (ionChange)="displayLanguageCollection($event)" interface="popover" placeholder="Select language..">
+        <ion-select-option *ngFor="let blanguage of booklanguage" [value]="blanguage"> {{blanguage}}</ion-select-option>
+     </ion-select>
+      <ion-slides [options]="sliderConfig" >
+        <ion-slide *ngFor="let bookLanguage of bookLanguageCollection" >
+          <!--<ion-img class="bookimage" [src]="(bookIdImageMap.get(bookLanguage._id))" 
+                [routerLink]="['bookdetail', bookLanguage._id]" button></ion-img>-->
+          <img-loader class="bookimage" [src]="(bookIdImageMap.get(bookLanguage._id))" 
+          [routerLink]="['bookdetail', bookLanguage._id]" useImg (load)="onImageLoad($event)" button></img-loader>
+        </ion-slide>
+      </ion-slides>
+    </ion-item-sliding>
+
+    <ion-list-header color="">
+      <ion-item class="ion-text-center">
+      <ion-icon style="color: #2C3E50  ;" src="../assets/icon/thumbs-up.svg"></ion-icon>
+          <ion-label style="color: #17202A ;">READERS' RECOMMENDATIONS</ion-label>
+      </ion-item>
+    </ion-list-header>
+    <ion-item-sliding>
+      <ion-slides [options]="sliderConfig" >
+        <ion-slide *ngFor="let recobook of recobooks" >
+          <!--<ion-img class="bookimage" [src]="(bookIdImageMap.get(recobook._id))" 
+                [routerLink]="['bookdetail', recobook._id]" button></ion-img>-->
+          <img-loader class="bookimage" [src]="(bookIdImageMap.get(recobook._id))" 
+              [routerLink]="['bookdetail',recobook._id]" useImg (load)="onImageLoad($event)" button></img-loader>
+        </ion-slide>
+      </ion-slides>
+    </ion-item-sliding>
   </ion-list>
+ 
+
+
+  
 
   <ion-infinite-scroll (ionInfinite)="loadMoreBooks($event)">
     <!--<ion-infinite-scroll-content loadingText="..loading">
-
     </ion-infinite-scroll-content> -->
   </ion-infinite-scroll>
 
-
 </ion-content>
-
-
-<!--
-
-<span [ngClass]="row.isAvailable == true ? 'hide': '' " style="color: red;" class="fa fa-times fa-lg"></span>
-<span [ngClass]="row.isReserved == true || row.isBorrowed == true ? 'hide': '' " style="color: green;" class="fa fa-check-circle fa-lg"></span>
-
-
-
-<ion-skeleton-text animated></ion-skeleton-text>
-<ion-card >
-      <ion-card-content> <strong> As a book reader, follow simple 3 step process.</strong></ion-card-content>
-      <ion-img src="/assets/images/finalimages/searchbooks.jpeg"></ion-img>
-      <ion-card-header>
-        <ion-card-content> <strong>Step1: Search and select book of your interest !</strong></ion-card-content>
-      </ion-card-header>
-</ion-card>
-
--->

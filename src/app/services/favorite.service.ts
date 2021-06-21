@@ -18,16 +18,16 @@ export class FavoriteService {
     public auth: AuthService,
     private processHTTPMsgService: ProcessHTTPMsgService) { }
 
-  getFavorites(): Observable<Favorite> {
+  getFavorites(): Observable<Favorite[]> {
     if (!this.auth.isLoggedIn()) {
       return null;
     }
-    return this.http.get<Favorite>(baseURL + 'favorites')
+    return this.http.get<Favorite[]>(baseURL + 'favorites')
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
   }
 
-  postFavorites(dishids: any) {
-    return this.http.post(baseURL + 'favorites/', dishids)
+  postFavorites(bookids: any) {
+    return this.http.post(baseURL + 'favorites/', bookids)
     .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
   }
 

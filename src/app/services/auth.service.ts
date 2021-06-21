@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, Subject, from } from 'rxjs';
+import { catchError, finalize, map } from 'rxjs/operators';
 
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
+
+import { HTTP } from '@ionic-native/http/ngx'
+import { LoadingController } from '@ionic/angular';
+
+
 
 interface AuthResponse {
   status: string;
@@ -23,16 +28,19 @@ interface JWTResponse {
 })
 export class AuthService {
 
+  data = [];
   tokenKey = 'JWT';
   isAuthenticated: Boolean = false;
   username: Subject<string> = new Subject<string>();
   authToken: string = undefined;
 
-   constructor(private http: HttpClient,
-     private processHTTPMsgService: ProcessHTTPMsgService) {
+   constructor(private http: HttpClient, private ionicHttp: HTTP,
+     private processHTTPMsgService: ProcessHTTPMsgService, private loadingCtrl: LoadingController) {
    }
 
-   checkJWTtoken() {
+  checkJWTtoken() {
+
+    
      this.http.get<JWTResponse>(baseURL + 'users/checkJWTToken')
      .subscribe(res => {
        console.log('JWT Token Valid: ', res);
@@ -42,6 +50,8 @@ export class AuthService {
        console.log('JWT Token invalid: ', err);
        this.destroyUserCredentials();
      });
+
+
    }
 
    sendUsername(name: string) {
@@ -94,6 +104,8 @@ export class AuthService {
 
    }
 
+   
+
    signUp(newuser: any): Observable<any> {
      return this.http.post<AuthResponse>(baseURL + 'users/signup',
        {'firstname': newuser.firstname, 'lastname': newuser.lastname,'username': newuser.username, 'password': newuser.password, 'email': newuser.email})
@@ -105,14 +117,35 @@ export class AuthService {
 
    }
 
-   logIn(user: any): Observable<any> {
-     return this.http.post<AuthResponse>(baseURL + 'users/login',
+   logIn(user: any): Observable<any>{
+
+    /*let nativeCall =  this.ionicHttp.post(baseURL + 'users/login',{'username': user.username, 'password': user.password}, {
+      'Content-Type': 'application/json'});
+
+    console.log("NATIVE CALL", nativeCall);
+    const promiseSource = from(nativeCall);
+   
+      promiseSource
+      //.pipe(finalize(()=> this.loadingCtrl.dismiss()))
+      .subscribe(data => {
+      console.log('NATIVE DATA: ', data);
+      let parsed = JSON.parse(data.data).results;
+      this.data = parsed;
+     
+    }, err => {
+      console.log('JS call error:', err);
+    });
+
+    return promiseSource;*/
+
+    return this.http.post<AuthResponse>(baseURL + 'users/login',
        {'username': user.username, 'password': user.password})
        .pipe( map(res => {
            this.storeUserCredentials({username: user.username, token: res.token});
            return {'success': true, 'username': user.username };
        }),
         catchError(error => this.processHTTPMsgService.handleError(error)));
+
    }
 
    logOut() {
