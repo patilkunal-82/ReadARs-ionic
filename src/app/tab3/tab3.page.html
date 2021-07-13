@@ -73,7 +73,11 @@
    <ion-item-option *ngIf="showReserved">
      <ion-icon style="color: darkgreen" *ngIf="(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable" slot="icon-only"
      src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(rBook._id)"></ion-icon>
-   </ion-item-option>  
+   </ion-item-option>
+   <ion-item-option>
+    <ion-icon style="color: darkgreen"  slot="icon-only"
+    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(rBook._id)"></ion-icon>
+  </ion-item-option>
   </ion-item-options>
 </ion-item-sliding>
 
@@ -104,7 +108,11 @@
   <ion-item-option *ngIf="showAvailable">
     <ion-icon style="color: darkgreen" *ngIf="(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable" slot="icon-only"
     src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(aBook._id)"></ion-icon>
-  </ion-item-option>    
+  </ion-item-option>   
+  <ion-item-option>
+    <ion-icon style="color: darkgreen"  slot="icon-only"
+    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(aBook._id)"></ion-icon>
+  </ion-item-option> 
   </ion-item-options>
 </ion-item-sliding>
 
@@ -132,10 +140,14 @@
    </ion-item-option>
 </ion-item-options>
 <ion-item-options side="end">
- <ion-item-option *ngIf="showBorrowed">
-   <ion-icon style="color: darkgreen" *ngIf="(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable" slot="icon-only"
-   src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(bBook._id)"></ion-icon>
- </ion-item-option>    
+    <ion-item-option *ngIf="showBorrowed">
+      <ion-icon style="color: darkgreen" *ngIf="(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable" slot="icon-only"
+      src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(bBook._id)"></ion-icon>
+    </ion-item-option>
+    <ion-item-option>
+      <ion-icon style="color: darkgreen"  slot="icon-only"
+      src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(bBook._id)"></ion-icon>
+    </ion-item-option>
 </ion-item-options>
 </ion-item-sliding>
 
@@ -171,6 +183,11 @@
         <ion-item-option>
           <ion-icon style="color: darkgreen" *ngIf="(book.isReserved || book.isBorrowed) && !book.isAvailable" slot="icon-only"
           src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(book._id)"></ion-icon>
+         <ion-item-option>
+            <ion-icon style="color: darkgreen"  slot="icon-only"
+            src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(book._id)">
+          </ion-icon>
+          </ion-item-option>
         </ion-item-option>    
       </ion-item-options>
     </ion-item-sliding>

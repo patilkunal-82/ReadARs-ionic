@@ -131,6 +131,24 @@ export class BooksService {
 
     }
 
+    uploadMarkerImage(bookID: string, imageData: any) {
+
+      console.log('inside Book Service : upload my marker image for bookId ', bookID);
+      console.log('upload my marker image : imageData', imageData);
+
+      return this.http.post(baseURL + 'armarkerrouter/' + bookID, imageData)
+      .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+
+    }
+
+    getMarkerImages(bookId: string) {
+      console.log('Inside book service getBook ' + bookId);
+      return this.http.get<any[]>(baseURL+'armarkerrouter/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+   
+
     // this method gets the url to BLOB and creates an blob object for the image to be displayed
     /*getBookImage(id: string): Observable<SafeResourceUrl> {
       console.log('Inside book service getBook ' + id);

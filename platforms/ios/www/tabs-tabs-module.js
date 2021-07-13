@@ -52,7 +52,7 @@ var TabsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"home\"></ion-icon>\n      <ion-label>ReadARs_Main</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab2\">\n    <ion-icon src=\"../assets/icon/library.svg\"></ion-icon>\n      <ion-label>ReadARs</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"book\"></ion-icon>\n      <ion-label>My Books</ion-label>\n    </ion-tab-button>\n    <ion-tab-button (click)=\"logOut()\" tab=\"logout\">\n      <ion-icon name=\"log-out\"></ion-icon>\n      <ion-label>Log Out</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n\n\n</ion-tabs>\n"
+module.exports = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon src=\"../assets/icon/library.svg\"></ion-icon>\n      <ion-label>Library</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab5\">\n      <ion-icon src=\"../assets/icon/scan.svg\"></ion-icon>\n        <ion-label>AR</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon src=\"../assets/icon/book.svg\"></ion-icon>\n      <ion-label>My Books</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab4\">\n     <ion-icon src=\"../assets/icon/search.svg\"></ion-icon>\n     <ion-label>Search</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon src=\"../assets/icon/person.svg\"></ion-icon>\n        <ion-label>Me</ion-label>\n    </ion-tab-button>\n   \n  </ion-tab-bar>\n\n</ion-tabs>\n"
 
 /***/ }),
 
@@ -63,7 +63,7 @@ module.exports = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-bu
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RhYnMvdGFicy5wYWdlLnNjc3MifQ== */"
+module.exports = "ion-tab-bar {\n  --background: #F7F9F9   ; }\n\nion-tab-button {\n  --color-selected: #145A32; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWJzL3RhYnMucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksd0JBQWEsRUFBQTs7QUFJakI7RUFDSSx5QkFBaUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYnMvdGFicy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdGFiLWJhciB7XG4gICAgLS1iYWNrZ3JvdW5kOiAjRjdGOUY5ICAgO1xuICAgXG59XG5cbmlvbi10YWItYnV0dG9uIHtcbiAgICAtLWNvbG9yLXNlbGVjdGVkOiAjMTQ1QTMyO1xuICAgfVxuXG5cblxuXG5cbiJdfQ== */"
 
 /***/ }),
 
@@ -91,11 +91,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var TabsPage = /** @class */ (function () {
     function TabsPage(authService, booksService, readarsService, baseURL, router) {
+        var _this = this;
         this.authService = authService;
         this.booksService = booksService;
         this.readarsService = readarsService;
         this.baseURL = baseURL;
         this.router = router;
+        this.readarsService.getBooks()
+            .subscribe(function (books) {
+            _this.books = books;
+        }, function (errmess) { return _this.errMess = errmess; });
     }
     TabsPage.prototype.ngOnInit = function () {
         //this.showForm = false;
@@ -175,10 +180,6 @@ var routes = [
                     {
                         path: '',
                         loadChildren: '../tab2/tab2.module#Tab2PageModule'
-                    },
-                    {
-                        path: 'bookdetail/:bookID',
-                        loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
                     }
                 ]
             },
@@ -192,9 +193,26 @@ var routes = [
                 ]
             },
             {
-                path: '',
-                redirectTo: '/tabs/tab1',
-                pathMatch: 'full',
+                path: 'tab4',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../tab4/tab4.module#Tab4PageModule'
+                    },
+                    {
+                        path: 'bookdetail/:bookID',
+                        loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
+                    }
+                ]
+            },
+            {
+                path: 'tab5',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../tab5/tab5.module#Tab5PageModule'
+                    }
+                ]
             }
         ]
     },

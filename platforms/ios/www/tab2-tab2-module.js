@@ -17,6 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _tab2_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tab2.page */ "./src/app/tab2/tab2.page.ts");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
 
 
 
@@ -33,7 +35,8 @@ var Tab2PageModule = /** @class */ (function () {
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonicModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild([{ path: '', component: _tab2_page__WEBPACK_IMPORTED_MODULE_6__["Tab2Page"] }])
+                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild([{ path: '', component: _tab2_page__WEBPACK_IMPORTED_MODULE_6__["Tab2Page"] }]),
+                ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_7__["IonicImageLoaderModule"]
             ],
             declarations: [_tab2_page__WEBPACK_IMPORTED_MODULE_6__["Tab2Page"]]
         })
@@ -52,7 +55,7 @@ var Tab2PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>\n      Home\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div *ngIf=\"!bookList\">\n    <ion-card>\n          <ion-skeleton-text class=\"skeleton-image\" animated></ion-skeleton-text>\n          <ion-card-header>\n            <ion-skeleton-text animated></ion-skeleton-text>\n            <ion-skeleton-text animated></ion-skeleton-text>\n          </ion-card-header>\n    </ion-card>\n\n    <ion-card>\n        <ion-skeleton-text class=\"skeleton-image\" animated></ion-skeleton-text>\n        <ion-card-header>\n          <ion-skeleton-text animated></ion-skeleton-text>\n          <ion-skeleton-text animated></ion-skeleton-text>\n        </ion-card-header>\n    </ion-card>\n\n    <ion-card>\n        <ion-skeleton-text class=\"skeleton-image\" animated></ion-skeleton-text>\n        <ion-card-header>\n          <ion-skeleton-text animated></ion-skeleton-text>\n          <ion-skeleton-text animated></ion-skeleton-text>\n        </ion-card-header>\n    </ion-card>\n  </div>\n\n\n  <ion-card [routerLink]=\"['bookdetail', book.id]\" button\n  *ngFor=\"let book of (bookList | async)\">\n    <ion-img [src]=\"book.cropped\"></ion-img>\n    <ion-card-header>\n      <ion-card-title>{{book.name}}</ion-card-title>\n    </ion-card-header>\n  </ion-card>\n\n</ion-content>\n"
+module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar *ngIf=\"username\">\n    <img-loader useImg (load)=\"onImageLoad($event)\" button> \n        <ion-avatar *ngIf=\"this.url\">\n          <img (click)=\"selectImageSource()\" style=\"margin-right: 10px;\" [src]=\"this.url\">\n        </ion-avatar>\n    </img-loader>\n    \n    <ion-title size=\"large\" \n      style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n      color: #FDFEFE  ; font-weight: bolder; font-size: 25px; white-space: normal;\">Hello, {{username}}\n    </ion-title>\n\n    \n    \n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"clearCache($event)\">\n    <ion-refresher-content>\n    </ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list>\n   \n    <ion-item>\n    </ion-item>\n    <ion-item>\n    </ion-item>\n    <ion-item>\n    </ion-item>\n    <ion-item>\n    </ion-item>\n    <ion-item>\n      <ion-button fill=\"clear\" (click)=\"logOut()\" style=\"color: #7B7D7D\" name=\"log-out\">Log Out</ion-button>\n    </ion-item>\n\n  </ion-list>\n  \n  <!--<ion-thumbnail (click)=\"selectImageSource()\">\n    <ion-img [src]=\"myProfileImage\"></ion-img>\n  </ion-thumbnail>-->\n\n  <!--<ion-thumbnail>\n    <ion-img [src]=\"capturedImage\" *ngIf=\"capturedImage\" height=\"100\"></ion-img>\n  </ion-thumbnail>-->\n  \n</ion-content>\n\n\n\n  <!--<ion-avatar (click)=\"selectImageSource()\" class=\"profile-pic\">\n    <ion-img [src]=\"myProfileImage\"></ion-img>\n  </ion-avatar>\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title>Dummy Text</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      Dummy Text\n    </ion-card-content>\n  </ion-card> -->\n\n  <!-- <div *ngIf=\"!bookList\">\n    <ion-card>\n          <ion-skeleton-text class=\"skeleton-image\" animated></ion-skeleton-text>\n          <ion-card-header>\n            <ion-skeleton-text animated></ion-skeleton-text>\n            <ion-skeleton-text animated></ion-skeleton-text>\n          </ion-card-header>\n    </ion-card>\n\n    <ion-card>\n        <ion-skeleton-text class=\"skeleton-image\" animated></ion-skeleton-text>\n        <ion-card-header>\n          <ion-skeleton-text animated></ion-skeleton-text>\n          <ion-skeleton-text animated></ion-skeleton-text>\n        </ion-card-header>\n    </ion-card>\n\n    <ion-card>\n        <ion-skeleton-text class=\"skeleton-image\" animated></ion-skeleton-text>\n        <ion-card-header>\n          <ion-skeleton-text animated></ion-skeleton-text>\n          <ion-skeleton-text animated></ion-skeleton-text>\n        </ion-card-header>\n    </ion-card>\n  </div>\n\n\n  <ion-card [routerLink]=\"['bookdetail', book.id]\" button\n  *ngFor=\"let book of (bookList | async)\">\n    <ion-img [src]=\"book.cropped\"></ion-img>\n    <ion-card-header>\n      <ion-card-title>{{book.name}}</ion-card-title>\n    </ion-card-header>\n  </ion-card> -->\n"
 
 /***/ }),
 
@@ -63,7 +66,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>\n      Home\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.skeleton-image {\n  height: 175px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWIyL3RhYjIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLGFBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYjIvdGFiMi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuLnNrZWxldG9uLWltYWdlIHtcbiAgaGVpZ2h0OiAxNzVweDtcbn1cbiJdfQ== */"
+module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.skeleton-image {\n  height: 175px; }\n\n.profile-pic {\n  width: 200px;\n  height: 200px;\n  border: gray solid 1px;\n  margin: 10px auto; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.my-custom-menu {\n  --width: 500px; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-button {\n  --background: #FDFEFE; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWIyL3RhYjIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLGFBQWEsRUFBQTs7QUFHZjtFQUNJLFlBQVk7RUFDWixhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxjQUFRLEVBQUE7O0FBRVY7RUFFRSxxQkFBYSxFQUFBOztBQUdmO0VBQ0UscUJBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYjIvdGFiMi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuLnNrZWxldG9uLWltYWdlIHtcbiAgaGVpZ2h0OiAxNzVweDtcbn1cblxuLnByb2ZpbGUtcGljIHtcbiAgICB3aWR0aDogMjAwcHg7XG4gICAgaGVpZ2h0OiAyMDBweDtcbiAgICBib3JkZXI6IGdyYXkgc29saWQgMXB4O1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG4uZGlzcGxheV9oZWFkaW5nIHtcbiAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5teS1jdXN0b20tbWVudSB7XG4gIC0td2lkdGg6IDUwMHB4O1xufVxuaW9uLXRvb2xiYXIge1xuICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG5pb24tYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjRkRGRUZFO1xufVxuXG5cbiJdfQ== */"
 
 /***/ }),
 
@@ -81,20 +84,203 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_bookdetail_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/bookdetail.service */ "./src/app/services/bookdetail.service.ts");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
+/* harmony import */ var _services_books_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/books.service */ "./src/app/services/books.service.ts");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+
+
 
 
 
 
 var Tab2Page = /** @class */ (function () {
-    function Tab2Page(bookdetailService, authService) {
+    function Tab2Page(bookdetailService, authService, _camera, _alertController, _modalController, file, booksService, imageLoaderService, router) {
         var _this = this;
         this.authService = authService;
+        this._camera = _camera;
+        this._alertController = _alertController;
+        this._modalController = _modalController;
+        this.file = file;
+        this.booksService = booksService;
+        this.imageLoaderService = imageLoaderService;
+        this.router = router;
+        this.dataReader = new FileReader();
+        this.username = undefined;
         setTimeout(function () {
             _this.bookList = bookdetailService.getAllBooks();
         }, 3000);
     }
     Tab2Page.prototype.ngOnInit = function () {
+        var _this = this;
         this.authService.loadUserCredentials();
+        this.subscription = this.authService.getUsername()
+            .subscribe(function (name) {
+            console.log(name);
+            _this.username = name;
+            _this.booksService.getMyProfileImage(_this.username)
+                .subscribe(function (x) {
+                _this.url = x;
+                console.log("this.url", _this.url);
+            }, function (errMess) {
+                console.log("inside err mess");
+                console.log(errMess);
+                _this.url = undefined;
+            });
+        });
+    };
+    Tab2Page.prototype.refreshPage = function () {
+        console.log("inside refreshpage");
+        window.location.reload();
+    };
+    Tab2Page.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    Tab2Page.prototype.clearCache = function (refresher) {
+        this.imageLoaderService.clearCache();
+        refresher.complete();
+    };
+    Tab2Page.prototype.onImageLoad = function (event) {
+        console.log("image ready");
+    };
+    Tab2Page.prototype.selectImageSource = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var cameraOptions, galleryOptions, alert;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("inside image source");
+                        cameraOptions = {
+                            quality: 100,
+                            destinationType: this._camera.DestinationType.FILE_URI,
+                            encodingType: this._camera.EncodingType.PNG,
+                            mediaType: this._camera.MediaType.PICTURE,
+                            targetHeight: 180,
+                            targetWidth: 100,
+                            correctOrientation: true,
+                            sourceType: this._camera.PictureSourceType.CAMERA
+                        };
+                        galleryOptions = {
+                            quality: 100,
+                            destinationType: this._camera.DestinationType.FILE_URI,
+                            encodingType: this._camera.EncodingType.PNG,
+                            mediaType: this._camera.MediaType.PICTURE,
+                            targetHeight: 180,
+                            targetWidth: 100,
+                            correctOrientation: true,
+                            sourceType: this._camera.PictureSourceType.SAVEDPHOTOALBUM
+                        };
+                        return [4 /*yield*/, this._alertController.create({
+                                header: "Select Source",
+                                message: "Pick a source for your profile image",
+                                buttons: [
+                                    {
+                                        text: "Camera",
+                                        handler: function () {
+                                            _this._camera.getPicture(cameraOptions)
+                                                .then(function (imageURI) {
+                                                // display captured image
+                                                console.log(imageURI);
+                                                var imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+                                                var imagePath = imageURI.substring(0, imageURI.lastIndexOf('/') + 1);
+                                                console.log("image name", imageName);
+                                                console.log("image path", imagePath);
+                                                console.log("before read as data url");
+                                                _this.file.readAsDataURL(imagePath, imageName).then(function (res) { return _this.capturedImage = res; });
+                                                console.log("after read as data url");
+                                                // resolve URI, get blob & file and POST
+                                                _this.file.resolveLocalFilesystemUrl(imageURI)
+                                                    .then(function (entry) {
+                                                    console.log("inside resolve local file system url");
+                                                    entry.file(function (file) { return _this.readFile(file); });
+                                                })
+                                                    .catch(function (err) {
+                                                    console.log("error reading file");
+                                                });
+                                                /*this.booksService.uploadImage(this.submitted._id, this.uploadData)
+                                                    .subscribe(res => {
+                                                        console.log(res);
+                                                        this.receivedImageData = res;
+                                                        this.base64Data = this.receivedImageData.pic;
+                                                        this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data;
+                                                      });*/
+                                            }, function (err) {
+                                                // Handle error
+                                                console.log(err);
+                                            });
+                                        }
+                                    },
+                                    {
+                                        text: "Gallery",
+                                        handler: function () {
+                                            _this._camera.getPicture(galleryOptions)
+                                                .then(function (imageURI) {
+                                                // display captured image
+                                                var imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+                                                var imagePath = imageURI.substring(0, imageURI.lastIndexOf('/') + 1);
+                                                _this.file.readAsDataURL(imagePath, imageName).then(function (res) { return _this.capturedImage = res; });
+                                                //  this.copyFileToLocalDir(imagePath, imageName, this.createFileName());
+                                                // resolve URI, get blob & file and POST
+                                                _this.file.resolveLocalFilesystemUrl(imageURI)
+                                                    .then(function (entry) {
+                                                    console.log("inside resolve local file system url");
+                                                    entry.file(function (file) { return _this.readFile(file); });
+                                                })
+                                                    .catch(function (err) {
+                                                    console.log("error reading file");
+                                                });
+                                            }, function (err) {
+                                                // Handle error
+                                                console.log(err);
+                                            });
+                                        }
+                                    }
+                                ]
+                            })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Tab2Page.prototype.readFile = function (file) {
+        var _this = this;
+        var reader = new FileReader();
+        console.log("file type", file.type);
+        console.log("file type", file.name);
+        reader.onloadend = function () {
+            _this.uploadData = new FormData();
+            if (reader.result) {
+                var imgBlob = new Blob([reader.result], { type: file.type });
+                _this.uploadData.append('imageFile', imgBlob, file.name);
+                _this.booksService.uploadMyProfileImage(_this.username, _this.uploadData)
+                    .subscribe(function (res) {
+                    console.log(res);
+                    _this.receivedImageData = res;
+                    _this.base64Data = _this.receivedImageData.pic;
+                    _this.convertedImage = 'data:image/jpeg;base64,' + _this.base64Data;
+                });
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    };
+    Tab2Page.prototype.logOut = function () {
+        this.username = undefined;
+        this.authService.logOut();
+        console.log("After authservice logout");
+        this.router.navigateByUrl('/login');
     };
     Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -102,7 +288,14 @@ var Tab2Page = /** @class */ (function () {
             template: __webpack_require__(/*! ./tab2.page.html */ "./src/app/tab2/tab2.page.html"),
             styles: [__webpack_require__(/*! ./tab2.page.scss */ "./src/app/tab2/tab2.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_bookdetail_service__WEBPACK_IMPORTED_MODULE_2__["BookdetailService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_bookdetail_service__WEBPACK_IMPORTED_MODULE_2__["BookdetailService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
+            _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_5__["Camera"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
+            _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
+            _services_books_service__WEBPACK_IMPORTED_MODULE_7__["BooksService"],
+            ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_8__["ImageLoaderService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"]])
     ], Tab2Page);
     return Tab2Page;
 }());

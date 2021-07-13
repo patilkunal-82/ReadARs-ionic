@@ -71,7 +71,13 @@ MIT
 @ionic-native/file-path
 MIT
 
+@ionic-native/file-transfer
+MIT
+
 @ionic-native/http
+MIT
+
+@ionic-native/image-picker
 MIT
 
 @ionic-native/ionic-webview

@@ -105,7 +105,7 @@ BarcodeScanner.prototype.scan = function (successCallback, errorCallback, config
                 return;
             }
 
-            if (scanInProgress&&cordova.platformId!=='ios') {
+            if (scanInProgress) {
                 errorCallback('Scan is already in progress');
                 return;
             }

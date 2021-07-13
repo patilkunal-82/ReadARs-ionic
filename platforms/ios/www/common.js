@@ -99,6 +99,68 @@ var _sPassive,GestureController=function(){function t(t){this.doc=t,this.gesture
 
 /***/ }),
 
+/***/ "./src/app/services/available.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/services/available.service.ts ***!
+  \***********************************************/
+/*! exports provided: AvailableService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AvailableService", function() { return AvailableService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+
+
+
+
+
+
+
+
+var AvailableService = /** @class */ (function () {
+    function AvailableService(http, auth, processHTTPMsgService) {
+        this.http = http;
+        this.auth = auth;
+        this.processHTTPMsgService = processHTTPMsgService;
+    }
+    AvailableService.prototype.getAvailableBooks = function () {
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'available?isAvailable=true')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    AvailableService.prototype.isAvailable = function (id) {
+        var _this = this;
+        if (!this.auth.isLoggedIn()) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({ exists: false, book: null });
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'available/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    AvailableService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"]])
+    ], AvailableService);
+    return AvailableService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/bookdetail.service.ts":
 /*!************************************************!*\
   !*** ./src/app/services/bookdetail.service.ts ***!
@@ -139,23 +201,24 @@ var API = "https://orangevalleycaa.org/api/videos";
 
 /***/ }),
 
-/***/ "./src/app/services/books.service.ts":
-/*!*******************************************!*\
-  !*** ./src/app/services/books.service.ts ***!
-  \*******************************************/
-/*! exports provided: BooksService */
+/***/ "./src/app/services/borrowed.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/borrowed.service.ts ***!
+  \**********************************************/
+/*! exports provided: BorrowedService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooksService", function() { return BooksService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BorrowedService", function() { return BorrowedService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
-/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
-/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
 
 
 
@@ -163,87 +226,207 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var BooksService = /** @class */ (function () {
-    function BooksService(http, auth, processHTTPMsgService) {
+
+var BorrowedService = /** @class */ (function () {
+    function BorrowedService(http, auth, processHTTPMsgService) {
         this.http = http;
         this.auth = auth;
         this.processHTTPMsgService = processHTTPMsgService;
     }
-    /*  addBook(addbook: Book): Observable<Book> {
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type':  'application/json'
-          })
-        };
-  
-        return this.http.post<Book>(baseURL + 'books/', addbook, httpOptions)
-        .pipe(catchError(this.processHTTPMsgService.handleError));
-  
-      }*/
-    BooksService.prototype.addBook = function (addbook) {
-        console.log(addbook);
-        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks/', addbook)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
-    };
-    BooksService.prototype.getBooks = function () {
-        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
-    };
-    BooksService.prototype.getBook = function (id) {
-        console.log('Inside book service getBook ' + id);
-        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks/' + id)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
-    };
-    BooksService.prototype.getFeaturedBook = function () {
+    BorrowedService.prototype.getBorrowedBooks = function () {
         if (!this.auth.isLoggedIn()) {
             return null;
         }
-        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks?featured=true').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (books) { return books[0]; }))
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'borrowed?isBorrowed=true')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.processHTTPMsgService.handleError));
     };
-    BooksService.prototype.getBookIds = function () {
-        return this.getBooks().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (books) { return books.map(function (book) { return book._id; }); }))
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return error; }));
-    };
-    BooksService.prototype.postComment = function (bookId, comment) {
-        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks/' + bookId + '/comments', comment)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
-    };
-    /*postComment(dishId: string, comment: any) {
-      return this.http.post(baseURL + 'dishes/' + dishId + '/comments', comment)
-      .pipe(catchError(this.processHTTPMsgService.handleError));
-    }*/
-    BooksService.prototype.deleteBook = function (bookId) {
+    BorrowedService.prototype.isBorrowed = function (id) {
         var _this = this;
         if (!this.auth.isLoggedIn()) {
-            return null;
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({ exists: false, book: null });
         }
-        return this.http.delete(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks/' + bookId)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'borrowed/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
-    BooksService.prototype.lendBook = function (bookId, book) {
-        var _this = this;
-        console.log('inside Book Service lend book ' + bookId);
-        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 'bookborrowed': book.bookborrowed })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
-    };
-    BooksService.prototype.releaseBook = function (bookId, book) {
-        var _this = this;
-        console.log('inside Book Service release book ' + bookId);
-        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'mybooks/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 'bookborrowed': book.bookborrowed })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
-    };
-    BooksService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    BorrowedService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _auth_service__WEBPACK_IMPORTED_MODULE_6__["AuthService"],
-            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_5__["ProcessHTTPMsgService"]])
-    ], BooksService);
-    return BooksService;
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"]])
+    ], BorrowedService);
+    return BorrowedService;
 }());
 
-//////
+
+
+/***/ }),
+
+/***/ "./src/app/services/favorite.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/favorite.service.ts ***!
+  \**********************************************/
+/*! exports provided: FavoriteService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FavoriteService", function() { return FavoriteService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+
+
+
+
+
+
+
+
+var FavoriteService = /** @class */ (function () {
+    function FavoriteService(http, auth, processHTTPMsgService) {
+        this.http = http;
+        this.auth = auth;
+        this.processHTTPMsgService = processHTTPMsgService;
+    }
+    FavoriteService.prototype.getFavorites = function () {
+        var _this = this;
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'favorites')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    FavoriteService.prototype.postFavorites = function (bookids) {
+        var _this = this;
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'favorites/', bookids)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    FavoriteService.prototype.isFavorite = function (id) {
+        var _this = this;
+        if (!this.auth.isLoggedIn()) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({ exists: false, favorites: null });
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'favorites/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    FavoriteService.prototype.postFavorite = function (id) {
+        var _this = this;
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'favorites/' + id, {})
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    FavoriteService.prototype.deleteFavorite = function (id) {
+        var _this = this;
+        return this.http.delete(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'favorites/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    FavoriteService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"]])
+    ], FavoriteService);
+    return FavoriteService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/reserved.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/reserved.service.ts ***!
+  \**********************************************/
+/*! exports provided: ReservedService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReservedService", function() { return ReservedService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+
+
+
+
+
+
+
+
+var ReservedService = /** @class */ (function () {
+    function ReservedService(http, auth, processHTTPMsgService) {
+        this.http = http;
+        this.auth = auth;
+        this.processHTTPMsgService = processHTTPMsgService;
+    }
+    ReservedService.prototype.getReservedBooks = function () {
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'reserved?isReserved=true')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    ReservedService.prototype.isReserved = function (id) {
+        var _this = this;
+        if (!this.auth.isLoggedIn()) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({ exists: false, book: null });
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'reserved/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    ReservedService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"]])
+    ], ReservedService);
+    return ReservedService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/book.ts":
+/*!********************************!*\
+  !*** ./src/app/shared/book.ts ***!
+  \********************************/
+/*! exports provided: BookActions, BookLanguage, BookGenre, BookCurrentStatus, CollectionCategory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookActions", function() { return BookActions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookLanguage", function() { return BookLanguage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookGenre", function() { return BookGenre; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookCurrentStatus", function() { return BookCurrentStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CollectionCategory", function() { return CollectionCategory; });
+var BookActions = ['Lend Or Make Available', 'Remove'];
+var BookLanguage = ['Bengali', 'Chinese', 'Dutch', 'English', 'French', 'German', 'Greek', 'Gujrati', 'Hindi', 'Italian',
+    'Japanese', 'Kannada', 'Korean', 'Latin', 'Malyalam', 'Marathi', 'Odia', 'Persian', 'Russian', 'Spanish',
+    'Tamil', 'Telugu', 'Thai', 'Tulu', 'Vietnamese', 'Other'];
+var BookGenre = ['Action & Adventure', 'Autobiography', 'Biography', 'Classics', 'Cookbook', 'Comic', 'Crime', 'Computers',
+    'Essays', 'Fantasy', 'Food', 'Health', 'Historical Fiction', 'History', 'Horror',
+    'Literary Fiction', 'Management', 'Medical Science', 'Memoir', 'Mystery', 'Poetry', 'Romance', 'Sci-Fi', 'Self-Help',
+    'Short Stories', 'Technology', 'Thriller', 'Travel', 'Women\'s Fiction', 'Other'];
+var BookCurrentStatus = ['Available', 'Reserved', 'Borrowed'];
+var CollectionCategory = ['Genre', 'Language'];
 
 
 /***/ })

@@ -38,8 +38,12 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { HTTP} from '@ionic-native/http/ngx'
 import { IonicImageLoaderModule } from 'ionic-image-loader-v5'
+import { ImagePicker} from '@ionic-native/image-picker/ngx'
+import { FileTransfer} from '@ionic-native/file-transfer/ngx'
 import { SearchPipe } from './shared/search.pipe';
 import { SortPipe } from './shared/sort.pipe'
+
+
 
 
 
@@ -89,7 +93,11 @@ import { SortPipe } from './shared/sort.pipe'
     Base64ToGallery,
     FileOpener,
     Base64,
-    HTTP
+    HTTP,
+    ImagePicker,
+    FileTransfer,
+  
+  
     
     
   ],

@@ -115,7 +115,7 @@
         Available?
        <ion-icon *ngIf="available && !reserved && !borrowed" name="checkmark-circle" color="success"></ion-icon>
        <ion-icon *ngIf="reserved && !available && !borrowed"  src="../assets/icon/pause-circle.svg" color="warning"></ion-icon>
-       <ion-icon *ngIf="borrowed && !available && !reserved" name="close-circle" color="danger"></ion-icon>
+       <ion-icon *ngIf="borrowed && !available" name="close-circle" color="danger"></ion-icon>
        </ion-chip>
 
        <ion-fab vertical="top" horizontal="end" slot="fixed">

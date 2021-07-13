@@ -8,8 +8,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: './login/login.module#LoginPageModule',
-  }
-  
+  },
 ];
 @NgModule({
   imports: [

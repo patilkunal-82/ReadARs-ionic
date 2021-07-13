@@ -57,7 +57,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>This app uses the camera for augmented reality</string>
+	<string>To scan QR codes</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To save QR codes</string>
 </dict>

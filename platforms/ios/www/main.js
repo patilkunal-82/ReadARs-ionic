@@ -850,7 +850,16 @@ var map = {
 	],
 	"../tab3/tab3.module": [
 		"./src/app/tab3/tab3.module.ts",
+		"common",
 		"tab3-tab3-module"
+	],
+	"../tab4/tab4.module": [
+		"./src/app/tab4/tab4.module.ts",
+		"tab4-tab4-module"
+	],
+	"../tab5/tab5.module": [
+		"./src/app/tab5/tab5.module.ts",
+		"tab5-tab5-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
@@ -858,7 +867,6 @@ var map = {
 	],
 	"./tabs/tabs.module": [
 		"./src/app/tabs/tabs.module.ts",
-		"common",
 		"tabs-tabs-module"
 	]
 };
@@ -905,7 +913,7 @@ var routes = [
     {
         path: 'login',
         loadChildren: './login/login.module#LoginPageModule',
-    }
+    },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -952,6 +960,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
 
 
 
@@ -959,16 +969,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, router) {
+    function AppComponent(platform, splashScreen, statusBar, router, imageLoaderConfigService
+    // private imageLoaderConfig: ImageLoaderConfig
+    ) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.router = router;
+        this.imageLoaderConfigService = imageLoaderConfigService;
         this.initializeApp();
     }
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
+            // this.imageLoaderConfig.enableDebugMode();
+            // this.imageLoaderConfig.enableFallbackAsPlaceholder(true);
+            // this.imageLoaderConfig.setFallbackUrl('assets/icon/cloud-download.svg');
+            // this.imageLoaderConfig.setMaximumCacheAge(24 * 60 * 60 * 1000);
+            _this.imageLoaderConfigService.enableDebugMode();
+            _this.imageLoaderConfigService.enableFallbackAsPlaceholder(true);
+            _this.imageLoaderConfigService.setFallbackUrl('assets/icon/cloud-download.svg');
+            _this.imageLoaderConfigService.setMaximumCacheAge(24 * 60 * 60 * 1000);
             _this.statusBar.styleDefault();
             _this.splashScreen.hide();
         });
@@ -981,7 +1002,10 @@ var AppComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__["StatusBar"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_6__["ImageLoaderConfigService"]
+            // private imageLoaderConfig: ImageLoaderConfig
+        ])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1006,21 +1030,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/email-composer/ngx */ "./node_modules/@ionic-native/email-composer/ngx/index.js");
-/* harmony import */ var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/call-number/ngx */ "./node_modules/@ionic-native/call-number/ngx/index.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./shared/baseurl */ "./src/app/shared/baseurl.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/auth.interceptor */ "./src/app/services/auth.interceptor.ts");
-/* harmony import */ var _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/auth-guard.service */ "./src/app/services/auth-guard.service.ts");
-/* harmony import */ var _services_searchbooks_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./services/searchbooks.service */ "./src/app/services/searchbooks.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/email-composer/ngx */ "./node_modules/@ionic-native/email-composer/ngx/index.js");
+/* harmony import */ var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/call-number/ngx */ "./node_modules/@ionic-native/call-number/ngx/index.js");
+/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
+/* harmony import */ var _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/ionic-webview/ngx */ "./node_modules/@ionic-native/ionic-webview/ngx/index.js");
+/* harmony import */ var _ionic_native_file_opener_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/file-opener/ngx */ "./node_modules/@ionic-native/file-opener/ngx/index.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/auth.interceptor */ "./src/app/services/auth.interceptor.ts");
+/* harmony import */ var _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./services/auth-guard.service */ "./src/app/services/auth-guard.service.ts");
+/* harmony import */ var _services_searchbooks_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./services/searchbooks.service */ "./src/app/services/searchbooks.service.ts");
+/* harmony import */ var _services_searchmybooks_service__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./services/searchmybooks.service */ "./src/app/services/searchmybooks.service.ts");
+/* harmony import */ var _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/file-path/ngx */ "./node_modules/@ionic-native/file-path/ngx/index.js");
+/* harmony import */ var _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/barcode-scanner/ngx */ "./node_modules/@ionic-native/barcode-scanner/ngx/index.js");
+/* harmony import */ var _ionic_native_base64_to_gallery_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/base64-to-gallery/ngx */ "./node_modules/@ionic-native/base64-to-gallery/ngx/index.js");
+/* harmony import */ var _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/base64/ngx */ "./node_modules/@ionic-native/base64/ngx/index.js");
+/* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ionic-native/http/ngx */ "./node_modules/@ionic-native/http/ngx/index.js");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
+/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//import { File } from '@ionic-native/file'
 
 
 
@@ -1046,39 +1098,54 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_14__["AppComponent"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"]],
             entryComponents: [],
             imports: [
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
-                _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(),
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_13__["AppRoutingModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"]
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicModule"].forRoot(),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_17__["AppRoutingModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
+                //IonicImageLoader.forRoot()
+                ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_30__["IonicImageLoaderModule"]
             ],
             providers: [
-                _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_10__["SocialSharing"],
-                { provide: 'baseURL', useValue: _shared_baseurl__WEBPACK_IMPORTED_MODULE_15__["baseURL"] },
-                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_9__["Camera"],
-                _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__["StatusBar"],
-                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"],
-                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"] },
-                _services_auth_service__WEBPACK_IMPORTED_MODULE_16__["AuthService"],
-                _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_18__["AuthGuardService"],
+                _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_11__["SocialSharing"],
+                { provide: 'baseURL', useValue: _shared_baseurl__WEBPACK_IMPORTED_MODULE_19__["baseURL"] },
+                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_10__["Camera"],
+                _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__["StatusBar"],
+                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"],
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicRouteStrategy"] },
+                _services_auth_service__WEBPACK_IMPORTED_MODULE_20__["AuthService"],
+                _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_22__["AuthGuardService"],
                 {
                     provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"],
-                    useClass: _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_17__["AuthInterceptor"],
+                    useClass: _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_21__["AuthInterceptor"],
                     multi: true
                 },
                 {
                     provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"],
-                    useClass: _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_17__["UnauthorizedInterceptor"],
+                    useClass: _services_auth_interceptor__WEBPACK_IMPORTED_MODULE_21__["UnauthorizedInterceptor"],
                     multi: true
                 },
-                _services_searchbooks_service__WEBPACK_IMPORTED_MODULE_19__["SearchedData"],
-                _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_11__["EmailComposer"],
-                _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_12__["CallNumber"]
+                _services_searchbooks_service__WEBPACK_IMPORTED_MODULE_23__["SearchedData"],
+                _services_searchmybooks_service__WEBPACK_IMPORTED_MODULE_24__["SearchedMyData"],
+                _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_12__["EmailComposer"],
+                _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_13__["CallNumber"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"],
+                _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_14__["File"],
+                _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_15__["WebView"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"],
+                _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_25__["FilePath"],
+                _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_26__["BarcodeScanner"],
+                _ionic_native_base64_to_gallery_ngx__WEBPACK_IMPORTED_MODULE_27__["Base64ToGallery"],
+                _ionic_native_file_opener_ngx__WEBPACK_IMPORTED_MODULE_16__["FileOpener"],
+                _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_28__["Base64"],
+                _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_29__["HTTP"],
+                _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_31__["ImagePicker"],
+                _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_32__["FileTransfer"],
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_14__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -1221,6 +1288,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
 /* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/http/ngx */ "./node_modules/@ionic-native/http/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
 
 
 
@@ -1229,9 +1300,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AuthService = /** @class */ (function () {
-    function AuthService(http, processHTTPMsgService) {
+    function AuthService(http, ionicHttp, processHTTPMsgService, loadingCtrl) {
         this.http = http;
+        this.ionicHttp = ionicHttp;
         this.processHTTPMsgService = processHTTPMsgService;
+        this.loadingCtrl = loadingCtrl;
+        this.data = [];
         this.tokenKey = 'JWT';
         this.isAuthenticated = false;
         this.username = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
@@ -1299,6 +1373,24 @@ var AuthService = /** @class */ (function () {
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
     AuthService.prototype.logIn = function (user) {
+        /*let nativeCall =  this.ionicHttp.post(baseURL + 'users/login',{'username': user.username, 'password': user.password}, {
+          'Content-Type': 'application/json'});
+    
+        console.log("NATIVE CALL", nativeCall);
+        const promiseSource = from(nativeCall);
+       
+          promiseSource
+          //.pipe(finalize(()=> this.loadingCtrl.dismiss()))
+          .subscribe(data => {
+          console.log('NATIVE DATA: ', data);
+          let parsed = JSON.parse(data.data).results;
+          this.data = parsed;
+         
+        }, err => {
+          console.log('JS call error:', err);
+        });
+    
+        return promiseSource;*/
         var _this = this;
         return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'users/login', { 'username': user.username, 'password': user.password })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) {
@@ -1323,12 +1415,223 @@ var AuthService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
-            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["LoadingController"]])
     ], AuthService);
     return AuthService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/services/books.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/books.service.ts ***!
+  \*******************************************/
+/*! exports provided: BooksService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooksService", function() { return BooksService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+
+
+
+
+
+
+
+
+var BooksService = /** @class */ (function () {
+    function BooksService(http, auth, processHTTPMsgService, sanitizer) {
+        this.http = http;
+        this.auth = auth;
+        this.processHTTPMsgService = processHTTPMsgService;
+        this.sanitizer = sanitizer;
+    }
+    /*  addBook(addbook: Book): Observable<Book> {
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+          })
+        };
+  
+        return this.http.post<Book>(baseURL + 'books/', addbook, httpOptions)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+  
+      }*/
+    BooksService.prototype.addBook = function (addbook) {
+        console.log("INSIDE BOOKS SERVICE  ADD BOOK");
+        console.log(addbook);
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/', addbook)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    BooksService.prototype.getBooks = function () {
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    BooksService.prototype.getBook = function (id) {
+        console.log('Inside book service getBook ' + id);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    BooksService.prototype.getFeaturedBook = function () {
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks?featured=true').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (books) { return books[0]; }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    BooksService.prototype.getBookIds = function () {
+        return this.getBooks().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (books) { return books.map(function (book) { return book._id; }); }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return error; }));
+    };
+    BooksService.prototype.postComment = function (bookId, comment) {
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId + '/comments', comment)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    /*postComment(dishId: string, comment: any) {
+      return this.http.post(baseURL + 'dishes/' + dishId + '/comments', comment)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }*/
+    BooksService.prototype.deleteBook = function (bookId) {
+        var _this = this;
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.delete(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.lendBook = function (bookId, book) {
+        var _this = this;
+        console.log('inside Book Service lend book ' + bookId);
+        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
+            'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
+            'bookcurrentstatus': book.bookcurrentstatus })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.releaseBook = function (bookId, book) {
+        var _this = this;
+        console.log(book.bookcurrentuser);
+        console.log('inside Book Service release book ' + bookId);
+        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
+            'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
+            'bookcurrentstatus': book.bookcurrentstatus })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.uploadImage = function (bookId, imageData) {
+        var _this = this;
+        console.log('inside Book Service : upload Image book id', bookId);
+        console.log('inside Book Service : imageData', imageData);
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'imageUpload/' + bookId, imageData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.uploadQRImage = function (bookId, imageData) {
+        var _this = this;
+        console.log('inside Book Service : upload QR Image book id', bookId);
+        console.log('inside Book Service : QR imageData', imageData);
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'qrImageUpload/' + bookId, imageData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.uploadMyProfileImage = function (myname, imageData) {
+        var _this = this;
+        console.log('inside Book Service : upload my profile image, i am -> ', myname);
+        console.log('upload my profile image : imageData', imageData);
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'profilepic/' + myname, imageData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.uploadMarkerImage = function (bookID, imageData) {
+        var _this = this;
+        console.log('inside Book Service : upload my marker image for bookId ', bookID);
+        console.log('upload my marker image : imageData', imageData);
+        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookID, imageData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.getMarkerImages = function (bookId) {
+        console.log('Inside book service getBook ' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    // this method gets the url to BLOB and creates an blob object for the image to be displayed
+    /*getBookImage(id: string): Observable<SafeResourceUrl> {
+      console.log('Inside book service getBook ' + id);
+      return this.http.get(baseURL + 'imageUpload/' + id, { responseType: 'blob' })
+        .pipe(
+          map(x => {
+             const urlToBlob = window.URL.createObjectURL(x) // get a URL for the blob
+             console.log(urlToBlob);
+             return this.sanitizer.sanitize (
+                    SecurityContext.RESOURCE_URL,
+                    this.sanitizer.bypassSecurityTrustResourceUrl(urlToBlob));
+          }
+        ),)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+    }*/
+    // this method requests s3 bucket url from the NodeJS and passes it on to the template to display s3 bucket image
+    BooksService.prototype.getBookImage = function (bookId) {
+        console.log('Inside book service getBook ' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'imageUpload/' + bookId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    BooksService.prototype.getMyProfileImage = function (myname) {
+        console.log('Inside book service getMyProfileImage' + myname);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'profilepic/' + myname)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    //this method gets the url to BLOB and creates an blob object for the image to be displayed
+    /*getBookQRImage(id: string): Observable<SafeResourceUrl> {
+      console.log('Inside book service getBookQRImage ', id);
+      return this.http.get(baseURL + 'qrImageUpload/' + id, {responseType: 'blob'})
+        .pipe(
+          map(x => {
+             const urlToBlob = window.URL.createObjectURL(x) // get a URL for the blob
+             console.log(urlToBlob);
+             return this.sanitizer.sanitize (
+                    SecurityContext.RESOURCE_URL,
+                    this.sanitizer.bypassSecurityTrustResourceUrl(urlToBlob));
+          }),)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+    }*/
+    // this method requests s3 bucket url from the NodeJS and passes it on to the template to display s3 bucket image
+    BooksService.prototype.getBookQRImage = function (bookId) {
+        console.log('Inside book service getBookQRImage ' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'qrImageUpload/' + bookId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    BooksService.prototype.deleteBookImage = function (id) {
+        var _this = this;
+        console.log('Inside book service deleteBookImage ' + id);
+        return this.http.delete(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'imageUpload/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.deleteQRBookImage = function (id, currentUser) {
+        var _this = this;
+        console.log('Inside book service deleteBookQRImage - BookID ', id);
+        console.log('Inside book service deleteBookQRImage - BookCurrent user ', currentUser);
+        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'qrImageUpload/' + id, { 'bookcurrentuser': currentUser })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["DomSanitizer"]])
+    ], BooksService);
+    return BooksService;
+}());
+
+//////
 
 
 /***/ }),
@@ -1424,6 +1727,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
 /* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
 
 
 
@@ -1432,10 +1737,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ReadarsService = /** @class */ (function () {
-    function ReadarsService(http, auth, processHTTPMsgService) {
+    function ReadarsService(http, auth, processHTTPMsgService, sanitizer) {
         this.http = http;
         this.auth = auth;
         this.processHTTPMsgService = processHTTPMsgService;
+        this.sanitizer = sanitizer;
+        this.reader = new FileReader();
+        this.bookIdImageMap = new Map();
     }
     /*  addBook(addbook: Book): Observable<Book> {
         const httpOptions = {
@@ -1469,6 +1777,13 @@ var ReadarsService = /** @class */ (function () {
         return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'books?featured=true').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (books) { return books[0]; }))
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
     };
+    ReadarsService.prototype.getRecommendedBooks = function () {
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'recommended?isRecommended=true')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
     ReadarsService.prototype.getReservedBooks = function () {
         if (!this.auth.isLoggedIn()) {
             return null;
@@ -1497,7 +1812,50 @@ var ReadarsService = /** @class */ (function () {
     };
     ReadarsService.prototype.reserveBook = function (bookId, book) {
         var _this = this;
-        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'books/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 'bookborrowed': book.bookborrowed })
+        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'books/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
+            'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
+            'bookcurrentstatus': book.bookcurrentstatus })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    ReadarsService.prototype.recommendBook = function (bookId, book) {
+        var _this = this;
+        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'recommended/' + bookId, { 'bookrecommend': book.bookrecommend })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    // this method gets the url to BLOB and creates an blob object for the image to be displayed
+    /*getBookImage(bookId: string): Observable<SafeResourceUrl> {
+      console.log('Inside book service getBook ' + bookId);
+      return this.http.get(baseURL + 'imageUpload/' + bookId, {responseType: 'blob'})
+        .pipe(
+          map(x => {
+             const urlToBlob = window.URL.createObjectURL(x) // get a URL for the blob
+             console.log(urlToBlob);
+             return this.sanitizer.sanitize (
+                   SecurityContext.RESOURCE_URL,
+                   this.sanitizer.bypassSecurityTrustResourceUrl(urlToBlob));
+                  
+          }
+        ),)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+       
+    }*/
+    // this method requests s3 bucket objects from the NodeJS and passes it on to the template to display s3 bucket image
+    ReadarsService.prototype.getAllImageObjects = function () {
+        console.log("Inside readars service get all imageobjects");
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'imageUpload/')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    // this method requests s3 bucket url from the NodeJS and passes it on to the template to display s3 bucket image
+    ReadarsService.prototype.getBookImage = function (bookId) {
+        console.log('Inside readars service getBookImage ' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'imageUpload/' + bookId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    // works with s3 bucket
+    ReadarsService.prototype.deleteBookImage = function (id) {
+        var _this = this;
+        console.log('Inside readrs service deleteBook image ' + id);
+        return this.http.delete(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'imageUpload/' + id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
     ReadarsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1505,7 +1863,7 @@ var ReadarsService = /** @class */ (function () {
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _auth_service__WEBPACK_IMPORTED_MODULE_6__["AuthService"],
-            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_5__["ProcessHTTPMsgService"]])
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_5__["ProcessHTTPMsgService"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["DomSanitizer"]])
     ], ReadarsService);
     return ReadarsService;
 }());
@@ -1543,20 +1901,33 @@ var SearchedData = /** @class */ (function () {
     SearchedData.prototype.filterItems = function (searchTerm) {
         console.log("Search Term is", searchTerm);
         return this.items.filter(function (item) {
-            if (searchTerm == item.bookname) {
-                console.log("Search term is bookname");
-                return item.bookname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-            }
-            if (searchTerm == item.booklanguage) {
-                console.log("Search term is booklanguage");
-                return item.booklanguage.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-            }
-            if (searchTerm == item.bookauthor) {
-                console.log("Search term is bookauthor");
-                return item.bookauthor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            //bookname
+            if (item.bookname.search(searchTerm) == -1) {
+                console.log("not in bookname ");
             }
             else {
                 return item.bookname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+            //booklanguage
+            if (item.booklanguage.search(searchTerm) == -1) {
+                console.log("not in booklanguage ");
+            }
+            else {
+                return item.booklanguage.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+            //bookcurrentstatus
+            if (item.bookcurrentstatus.search(searchTerm) == -1) {
+                console.log("not in bookcurrentstatus ");
+            }
+            else {
+                return item.bookcurrentstatus.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+            //bookauthor
+            if (item.bookauthor.search(searchTerm) == -1) {
+                console.log("not in bookauthor ");
+            }
+            else {
+                return item.bookauthor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
             }
         });
     };
@@ -1567,6 +1938,79 @@ var SearchedData = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_readars_service__WEBPACK_IMPORTED_MODULE_2__["ReadarsService"]])
     ], SearchedData);
     return SearchedData;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/searchmybooks.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/services/searchmybooks.service.ts ***!
+  \***************************************************/
+/*! exports provided: SearchedMyData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchedMyData", function() { return SearchedMyData; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_books_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/books.service */ "./src/app/services/books.service.ts");
+
+
+
+var SearchedMyData = /** @class */ (function () {
+    function SearchedMyData(booksService) {
+        var _this = this;
+        this.booksService = booksService;
+        this.items = [];
+        this.booksService.getBooks()
+            .subscribe(function (books) {
+            _this.items = books;
+            console.log("this.items from search", _this.items);
+        }, function (errmess) { return _this.errMess = errmess; });
+    }
+    SearchedMyData.prototype.filterItems = function (searchTerm) {
+        console.log("Search Term is", searchTerm);
+        return this.items.filter(function (item) {
+            //bookname
+            if (item.bookname.search(searchTerm) == -1) {
+                console.log("not in bookname ");
+            }
+            else {
+                return item.bookname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+            //booklanguage
+            if (item.booklanguage.search(searchTerm) == -1) {
+                console.log("not in booklanguage ");
+            }
+            else {
+                return item.booklanguage.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+            //bookcurrentstatus
+            if (item.bookcurrentstatus.search(searchTerm) == -1) {
+                console.log("not in bookcurrentstatus ");
+            }
+            else {
+                return item.bookcurrentstatus.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+            //bookauthor
+            if (item.bookauthor.search(searchTerm) == -1) {
+                console.log("not in bookauthor ");
+            }
+            else {
+                return item.bookauthor.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            }
+        });
+    };
+    SearchedMyData = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: "root"
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_books_service__WEBPACK_IMPORTED_MODULE_2__["BooksService"]])
+    ], SearchedMyData);
+    return SearchedMyData;
 }());
 
 
@@ -1584,7 +2028,10 @@ var SearchedData = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseURL", function() { return baseURL; });
 //export const baseURL = '/api/';
-var baseURL = 'https://localhost:3443/';
+var baseURL = 'https://ec2-18-216-147-34.us-east-2.compute.amazonaws.com/api/';
+//export const baseURL = 'https://localhost:3443/';
+//export const baseURL = 'http://192.168.0.15:3000/'; // currenly working for ionic app
+//export const baseURL = 'https://192.168.0.15:3443/';
 
 
 /***/ }),

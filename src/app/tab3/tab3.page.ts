@@ -24,6 +24,7 @@ import { BorrowedService} from '../services/borrowed.service';
 import { FeedbackService } from '../services/feedback.service';
 import { SearchedMyData } from '../services/searchmybooks.service';
 import { AddbookPage } from '../addbook/addbook.page';
+import { ArbookPage} from '../arbook/arbook.page';
 import { Subscription } from 'rxjs';
 
 import { ImageLoaderService } from 'ionic-image-loader-v5';
@@ -58,6 +59,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
   
   books: Book[];
   allBooks: Book[];
+  
   
   reservedBooks: Book[] = [];
   availableBooks: Book[] = [];
@@ -745,5 +747,19 @@ export class Tab3Page implements OnInit, AfterViewInit {
 
     return addbookModal.present();
   }
+
+  async arBookModal(id: string) {
+
+    const arbookModal = await this._modalController.create({
+      component: ArbookPage,
+      componentProps: {
+        bookId: id
+      }
+    });
+
+    return arbookModal.present();
+  }
+
+
 
 }

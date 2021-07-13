@@ -7,10 +7,19 @@
     "files": {}
   },
   "installed_plugins": {
+    "call-number": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "com-badrit-base64": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-base64-to-gallery": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-advanced-http": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-camera": {
@@ -43,7 +52,14 @@
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
+    "cordova-plugin-telerik-imagepicker": {
+      "PHOTO_LIBRARY_USAGE_DESCRIPTION": " ",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-wkwebview-file-xhr": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-x-socialsharing": {
@@ -52,26 +68,11 @@
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "mx.ferreyra.callnumber": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
     "phonegap-plugin-barcodescanner": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-advanced-http": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-webxr": {
-      "CAMERA_USAGE_DESCRIPTION": "This app uses the camera for augmented reality",
-      "WEBXR_AUTHORIZATION": "minimal",
-      "GRAPHICS_FRAMEWORK": "sceneKit",
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {
-    "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
     "es6-promise-plugin": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
