@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ArbookPage } from './arbook.page';
+import { MultiFileUploadComponent} from '../components/multi-file-upload/multi-file-upload.component'
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
@@ -12,10 +14,11 @@ import { ArbookPage } from './arbook.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule
   ],
   entryComponents:[ArbookPage],
-  declarations: [ArbookPage]
+  declarations: [ArbookPage, MultiFileUploadComponent]
 })
 export class ArbookPageModule {}
 

@@ -1561,6 +1561,11 @@ var BooksService = /** @class */ (function () {
         return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
     };
+    BooksService.prototype.getAnchorAndContent = function (bookId) {
+        console.log('Inside book service getBook ' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
+    };
     // this method gets the url to BLOB and creates an blob object for the image to be displayed
     /*getBookImage(id: string): Observable<SafeResourceUrl> {
       console.log('Inside book service getBook ' + id);

@@ -22,6 +22,9 @@
     "cordova-plugin-advanced-http": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
+    "cordova-plugin-arplugin": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "io.ionic.starter"
     },

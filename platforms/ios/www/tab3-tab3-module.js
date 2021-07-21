@@ -1,5 +1,1882 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tab3-tab3-module"],{
 
+/***/ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js ***!
+  \***************************************************************/
+/*! exports provided: FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileDropDirective", function() { return FileDropDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileItem", function() { return FileItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileLikeObject", function() { return FileLikeObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileSelectDirective", function() { return FileSelectDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUploadModule", function() { return FileUploadModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUploader", function() { return FileUploader; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isElement(node) {
+    return !!(node && (node.nodeName || node.prop && node.attr && node.find));
+}
+var FileLikeObject = /** @class */ (function () {
+    function FileLikeObject(fileOrInput) {
+        this.rawFile = fileOrInput;
+        /** @type {?} */
+        var isInput = isElement(fileOrInput);
+        /** @type {?} */
+        var fakePathOrObject = isInput ? fileOrInput.value : fileOrInput;
+        /** @type {?} */
+        var postfix = typeof fakePathOrObject === 'string' ? 'FakePath' : 'Object';
+        /** @type {?} */
+        var method = '_createFrom' + postfix;
+        ((/** @type {?} */ (this)))[method](fakePathOrObject);
+    }
+    /**
+     * @param {?} path
+     * @return {?}
+     */
+    FileLikeObject.prototype._createFromFakePath = /**
+     * @param {?} path
+     * @return {?}
+     */
+    function (path) {
+        this.lastModifiedDate = void 0;
+        this.size = void 0;
+        this.type = 'like/' + path.slice(path.lastIndexOf('.') + 1).toLowerCase();
+        this.name = path.slice(path.lastIndexOf('/') + path.lastIndexOf('\\') + 2);
+    };
+    /**
+     * @param {?} object
+     * @return {?}
+     */
+    FileLikeObject.prototype._createFromObject = /**
+     * @param {?} object
+     * @return {?}
+     */
+    function (object) {
+        this.size = object.size;
+        this.type = object.type;
+        this.name = object.name;
+    };
+    return FileLikeObject;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var FileItem = /** @class */ (function () {
+    function FileItem(uploader, some, options) {
+        this.url = '/';
+        this.headers = [];
+        this.withCredentials = true;
+        this.formData = [];
+        this.isReady = false;
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.isSuccess = false;
+        this.isCancel = false;
+        this.isError = false;
+        this.progress = 0;
+        this.index = void 0;
+        this.uploader = uploader;
+        this.some = some;
+        this.options = options;
+        this.file = new FileLikeObject(some);
+        this._file = some;
+        if (uploader.options) {
+            this.method = uploader.options.method || 'POST';
+            this.alias = uploader.options.itemAlias || 'file';
+        }
+        this.url = uploader.options.url;
+    }
+    /**
+     * @return {?}
+     */
+    FileItem.prototype.upload = /**
+     * @return {?}
+     */
+    function () {
+        try {
+            this.uploader.uploadItem(this);
+        }
+        catch (e) {
+            this.uploader._onCompleteItem(this, '', 0, {});
+            this.uploader._onErrorItem(this, '', 0, {});
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FileItem.prototype.cancel = /**
+     * @return {?}
+     */
+    function () {
+        this.uploader.cancelItem(this);
+    };
+    /**
+     * @return {?}
+     */
+    FileItem.prototype.remove = /**
+     * @return {?}
+     */
+    function () {
+        this.uploader.removeFromQueue(this);
+    };
+    /**
+     * @return {?}
+     */
+    FileItem.prototype.onBeforeUpload = /**
+     * @return {?}
+     */
+    function () {
+        return void 0;
+    };
+    /**
+     * @param {?} form
+     * @return {?}
+     */
+    FileItem.prototype.onBuildForm = /**
+     * @param {?} form
+     * @return {?}
+     */
+    function (form) {
+        return { form: form };
+    };
+    /**
+     * @param {?} progress
+     * @return {?}
+     */
+    FileItem.prototype.onProgress = /**
+     * @param {?} progress
+     * @return {?}
+     */
+    function (progress) {
+        return { progress: progress };
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype.onSuccess = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        return { response: response, status: status, headers: headers };
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype.onError = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        return { response: response, status: status, headers: headers };
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype.onCancel = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        return { response: response, status: status, headers: headers };
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype.onComplete = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        return { response: response, status: status, headers: headers };
+    };
+    /**
+     * @return {?}
+     */
+    FileItem.prototype._onBeforeUpload = /**
+     * @return {?}
+     */
+    function () {
+        this.isReady = true;
+        this.isUploading = true;
+        this.isUploaded = false;
+        this.isSuccess = false;
+        this.isCancel = false;
+        this.isError = false;
+        this.progress = 0;
+        this.onBeforeUpload();
+    };
+    /**
+     * @param {?} form
+     * @return {?}
+     */
+    FileItem.prototype._onBuildForm = /**
+     * @param {?} form
+     * @return {?}
+     */
+    function (form) {
+        this.onBuildForm(form);
+    };
+    /**
+     * @param {?} progress
+     * @return {?}
+     */
+    FileItem.prototype._onProgress = /**
+     * @param {?} progress
+     * @return {?}
+     */
+    function (progress) {
+        this.progress = progress;
+        this.onProgress(progress);
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype._onSuccess = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        this.isReady = false;
+        this.isUploading = false;
+        this.isUploaded = true;
+        this.isSuccess = true;
+        this.isCancel = false;
+        this.isError = false;
+        this.progress = 100;
+        this.index = void 0;
+        this.onSuccess(response, status, headers);
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype._onError = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        this.isReady = false;
+        this.isUploading = false;
+        this.isUploaded = true;
+        this.isSuccess = false;
+        this.isCancel = false;
+        this.isError = true;
+        this.progress = 0;
+        this.index = void 0;
+        this.onError(response, status, headers);
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype._onCancel = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        this.isReady = false;
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.isSuccess = false;
+        this.isCancel = true;
+        this.isError = false;
+        this.progress = 0;
+        this.index = void 0;
+        this.onCancel(response, status, headers);
+    };
+    /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileItem.prototype._onComplete = /**
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, status, headers) {
+        this.onComplete(response, status, headers);
+        if (this.uploader.options.removeAfterUpload) {
+            this.remove();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FileItem.prototype._prepareToUploading = /**
+     * @return {?}
+     */
+    function () {
+        this.index = this.index || ++this.uploader._nextIndex;
+        this.isReady = true;
+    };
+    return FileItem;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var FileType = /** @class */ (function () {
+    function FileType() {
+    }
+    /**
+     * @param {?} file
+     * @return {?}
+     */
+    FileType.getMimeClass = /**
+     * @param {?} file
+     * @return {?}
+     */
+    function (file) {
+        /** @type {?} */
+        var mimeClass = 'application';
+        if (this.mime_psd.indexOf(file.type) !== -1) {
+            mimeClass = 'image';
+        }
+        else if (file.type.match('image.*')) {
+            mimeClass = 'image';
+        }
+        else if (file.type.match('video.*')) {
+            mimeClass = 'video';
+        }
+        else if (file.type.match('audio.*')) {
+            mimeClass = 'audio';
+        }
+        else if (file.type === 'application/pdf') {
+            mimeClass = 'pdf';
+        }
+        else if (this.mime_compress.indexOf(file.type) !== -1) {
+            mimeClass = 'compress';
+        }
+        else if (this.mime_doc.indexOf(file.type) !== -1) {
+            mimeClass = 'doc';
+        }
+        else if (this.mime_xsl.indexOf(file.type) !== -1) {
+            mimeClass = 'xls';
+        }
+        else if (this.mime_ppt.indexOf(file.type) !== -1) {
+            mimeClass = 'ppt';
+        }
+        if (mimeClass === 'application') {
+            mimeClass = this.fileTypeDetection(file.name);
+        }
+        return mimeClass;
+    };
+    /**
+     * @param {?} inputFilename
+     * @return {?}
+     */
+    FileType.fileTypeDetection = /**
+     * @param {?} inputFilename
+     * @return {?}
+     */
+    function (inputFilename) {
+        /** @type {?} */
+        var types = {
+            'jpg': 'image',
+            'jpeg': 'image',
+            'tif': 'image',
+            'psd': 'image',
+            'bmp': 'image',
+            'png': 'image',
+            'nef': 'image',
+            'tiff': 'image',
+            'cr2': 'image',
+            'dwg': 'image',
+            'cdr': 'image',
+            'ai': 'image',
+            'indd': 'image',
+            'pin': 'image',
+            'cdp': 'image',
+            'skp': 'image',
+            'stp': 'image',
+            '3dm': 'image',
+            'mp3': 'audio',
+            'wav': 'audio',
+            'wma': 'audio',
+            'mod': 'audio',
+            'm4a': 'audio',
+            'compress': 'compress',
+            'zip': 'compress',
+            'rar': 'compress',
+            '7z': 'compress',
+            'lz': 'compress',
+            'z01': 'compress',
+            'bz2': 'compress',
+            'gz': 'compress',
+            'pdf': 'pdf',
+            'xls': 'xls',
+            'xlsx': 'xls',
+            'ods': 'xls',
+            'mp4': 'video',
+            'avi': 'video',
+            'wmv': 'video',
+            'mpg': 'video',
+            'mts': 'video',
+            'flv': 'video',
+            '3gp': 'video',
+            'vob': 'video',
+            'm4v': 'video',
+            'mpeg': 'video',
+            'm2ts': 'video',
+            'mov': 'video',
+            'doc': 'doc',
+            'docx': 'doc',
+            'eps': 'doc',
+            'txt': 'doc',
+            'odt': 'doc',
+            'rtf': 'doc',
+            'ppt': 'ppt',
+            'pptx': 'ppt',
+            'pps': 'ppt',
+            'ppsx': 'ppt',
+            'odp': 'ppt'
+        };
+        /** @type {?} */
+        var chunks = inputFilename.split('.');
+        if (chunks.length < 2) {
+            return 'application';
+        }
+        /** @type {?} */
+        var extension = chunks[chunks.length - 1].toLowerCase();
+        if (types[extension] === undefined) {
+            return 'application';
+        }
+        else {
+            return types[extension];
+        }
+    };
+    /*  MS office  */
+    FileType.mime_doc = [
+        'application/msword',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+        'application/vnd.ms-word.document.macroEnabled.12',
+        'application/vnd.ms-word.template.macroEnabled.12'
+    ];
+    FileType.mime_xsl = [
+        'application/vnd.ms-excel',
+        'application/vnd.ms-excel',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
+        'application/vnd.ms-excel.sheet.macroEnabled.12',
+        'application/vnd.ms-excel.template.macroEnabled.12',
+        'application/vnd.ms-excel.addin.macroEnabled.12',
+        'application/vnd.ms-excel.sheet.binary.macroEnabled.12'
+    ];
+    FileType.mime_ppt = [
+        'application/vnd.ms-powerpoint',
+        'application/vnd.ms-powerpoint',
+        'application/vnd.ms-powerpoint',
+        'application/vnd.ms-powerpoint',
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        'application/vnd.openxmlformats-officedocument.presentationml.template',
+        'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
+        'application/vnd.ms-powerpoint.addin.macroEnabled.12',
+        'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
+        'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
+        'application/vnd.ms-powerpoint.slideshow.macroEnabled.12'
+    ];
+    /* PSD */
+    FileType.mime_psd = [
+        'image/photoshop',
+        'image/x-photoshop',
+        'image/psd',
+        'application/photoshop',
+        'application/psd',
+        'zz-application/zz-winassoc-psd'
+    ];
+    /* Compressed files */
+    FileType.mime_compress = [
+        'application/x-gtar',
+        'application/x-gcompress',
+        'application/compress',
+        'application/x-tar',
+        'application/x-rar-compressed',
+        'application/octet-stream',
+        'application/x-zip-compressed',
+        'application/zip-compressed',
+        'application/x-7z-compressed',
+        'application/gzip',
+        'application/x-bzip2'
+    ];
+    return FileType;
+}());
+if (false) {}
+
+var __values = (undefined && undefined.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function isFile(value) {
+    return (File && value instanceof File);
+}
+/**
+ * @record
+ */
+function Headers() { }
+if (false) {}
+/**
+ * @record
+ */
+function FileUploaderOptions() { }
+if (false) {}
+var FileUploader = /** @class */ (function () {
+    function FileUploader(options) {
+        this.isUploading = false;
+        this.queue = [];
+        this.progress = 0;
+        this._nextIndex = 0;
+        this.options = {
+            autoUpload: false,
+            isHTML5: true,
+            filters: [],
+            removeAfterUpload: false,
+            disableMultipart: false,
+            formatDataFunction: (/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) { return item._file; }),
+            formatDataFunctionIsAsync: false
+        };
+        this.setOptions(options);
+        this.response = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    /**
+     * @param {?} options
+     * @return {?}
+     */
+    FileUploader.prototype.setOptions = /**
+     * @param {?} options
+     * @return {?}
+     */
+    function (options) {
+        this.options = Object.assign(this.options, options);
+        this.authToken = this.options.authToken;
+        this.authTokenHeader = this.options.authTokenHeader || 'Authorization';
+        this.autoUpload = this.options.autoUpload;
+        this.options.filters.unshift({ name: 'queueLimit', fn: this._queueLimitFilter });
+        if (this.options.maxFileSize) {
+            this.options.filters.unshift({ name: 'fileSize', fn: this._fileSizeFilter });
+        }
+        if (this.options.allowedFileType) {
+            this.options.filters.unshift({ name: 'fileType', fn: this._fileTypeFilter });
+        }
+        if (this.options.allowedMimeType) {
+            this.options.filters.unshift({ name: 'mimeType', fn: this._mimeTypeFilter });
+        }
+        for (var i = 0; i < this.queue.length; i++) {
+            this.queue[i].url = this.options.url;
+        }
+    };
+    /**
+     * @param {?} files
+     * @param {?=} options
+     * @param {?=} filters
+     * @return {?}
+     */
+    FileUploader.prototype.addToQueue = /**
+     * @param {?} files
+     * @param {?=} options
+     * @param {?=} filters
+     * @return {?}
+     */
+    function (files, options, filters) {
+        var e_1, _a;
+        var _this = this;
+        /** @type {?} */
+        var list = [];
+        try {
+            for (var files_1 = __values(files), files_1_1 = files_1.next(); !files_1_1.done; files_1_1 = files_1.next()) {
+                var file = files_1_1.value;
+                list.push(file);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (files_1_1 && !files_1_1.done && (_a = files_1.return)) _a.call(files_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        /** @type {?} */
+        var arrayOfFilters = this._getFilters(filters);
+        /** @type {?} */
+        var count = this.queue.length;
+        /** @type {?} */
+        var addedFileItems = [];
+        list.map((/**
+         * @param {?} some
+         * @return {?}
+         */
+        function (some) {
+            if (!options) {
+                options = _this.options;
+            }
+            /** @type {?} */
+            var temp = new FileLikeObject(some);
+            if (_this._isValidFile(temp, arrayOfFilters, options)) {
+                /** @type {?} */
+                var fileItem = new FileItem(_this, some, options);
+                addedFileItems.push(fileItem);
+                _this.queue.push(fileItem);
+                _this._onAfterAddingFile(fileItem);
+            }
+            else {
+                /** @type {?} */
+                var filter = arrayOfFilters[_this._failFilterIndex];
+                _this._onWhenAddingFileFailed(temp, filter, options);
+            }
+        }));
+        if (this.queue.length !== count) {
+            this._onAfterAddingAll(addedFileItems);
+            this.progress = this._getTotalProgress();
+        }
+        this._render();
+        if (this.options.autoUpload) {
+            this.uploadAll();
+        }
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    FileUploader.prototype.removeFromQueue = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        /** @type {?} */
+        var index = this.getIndexOfItem(value);
+        /** @type {?} */
+        var item = this.queue[index];
+        if (item.isUploading) {
+            item.cancel();
+        }
+        this.queue.splice(index, 1);
+        this.progress = this._getTotalProgress();
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.clearQueue = /**
+     * @return {?}
+     */
+    function () {
+        while (this.queue.length) {
+            this.queue[0].remove();
+        }
+        this.progress = 0;
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    FileUploader.prototype.uploadItem = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        /** @type {?} */
+        var index = this.getIndexOfItem(value);
+        /** @type {?} */
+        var item = this.queue[index];
+        /** @type {?} */
+        var transport = this.options.isHTML5 ? '_xhrTransport' : '_iframeTransport';
+        item._prepareToUploading();
+        if (this.isUploading) {
+            return;
+        }
+        this.isUploading = true;
+        ((/** @type {?} */ (this)))[transport](item);
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    FileUploader.prototype.cancelItem = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        /** @type {?} */
+        var index = this.getIndexOfItem(value);
+        /** @type {?} */
+        var item = this.queue[index];
+        /** @type {?} */
+        var prop = this.options.isHTML5 ? item._xhr : item._form;
+        if (item && item.isUploading) {
+            prop.abort();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.uploadAll = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var items = this.getNotUploadedItems().filter((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return !item.isUploading; }));
+        if (!items.length) {
+            return;
+        }
+        items.map((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return item._prepareToUploading(); }));
+        items[0].upload();
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.cancelAll = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var items = this.getNotUploadedItems();
+        items.map((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return item.cancel(); }));
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    FileUploader.prototype.isFile = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return isFile(value);
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    FileUploader.prototype.isFileLikeObject = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return value instanceof FileLikeObject;
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    FileUploader.prototype.getIndexOfItem = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return typeof value === 'number' ? value : this.queue.indexOf(value);
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.getNotUploadedItems = /**
+     * @return {?}
+     */
+    function () {
+        return this.queue.filter((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return !item.isUploaded; }));
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.getReadyItems = /**
+     * @return {?}
+     */
+    function () {
+        return this.queue
+            .filter((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return (item.isReady && !item.isUploading); }))
+            .sort((/**
+         * @param {?} item1
+         * @param {?} item2
+         * @return {?}
+         */
+        function (item1, item2) { return item1.index - item2.index; }));
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.destroy = /**
+     * @return {?}
+     */
+    function () {
+        return void 0;
+    };
+    /**
+     * @param {?} fileItems
+     * @return {?}
+     */
+    FileUploader.prototype.onAfterAddingAll = /**
+     * @param {?} fileItems
+     * @return {?}
+     */
+    function (fileItems) {
+        return { fileItems: fileItems };
+    };
+    /**
+     * @param {?} fileItem
+     * @param {?} form
+     * @return {?}
+     */
+    FileUploader.prototype.onBuildItemForm = /**
+     * @param {?} fileItem
+     * @param {?} form
+     * @return {?}
+     */
+    function (fileItem, form) {
+        return { fileItem: fileItem, form: form };
+    };
+    /**
+     * @param {?} fileItem
+     * @return {?}
+     */
+    FileUploader.prototype.onAfterAddingFile = /**
+     * @param {?} fileItem
+     * @return {?}
+     */
+    function (fileItem) {
+        return { fileItem: fileItem };
+    };
+    /**
+     * @param {?} item
+     * @param {?} filter
+     * @param {?} options
+     * @return {?}
+     */
+    FileUploader.prototype.onWhenAddingFileFailed = /**
+     * @param {?} item
+     * @param {?} filter
+     * @param {?} options
+     * @return {?}
+     */
+    function (item, filter, options) {
+        return { item: item, filter: filter, options: options };
+    };
+    /**
+     * @param {?} fileItem
+     * @return {?}
+     */
+    FileUploader.prototype.onBeforeUploadItem = /**
+     * @param {?} fileItem
+     * @return {?}
+     */
+    function (fileItem) {
+        return { fileItem: fileItem };
+    };
+    /**
+     * @param {?} fileItem
+     * @param {?} progress
+     * @return {?}
+     */
+    FileUploader.prototype.onProgressItem = /**
+     * @param {?} fileItem
+     * @param {?} progress
+     * @return {?}
+     */
+    function (fileItem, progress) {
+        return { fileItem: fileItem, progress: progress };
+    };
+    /**
+     * @param {?} progress
+     * @return {?}
+     */
+    FileUploader.prototype.onProgressAll = /**
+     * @param {?} progress
+     * @return {?}
+     */
+    function (progress) {
+        return { progress: progress };
+    };
+    /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype.onSuccessItem = /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        return { item: item, response: response, status: status, headers: headers };
+    };
+    /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype.onErrorItem = /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        return { item: item, response: response, status: status, headers: headers };
+    };
+    /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype.onCancelItem = /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        return { item: item, response: response, status: status, headers: headers };
+    };
+    /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype.onCompleteItem = /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        return { item: item, response: response, status: status, headers: headers };
+    };
+    /**
+     * @return {?}
+     */
+    FileUploader.prototype.onCompleteAll = /**
+     * @return {?}
+     */
+    function () {
+        return void 0;
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    FileUploader.prototype._mimeTypeFilter = /**
+     * @param {?} item
+     * @return {?}
+     */
+    function (item) {
+        return !(this.options.allowedMimeType && this.options.allowedMimeType.indexOf(item.type) === -1);
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    FileUploader.prototype._fileSizeFilter = /**
+     * @param {?} item
+     * @return {?}
+     */
+    function (item) {
+        return !(this.options.maxFileSize && item.size > this.options.maxFileSize);
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    FileUploader.prototype._fileTypeFilter = /**
+     * @param {?} item
+     * @return {?}
+     */
+    function (item) {
+        return !(this.options.allowedFileType &&
+            this.options.allowedFileType.indexOf(FileType.getMimeClass(item)) === -1);
+    };
+    /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype._onErrorItem = /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        item._onError(response, status, headers);
+        this.onErrorItem(item, response, status, headers);
+    };
+    /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype._onCompleteItem = /**
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        item._onComplete(response, status, headers);
+        this.onCompleteItem(item, response, status, headers);
+        /** @type {?} */
+        var nextItem = this.getReadyItems()[0];
+        this.isUploading = false;
+        if (nextItem) {
+            nextItem.upload();
+            return;
+        }
+        this.onCompleteAll();
+        this.progress = this._getTotalProgress();
+        this._render();
+    };
+    /**
+     * @protected
+     * @param {?} parsedHeaders
+     * @return {?}
+     */
+    FileUploader.prototype._headersGetter = /**
+     * @protected
+     * @param {?} parsedHeaders
+     * @return {?}
+     */
+    function (parsedHeaders) {
+        return (/**
+         * @param {?} name
+         * @return {?}
+         */
+        function (name) {
+            if (name) {
+                return parsedHeaders[name.toLowerCase()] || void 0;
+            }
+            return parsedHeaders;
+        });
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @return {?}
+     */
+    FileUploader.prototype._xhrTransport = /**
+     * @protected
+     * @param {?} item
+     * @return {?}
+     */
+    function (item) {
+        var e_2, _a, e_3, _b;
+        var _this = this;
+        /** @type {?} */
+        var that = this;
+        /** @type {?} */
+        var xhr = item._xhr = new XMLHttpRequest();
+        /** @type {?} */
+        var sendable;
+        this._onBeforeUploadItem(item);
+        if (typeof item._file.size !== 'number') {
+            throw new TypeError('The file specified is no longer valid');
+        }
+        if (!this.options.disableMultipart) {
+            sendable = new FormData();
+            this._onBuildItemForm(item, sendable);
+            /** @type {?} */
+            var appendFile = (/**
+             * @return {?}
+             */
+            function () { return sendable.append(item.alias, item._file, item.file.name); });
+            if (!this.options.parametersBeforeFiles) {
+                appendFile();
+            }
+            // For AWS, Additional Parameters must come BEFORE Files
+            if (this.options.additionalParameter !== undefined) {
+                Object.keys(this.options.additionalParameter).forEach((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                function (key) {
+                    /** @type {?} */
+                    var paramVal = _this.options.additionalParameter[key];
+                    // Allow an additional parameter to include the filename
+                    if (typeof paramVal === 'string' && paramVal.indexOf('{{file_name}}') >= 0) {
+                        paramVal = paramVal.replace('{{file_name}}', item.file.name);
+                    }
+                    sendable.append(key, paramVal);
+                }));
+            }
+            if (this.options.parametersBeforeFiles) {
+                appendFile();
+            }
+        }
+        else {
+            sendable = this.options.formatDataFunction(item);
+        }
+        xhr.upload.onprogress = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            /** @type {?} */
+            var progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
+            _this._onProgressItem(item, progress);
+        });
+        xhr.onload = (/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
+            /** @type {?} */
+            var response = _this._transformResponse(xhr.response, headers);
+            /** @type {?} */
+            var gist = _this._isSuccessCode(xhr.status) ? 'Success' : 'Error';
+            /** @type {?} */
+            var method = '_on' + gist + 'Item';
+            ((/** @type {?} */ (_this)))[method](item, response, xhr.status, headers);
+            _this._onCompleteItem(item, response, xhr.status, headers);
+        });
+        xhr.onerror = (/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
+            /** @type {?} */
+            var response = _this._transformResponse(xhr.response, headers);
+            _this._onErrorItem(item, response, xhr.status, headers);
+            _this._onCompleteItem(item, response, xhr.status, headers);
+        });
+        xhr.onabort = (/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
+            /** @type {?} */
+            var response = _this._transformResponse(xhr.response, headers);
+            _this._onCancelItem(item, response, xhr.status, headers);
+            _this._onCompleteItem(item, response, xhr.status, headers);
+        });
+        xhr.open(item.method, item.url, true);
+        xhr.withCredentials = item.withCredentials;
+        if (this.options.headers) {
+            try {
+                for (var _c = __values(this.options.headers), _d = _c.next(); !_d.done; _d = _c.next()) {
+                    var header = _d.value;
+                    xhr.setRequestHeader(header.name, header.value);
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
+        if (item.headers.length) {
+            try {
+                for (var _e = __values(item.headers), _f = _e.next(); !_f.done; _f = _e.next()) {
+                    var header = _f.value;
+                    xhr.setRequestHeader(header.name, header.value);
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
+        }
+        if (this.authToken) {
+            xhr.setRequestHeader(this.authTokenHeader, this.authToken);
+        }
+        xhr.onreadystatechange = (/**
+         * @return {?}
+         */
+        function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                that.response.emit(xhr.responseText);
+            }
+        });
+        if (this.options.formatDataFunctionIsAsync) {
+            sendable.then((/**
+             * @param {?} result
+             * @return {?}
+             */
+            function (result) { return xhr.send(JSON.stringify(result)); }));
+        }
+        else {
+            xhr.send(sendable);
+        }
+        this._render();
+    };
+    /**
+     * @protected
+     * @param {?=} value
+     * @return {?}
+     */
+    FileUploader.prototype._getTotalProgress = /**
+     * @protected
+     * @param {?=} value
+     * @return {?}
+     */
+    function (value) {
+        if (value === void 0) { value = 0; }
+        if (this.options.removeAfterUpload) {
+            return value;
+        }
+        /** @type {?} */
+        var notUploaded = this.getNotUploadedItems().length;
+        /** @type {?} */
+        var uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
+        /** @type {?} */
+        var ratio = 100 / this.queue.length;
+        /** @type {?} */
+        var current = value * ratio / 100;
+        return Math.round(uploaded * ratio + current);
+    };
+    /**
+     * @protected
+     * @param {?} filters
+     * @return {?}
+     */
+    FileUploader.prototype._getFilters = /**
+     * @protected
+     * @param {?} filters
+     * @return {?}
+     */
+    function (filters) {
+        if (!filters) {
+            return this.options.filters;
+        }
+        if (Array.isArray(filters)) {
+            return filters;
+        }
+        if (typeof filters === 'string') {
+            /** @type {?} */
+            var names_1 = filters.match(/[^\s,]+/g);
+            return this.options.filters
+                .filter((/**
+             * @param {?} filter
+             * @return {?}
+             */
+            function (filter) { return names_1.indexOf(filter.name) !== -1; }));
+        }
+        return this.options.filters;
+    };
+    /**
+     * @protected
+     * @return {?}
+     */
+    FileUploader.prototype._render = /**
+     * @protected
+     * @return {?}
+     */
+    function () {
+        return void 0;
+    };
+    /**
+     * @protected
+     * @return {?}
+     */
+    FileUploader.prototype._queueLimitFilter = /**
+     * @protected
+     * @return {?}
+     */
+    function () {
+        return this.options.queueLimit === undefined || this.queue.length < this.options.queueLimit;
+    };
+    /**
+     * @protected
+     * @param {?} file
+     * @param {?} filters
+     * @param {?} options
+     * @return {?}
+     */
+    FileUploader.prototype._isValidFile = /**
+     * @protected
+     * @param {?} file
+     * @param {?} filters
+     * @param {?} options
+     * @return {?}
+     */
+    function (file, filters, options) {
+        var _this = this;
+        this._failFilterIndex = -1;
+        return !filters.length ? true : filters.every((/**
+         * @param {?} filter
+         * @return {?}
+         */
+        function (filter) {
+            _this._failFilterIndex++;
+            return filter.fn.call(_this, file, options);
+        }));
+    };
+    /**
+     * @protected
+     * @param {?} status
+     * @return {?}
+     */
+    FileUploader.prototype._isSuccessCode = /**
+     * @protected
+     * @param {?} status
+     * @return {?}
+     */
+    function (status) {
+        return (status >= 200 && status < 300) || status === 304;
+    };
+    /**
+     * @protected
+     * @param {?} response
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype._transformResponse = /**
+     * @protected
+     * @param {?} response
+     * @param {?} headers
+     * @return {?}
+     */
+    function (response, headers) {
+        return response;
+    };
+    /**
+     * @protected
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype._parseHeaders = /**
+     * @protected
+     * @param {?} headers
+     * @return {?}
+     */
+    function (headers) {
+        /** @type {?} */
+        var parsed = {};
+        /** @type {?} */
+        var key;
+        /** @type {?} */
+        var val;
+        /** @type {?} */
+        var i;
+        if (!headers) {
+            return parsed;
+        }
+        headers.split('\n').map((/**
+         * @param {?} line
+         * @return {?}
+         */
+        function (line) {
+            i = line.indexOf(':');
+            key = line.slice(0, i).trim().toLowerCase();
+            val = line.slice(i + 1).trim();
+            if (key) {
+                parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+            }
+        }));
+        return parsed;
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @param {?} filter
+     * @param {?} options
+     * @return {?}
+     */
+    FileUploader.prototype._onWhenAddingFileFailed = /**
+     * @protected
+     * @param {?} item
+     * @param {?} filter
+     * @param {?} options
+     * @return {?}
+     */
+    function (item, filter, options) {
+        this.onWhenAddingFileFailed(item, filter, options);
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @return {?}
+     */
+    FileUploader.prototype._onAfterAddingFile = /**
+     * @protected
+     * @param {?} item
+     * @return {?}
+     */
+    function (item) {
+        this.onAfterAddingFile(item);
+    };
+    /**
+     * @protected
+     * @param {?} items
+     * @return {?}
+     */
+    FileUploader.prototype._onAfterAddingAll = /**
+     * @protected
+     * @param {?} items
+     * @return {?}
+     */
+    function (items) {
+        this.onAfterAddingAll(items);
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @return {?}
+     */
+    FileUploader.prototype._onBeforeUploadItem = /**
+     * @protected
+     * @param {?} item
+     * @return {?}
+     */
+    function (item) {
+        item._onBeforeUpload();
+        this.onBeforeUploadItem(item);
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @param {?} form
+     * @return {?}
+     */
+    FileUploader.prototype._onBuildItemForm = /**
+     * @protected
+     * @param {?} item
+     * @param {?} form
+     * @return {?}
+     */
+    function (item, form) {
+        item._onBuildForm(form);
+        this.onBuildItemForm(item, form);
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @param {?} progress
+     * @return {?}
+     */
+    FileUploader.prototype._onProgressItem = /**
+     * @protected
+     * @param {?} item
+     * @param {?} progress
+     * @return {?}
+     */
+    function (item, progress) {
+        /** @type {?} */
+        var total = this._getTotalProgress(progress);
+        this.progress = total;
+        item._onProgress(progress);
+        this.onProgressItem(item, progress);
+        this.onProgressAll(total);
+        this._render();
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype._onSuccessItem = /**
+     * @protected
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        item._onSuccess(response, status, headers);
+        this.onSuccessItem(item, response, status, headers);
+    };
+    /**
+     * @protected
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    FileUploader.prototype._onCancelItem = /**
+     * @protected
+     * @param {?} item
+     * @param {?} response
+     * @param {?} status
+     * @param {?} headers
+     * @return {?}
+     */
+    function (item, response, status, headers) {
+        item._onCancel(response, status, headers);
+        this.onCancelItem(item, response, status, headers);
+    };
+    return FileUploader;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var FileSelectDirective = /** @class */ (function () {
+    function FileSelectDirective(element) {
+        this.onFileSelected = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.element = element;
+    }
+    /**
+     * @return {?}
+     */
+    FileSelectDirective.prototype.getOptions = /**
+     * @return {?}
+     */
+    function () {
+        return this.uploader.options;
+    };
+    /**
+     * @return {?}
+     */
+    FileSelectDirective.prototype.getFilters = /**
+     * @return {?}
+     */
+    function () {
+        return {};
+    };
+    /**
+     * @return {?}
+     */
+    FileSelectDirective.prototype.isEmptyAfterSelection = /**
+     * @return {?}
+     */
+    function () {
+        return !!this.element.nativeElement.attributes.multiple;
+    };
+    /**
+     * @return {?}
+     */
+    FileSelectDirective.prototype.onChange = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var files = this.element.nativeElement.files;
+        /** @type {?} */
+        var options = this.getOptions();
+        /** @type {?} */
+        var filters = this.getFilters();
+        this.uploader.addToQueue(files, options, filters);
+        this.onFileSelected.emit(files);
+        if (this.isEmptyAfterSelection()) {
+            this.element.nativeElement.value = '';
+        }
+    };
+    FileSelectDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: '[ng2FileSelect]' },] }
+    ];
+    /** @nocollapse */
+    FileSelectDirective.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+    ]; };
+    FileSelectDirective.propDecorators = {
+        uploader: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        onFileSelected: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        onChange: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['change',] }]
+    };
+    return FileSelectDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var FileDropDirective = /** @class */ (function () {
+    function FileDropDirective(element) {
+        this.fileOver = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.onFileDrop = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.element = element;
+    }
+    /**
+     * @return {?}
+     */
+    FileDropDirective.prototype.getOptions = /**
+     * @return {?}
+     */
+    function () {
+        return this.uploader.options;
+    };
+    /**
+     * @return {?}
+     */
+    FileDropDirective.prototype.getFilters = /**
+     * @return {?}
+     */
+    function () {
+        return {};
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    FileDropDirective.prototype.onDrop = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var transfer = this._getTransfer(event);
+        if (!transfer) {
+            return;
+        }
+        /** @type {?} */
+        var options = this.getOptions();
+        /** @type {?} */
+        var filters = this.getFilters();
+        this._preventAndStop(event);
+        this.uploader.addToQueue(transfer.files, options, filters);
+        this.fileOver.emit(false);
+        this.onFileDrop.emit(transfer.files);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    FileDropDirective.prototype.onDragOver = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var transfer = this._getTransfer(event);
+        if (!this._haveFiles(transfer.types)) {
+            return;
+        }
+        transfer.dropEffect = 'copy';
+        this._preventAndStop(event);
+        this.fileOver.emit(true);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    FileDropDirective.prototype.onDragLeave = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (((/** @type {?} */ (this))).element) {
+            if (event.currentTarget === ((/** @type {?} */ (this))).element[0]) {
+                return;
+            }
+        }
+        this._preventAndStop(event);
+        this.fileOver.emit(false);
+    };
+    /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    FileDropDirective.prototype._getTransfer = /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer; // jQuery fix;
+    };
+    /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    FileDropDirective.prototype._preventAndStop = /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    /**
+     * @protected
+     * @param {?} types
+     * @return {?}
+     */
+    FileDropDirective.prototype._haveFiles = /**
+     * @protected
+     * @param {?} types
+     * @return {?}
+     */
+    function (types) {
+        if (!types) {
+            return false;
+        }
+        if (types.indexOf) {
+            return types.indexOf('Files') !== -1;
+        }
+        else if (types.contains) {
+            return types.contains('Files');
+        }
+        else {
+            return false;
+        }
+    };
+    FileDropDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: '[ng2FileDrop]' },] }
+    ];
+    /** @nocollapse */
+    FileDropDirective.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+    ]; };
+    FileDropDirective.propDecorators = {
+        uploader: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        fileOver: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        onFileDrop: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        onDrop: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['drop', ['$event'],] }],
+        onDragOver: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['dragover', ['$event'],] }],
+        onDragLeave: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['dragleave', ['$event'],] }]
+    };
+    return FileDropDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var FileUploadModule = /** @class */ (function () {
+    function FileUploadModule() {
+    }
+    FileUploadModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]],
+                    declarations: [FileDropDirective, FileSelectDirective],
+                    exports: [FileDropDirective, FileSelectDirective]
+                },] }
+    ];
+    return FileUploadModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+
+//# sourceMappingURL=ng2-file-upload.js.map
+
+
+/***/ }),
+
 /***/ "./src/app/addbook/addbook.module.ts":
 /*!*******************************************!*\
   !*** ./src/app/addbook/addbook.module.ts ***!
@@ -536,6 +2413,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _arbook_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./arbook.page */ "./src/app/arbook/arbook.page.ts");
+/* harmony import */ var _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/multi-file-upload/multi-file-upload.component */ "./src/app/components/multi-file-upload/multi-file-upload.component.ts");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+
+
 
 
 
@@ -551,10 +2432,11 @@ var ArbookPageModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"]
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_7__["FileUploadModule"]
             ],
             entryComponents: [_arbook_page__WEBPACK_IMPORTED_MODULE_5__["ArbookPage"]],
-            declarations: [_arbook_page__WEBPACK_IMPORTED_MODULE_5__["ArbookPage"]]
+            declarations: [_arbook_page__WEBPACK_IMPORTED_MODULE_5__["ArbookPage"], _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_6__["MultiFileUploadComponent"]]
         })
     ], ArbookPageModule);
     return ArbookPageModule;
@@ -571,7 +2453,7 @@ var ArbookPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    Enable {{bookCopy.bookname}} as AR Book\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n  \n<ion-list>\n  <ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" (click)=\"selectImageSource()\">Capture Markers\n      <span style=\"margin-right: 20px; \" class=\"ion-text-center\"></span>\n      <ion-icon src=\"../assets/icon/camera-outline.svg\">\n      </ion-icon>\n    </ion-button>\n  </ion-item>\n  <ion-item>\n    <ion-label *ngIf=\"markerImagesLength\">No. of markers captured - {{markerImagesLength}}</ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-thumbnail *ngFor=\"let image of markerImages\">\n      <ion-img src={{image}} *ngIf=\"markerImages\" height=\"50\"></ion-img>\n  </ion-thumbnail>\n  </ion-item>\n  \n  \n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" name=\"create-markers\" (click)=\"createMarkers()\">Upload All Markers\n      <span style=\"margin-right: 10px; \" class=\"ion-text-center\"></span>\n      <ion-icon name=\"cloud-upload\">\n      </ion-icon>\n    </ion-button>\n  \n\n    <ion-item>\n      <ion-thumbnail *ngFor=\"let url of urls \">\n        <ion-img src={{url}} height=\"50\"></ion-img>\n      </ion-thumbnail>\n    </ion-item>\n    \n\n\n</ion-list>\n\n\n\n    <!--<ion-button shape=\"round\" margin-top expand=\"block\">\n          <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n          <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Upload Markers for  </span>\n    </ion-button>\n    <ion-thumbnail>\n        <ion-img [src]=\"capturedImage\" *ngIf=\"capturedImage\" height=\"100\"></ion-img>\n    </ion-thumbnail>-->\n \n\n  <ion-col>\n    <ion-button (click)=\"closeModal()\" shape=\"round\" style=\"color: grey\" \n     margin-top expand=\"full\">Cancel</ion-button>\n  </ion-col>\n\n\n\n\n\n\n\n\n\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    Enable {{bookCopy.bookname}} as AR Book\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n  \n<!--<ion-list>\n  <ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" (click)=\"selectImageSource()\">Capture Markers\n      <span style=\"margin-right: 20px; \" class=\"ion-text-center\"></span>\n      <ion-icon src=\"../assets/icon/camera-outline.svg\">\n      </ion-icon>\n    </ion-button>\n  </ion-item>\n  <ion-item>\n    <ion-label *ngIf=\"markerImagesLength\">No. of markers captured - {{markerImagesLength}}</ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-thumbnail *ngFor=\"let image of markerImages\">\n      <ion-img src={{image}} *ngIf=\"markerImages\" height=\"50\"></ion-img>\n  </ion-thumbnail>\n  </ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" name=\"create-markers\" (click)=\"createMarkers()\">Upload All Markers\n      <span style=\"margin-right: 10px; \" class=\"ion-text-center\"></span>\n      <ion-icon name=\"cloud-upload\">\n      </ion-icon>\n    </ion-button>\n    <ion-item>\n      <ion-thumbnail *ngFor=\"let url of urls \">\n        <ion-img src={{url}} height=\"50\"></ion-img>\n      </ion-thumbnail>\n    </ion-item>\n</ion-list>-->\n    <!--<ion-button shape=\"round\" margin-top expand=\"block\">\n          <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n          <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Upload Markers for  </span>\n    </ion-button>\n    <ion-thumbnail>\n        <ion-img [src]=\"capturedImage\" *ngIf=\"capturedImage\" height=\"100\"></ion-img>\n    </ion-thumbnail>-->\n \n  <!--call multi-file-upload component to select anchor/marker and images-->\n  <app-multi-file-upload></app-multi-file-upload>\n\n  <ion-button (click)=\"upload()\" shape=\"round\" style=\"color: black\" \n     margin-top expand=\"full\">Upload Anchor & Content</ion-button>\n\n  <ion-col>\n    <ion-button (click)=\"closeModal()\" shape=\"round\" style=\"color: grey\" \n     margin-top expand=\"full\">Cancel</ion-button>\n  </ion-col>\n\n\n\n\n\n\n\n\n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -582,7 +2464,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".book-img {\n  width: 50px;\n  height: 50px;\n  border: gray solid 1px;\n  margin: 5px auto; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px; }\n\nion-button {\n  --background: #F4F6F7 ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.image-container {\n  min-height: 200px;\n  background-size: cover; }\n\n@media (min-width: 0px) {\n  .images {\n    -webkit-column-count: 2;\n       -moz-column-count: 2;\n            column-count: 2; } }\n\n@media (min-width: 420px) {\n  .images {\n    -webkit-column-count: 3;\n       -moz-column-count: 3;\n            column-count: 3; } }\n\n@media (min-width: 720px) {\n  .images {\n    -webkit-column-count: 4;\n       -moz-column-count: 4;\n            column-count: 4; } }\n\n.one-image {\n  margin: 2px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9hcmJvb2svYXJib29rLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQVc7RUFDWCxZQUFZO0VBQ1osc0JBQXNCO0VBQ3RCLGdCQUFnQixFQUFBOztBQUdwQjtFQUlLLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBSWpCO0VBQ0ksc0JBQWEsRUFBQTs7QUFHZjtFQUVFLHFCQUFhLEVBQUE7O0FBR2pCO0VBQ0ksaUJBQWlCO0VBQ2pCLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFLFdBQVcsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FyYm9vay9hcmJvb2sucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJvb2staW1nIHtcbiAgICB3aWR0aDogNTBweDtcbiAgICBoZWlnaHQ6IDUwcHg7XG4gICAgYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDVweCBhdXRvO1xufVxuXG4uZGlzcGxheWNhcmQge1xuICAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgICAvL2hlaWdodDozMHZoO1xuICAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgIG1hcmdpbjogNXB4O1xuICAgICBwYWRkaW5nOiA1cHg7XG4gICAgIC8vYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgIH1cblxuaW9uLWJ1dHRvbiB7XG4gICAgLS1iYWNrZ3JvdW5kOiAjRjRGNkY3IDtcbiAgfVxuXG4gIGlvbi10b29sYmFyIHtcbiAgICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgICAtLWJhY2tncm91bmQ6ICMxNDVBMzI7XG59XG5cbi5pbWFnZS1jb250YWluZXIge1xuICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIH1cbiAgXG4gIEBtZWRpYSAobWluLXdpZHRoOiAwcHgpIHtcbiAgICAuaW1hZ2VzIHtcbiAgICAgIGNvbHVtbi1jb3VudDogMjtcbiAgICB9XG4gIH1cbiAgXG4gIEBtZWRpYSAobWluLXdpZHRoOiA0MjBweCkge1xuICAgIC5pbWFnZXMge1xuICAgICAgY29sdW1uLWNvdW50OiAzO1xuICAgIH1cbiAgfVxuICBcbiAgQG1lZGlhIChtaW4td2lkdGg6IDcyMHB4KSB7XG4gICAgLmltYWdlcyB7XG4gICAgICBjb2x1bW4tY291bnQ6IDQ7XG4gICAgfVxuICB9XG4gIFxuICAub25lLWltYWdlIHtcbiAgICBtYXJnaW46IDJweDtcbiAgfSJdfQ== */"
+module.exports = ".book-img {\n  width: 50px;\n  height: 50px;\n  border: gray solid 1px;\n  margin: 5px auto; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px; }\n\nion-button {\n  --background: #F4F6F7 ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.image-container {\n  min-height: 200px;\n  background-size: cover; }\n\n@media (min-width: 0px) {\n  .images {\n    -webkit-column-count: 2;\n       -moz-column-count: 2;\n            column-count: 2; } }\n\n@media (min-width: 420px) {\n  .images {\n    -webkit-column-count: 3;\n       -moz-column-count: 3;\n            column-count: 3; } }\n\n@media (min-width: 720px) {\n  .images {\n    -webkit-column-count: 4;\n       -moz-column-count: 4;\n            column-count: 4; } }\n\n.one-image {\n  margin: 2px; }\n\n.drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    border: 1px solid #ccc;\n    padding: 6px 12px;\n    cursor: pointer; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9hcmJvb2svYXJib29rLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQVc7RUFDWCxZQUFZO0VBQ1osc0JBQXNCO0VBQ3RCLGdCQUFnQixFQUFBOztBQUdwQjtFQUlLLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBSWpCO0VBQ0ksc0JBQWEsRUFBQTs7QUFHZjtFQUVFLHFCQUFhLEVBQUE7O0FBR2pCO0VBQ0ksaUJBQWlCO0VBQ2pCLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHlCQUF5QjtFQUN6QiwwQkFBMEI7RUFDMUIsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCO0VBQ3ZCLGNBQWMsRUFBQTs7QUFHbEI7RUFFRSxpQkFBaUIsRUFBQTs7QUFGbkI7SUFLTSxhQUFhLEVBQUE7O0FBTG5CO0lBU00sc0JBQXNCO0lBQ3RCLGlCQUFpQjtJQUNqQixlQUFlLEVBQUE7O0FBSXJCO0VBQ0Usc0JBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hcmJvb2svYXJib29rLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ib29rLWltZyB7XG4gICAgd2lkdGg6IDUwcHg7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIGJvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHggYXV0bztcbn1cblxuLmRpc3BsYXljYXJkIHtcbiAgICAvLyB3aWR0aDogMzB2dztcbiAgICAgLy9oZWlnaHQ6MzB2aDtcbiAgICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgICBtYXJnaW46IDVweDtcbiAgICAgcGFkZGluZzogNXB4O1xuICAgICAvL2JhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gICB9XG5cbmlvbi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogI0Y0RjZGNyA7XG4gIH1cblxuICBpb24tdG9vbGJhciB7XG4gICAgLy8tLWJhY2tncm91bmQ6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG4uaW1hZ2UtY29udGFpbmVyIHtcbiAgICBtaW4taGVpZ2h0OiAyMDBweDtcbiAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICB9XG4gIFxuICBAbWVkaWEgKG1pbi13aWR0aDogMHB4KSB7XG4gICAgLmltYWdlcyB7XG4gICAgICBjb2x1bW4tY291bnQ6IDI7XG4gICAgfVxuICB9XG4gIFxuICBAbWVkaWEgKG1pbi13aWR0aDogNDIwcHgpIHtcbiAgICAuaW1hZ2VzIHtcbiAgICAgIGNvbHVtbi1jb3VudDogMztcbiAgICB9XG4gIH1cbiAgXG4gIEBtZWRpYSAobWluLXdpZHRoOiA3MjBweCkge1xuICAgIC5pbWFnZXMge1xuICAgICAgY29sdW1uLWNvdW50OiA0O1xuICAgIH1cbiAgfVxuICBcbiAgLm9uZS1pbWFnZSB7XG4gICAgbWFyZ2luOiAycHg7XG4gIH1cblxuICAuZHJvcC16b25lIHsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggI2RlZGRkZDsgXG4gICAgaGVpZ2h0OiAzMHZoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmZpbGUtaW5wdXQtY29udGFpbmVyIHtcblxuICB0ZXh0LWFsaWduOiByaWdodDtcblxuICBpbnB1dFt0eXBlPVwiZmlsZVwiXSB7XG4gICAgICBkaXNwbGF5OiBub25lO1xuICB9XG5cbiAgbGFiZWwge1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgICAgIHBhZGRpbmc6IDZweCAxMnB4O1xuICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICB9XG59XG5cbi5udi1maWxlLW92ZXIgeyBcbiAgYm9yZGVyOiBkb3R0ZWQgM3B4IHJlZDsgXG59Il19 */"
 
 /***/ }),
 
@@ -604,6 +2486,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
 /* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/multi-file-upload/multi-file-upload.component */ "./src/app/components/multi-file-upload/multi-file-upload.component.ts");
+
 
 
 
@@ -624,6 +2508,10 @@ var ArbookPage = /** @class */ (function () {
         this.transfer = transfer;
         this.dataReader = new FileReader();
         this.uploadStatus = "";
+        this.files = [];
+        this.anchorFiles = [];
+        this.anchorContentFiles = [];
+        this.anchorContentPlist = {};
     }
     ArbookPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -640,201 +2528,59 @@ var ArbookPage = /** @class */ (function () {
             console.log("inside err mess");
         });
     };
-    ArbookPage.prototype.selectImageSource = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var cameraOptions, galleryOptions, alert;
-            var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        cameraOptions = {
-                            quality: 100,
-                            destinationType: this._camera.DestinationType.FILE_URI,
-                            encodingType: this._camera.EncodingType.JPEG,
-                            mediaType: this._camera.MediaType.PICTURE,
-                            targetHeight: 45,
-                            targetWidth: 80,
-                            correctOrientation: true,
-                            sourceType: this._camera.PictureSourceType.CAMERA
-                        };
-                        galleryOptions = {
-                            quality: 100,
-                            destinationType: this._camera.DestinationType.FILE_URI,
-                            encodingType: this._camera.EncodingType.JPEG,
-                            mediaType: this._camera.MediaType.PICTURE,
-                            targetHeight: 45,
-                            targetWidth: 80,
-                            correctOrientation: true,
-                            sourceType: this._camera.PictureSourceType.SAVEDPHOTOALBUM
-                        };
-                        this.markerImages = [];
-                        this.capturedImages = [];
-                        this.markerImagesLength = 0;
-                        return [4 /*yield*/, this._alertController.create({
-                                header: "Select Source",
-                                message: "Pick a source for your image",
-                                buttons: [
-                                    {
-                                        text: "Camera",
-                                        handler: function () {
-                                            _this._camera.getPicture(cameraOptions).then(function (result) {
-                                                //console.log("RESULTS", results);
-                                                _this.markerImages.push('file://' + result);
-                                                console.log("Marker images length", _this.markerImages.length);
-                                                _this.markerImagesLength = _this.markerImages.length;
-                                            }, function (err) {
-                                                console.log(err);
-                                            });
-                                            /*this._camera.getPicture(cameraOptions)
-                                            .then(imageURI => {
-                                          
-                                              // display captured image
-                                              console.log(imageURI);
-                                              let imageName = imageURI.substring(imageURI.lastIndexOf('/')+1);
-                                              let imagePath =  imageURI.substring(0,imageURI.lastIndexOf('/')+1);
-                                              console.log("image name", imageName);
-                                              console.log("image path", imagePath);
-                                              console.log("before read as data url");
-                                              this.file.readAsDataURL(imagePath, imageName).then(res => {
-                                                
-                                                console.log("RES", res);
-                                                this.capturedImage = res
-                                
-                                              });
-                                              console.log("after read as data url");
-                                             // this.markerImages.push('data:image/jpeg;base64,' + this.capturedImage);
-                                              
-                                              // resolve URI, get blob & file and POST
-                                              this.file.resolveLocalFilesystemUrl(imageURI)
-                                              .then(entry => {
-                                                  console.log("inside resolve local file system url");
-                                                  (<FileEntry>entry).file(file => this.readFile(file))
-                                               })
-                                              .catch(err => {
-                                                console.log("error reading file")
-                                              })
-                                            }, (err) => {
-                                              // Handle error
-                                               console.log(err);
-                                         });*/
-                                        }
-                                    },
-                                    {
-                                        text: "Gallery",
-                                        handler: function () {
-                                            /*this._camera.getPicture(galleryOptions)
-                                            .then(imageURI => {
-                                              
-                                              // display captured image
-                                              let imageName = imageURI.substring(imageURI.lastIndexOf('/')+1);
-                                              let imagePath =  imageURI.substring(0,imageURI.lastIndexOf('/')+1);
-                                              this.file.readAsDataURL(imagePath, imageName).then(res => this.capturedImage = res);
-                                            //  this.copyFileToLocalDir(imagePath, imageName, this.createFileName());
-                                
-                                              // resolve URI, get blob & file and POST
-                                              this.file.resolveLocalFilesystemUrl(imageURI)
-                                              .then(entry => {
-                                                  console.log("inside resolve local file system url");
-                                                  (<FileEntry>entry).file(file => this.readFile(file))
-                                               })
-                                              .catch(err => {
-                                                console.log("error reading file")
-                                              })
-                                            }, (err) => {
-                                              // Handle error
-                                               console.log(err);
-                                         });*/
-                                            _this.imagePicker.getPictures(galleryOptions).then(function (results) {
-                                                for (var i = 0; i < results.length; i++) {
-                                                    console.log("RESULTS", results[i]);
-                                                    _this.markerImages.push('file://' + results[i]);
-                                                }
-                                                console.log("Marker images length", _this.markerImages.length);
-                                                _this.markerImagesLength = _this.markerImages.length;
-                                                /*for (var i=0; i < this.markerImages.length; i++) {
-                                                console.log("inside for loop")
-                                                let imageName = this.markerImages[i].substring(this.markerImages[i].lastIndexOf('/')+1);
-                                                console.log("Image Name", imageName);
-                                                let imagePath =  this.markerImages[i].substring(0,this.markerImages[i].lastIndexOf('/')+1);
-                                                console.log("Image Path", imagePath);
-                                                this.file.readAsDataURL(imagePath, imageName).then(res => {
-                                                  //console.log("RES", res);
-                                                  this.capturedImages[i] = res;
-                                                  console.log("captured image", this.capturedImages[i]);
-                                                });
-                                      
-                                               }*/
-                                            }, function (err) {
-                                                // Handle error
-                                                console.log(err);
-                                            });
-                                        }
-                                    }
-                                ]
-                            })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+    ArbookPage.prototype.upload = function () {
+        /*
+          1. Check if BookIDplist.xml exists on s3
+          2. If yes =
+                read the file.
+                if empty, add entry int xml file : [anchor0: [anchor0content1, anchor0content2....]]
+                if not empty,
+                  read last key from the file e.g. anchor2
+                  add entry int xml file : [anchor3: [anchor3content1, anchor3content2....]]
+          3. If no =
+                create BookIDplist.xml file
+                add entry int xml file : [anchor0: [anchor0content1, anchor0content2....]]
+          4. Save and upload the xml file in s3 storage
+          5. upload all the images (anchor and content)
+      */
+        this.createAccessLogFileAndWrite("Hello World - someEventFunc was called");
+        var anchorFiles = this.fileField.getAnchorFiles();
+        var anchorContentFiles = this.fileField.getAnchorContentFiles();
+        console.log(anchorFiles);
+        console.log(anchorContentFiles);
+        for (var i = 0; i < anchorContentFiles.length; i++) {
+            anchorContentFiles[i].name = 'anchor0content' + i;
+        }
+        var files = anchorFiles.concat(anchorContentFiles);
+        console.log(files);
+        this.file.readAsText(this.file.dataDirectory, 'access.log').then(function (data) {
+            console.log("Access log", data);
         });
     };
-    ArbookPage.prototype.readFile = function (file) {
+    ArbookPage.prototype.createAccessLogFileAndWrite = function (text) {
         var _this = this;
-        var reader = new FileReader();
-        console.log("file type", file.type);
-        console.log("file type", file.name);
-        reader.onloadend = function () {
-            _this.uploadData = new FormData();
-            if (reader.result) {
-                var imgBlob = new Blob([reader.result], { type: file.type });
-                _this.uploadData.append('arMarkerImageFile', imgBlob, file.name);
-                _this.booksService.uploadMarkerImage(_this.bookId, _this.uploadData)
-                    .subscribe(function (res) {
-                    console.log("Uploaded image details ----->", res);
-                });
-            }
-        };
-        reader.readAsArrayBuffer(file);
+        console.log("data directory", this.file.dataDirectory);
+        this.file.checkFile(this.file.dataDirectory, 'access.log')
+            .then(function (doesExist) {
+            console.log("doesExist : " + doesExist);
+            return _this.writeToAccessLogFile(text);
+        }).catch(function (err) {
+            return _this.file.createFile(_this.file.dataDirectory, 'access.log', false)
+                .then(function (FileEntry) { return _this.writeToAccessLogFile(text); })
+                .catch(function (err) { return console.log('Couldnt create file'); });
+        });
     };
-    ArbookPage.prototype.createMarkers = function () {
-        for (var i = 0; i < this.markerImages.length; i++) {
-            console.log("Selected image is ", this.markerImages[i]);
-        }
-        console.log("inside createMarkers");
-        var counter = 0;
-        var ref = this;
-        function InnerFunc() {
-            console.log("Beginning Counter", counter);
-            console.log("inside InnerFunc");
-            console.log("file system url", ref.markerImages[counter]);
-            ref.file.resolveLocalFilesystemUrl(ref.markerImages[counter])
-                .then(function (entry) {
-                console.log("inside resolve local file system url");
-                entry.file(function (file) { return ref.readFile(file); });
-                counter++;
-                console.log("Inside Counter is", counter);
-                if (counter < ref.markerImages.length) {
-                    InnerFunc();
-                }
-                else {
-                    alert("successfully uploaded all images");
-                }
-            })
-                .catch(function (err) {
-                console.log("error reading file");
-            });
-        }
-        console.log("innerFunc getting called");
-        InnerFunc();
+    ArbookPage.prototype.writeToAccessLogFile = function (text) {
+        this.file.writeExistingFile(this.file.dataDirectory, 'access.log', text);
     };
     ArbookPage.prototype.closeModal = function () {
         console.log("inside close modal");
         this._modalController.dismiss();
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["MultiFileUploadComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["MultiFileUploadComponent"])
+    ], ArbookPage.prototype, "fileField", void 0);
     ArbookPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-arbook',
@@ -850,6 +2596,82 @@ var ArbookPage = /** @class */ (function () {
             _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_7__["FileTransfer"]])
     ], ArbookPage);
     return ArbookPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/multi-file-upload/multi-file-upload.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/multi-file-upload/multi-file-upload.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n      Add Anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\" multiple />\n      Add Content corresponding to above anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderContent.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n  \n  \n  \n\n</ion-content>\n\n\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/components/multi-file-upload/multi-file-upload.component.scss":
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/multi-file-upload/multi-file-upload.component.scss ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    border: 1px solid #ccc;\n    padding: 6px 12px;\n    cursor: pointer; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtdXBsb2FkL211bHRpLWZpbGUtdXBsb2FkLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQXlCO0VBQ3pCLDBCQUEwQjtFQUMxQixZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQix1QkFBdUI7RUFDdkIsY0FBYyxFQUFBOztBQUdsQjtFQUVJLGlCQUFpQixFQUFBOztBQUZyQjtJQUtRLGFBQWEsRUFBQTs7QUFMckI7SUFTUSxzQkFBc0I7SUFDdEIsaUJBQWlCO0lBQ2pCLGVBQWUsRUFBQTs7QUFJdkI7RUFDSSxzQkFBc0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvbXVsdGktZmlsZS11cGxvYWQvbXVsdGktZmlsZS11cGxvYWQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZHJvcC16b25lIHsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggI2RlZGRkZDsgXG4gICAgaGVpZ2h0OiAzMHZoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmZpbGUtaW5wdXQtY29udGFpbmVyIHtcblxuICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuXG4gICAgaW5wdXRbdHlwZT1cImZpbGVcIl0ge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cblxuICAgIGxhYmVsIHtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgICAgICAgcGFkZGluZzogNnB4IDEycHg7XG4gICAgICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICB9XG59XG5cbi5udi1maWxlLW92ZXIgeyBcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggcmVkOyBcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/multi-file-upload/multi-file-upload.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/components/multi-file-upload/multi-file-upload.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: MultiFileUploadComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MultiFileUploadComponent", function() { return MultiFileUploadComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+
+
+
+var MultiFileUploadComponent = /** @class */ (function () {
+    function MultiFileUploadComponent() {
+        this.uploaderAnchor = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
+        this.uploaderContent = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
+        this.hasBaseDropZoneOver = false;
+    }
+    MultiFileUploadComponent.prototype.getAnchorFiles = function () {
+        return this.uploaderAnchor.queue.map(function (fileItem) {
+            return fileItem.file;
+        });
+    };
+    MultiFileUploadComponent.prototype.getAnchorContentFiles = function () {
+        return this.uploaderContent.queue.map(function (fileItem) {
+            return fileItem.file;
+        });
+    };
+    MultiFileUploadComponent.prototype.fileOverBase = function (ev) {
+        this.hasBaseDropZoneOver = ev;
+    };
+    MultiFileUploadComponent.prototype.reorderFiles = function (reorderEvent) {
+        var element = this.uploaderAnchor.queue.splice(reorderEvent.detail.from, 1)[0];
+        this.uploaderAnchor.queue.splice(reorderEvent.detail.to, 0, element);
+    };
+    MultiFileUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-multi-file-upload',
+            template: __webpack_require__(/*! ./multi-file-upload.component.html */ "./src/app/components/multi-file-upload/multi-file-upload.component.html"),
+            styles: [__webpack_require__(/*! ./multi-file-upload.component.scss */ "./src/app/components/multi-file-upload/multi-file-upload.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], MultiFileUploadComponent);
+    return MultiFileUploadComponent;
 }());
 
 

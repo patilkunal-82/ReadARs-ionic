@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BooksService } from '../services/books.service';
 import { Book } from '../shared/book';
@@ -10,6 +10,21 @@ import { FileTransfer, FileUploadOptions} from '@ionic-native/file-transfer/ngx'
 import { baseURL} from '../shared/baseurl';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
+import { MultiFileUploadComponent} from '../components/multi-file-upload/multi-file-upload.component'
+
+import { xml } from 'xml-serializer-ts';
+import { stringify } from '@angular/core/src/util';
+//import { XMLElement, XMLAttribute, XMLChild, xml} from 'xml-decorators'
+
+
+type Anchor = {
+  anchorName: string;
+}
+type AnchorContent = {
+  contentName: string[];
+};
+
+
 @Component({
   selector: 'app-arbook',
   templateUrl: './arbook.page.html',
@@ -17,14 +32,22 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
 })
 export class ArbookPage implements OnInit {
 
+  
+
   bookId; // from tab3 as part of component props
+  bookName; //from tab3 as part of component props
+ 
+  @ViewChild(MultiFileUploadComponent) fileField: MultiFileUploadComponent;
+
+
   bookCopy: Book;
   errMess: string;
   public selectedFile;
-  public uploadData;
+  public uploadData = new FormData();
   public dataReader = new FileReader();
   public event1;
   imgURL: any;
+  url: any;
   receivedImageData: any;
   capturedImage: any;
   capturedImages: any[];
@@ -34,6 +57,16 @@ export class ArbookPage implements OnInit {
   uploadStatus: string = "";
   counter: number;
   public urls: SafeResourceUrl[];
+  files: File[] = [];
+  anchorFiles: File[] = [];
+  anchorContentFiles: File[] = [];
+  //anchorContentPlist: { [index: string]: [string] } = {};
+  text: string;
+  //decoder = new TextDecoder();
+  updateFlag: boolean = false;
+  plistCopy: any;
+  
+  
 
   constructor(private _modalController: ModalController,
               private booksService: BooksService,
@@ -51,21 +84,174 @@ export class ArbookPage implements OnInit {
           console.log("Book Copy in AR Book", this.bookCopy);
       }, errmess => this.errMess = <any>errmess);
 
-      
+  }
 
-      this.booksService.getMarkerImages(this.bookId)
-      .subscribe(images => {
-        //console.log("X is", images)
-        this.urls = images;
-        
-    }, errMess => {
-      console.log("inside err mess");
-    });
+  upload() {
+
+    /*
+    1. read existing Booknameplist.xml from s3 bucket - done
+    2. if empty, create new one with the user selected set of anchor and content names populated - done
+    3. if !empty, 
+
+      3a.1 First check, against which anchor is user trying to add the content. - 
+      3a.2 Determine the anchorname from the xml file and append user selected content to it - done
+      3a.3 Update XML file and upload it on s3 - done
+
+      3b.1 If user is creating a new anchor, determine the anchorname from the xml file, and add new anchor next to it
+      3b.2 Add corresponding content against it 
+      3b.3 Update XML file and upload it on s3
+
+      HTML component for 3a.1 - 
+      Present list of existing anchors & content as thumbnails 
+      Ask user if he/she wishes to use an existing anchor. If yes, user selects the corresponding thmbnail and uses 
+      selector/uploaded dialogue to add the content. 
+    
+  */
+  this.booksService.getBookPlistXml(this.bookId)
+  .subscribe(plist => {
+      console.log("link to book plist found");
+      console.log("plist", plist);
+      if (plist) {
+       this.plistCopy = plist;
+       this.updateFlag = true;
+       this.prepareAnchorAndContentsDataAndUpload(this.updateFlag);
+      }
+      else {
+        this.updateFlag = false;
+        console.log("plist is empty");
+        this.prepareAnchorAndContentsDataAndUpload(this.updateFlag);
+      }
+     }), errMess => console.log(errMess);
+
+
 
   }
 
+  prepareAnchorAndContentsDataAndUpload(flag: boolean) {
 
-  async selectImageSource() {
+    let anchor = this.fileField.getAnchorFiles();
+    let contents = this.fileField.getAnchorContentFiles();
+
+    // update existing xml plist
+    if (flag) {
+
+      var domParser = new DOMParser();
+      var xmlDocument = domParser.parseFromString(this.plistCopy.toString(), 'text/xml');
+      console.log("xmlDocument from s3", xmlDocument);
+
+      let keyElLength = xmlDocument.getElementsByTagName('key').length;
+      console.log("keyElLength", keyElLength);
+      let prevAnchorName =  xmlDocument.getElementsByTagName('key')[keyElLength-1].childNodes[0].nodeValue;
+      console.log("prev anchor name", prevAnchorName);
+      let prevAnchorIndex = prevAnchorName.slice(6);
+      console.log("prev anchor index", prevAnchorIndex);
+      let newAnchorIndex = parseInt(prevAnchorIndex) + 1;
+      
+      let anchorName = 'anchor' + newAnchorIndex;
+      let plistMap = new Map<string, string[]>();
+      plistMap.set(anchorName, []);   
+      for (let j=0; j < contents.length;j++) {
+        let contentName = anchorName + 'content' + (j+1);
+        plistMap.get(anchorName).push(contentName)
+      }
+      console.log("plistMap", plistMap);
+
+      // append anchor file
+      this.uploadData.append('imageFile', anchor[0].rawFile, anchorName);
+      // append cotent files
+      for (let i=0; i< contents.length; i++) {
+        let contentName = anchorName + 'content' + (i+1);
+        this.uploadData.append('imageFile', contents[i].rawFile,contentName);
+      }
+  
+      let root = xmlDocument.getElementsByTagName('plist')[0];
+      console.log("root ", root);
+
+      for (let entry of Array.from(plistMap.entries())) {
+
+          console.log("Entries", entry);
+          let keyEl = xmlDocument.createElement('key');
+          keyEl.textContent = entry[0];
+          root.appendChild(keyEl);
+        
+          let keyElvalues = entry[1];
+          for (let j=0; j < keyElvalues.length; j++) {
+            let valEl = xmlDocument.createElement('value')
+            valEl.textContent = keyElvalues[j];
+            keyEl.appendChild(valEl)
+          }
+      }
+
+      let serializer = new XMLSerializer();
+      let xmlSerializedDoc = serializer.serializeToString(xmlDocument);
+      console.log("xml serailizd doc", xmlSerializedDoc);
+
+      var blob = new Blob([xmlSerializedDoc], {type: "text/xml"})
+      this.uploadData.append('xmlFile', blob, this.bookId+'plist');
+     
+    }
+    else {
+       
+        let anchorName = 'anchor0';
+        let plistMap = new Map<string, string[]>();
+        plistMap.set(anchorName, []);   
+        for (let j=0; j < contents.length;j++) {
+          let contentName = anchorName + 'content' + (j+1);
+          plistMap.get(anchorName).push(contentName)
+        }
+        console.log("plistMap", plistMap);
+        
+        // append anchor file as anchor0
+        this.uploadData.append('imageFile', anchor[0].rawFile, anchorName);
+        // append cotent files as anchor0content0, anchor0,content1
+        for (let i=0; i < contents.length; i++) {
+          let contentName = anchorName + 'content' + (i+1);
+          this.uploadData.append('imageFile', contents[i].rawFile, contentName);
+        }
+    
+        // construct new xml plist file 
+        let doc = document.implementation.createDocument('','',null);
+        let root = doc.createElement('plist');
+        doc.appendChild(root);
+
+        for (let entry of Array.from(plistMap.entries())) {
+
+          console.log("Entries", entry);
+            let keyEl = doc.createElement('key');
+            keyEl.textContent = entry[0];
+            root.appendChild(keyEl);
+          
+            let keyElvalues = entry[1];
+            for (let j=0; j < keyElvalues.length; j++) {
+              let valEl = doc.createElement('value')
+              valEl.textContent = keyElvalues[j];
+              keyEl.appendChild(valEl)
+            }
+        }
+
+        let serializer = new XMLSerializer();
+        let xmlSerializedDoc = serializer.serializeToString(doc)
+        console.log("xml serailizd doc", xmlSerializedDoc);
+
+        var blob = new Blob([xmlSerializedDoc], {type: "text/xml"})
+        this.uploadData.append('xmlFile', blob, this.bookId+'plist');
+    }
+    
+    
+    // upload
+    this.booksService.uploadAnchorContentAndPlist(this.bookId, this.uploadData, this.updateFlag)
+    .subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  closeModal() {
+    console.log("inside close modal");
+    this._modalController.dismiss();
+  }
+
+  
+  /*async selectImageSource() {
 
     const cameraOptions: CameraOptions = {
       quality: 100,
@@ -104,7 +290,7 @@ export class ArbookPage implements OnInit {
 
             this._camera.getPicture(cameraOptions).then((result) => {
               
-              //console.log("RESULTS", results);
+             
               this.markerImages.push('file://'+ result);
               console.log("Marker images length", this.markerImages.length);
               this.markerImagesLength = this.markerImages.length;
@@ -115,67 +301,14 @@ export class ArbookPage implements OnInit {
             });
             
            
-            /*this._camera.getPicture(cameraOptions)
-            .then(imageURI => {
           
-              // display captured image
-              console.log(imageURI);
-              let imageName = imageURI.substring(imageURI.lastIndexOf('/')+1);
-              let imagePath =  imageURI.substring(0,imageURI.lastIndexOf('/')+1);
-              console.log("image name", imageName);
-              console.log("image path", imagePath);
-              console.log("before read as data url");
-              this.file.readAsDataURL(imagePath, imageName).then(res => {
-                
-                console.log("RES", res);
-                this.capturedImage = res
-
-              });
-              console.log("after read as data url");
-             // this.markerImages.push('data:image/jpeg;base64,' + this.capturedImage);
-              
-              // resolve URI, get blob & file and POST
-              this.file.resolveLocalFilesystemUrl(imageURI)
-              .then(entry => {
-                  console.log("inside resolve local file system url");
-                  (<FileEntry>entry).file(file => this.readFile(file))
-               })
-              .catch(err => {
-                console.log("error reading file")
-              })
-            }, (err) => {
-              // Handle error
-               console.log(err);
-         });*/
-            
         }
       },
       {
           text: "Gallery",
           handler: ()=> {
            
-            /*this._camera.getPicture(galleryOptions)
-            .then(imageURI => {
-              
-              // display captured image
-              let imageName = imageURI.substring(imageURI.lastIndexOf('/')+1);
-              let imagePath =  imageURI.substring(0,imageURI.lastIndexOf('/')+1);
-              this.file.readAsDataURL(imagePath, imageName).then(res => this.capturedImage = res);
-            //  this.copyFileToLocalDir(imagePath, imageName, this.createFileName());
-
-              // resolve URI, get blob & file and POST
-              this.file.resolveLocalFilesystemUrl(imageURI)
-              .then(entry => {
-                  console.log("inside resolve local file system url");
-                  (<FileEntry>entry).file(file => this.readFile(file))
-               })
-              .catch(err => {
-                console.log("error reading file")
-              })
-            }, (err) => {
-              // Handle error
-               console.log(err);
-         });*/
+           
 
          this.imagePicker.getPictures(galleryOptions).then((results) => {
           for (var i = 0; i < results.length; i++) {
@@ -185,21 +318,7 @@ export class ArbookPage implements OnInit {
           console.log("Marker images length", this.markerImages.length);
           this.markerImagesLength = this.markerImages.length;
           
-          
-
-          /*for (var i=0; i < this.markerImages.length; i++) { 
-          console.log("inside for loop")
-          let imageName = this.markerImages[i].substring(this.markerImages[i].lastIndexOf('/')+1);
-          console.log("Image Name", imageName);
-          let imagePath =  this.markerImages[i].substring(0,this.markerImages[i].lastIndexOf('/')+1);
-          console.log("Image Path", imagePath);
-          this.file.readAsDataURL(imagePath, imageName).then(res => {
-            //console.log("RES", res);
-            this.capturedImages[i] = res;
-            console.log("captured image", this.capturedImages[i]);
-          });
-
-         }*/
+        
 
          }, (err) => {
            // Handle error
@@ -215,11 +334,9 @@ export class ArbookPage implements OnInit {
 
     await alert.present();
 
-}
+}*/
 
-
-
-readFile(file: any) {
+/*readFile(file: any) {
 
   const reader = new FileReader();
   console.log("file type", file.type);
@@ -238,9 +355,9 @@ readFile(file: any) {
     }
   };
   reader.readAsArrayBuffer(file);
-}
+}*/
 
-createMarkers() {
+ /*createMarkers() {
 
   for (var i = 0; i < this.markerImages.length; i++) {
     console.log("Selected image is ", this.markerImages[i]);
@@ -278,11 +395,8 @@ createMarkers() {
   InnerFunc();
 
   
-}
+}*/
 
-closeModal() {
-    console.log("inside close modal");
-    this._modalController.dismiss();
-  }
+
 
 }

@@ -184,5 +184,21 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-demoplugin": {
+    "source": {
+      "type": "local",
+      "path": "/Users/kunalpatil/PersonalFamily/WorkRelated/Programming/Ionic/ReadARs_Ionic/node_modules/demoplugin"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-arplugin": {
+    "source": {
+      "type": "local",
+      "path": "/Users/kunalpatil/PersonalFamily/WorkRelated/Programming/Ionic/ReadARs_Ionic/node_modules/arplugin"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

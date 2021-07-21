@@ -39,6 +39,9 @@
     <feature name="CordovaHttpPlugin">
         <param name="ios-package" value="CordovaHttpPlugin" />
     </feature>
+    <feature name="ArPlugin">
+        <param name="ios-package" value="ArPlugin" />
+    </feature>
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
@@ -100,6 +103,9 @@
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
         <string>To save QR codes</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSContactsUsageDescription">
+        <string>To access contact list</string>
     </edit-config>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />

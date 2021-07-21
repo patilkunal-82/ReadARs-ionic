@@ -47,6 +47,7 @@ import { SortPipe } from './shared/sort.pipe'
 
 
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -58,7 +59,7 @@ import { SortPipe } from './shared/sort.pipe'
     BrowserAnimationsModule,
     //IonicImageLoader.forRoot()
     IonicImageLoaderModule
-    
+  
    
   ],
   providers: [
@@ -96,7 +97,7 @@ import { SortPipe } from './shared/sort.pipe'
     HTTP,
     ImagePicker,
     FileTransfer,
-  
+   
   
     
     

@@ -15,22 +15,46 @@
 
 <ion-content>
    
-    <!--<iframe src="../../assets/aframe-ar.html"></iframe>-->
+      
+        <!--<div id="container">
+          <ion-button (click)="add()">Add Numbers</ion-button>
+            <ion-list>
+              <ion-item>{{total}}</ion-item>
+            </ion-list>
+        </div>-->
 
-    
-      <!--<ion-button (click)="testarplugin()"></ion-button>
-     
-     
-      <ion-list>
-        <ion-item *ngFor="let c of contacts">
-          <ion-label>
-            {{ c.firstName }} {{ c.lastName }}
-            <p>
-              {{ c.telephone }}
-            </p>
-          </ion-label>
-        </ion-item>
-      </ion-list>-->
+        
+         <!--<ion-button expand="full" (click)="loadContacts()">
+            Load Contacts
+          </ion-button>-->
+         
+          <!--<ion-list>
+            <ion-item *ngFor="let c of contacts">
+              <ion-label>
+                {{ c.firstName }} {{ c.lastName }}
+                <p>
+                  {{ c.telephone }}
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>-->
+
+    <ion-list>
+      <ion-item *ngFor="let book of books">
+        <img-loader class="bookimage" [src]="(bookIdImageMap.get(book._id))"  
+        useImg (load)="onImageLoad($event)" button>
+        </img-loader>
+        <ion-button  shape="round" style="color: #145A32" margin expand="block"  (click)="viewAR(book._id)">View AR</ion-button>
+        <p></p>
+        <ion-button  shape="round" style="color: #145A32" margin expand="block" (click)="viewAnchors()">View Anchor Index</ion-button>
+     </ion-item>
+    </ion-list>
+
+      
+
+          
+         
+          
    
 
 </ion-content> 

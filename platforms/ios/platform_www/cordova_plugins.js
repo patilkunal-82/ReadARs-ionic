@@ -276,6 +276,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-arplugin.ArPlugin",
+      "file": "plugins/cordova-plugin-arplugin/www/ArPlugin.js",
+      "pluginId": "cordova-plugin-arplugin",
+      "clobbers": [
+        "ArPlugin"
+      ]
+    },
+    {
       "id": "cordova-plugin-camera.Camera",
       "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
       "pluginId": "cordova-plugin-camera",
@@ -433,6 +441,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-advanced-http": "3.1.0",
+    "cordova-plugin-arplugin": "1.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-email-composer": "0.9.2",

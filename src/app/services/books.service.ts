@@ -123,6 +123,21 @@ export class BooksService {
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
     }
 
+    uploadAnchorContentAndPlist(bookId: string, data: any, flag: boolean) {
+      console.log('inside Book Service : upload XML... book id', bookId);
+      console.log('inside Book Service : XML Data', data);
+      console.log('flag', flag);
+      if (flag) {
+        return this.http.put(baseURL + 'arrouter/' + bookId, data)
+        .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+      }
+      else {
+        return this.http.post(baseURL + 'arrouter/' + bookId, data)
+        .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+      }
+     
+    }
+
     uploadMyProfileImage(myname: string, imageData: any) { 
       console.log('inside Book Service : upload my profile image, i am -> ', myname);
       console.log('upload my profile image : imageData', imageData);
@@ -131,7 +146,7 @@ export class BooksService {
 
     }
 
-    uploadMarkerImage(bookID: string, imageData: any) {
+   /* uploadMarkerImage(bookID: string, imageData: any) {
 
       console.log('inside Book Service : upload my marker image for bookId ', bookID);
       console.log('upload my marker image : imageData', imageData);
@@ -139,15 +154,27 @@ export class BooksService {
       return this.http.post(baseURL + 'armarkerrouter/' + bookID, imageData)
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
 
-    }
+    }*/
 
-    getMarkerImages(bookId: string) {
+    /*getMarkerImages(bookId: string) {
       console.log('Inside book service getBook ' + bookId);
       return this.http.get<any[]>(baseURL+'armarkerrouter/'+ bookId)
       .pipe(catchError(this.processHTTPMsgService.handleError));
     }
 
-   
+    getAnchorAndContent(bookId: string) {
+      console.log('Inside book service getBook ' + bookId);
+      return this.http.get<any[]>(baseURL+'armarkerrouter/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }*/
+
+    getBookPlistXml(bookId: string) {
+      console.log('Inside book service getBookPlistXml' + bookId);
+      return this.http.get(baseURL+'arrouter/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+  
 
     // this method gets the url to BLOB and creates an blob object for the image to be displayed
     /*getBookImage(id: string): Observable<SafeResourceUrl> {

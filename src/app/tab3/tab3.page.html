@@ -76,7 +76,7 @@
    </ion-item-option>
    <ion-item-option>
     <ion-icon style="color: darkgreen"  slot="icon-only"
-    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(rBook._id)"></ion-icon>
+    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(rBook._id, rBook.bookname)"></ion-icon>
   </ion-item-option>
   </ion-item-options>
 </ion-item-sliding>
@@ -111,7 +111,7 @@
   </ion-item-option>   
   <ion-item-option>
     <ion-icon style="color: darkgreen"  slot="icon-only"
-    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(aBook._id)"></ion-icon>
+    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(aBook._id, aBook.bookname)"></ion-icon>
   </ion-item-option> 
   </ion-item-options>
 </ion-item-sliding>
@@ -146,7 +146,7 @@
     </ion-item-option>
     <ion-item-option>
       <ion-icon style="color: darkgreen"  slot="icon-only"
-      src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(bBook._id)"></ion-icon>
+      src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(bBook._id, bBook.bookname)"></ion-icon>
     </ion-item-option>
 </ion-item-options>
 </ion-item-sliding>
@@ -185,7 +185,7 @@
           src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(book._id)"></ion-icon>
          <ion-item-option>
             <ion-icon style="color: darkgreen"  slot="icon-only"
-            src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(book._id)">
+            src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(book._id, book.bookname)">
           </ion-icon>
           </ion-item-option>
         </ion-item-option>    

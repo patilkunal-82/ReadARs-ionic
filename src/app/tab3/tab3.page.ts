@@ -748,12 +748,13 @@ export class Tab3Page implements OnInit, AfterViewInit {
     return addbookModal.present();
   }
 
-  async arBookModal(id: string) {
+  async arBookModal(id: string, name: string) {
 
     const arbookModal = await this._modalController.create({
       component: ArbookPage,
       componentProps: {
-        bookId: id
+        bookId: id,
+        bookName: name
       }
     });
 

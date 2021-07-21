@@ -60,5 +60,7 @@
 	<string>To scan QR codes</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To save QR codes</string>
+	<key>NSContactsUsageDescription</key>
+	<string>To access contact list</string>
 </dict>
 </plist>
