@@ -2414,7 +2414,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _arbook_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./arbook.page */ "./src/app/arbook/arbook.page.ts");
 /* harmony import */ var _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/multi-file-upload/multi-file-upload.component */ "./src/app/components/multi-file-upload/multi-file-upload.component.ts");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+/* harmony import */ var _components_multi_file_content_upload_multi_file_content_upload_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/multi-file-content-upload/multi-file-content-upload.component */ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.ts");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
+
 
 
 
@@ -2433,10 +2437,11 @@ var ArbookPageModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                ng2_file_upload__WEBPACK_IMPORTED_MODULE_7__["FileUploadModule"]
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__["FileUploadModule"],
+                ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_9__["IonicImageLoaderModule"]
             ],
             entryComponents: [_arbook_page__WEBPACK_IMPORTED_MODULE_5__["ArbookPage"]],
-            declarations: [_arbook_page__WEBPACK_IMPORTED_MODULE_5__["ArbookPage"], _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_6__["MultiFileUploadComponent"]]
+            declarations: [_arbook_page__WEBPACK_IMPORTED_MODULE_5__["ArbookPage"], _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_6__["MultiFileUploadComponent"], _components_multi_file_content_upload_multi_file_content_upload_component__WEBPACK_IMPORTED_MODULE_7__["MultiFileContentUploadComponent"]]
         })
     ], ArbookPageModule);
     return ArbookPageModule;
@@ -2453,7 +2458,7 @@ var ArbookPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    Enable {{bookCopy.bookname}} as AR Book\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n  \n<!--<ion-list>\n  <ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" (click)=\"selectImageSource()\">Capture Markers\n      <span style=\"margin-right: 20px; \" class=\"ion-text-center\"></span>\n      <ion-icon src=\"../assets/icon/camera-outline.svg\">\n      </ion-icon>\n    </ion-button>\n  </ion-item>\n  <ion-item>\n    <ion-label *ngIf=\"markerImagesLength\">No. of markers captured - {{markerImagesLength}}</ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-thumbnail *ngFor=\"let image of markerImages\">\n      <ion-img src={{image}} *ngIf=\"markerImages\" height=\"50\"></ion-img>\n  </ion-thumbnail>\n  </ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" name=\"create-markers\" (click)=\"createMarkers()\">Upload All Markers\n      <span style=\"margin-right: 10px; \" class=\"ion-text-center\"></span>\n      <ion-icon name=\"cloud-upload\">\n      </ion-icon>\n    </ion-button>\n    <ion-item>\n      <ion-thumbnail *ngFor=\"let url of urls \">\n        <ion-img src={{url}} height=\"50\"></ion-img>\n      </ion-thumbnail>\n    </ion-item>\n</ion-list>-->\n    <!--<ion-button shape=\"round\" margin-top expand=\"block\">\n          <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n          <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Upload Markers for  </span>\n    </ion-button>\n    <ion-thumbnail>\n        <ion-img [src]=\"capturedImage\" *ngIf=\"capturedImage\" height=\"100\"></ion-img>\n    </ion-thumbnail>-->\n \n  <!--call multi-file-upload component to select anchor/marker and images-->\n  <app-multi-file-upload></app-multi-file-upload>\n\n  <ion-button (click)=\"upload()\" shape=\"round\" style=\"color: black\" \n     margin-top expand=\"full\">Upload Anchor & Content</ion-button>\n\n  <ion-col>\n    <ion-button (click)=\"closeModal()\" shape=\"round\" style=\"color: grey\" \n     margin-top expand=\"full\">Cancel</ion-button>\n  </ion-col>\n\n\n\n\n\n\n\n\n\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    Enable {{bookName}} as AR Book\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"close()\">\n        <ion-icon style=\"color:#FDFEFE\" name=\"close\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>\n\n\n  \n<!--<ion-list>\n  <ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" (click)=\"selectImageSource()\">Capture Markers\n      <span style=\"margin-right: 20px; \" class=\"ion-text-center\"></span>\n      <ion-icon src=\"../assets/icon/camera-outline.svg\">\n      </ion-icon>\n    </ion-button>\n  </ion-item>\n  <ion-item>\n    <ion-label *ngIf=\"markerImagesLength\">No. of markers captured - {{markerImagesLength}}</ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-thumbnail *ngFor=\"let image of markerImages\">\n      <ion-img src={{image}} *ngIf=\"markerImages\" height=\"50\"></ion-img>\n  </ion-thumbnail>\n  </ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" name=\"create-markers\" (click)=\"createMarkers()\">Upload All Markers\n      <span style=\"margin-right: 10px; \" class=\"ion-text-center\"></span>\n      <ion-icon name=\"cloud-upload\">\n      </ion-icon>\n    </ion-button>\n    <ion-item>\n      <ion-thumbnail *ngFor=\"let url of urls \">\n        <ion-img src={{url}} height=\"50\"></ion-img>\n      </ion-thumbnail>\n    </ion-item>\n</ion-list>-->\n    <!--<ion-button shape=\"round\" margin-top expand=\"block\">\n          <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n          <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Upload Markers for  </span>\n    </ion-button>\n    <ion-thumbnail>\n        <ion-img [src]=\"capturedImage\" *ngIf=\"capturedImage\" height=\"100\"></ion-img>\n    </ion-thumbnail>-->\n \n  \n  \n    \n  <ion-button *ngIf=\"!showComonentFlag && !showContentAddComponentFlag\" shape=\"round\" (click)=\"anchorContentComponent()\" margin-top expand=\"block\">\n      <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n      <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Add New Anchor and Content</span>\n  </ion-button>\n\n  <ion-list-header *ngIf=\"(!showComonentFlag && !showContentAddComponentFlag) && plistCopy\">\n    <ion-item>\n      <ion-label style=\"color: #17202A \"> Existing anchors & content </ion-label>\n    </ion-item>\n  </ion-list-header>\n\n\n  <ion-list *ngIf=\"!showComonentFlag && !showContentAddComponentFlag\">\n    <ion-card *ngFor=\"let mapAnchorContentEntry of mapAnchorContentMapArray\" button>\n      <ion-card-header>\n        <ion-card-subtitle>\n        Anchor\n        </ion-card-subtitle>\n        <ion-item>\n          <ion-thumbnail class=\"anchor-display\">\n            <img-loader [src]=\"(mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n          </ion-thumbnail> \n          <ion-button class=\"ion-text-center\" \n          (click)=\"addContentToCurrentAnchor(mapAnchorContentEntry[0],mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\"shape=\"round\" style=\"color: #145A32\">\n            <span >Augment Content</span>\n          </ion-button>\n        </ion-item>\n      </ion-card-header>\n      <ion-card-subtitle>\n        Existing content\n      </ion-card-subtitle>\n      <ion-card-content >\n         <ion-item-sliding *ngFor=\"let mapEntries of mapAnchorContentMapArrayValues\">\n            <ion-slides [options]=\"sliderConfig\">\n              <ion-slide *ngFor=\"let mapEntry of mapEntries\" >\n                <ion-thumbnail *ngIf=\"mapEntry[0].includes(mapAnchorContentEntry[0])\" class=\"anchorcontnet-display\">\n                  <img-loader [src]=\"mapEntry[1]\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n                </ion-thumbnail>\n              </ion-slide>\n            </ion-slides>\n          </ion-item-sliding>\n       </ion-card-content>\n  </ion-card>\n </ion-list>\n\n \n\n  <!--call multi-file-upload component to select anchor/marker and images-->\n  <app-multi-file-upload *ngIf=\"showComonentFlag && !showContentAddComponentFlag\"></app-multi-file-upload>\n  <!--call multi-file-content-upload component to add content-->\n  <app-multi-file-content-upload *ngIf=\"showContentAddComponentFlag && !showComonentFlag\"></app-multi-file-content-upload>\n\n  <ion-button *ngIf=\"showComonentFlag && !showContentAddComponentFlag\" (click)=\"upload()\" shape=\"round\" style=\"color: black\" \n     margin-top expand=\"full\">Upload Anchor & Content</ion-button>\n\n  <ion-button *ngIf=\"!showComonentFlag && showContentAddComponentFlag\" (click)=\"uploadContent()\" shape=\"round\" style=\"color: black\" \n     margin-top expand=\"full\">Upload Content</ion-button>\n\n  <!--<ion-col *ngIf=\"showComonentFlag || showContentAddComponentFlag\">\n    <ion-button (click)=\"closeModal()\" shape=\"round\" style=\"color: grey\" \n     margin-top expand=\"full\">Cancel</ion-button>\n  </ion-col>-->\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -2464,7 +2469,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".book-img {\n  width: 50px;\n  height: 50px;\n  border: gray solid 1px;\n  margin: 5px auto; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px; }\n\nion-button {\n  --background: #F4F6F7 ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.image-container {\n  min-height: 200px;\n  background-size: cover; }\n\n@media (min-width: 0px) {\n  .images {\n    -webkit-column-count: 2;\n       -moz-column-count: 2;\n            column-count: 2; } }\n\n@media (min-width: 420px) {\n  .images {\n    -webkit-column-count: 3;\n       -moz-column-count: 3;\n            column-count: 3; } }\n\n@media (min-width: 720px) {\n  .images {\n    -webkit-column-count: 4;\n       -moz-column-count: 4;\n            column-count: 4; } }\n\n.one-image {\n  margin: 2px; }\n\n.drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    border: 1px solid #ccc;\n    padding: 6px 12px;\n    cursor: pointer; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9hcmJvb2svYXJib29rLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQVc7RUFDWCxZQUFZO0VBQ1osc0JBQXNCO0VBQ3RCLGdCQUFnQixFQUFBOztBQUdwQjtFQUlLLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBSWpCO0VBQ0ksc0JBQWEsRUFBQTs7QUFHZjtFQUVFLHFCQUFhLEVBQUE7O0FBR2pCO0VBQ0ksaUJBQWlCO0VBQ2pCLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFO0lBQ0UsdUJBQWU7T0FBZixvQkFBZTtZQUFmLGVBQWUsRUFBQSxFQUNoQjs7QUFHSDtFQUNFLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHlCQUF5QjtFQUN6QiwwQkFBMEI7RUFDMUIsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCO0VBQ3ZCLGNBQWMsRUFBQTs7QUFHbEI7RUFFRSxpQkFBaUIsRUFBQTs7QUFGbkI7SUFLTSxhQUFhLEVBQUE7O0FBTG5CO0lBU00sc0JBQXNCO0lBQ3RCLGlCQUFpQjtJQUNqQixlQUFlLEVBQUE7O0FBSXJCO0VBQ0Usc0JBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hcmJvb2svYXJib29rLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ib29rLWltZyB7XG4gICAgd2lkdGg6IDUwcHg7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIGJvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHggYXV0bztcbn1cblxuLmRpc3BsYXljYXJkIHtcbiAgICAvLyB3aWR0aDogMzB2dztcbiAgICAgLy9oZWlnaHQ6MzB2aDtcbiAgICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgICBtYXJnaW46IDVweDtcbiAgICAgcGFkZGluZzogNXB4O1xuICAgICAvL2JhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gICB9XG5cbmlvbi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogI0Y0RjZGNyA7XG4gIH1cblxuICBpb24tdG9vbGJhciB7XG4gICAgLy8tLWJhY2tncm91bmQ6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG4uaW1hZ2UtY29udGFpbmVyIHtcbiAgICBtaW4taGVpZ2h0OiAyMDBweDtcbiAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICB9XG4gIFxuICBAbWVkaWEgKG1pbi13aWR0aDogMHB4KSB7XG4gICAgLmltYWdlcyB7XG4gICAgICBjb2x1bW4tY291bnQ6IDI7XG4gICAgfVxuICB9XG4gIFxuICBAbWVkaWEgKG1pbi13aWR0aDogNDIwcHgpIHtcbiAgICAuaW1hZ2VzIHtcbiAgICAgIGNvbHVtbi1jb3VudDogMztcbiAgICB9XG4gIH1cbiAgXG4gIEBtZWRpYSAobWluLXdpZHRoOiA3MjBweCkge1xuICAgIC5pbWFnZXMge1xuICAgICAgY29sdW1uLWNvdW50OiA0O1xuICAgIH1cbiAgfVxuICBcbiAgLm9uZS1pbWFnZSB7XG4gICAgbWFyZ2luOiAycHg7XG4gIH1cblxuICAuZHJvcC16b25lIHsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggI2RlZGRkZDsgXG4gICAgaGVpZ2h0OiAzMHZoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmZpbGUtaW5wdXQtY29udGFpbmVyIHtcblxuICB0ZXh0LWFsaWduOiByaWdodDtcblxuICBpbnB1dFt0eXBlPVwiZmlsZVwiXSB7XG4gICAgICBkaXNwbGF5OiBub25lO1xuICB9XG5cbiAgbGFiZWwge1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgICAgIHBhZGRpbmc6IDZweCAxMnB4O1xuICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICB9XG59XG5cbi5udi1maWxlLW92ZXIgeyBcbiAgYm9yZGVyOiBkb3R0ZWQgM3B4IHJlZDsgXG59Il19 */"
+module.exports = ".book-img {\n  width: 50px;\n  height: 50px;\n  border: gray solid 1px;\n  margin: 5px auto; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px; }\n\n.anchor-display {\n  padding-left: 5px;\n  padding-bottom: 10px;\n  padding-top: 5px; }\n\n.anchorcontnet-display {\n  padding-left: 2px;\n  padding-bottom: 5px;\n  padding-top: 5px;\n  padding-right: 2px; }\n\nion-list-header {\n  padding-left: 0px;\n  display: block;\n  text-align: center; }\n\nion-button {\n  --background: #E9F7EF ; }\n\nion-card-subtitle {\n  text-align: center;\n  font-weight: bold; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.image-container {\n  min-height: 200px;\n  background-size: cover; }\n\n@media (min-width: 0px) {\n  .images {\n    -webkit-column-count: 2;\n       -moz-column-count: 2;\n            column-count: 2; } }\n\n@media (min-width: 420px) {\n  .images {\n    -webkit-column-count: 3;\n       -moz-column-count: 3;\n            column-count: 3; } }\n\n@media (min-width: 720px) {\n  .images {\n    -webkit-column-count: 4;\n       -moz-column-count: 4;\n            column-count: 4; } }\n\n.one-image {\n  margin: 2px; }\n\n.drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    border: 1px solid #ccc;\n    padding: 6px 12px;\n    cursor: pointer; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9hcmJvb2svYXJib29rLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQVc7RUFDWCxZQUFZO0VBQ1osc0JBQXNCO0VBQ3RCLGdCQUFnQixFQUFBOztBQUdwQjtFQUlLLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBSWpCO0VBSUksaUJBQWlCO0VBQ2pCLG9CQUFvQjtFQUNwQixnQkFBZSxFQUFBOztBQUluQjtFQUdFLGlCQUFpQjtFQUNqQixtQkFBbUI7RUFDbkIsZ0JBQWU7RUFDZixrQkFBa0IsRUFBQTs7QUFJcEI7RUFFRSxpQkFBZ0I7RUFDaEIsY0FBYTtFQUNiLGtCQUFrQixFQUFBOztBQUlwQjtFQUNFLHNCQUFhLEVBQUE7O0FBSWY7RUFDSSxrQkFBa0I7RUFDbEIsaUJBQWlCLEVBQUE7O0FBR25CO0VBRUUscUJBQWEsRUFBQTs7QUFHakI7RUFDSSxpQkFBaUI7RUFDakIsc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0U7SUFDRSx1QkFBZTtPQUFmLG9CQUFlO1lBQWYsZUFBZSxFQUFBLEVBQ2hCOztBQUdIO0VBQ0U7SUFDRSx1QkFBZTtPQUFmLG9CQUFlO1lBQWYsZUFBZSxFQUFBLEVBQ2hCOztBQUdIO0VBQ0U7SUFDRSx1QkFBZTtPQUFmLG9CQUFlO1lBQWYsZUFBZSxFQUFBLEVBQ2hCOztBQUdIO0VBQ0UsV0FBVyxFQUFBOztBQUdiO0VBQ0UseUJBQXlCO0VBQ3pCLDBCQUEwQjtFQUMxQixZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQix1QkFBdUI7RUFDdkIsY0FBYyxFQUFBOztBQUdsQjtFQUVFLGlCQUFpQixFQUFBOztBQUZuQjtJQUtNLGFBQWEsRUFBQTs7QUFMbkI7SUFTTSxzQkFBc0I7SUFDdEIsaUJBQWlCO0lBQ2pCLGVBQWUsRUFBQTs7QUFJckI7RUFDRSxzQkFBc0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FyYm9vay9hcmJvb2sucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJvb2staW1nIHtcbiAgICB3aWR0aDogNTBweDtcbiAgICBoZWlnaHQ6IDUwcHg7XG4gICAgYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDVweCBhdXRvO1xufVxuXG4uZGlzcGxheWNhcmQge1xuICAgICAvL3dpZHRoOiAzMHZ3O1xuICAgIC8vIGhlaWdodDozMHZoO1xuICAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgIG1hcmdpbjogNXB4O1xuICAgICBwYWRkaW5nOiA1cHg7XG4gICAgIC8vYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgIH1cblxuLmFuY2hvci1kaXNwbGF5IHtcblxuICAgIC8vbWFyZ2luOjAgYXV0bzsgLSBmb3IgY2VudGVyaW5nIHRoZSBpbWFnZVxuICAgIFxuICAgIHBhZGRpbmctbGVmdDogNXB4O1xuICAgIHBhZGRpbmctYm90dG9tOiAxMHB4O1xuICAgIHBhZGRpbmctdG9wOjVweDsgXG4gICAgXG59XG5cbi5hbmNob3Jjb250bmV0LWRpc3BsYXkge1xuXG4gIC8vbWFyZ2luOiAxMHB4O1xuICBwYWRkaW5nLWxlZnQ6IDJweDtcbiAgcGFkZGluZy1ib3R0b206IDVweDtcbiAgcGFkZGluZy10b3A6NXB4O1xuICBwYWRkaW5nLXJpZ2h0OiAycHg7XG4gIFxufVxuXG5pb24tbGlzdC1oZWFkZXIge1xuXG4gIHBhZGRpbmctbGVmdDowcHg7XG4gIGRpc3BsYXk6YmxvY2s7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcblxufVxuXG5pb24tYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjRTlGN0VGIDtcbiAgXG59XG5cbmlvbi1jYXJkLXN1YnRpdGxlIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIH1cblxuICBpb24tdG9vbGJhciB7XG4gICAgLy8tLWJhY2tncm91bmQ6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG4uaW1hZ2UtY29udGFpbmVyIHtcbiAgICBtaW4taGVpZ2h0OiAyMDBweDtcbiAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICB9XG4gIFxuICBAbWVkaWEgKG1pbi13aWR0aDogMHB4KSB7XG4gICAgLmltYWdlcyB7XG4gICAgICBjb2x1bW4tY291bnQ6IDI7XG4gICAgfVxuICB9XG4gIFxuICBAbWVkaWEgKG1pbi13aWR0aDogNDIwcHgpIHtcbiAgICAuaW1hZ2VzIHtcbiAgICAgIGNvbHVtbi1jb3VudDogMztcbiAgICB9XG4gIH1cbiAgXG4gIEBtZWRpYSAobWluLXdpZHRoOiA3MjBweCkge1xuICAgIC5pbWFnZXMge1xuICAgICAgY29sdW1uLWNvdW50OiA0O1xuICAgIH1cbiAgfVxuICBcbiAgLm9uZS1pbWFnZSB7XG4gICAgbWFyZ2luOiAycHg7XG4gIH1cblxuICAuZHJvcC16b25lIHsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggI2RlZGRkZDsgXG4gICAgaGVpZ2h0OiAzMHZoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmZpbGUtaW5wdXQtY29udGFpbmVyIHtcblxuICB0ZXh0LWFsaWduOiByaWdodDtcblxuICBpbnB1dFt0eXBlPVwiZmlsZVwiXSB7XG4gICAgICBkaXNwbGF5OiBub25lO1xuICB9XG5cbiAgbGFiZWwge1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgICAgIHBhZGRpbmc6IDZweCAxMnB4O1xuICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICB9XG59XG5cbi5udi1maWxlLW92ZXIgeyBcbiAgYm9yZGVyOiBkb3R0ZWQgM3B4IHJlZDsgXG59Il19 */"
 
 /***/ }),
 
@@ -2487,6 +2492,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 /* harmony import */ var _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/multi-file-upload/multi-file-upload.component */ "./src/app/components/multi-file-upload/multi-file-upload.component.ts");
+/* harmony import */ var _components_multi_file_content_upload_multi_file_content_upload_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/multi-file-content-upload/multi-file-content-upload.component */ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.ts");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
+
+
 
 
 
@@ -2498,7 +2508,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ArbookPage = /** @class */ (function () {
-    function ArbookPage(_modalController, booksService, _camera, file, _alertController, imagePicker, transfer) {
+    //nextContentValue: string = '';
+    function ArbookPage(_modalController, booksService, _camera, file, _alertController, imagePicker, transfer, imageLoaderService, toastController) {
         this._modalController = _modalController;
         this.booksService = booksService;
         this._camera = _camera;
@@ -2506,12 +2517,116 @@ var ArbookPage = /** @class */ (function () {
         this._alertController = _alertController;
         this.imagePicker = imagePicker;
         this.transfer = transfer;
+        this.imageLoaderService = imageLoaderService;
+        this.toastController = toastController;
+        this.sliderConfig = {
+            slidesPerView: 4,
+            coverflowEffect: {
+                rotate: 30,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                autoplay: true
+                //slideShadows: true,
+            },
+            on: {
+                beforeInit: function () {
+                    var swiper = this;
+                    swiper.classNames.push(swiper.params.containerModifierClass + "coverflow");
+                    swiper.classNames.push(swiper.params.containerModifierClass + "3d");
+                    swiper.params.watchSlidesProgress = true;
+                    swiper.originalParams.watchSlidesProgress = true;
+                },
+                setTranslate: function () {
+                    var swiper = this;
+                    var swiperWidth = swiper.width, swiperHeight = swiper.height, slides = swiper.slides, $wrapperEl = swiper.$wrapperEl, slidesSizesGrid = swiper.slidesSizesGrid, $ = swiper.$;
+                    var params = swiper.params.coverflowEffect;
+                    var isHorizontal = swiper.isHorizontal();
+                    var transform$$1 = swiper.translate;
+                    var center = isHorizontal ? -transform$$1 + (swiperWidth / 2) : -transform$$1 + (swiperHeight / 2);
+                    var rotate = isHorizontal ? params.rotate : -params.rotate;
+                    var translate = params.depth;
+                    // Each slide offset from center
+                    for (var i = 0, length_1 = slides.length; i < length_1; i += 1) {
+                        var $slideEl = slides.eq(i);
+                        var slideSize = slidesSizesGrid[i];
+                        var slideOffset = $slideEl[0].swiperSlideOffset;
+                        var offsetMultiplier = ((center - slideOffset - (slideSize / 2)) / slideSize) * params.modifier;
+                        var rotateY = isHorizontal ? rotate * offsetMultiplier : 0;
+                        var rotateX = isHorizontal ? 0 : rotate * offsetMultiplier;
+                        // var rotateZ = 0
+                        var translateZ = -translate * Math.abs(offsetMultiplier);
+                        var translateY = isHorizontal ? 0 : params.stretch * (offsetMultiplier);
+                        var translateX = isHorizontal ? params.stretch * (offsetMultiplier) : 0;
+                        // Fix for ultra small values
+                        if (Math.abs(translateX) < 0.001)
+                            translateX = 0;
+                        if (Math.abs(translateY) < 0.001)
+                            translateY = 0;
+                        if (Math.abs(translateZ) < 0.001)
+                            translateZ = 0;
+                        if (Math.abs(rotateY) < 0.001)
+                            rotateY = 0;
+                        if (Math.abs(rotateX) < 0.001)
+                            rotateX = 0;
+                        var slideTransform = "translate3d(" + translateX + "px," + translateY + "px," + translateZ + "px)  rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+                        $slideEl.transform(slideTransform);
+                        $slideEl[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
+                        if (params.slideShadows) {
+                            // Set shadows
+                            var $shadowBeforeEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
+                            var $shadowAfterEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
+                            if ($shadowBeforeEl.length === 0) {
+                                $shadowBeforeEl = swiper.$("<div class=\"swiper-slide-shadow-" + (isHorizontal ? 'left' : 'top') + "\"></div>");
+                                $slideEl.append($shadowBeforeEl);
+                            }
+                            if ($shadowAfterEl.length === 0) {
+                                $shadowAfterEl = swiper.$("<div class=\"swiper-slide-shadow-" + (isHorizontal ? 'right' : 'bottom') + "\"></div>");
+                                $slideEl.append($shadowAfterEl);
+                            }
+                            if ($shadowBeforeEl.length)
+                                $shadowBeforeEl[0].style.opacity = offsetMultiplier > 0 ? offsetMultiplier : 0;
+                            if ($shadowAfterEl.length)
+                                $shadowAfterEl[0].style.opacity = (-offsetMultiplier) > 0 ? -offsetMultiplier : 0;
+                        }
+                    }
+                    // Set correct perspective for IE10
+                    if (swiper.support.pointerEvents || swiper.support.prefixedPointerEvents) {
+                        var ws = $wrapperEl[0].style;
+                        ws.perspectiveOrigin = center + "px 50%";
+                    }
+                },
+                setTransition: function (duration) {
+                    var swiper = this;
+                    swiper.slides
+                        .transition(duration)
+                        .find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left')
+                        .transition(duration);
+                }
+            }
+        };
+        this.uploadData = new FormData();
         this.dataReader = new FileReader();
         this.uploadStatus = "";
         this.files = [];
         this.anchorFiles = [];
         this.anchorContentFiles = [];
-        this.anchorContentPlist = {};
+        //decoder = new TextDecoder();
+        this.updateFlag = false;
+        this.showComonentFlag = false;
+        this.showContentAddComponentFlag = false;
+        this.pageRefreshFlag = false;
+        this.imgAnchorURLsMap = new Map();
+        this.imgContentURLsMap = new Map();
+        this.imgAnchorContentURLsMap = new Map();
+        this.bookAnchorContentURLsArray = [];
+        this.anchorURL = ""; // anchor0 url
+        this.contentMap = new Map(); // anchor0content1, anchor0content1 url
+        this.mapAnchorContentMap = new Map();
+        this.mapAnchorContentMapArray = [];
+        this.mapAnchorContentMapArrayValues = [];
+        this.addtlContents = [];
+        this.selectedAnchorName = "";
     }
     ArbookPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -2520,67 +2635,427 @@ var ArbookPage = /** @class */ (function () {
             _this.bookCopy = book;
             console.log("Book Copy in AR Book", _this.bookCopy);
         }, function (errmess) { return _this.errMess = errmess; });
-        this.booksService.getMarkerImages(this.bookId)
-            .subscribe(function (images) {
-            //console.log("X is", images)
-            _this.urls = images;
-        }, function (errMess) {
-            console.log("inside err mess");
+        this.displayAnchorContentData();
+    };
+    ArbookPage.prototype.displayAnchorContentData = function () {
+        var _this = this;
+        this.booksService.getBookARContent(this.bookId)
+            .subscribe(function (x) {
+            _this.imgURLs = x;
+            _this.booksService.getBookPlistXml(_this.bookId)
+                .subscribe(function (plist) {
+                if (plist && _this.imgURLs) {
+                    _this.plistCopy = plist;
+                    console.log("imgURLs", _this.imgURLs);
+                    console.log("plist copy", _this.plistCopy);
+                    /*
+                    start reading the plist copy. get the values of all the key elements
+                    follow the order of the files and assign urls to keys in that orders
+                    */
+                    var domParser = new DOMParser();
+                    var xmlDocument = domParser.parseFromString(_this.plistCopy.toString(), 'text/xml');
+                    console.log("xmlDocument from s3", xmlDocument);
+                    var keys = [];
+                    var values = [];
+                    var keyvalues = [];
+                    var mainKeys = [];
+                    var mapArray = [new Map()];
+                    var keyElLength = xmlDocument.getElementsByTagName('key').length;
+                    var valElLength = xmlDocument.getElementsByTagName('value').length;
+                    for (var i = 0; i < keyElLength; i++) {
+                        keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                    }
+                    for (var i = 0; i < valElLength; i++) {
+                        values[i] = xmlDocument.getElementsByTagName('value')[i].childNodes[0].nodeValue;
+                    }
+                    for (var i = 0; i < keyElLength; i++) {
+                        keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                        keyvalues.push(keys[i]);
+                        for (var j = 0; j < valElLength; j++) {
+                            if (values[j].includes(keys[i])) {
+                                keyvalues.push(values[j]);
+                            }
+                        }
+                    }
+                    var bookAnchorContentURLsMap = new Map();
+                    for (var i = 0; i < keyvalues.length && i < _this.imgURLs.length; i++) {
+                        bookAnchorContentURLsMap.set(keyvalues[i], _this.imgURLs[i]);
+                    }
+                    for (var _i = 0, _a = Array.from(bookAnchorContentURLsMap.entries()); _i < _a.length; _i++) {
+                        var entry = _a[_i];
+                        if (entry[0].indexOf("content") === -1) {
+                            mainKeys.push(entry[0]);
+                        }
+                    }
+                    console.log("Main Keys", mainKeys);
+                    for (var i = 0; i < mainKeys.length; i++) {
+                        var entry1;
+                        var newContentMap = new Map();
+                        var newAnchorMap = new Map();
+                        for (var _b = 0, _c = Array.from(bookAnchorContentURLsMap.entries()); _b < _c.length; _b++) {
+                            var entry = _c[_b];
+                            if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].includes('content')) {
+                                newContentMap.set(entry[0], entry[1]);
+                            }
+                            if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].indexOf('content') === -1)) {
+                                newAnchorMap.set(entry[0], entry[1]);
+                            }
+                        }
+                        console.log("new content map", newContentMap);
+                        console.log("new anchor map", newAnchorMap);
+                        _this.mapAnchorContentMap.set(mainKeys[i], [newAnchorMap, newContentMap]);
+                    }
+                    console.log("mapAnchorContentMap", _this.mapAnchorContentMap);
+                    _this.mapAnchorContentMapArray = Array.from(_this.mapAnchorContentMap.entries());
+                    console.log("mapAnchorContentMapArray", _this.mapAnchorContentMapArray);
+                    for (var _d = 0, _e = _this.mapAnchorContentMapArray; _d < _e.length; _d++) {
+                        var mapAnchorContentEntry = _e[_d];
+                        console.log("mapanchor content entry", mapAnchorContentEntry[0]);
+                        console.log(mapAnchorContentEntry[1][1].values());
+                        _this.mapAnchorContentMapArrayValues.push(Array.from(mapAnchorContentEntry[1][1].entries()));
+                    }
+                    console.log("mapAnchorContentMapArrayValues", _this.mapAnchorContentMapArrayValues);
+                }
+                else {
+                    console.log("plist is empty");
+                    return;
+                }
+            }), function (errMess) { return console.log(errMess); };
+        }, function (errmess) { return _this.errMess = errmess; });
+    };
+    ArbookPage.prototype.presentToast = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastController.create({
+                            message: 'Data uploaded successfully.',
+                            duration: 2000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
         });
+    };
+    ArbookPage.prototype.onImageLoad = function (event) {
+        console.log("image ready");
+    };
+    ArbookPage.prototype.anchorContentComponent = function () {
+        console.log("inside anchor and Content Component");
+        this.showComonentFlag = true;
+    };
+    ArbookPage.prototype.addContentToCurrentAnchor = function (anchorName, anchorURL) {
+        var _this = this;
+        console.log("AnchorName", anchorName);
+        console.log("AnchorURL", anchorURL);
+        this.selectedAnchorName = anchorName;
+        /*
+              1. select the anchor and get the corresponding anchorName, anchorURL - done
+              2. using the bookId get the Book plist - done
+              3. check if this plist contains selected anchorName - done
+              4. If yes,
+                  find out the last anchorNameContentX belonging to this entry in the plist - done
+                  present option to the user to add new content - done
+                  add that contnet in the xml as anchorNamecontentX+1 to corresponding anchorName - done
+                  upload updated xml and anchorNamecontentX+1 to s3 - done
+                
+        */
+        this.booksService.getBookPlistXml(this.bookId)
+            .subscribe(function (plist) {
+            _this.plistCopy = plist;
+            console.log("plist copy", _this.plistCopy);
+            var domParser = new DOMParser();
+            var xmlDocument = domParser.parseFromString(_this.plistCopy.toString(), 'text/xml');
+            console.log("xmlDocument from s3", xmlDocument);
+            var keyElLength = xmlDocument.getElementsByTagName('key').length;
+            console.log("keyElLength", keyElLength);
+            var valElLength = xmlDocument.getElementsByTagName('value').length;
+            console.log("valElLength", valElLength);
+            for (var i = 0; i < keyElLength; i++) {
+                var anchorKey = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                if (anchorKey === anchorName) {
+                    _this.showContentAddComponentFlag = true;
+                    _this.showComonentFlag = false;
+                }
+            }
+        }), function (errMess) { return console.log(errMess); };
+    };
+    ArbookPage.prototype.uploadContent = function () {
+        var _this = this;
+        console.log("this.selected anchor name", this.selectedAnchorName);
+        this.addtlContents = this.fileContentField.getContentFiles();
+        console.log("Additional Contents", this.addtlContents);
+        this.booksService.getBookPlistXml(this.bookId)
+            .subscribe(function (plist) {
+            _this.plistCopy = plist;
+            console.log("plist copy", _this.plistCopy);
+            var domParser = new DOMParser();
+            var xmlDocument = domParser.parseFromString(_this.plistCopy.toString(), 'text/xml');
+            console.log("xmlDocument from s3", xmlDocument);
+            var keyElLength = xmlDocument.getElementsByTagName('key').length;
+            console.log("keyElLength", keyElLength);
+            var valElLength = xmlDocument.getElementsByTagName('value').length;
+            console.log("valElLength", valElLength);
+            var existingContentValues = [];
+            for (var i = 0; i < keyElLength; i++) {
+                var anchorKey = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                //console.log("anchorkey", anchorKey);
+                if (anchorKey === _this.selectedAnchorName) {
+                    //console.log("Success", anchorKey);
+                    //console.log("Success", anchorName);
+                    for (var j = 0; j < valElLength; j++) {
+                        var value = xmlDocument.getElementsByTagName('value')[j].childNodes[0].nodeValue;
+                        if (value.includes(_this.selectedAnchorName)) {
+                            existingContentValues.push(value);
+                        }
+                    }
+                }
+            }
+            var plistMap = new Map();
+            plistMap.set(_this.selectedAnchorName, []);
+            console.log("selected anchor name", _this.selectedAnchorName);
+            for (var j = 0; j < _this.addtlContents.length; j++) {
+                var nextContentName = _this.selectedAnchorName + 'content' + (existingContentValues.length + j + 1);
+                plistMap.get(_this.selectedAnchorName).push(nextContentName);
+            }
+            console.log("plistMap", plistMap);
+            //append content files
+            for (var i = 0; i < _this.addtlContents.length; i++) {
+                var nextContentName = _this.selectedAnchorName + 'content' + ((existingContentValues.length + i + 1));
+                _this.uploadData.append('imageFile', _this.addtlContents[i].rawFile, nextContentName);
+            }
+            // append entries to right key element in the xml document
+            var root = xmlDocument.getElementsByTagName('plist')[0];
+            console.log("root ", root);
+            var keys = xmlDocument.getElementsByTagName('key');
+            console.log("keys", keys);
+            for (var i = 0; i < keys.length; i++) {
+                var nodevalue = keys[i].childNodes[0].nodeValue;
+                console.log("nodevalue", nodevalue);
+                for (var _i = 0, _a = Array.from(plistMap.entries()); _i < _a.length; _i++) {
+                    var entry = _a[_i];
+                    if (entry[0] === nodevalue) {
+                        console.log("SUCCESS", entry[0], nodevalue);
+                        console.log("keys[i]", keys[i]);
+                        for (var j = 0; j < entry[1].length; j++) {
+                            var valEL = xmlDocument.createElement('value');
+                            valEL.textContent = entry[1][j];
+                            keys[i].appendChild(valEL);
+                        }
+                    }
+                }
+            }
+            // serialize 
+            console.log("XML document before serializing", xmlDocument);
+            var serializer = new XMLSerializer();
+            var xmlSerializedDoc = serializer.serializeToString(xmlDocument);
+            console.log("xml serailizd doc", xmlSerializedDoc);
+            // append xml blob
+            var blob = new Blob([xmlSerializedDoc], { type: "text/xml" });
+            _this.uploadData.append('xmlFile', blob, _this.bookId + 'plist');
+            // update book ar flag & then upload the data
+            _this.updateFlag = true;
+            _this.bookCopy.bookarenabled = true;
+            _this.booksService.updateBookARFlag(_this.bookId, _this.bookCopy)
+                .subscribe(function (res) {
+                console.log(res);
+                // upload data
+                _this.booksService.uploadAnchorContentAndPlist(_this.bookId, _this.uploadData, _this.updateFlag, _this.bookCopy)
+                    .subscribe(function (res) {
+                    console.log(res);
+                    _this.presentToast();
+                    _this.closeModal();
+                });
+            });
+        }), function (errMess) { return console.log(errMess); };
     };
     ArbookPage.prototype.upload = function () {
-        /*
-          1. Check if BookIDplist.xml exists on s3
-          2. If yes =
-                read the file.
-                if empty, add entry int xml file : [anchor0: [anchor0content1, anchor0content2....]]
-                if not empty,
-                  read last key from the file e.g. anchor2
-                  add entry int xml file : [anchor3: [anchor3content1, anchor3content2....]]
-          3. If no =
-                create BookIDplist.xml file
-                add entry int xml file : [anchor0: [anchor0content1, anchor0content2....]]
-          4. Save and upload the xml file in s3 storage
-          5. upload all the images (anchor and content)
-      */
-        this.createAccessLogFileAndWrite("Hello World - someEventFunc was called");
-        var anchorFiles = this.fileField.getAnchorFiles();
-        var anchorContentFiles = this.fileField.getAnchorContentFiles();
-        console.log(anchorFiles);
-        console.log(anchorContentFiles);
-        for (var i = 0; i < anchorContentFiles.length; i++) {
-            anchorContentFiles[i].name = 'anchor0content' + i;
-        }
-        var files = anchorFiles.concat(anchorContentFiles);
-        console.log(files);
-        this.file.readAsText(this.file.dataDirectory, 'access.log').then(function (data) {
-            console.log("Access log", data);
-        });
-    };
-    ArbookPage.prototype.createAccessLogFileAndWrite = function (text) {
         var _this = this;
-        console.log("data directory", this.file.dataDirectory);
-        this.file.checkFile(this.file.dataDirectory, 'access.log')
-            .then(function (doesExist) {
-            console.log("doesExist : " + doesExist);
-            return _this.writeToAccessLogFile(text);
-        }).catch(function (err) {
-            return _this.file.createFile(_this.file.dataDirectory, 'access.log', false)
-                .then(function (FileEntry) { return _this.writeToAccessLogFile(text); })
-                .catch(function (err) { return console.log('Couldnt create file'); });
-        });
+        /*
+        1. check if there is plist xml existing for bookId. - DONE
+        2. If no, - DONE
+              create plist xml with new anchor and content
+              upload content, xml to s3 bucket.
+        3. If yes, - DONE
+            Display the list of anchors and correspoding contents as thumbnails so that user knows which are anchors
+            and which are content
+            Ask user if s/he wants to add new content to an existing anchor OR to new anchor
+            
+          3.1 - DONE
+            if (to an existing anchor) {
+              select the anchor
+              retrive the anchor URL, get the bookId
+              extract the anchorName from the url
+              using the bookId get the Book plist and see if anchorName exists in the plist xml
+              when the plist xml has the anchorname {
+                find out the last anchorNamecontentX in the list
+                present option to the user to add new content
+                add that contnet in the xml as anchorNamecontentX+1
+                upload updated xml and anchorNamecontentX+1 to s3
+              }
+            }
+          3.2 - DONE
+            if (to new anchor) {
+              add new anchor and new content, append it to plist xml
+              upload anchor, content, xml to s3
+            }
+    
+      */
+        this.booksService.getBookPlistXml(this.bookId)
+            .subscribe(function (plist) {
+            console.log("link to book plist found");
+            console.log("plist", plist);
+            if (plist) {
+                _this.plistCopy = plist;
+                _this.updateFlag = true;
+                _this.prepareAnchorAndContentsDataAndUpload(_this.updateFlag);
+            }
+            else {
+                _this.updateFlag = false;
+                console.log("plist is empty");
+                _this.prepareAnchorAndContentsDataAndUpload(_this.updateFlag);
+            }
+        }), function (errMess) { return console.log(errMess); };
     };
-    ArbookPage.prototype.writeToAccessLogFile = function (text) {
-        this.file.writeExistingFile(this.file.dataDirectory, 'access.log', text);
+    ArbookPage.prototype.prepareAnchorAndContentsDataAndUpload = function (flag) {
+        var _this = this;
+        var anchor = this.fileField.getAnchorFiles();
+        var contents = this.fileField.getAnchorContentFiles();
+        // update existing xml plist
+        if (flag) {
+            var domParser = new DOMParser();
+            var xmlDocument = domParser.parseFromString(this.plistCopy.toString(), 'text/xml');
+            console.log("xmlDocument from s3", xmlDocument);
+            var keyElLength = xmlDocument.getElementsByTagName('key').length;
+            console.log("keyElLength", keyElLength);
+            //let prevAnchorName =  xmlDocument.getElementsByTagName('key')[keyElLength-1].childNodes[0].nodeValue;
+            var anchorName = 'anchor' + keyElLength;
+            var plistMap = new Map();
+            plistMap.set(anchorName, []);
+            for (var j = 0; j < contents.length; j++) {
+                var contentName = anchorName + 'content' + (j + 1);
+                plistMap.get(anchorName).push(contentName);
+            }
+            console.log("plistMap", plistMap);
+            // append anchor file
+            this.uploadData.append('imageFile', anchor[0].rawFile, anchorName);
+            // append cotent files
+            for (var i = 0; i < contents.length; i++) {
+                var contentName = anchorName + 'content' + (i + 1);
+                this.uploadData.append('imageFile', contents[i].rawFile, contentName);
+            }
+            var root = xmlDocument.getElementsByTagName('plist')[0];
+            console.log("root ", root);
+            for (var _i = 0, _a = Array.from(plistMap.entries()); _i < _a.length; _i++) {
+                var entry = _a[_i];
+                console.log("Entries", entry);
+                var keyEl = xmlDocument.createElement('key');
+                keyEl.textContent = entry[0];
+                root.appendChild(keyEl);
+                var keyElvalues = entry[1];
+                for (var j = 0; j < keyElvalues.length; j++) {
+                    var valEl = xmlDocument.createElement('value');
+                    valEl.textContent = keyElvalues[j];
+                    keyEl.appendChild(valEl);
+                }
+            }
+            var serializer = new XMLSerializer();
+            var xmlSerializedDoc = serializer.serializeToString(xmlDocument);
+            console.log("xml serailizd doc", xmlSerializedDoc);
+            var blob = new Blob([xmlSerializedDoc], { type: "text/xml" });
+            this.uploadData.append('xmlFile', blob, this.bookId + 'plist');
+        }
+        else {
+            var anchorName = 'anchor0';
+            var plistMap = new Map();
+            plistMap.set(anchorName, []);
+            for (var j = 0; j < contents.length; j++) {
+                var contentName = anchorName + 'content' + (j + 1);
+                plistMap.get(anchorName).push(contentName);
+            }
+            console.log("plistMap", plistMap);
+            // append anchor file as anchor0
+            this.uploadData.append('imageFile', anchor[0].rawFile, anchorName);
+            // append cotent files as anchor0content0, anchor0,content1
+            for (var i = 0; i < contents.length; i++) {
+                var contentName = anchorName + 'content' + (i + 1);
+                this.uploadData.append('imageFile', contents[i].rawFile, contentName);
+            }
+            // construct new xml plist file 
+            var doc = document.implementation.createDocument('', '', null);
+            var root = doc.createElement('plist');
+            doc.appendChild(root);
+            for (var _b = 0, _c = Array.from(plistMap.entries()); _b < _c.length; _b++) {
+                var entry = _c[_b];
+                console.log("Entries", entry);
+                var keyEl = doc.createElement('key');
+                keyEl.textContent = entry[0];
+                root.appendChild(keyEl);
+                var keyElvalues = entry[1];
+                for (var j = 0; j < keyElvalues.length; j++) {
+                    var valEl = doc.createElement('value');
+                    valEl.textContent = keyElvalues[j];
+                    keyEl.appendChild(valEl);
+                }
+            }
+            var serializer = new XMLSerializer();
+            var xmlSerializedDoc = serializer.serializeToString(doc);
+            console.log("xml serailizd doc", xmlSerializedDoc);
+            var blob = new Blob([xmlSerializedDoc], { type: "text/xml" });
+            this.uploadData.append('xmlFile', blob, this.bookId + 'plist');
+        }
+        // update book ar flag & then upload the data
+        this.bookCopy.bookarenabled = true;
+        this.booksService.updateBookARFlag(this.bookId, this.bookCopy)
+            .subscribe(function (res) {
+            console.log(res);
+            // upload data
+            _this.booksService.uploadAnchorContentAndPlist(_this.bookId, _this.uploadData, _this.updateFlag, _this.bookCopy)
+                .subscribe(function (res) {
+                console.log(res);
+                _this.presentToast();
+                _this.closeModal();
+            });
+        });
     };
     ArbookPage.prototype.closeModal = function () {
         console.log("inside close modal");
-        this._modalController.dismiss();
+        this.showComonentFlag = false;
+        this.showContentAddComponentFlag = false;
+        //this._modalController.dismiss();
+    };
+    ArbookPage.prototype.refreshBookList = function (event) {
+        var _this = this;
+        setTimeout(function () {
+            _this.clearCache();
+            event.target.complete();
+        }, 3000);
+    };
+    ArbookPage.prototype.clearCache = function () {
+        this.imageLoaderService.clearCache();
+        // refresher.complete();
+    };
+    ArbookPage.prototype.close = function () {
+        if (this.showComonentFlag || this.showContentAddComponentFlag) {
+            this.closeModal();
+        }
+        else {
+            this._modalController.dismiss();
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["MultiFileUploadComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["MultiFileUploadComponent"])
     ], ArbookPage.prototype, "fileField", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_components_multi_file_content_upload_multi_file_content_upload_component__WEBPACK_IMPORTED_MODULE_9__["MultiFileContentUploadComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _components_multi_file_content_upload_multi_file_content_upload_component__WEBPACK_IMPORTED_MODULE_9__["MultiFileContentUploadComponent"])
+    ], ArbookPage.prototype, "fileContentField", void 0);
     ArbookPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-arbook',
@@ -2593,9 +3068,233 @@ var ArbookPage = /** @class */ (function () {
             _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_5__["File"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
             _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_6__["ImagePicker"],
-            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_7__["FileTransfer"]])
+            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_7__["FileTransfer"],
+            ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_10__["ImageLoaderService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
     ], ArbookPage);
     return ArbookPage;
+}());
+
+/*async selectImageSource() {
+
+  const cameraOptions: CameraOptions = {
+    quality: 100,
+    destinationType: this._camera.DestinationType.FILE_URI,
+    encodingType: this._camera.EncodingType.JPEG,
+    mediaType: this._camera.MediaType.PICTURE,
+    targetHeight: 45,
+    targetWidth: 80,
+    correctOrientation: true,
+    sourceType: this._camera.PictureSourceType.CAMERA
+  };
+
+  const galleryOptions: CameraOptions = {
+    quality: 100,
+    destinationType: this._camera.DestinationType.FILE_URI,
+    encodingType: this._camera.EncodingType.JPEG,
+    mediaType: this._camera.MediaType.PICTURE,
+    targetHeight: 45,
+    targetWidth: 80,
+    correctOrientation: true,
+    sourceType: this._camera.PictureSourceType.SAVEDPHOTOALBUM
+  };
+
+  this.markerImages = [];
+  this.capturedImages = [];
+  this.markerImagesLength = 0;
+
+  const alert = await this._alertController.create({
+    header: "Select Source",
+    message: "Pick a source for your image",
+    buttons: [
+      {
+        text: "Camera",
+        handler: ()=> {
+
+
+          this._camera.getPicture(cameraOptions).then((result) => {
+            
+           
+            this.markerImages.push('file://'+ result);
+            console.log("Marker images length", this.markerImages.length);
+            this.markerImagesLength = this.markerImages.length;
+  
+           }, (err) => {
+             
+             console.log(err);
+          });
+          
+         
+        
+      }
+    },
+    {
+        text: "Gallery",
+        handler: ()=> {
+         
+         
+
+       this.imagePicker.getPictures(galleryOptions).then((results) => {
+        for (var i = 0; i < results.length; i++) {
+          console.log("RESULTS", results[i]);
+          this.markerImages.push('file://'+ results[i]);
+        }
+        console.log("Marker images length", this.markerImages.length);
+        this.markerImagesLength = this.markerImages.length;
+        
+      
+
+       }, (err) => {
+         // Handle error
+         console.log(err);
+      });
+
+      
+
+    }
+  }
+]
+});
+
+  await alert.present();
+
+}*/
+/*readFile(file: any) {
+
+  const reader = new FileReader();
+  console.log("file type", file.type);
+  console.log("file type", file.name);
+  reader.onloadend = () => {
+    this.uploadData = new FormData();
+    if (reader.result) {
+      const imgBlob = new Blob([reader.result], {type: file.type});
+      this.uploadData.append('arMarkerImageFile', imgBlob, file.name);
+
+      this.booksService.uploadMarkerImage(this.bookId, this.uploadData)
+      .subscribe(res => {
+        console.log("Uploaded image details ----->",res);
+      });
+   
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}*/
+/*createMarkers() {
+
+ for (var i = 0; i < this.markerImages.length; i++) {
+   console.log("Selected image is ", this.markerImages[i]);
+ }
+ console.log("inside createMarkers");
+ let counter = 0;
+ var ref = this;
+ function InnerFunc() {
+  
+   console.log("Beginning Counter", counter);
+   console.log("inside InnerFunc");
+   console.log("file system url", ref.markerImages[counter]);
+
+   ref.file.resolveLocalFilesystemUrl(ref.markerImages[counter])
+   .then(entry => {
+      console.log("inside resolve local file system url");
+      
+      (<FileEntry>entry).file(file => ref.readFile(file));
+
+      counter++;
+      console.log("Inside Counter is", counter);
+      if (counter < ref.markerImages.length) {
+       InnerFunc();
+     }
+     else {
+       alert("successfully uploaded all images");
+     }
+    })
+   .catch(err => {
+      console.log("error reading file")
+   })
+   
+ }
+ console.log("innerFunc getting called");
+ InnerFunc();
+
+ 
+}*/
+
+
+/***/ }),
+
+/***/ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/components/multi-file-content-upload/multi-file-content-upload.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n      Add Anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>-->\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n      Add Content corresponding to selected anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderContent.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n  \n  \n  \n\n</ion-content>\n"
+
+/***/ }),
+
+/***/ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.scss":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/components/multi-file-content-upload/multi-file-content-upload.component.scss ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    border: 1px solid #ccc;\n    padding: 6px 12px;\n    cursor: pointer; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtY29udGVudC11cGxvYWQvbXVsdGktZmlsZS1jb250ZW50LXVwbG9hZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUF5QjtFQUN6QiwwQkFBMEI7RUFDMUIsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCO0VBQ3ZCLGNBQWMsRUFBQTs7QUFHbEI7RUFFSSxpQkFBaUIsRUFBQTs7QUFGckI7SUFLUSxhQUFhLEVBQUE7O0FBTHJCO0lBU1Esc0JBQXNCO0lBQ3RCLGlCQUFpQjtJQUNqQixlQUFlLEVBQUE7O0FBSXZCO0VBQ0ksc0JBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtY29udGVudC11cGxvYWQvbXVsdGktZmlsZS1jb250ZW50LXVwbG9hZC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kcm9wLXpvbmUgeyBcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjZmNmY2O1xuICAgIGJvcmRlcjogZG90dGVkIDNweCAjZGVkZGRkOyBcbiAgICBoZWlnaHQ6IDMwdmg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIG1hcmdpbjogMjBweCAwO1xufVxuXG4uZmlsZS1pbnB1dC1jb250YWluZXIge1xuXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG5cbiAgICBpbnB1dFt0eXBlPVwiZmlsZVwiXSB7XG4gICAgICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgfVxuXG4gICAgbGFiZWwge1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICAgICAgICBwYWRkaW5nOiA2cHggMTJweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIH1cbn1cblxuLm52LWZpbGUtb3ZlciB7IFxuICAgIGJvcmRlcjogZG90dGVkIDNweCByZWQ7IFxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/components/multi-file-content-upload/multi-file-content-upload.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: MultiFileContentUploadComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MultiFileContentUploadComponent", function() { return MultiFileContentUploadComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+
+var MultiFileContentUploadComponent = /** @class */ (function () {
+    function MultiFileContentUploadComponent(_modalController) {
+        this._modalController = _modalController;
+        this.uploaderAnchor = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
+        this.uploaderContent = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
+        this.hasBaseDropZoneOver = false;
+    }
+    MultiFileContentUploadComponent.prototype.getAnchorFiles = function () {
+        return this.uploaderAnchor.queue.map(function (fileItem) {
+            return fileItem.file;
+        });
+    };
+    MultiFileContentUploadComponent.prototype.getContentFiles = function () {
+        return this.uploaderContent.queue.map(function (fileItem) {
+            return fileItem.file;
+        });
+    };
+    MultiFileContentUploadComponent.prototype.fileOverBase = function (ev) {
+        this.hasBaseDropZoneOver = ev;
+    };
+    MultiFileContentUploadComponent.prototype.reorderFiles = function (reorderEvent) {
+        var element = this.uploaderAnchor.queue.splice(reorderEvent.detail.from, 1)[0];
+        this.uploaderAnchor.queue.splice(reorderEvent.detail.to, 0, element);
+    };
+    MultiFileContentUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-multi-file-content-upload',
+            template: __webpack_require__(/*! ./multi-file-content-upload.component.html */ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.html"),
+            styles: [__webpack_require__(/*! ./multi-file-content-upload.component.scss */ "./src/app/components/multi-file-content-upload/multi-file-content-upload.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
+    ], MultiFileContentUploadComponent);
+    return MultiFileContentUploadComponent;
 }());
 
 
@@ -2609,7 +3308,7 @@ var ArbookPage = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n      Add Anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\" multiple />\n      Add Content corresponding to above anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderContent.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n  \n  \n  \n\n</ion-content>\n\n\n\n\n"
+module.exports = " \n\n\n\n\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n      Add Anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n      Add Content corresponding to above anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderContent.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>\n  \n  \n  \n\n</ion-content>\n\n\n\n\n"
 
 /***/ }),
 
@@ -2637,11 +3336,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
 var MultiFileUploadComponent = /** @class */ (function () {
-    function MultiFileUploadComponent() {
+    function MultiFileUploadComponent(_modalController) {
+        this._modalController = _modalController;
         this.uploaderAnchor = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
         this.uploaderContent = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
         this.hasBaseDropZoneOver = false;
@@ -2669,7 +3371,7 @@ var MultiFileUploadComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./multi-file-upload.component.html */ "./src/app/components/multi-file-upload/multi-file-upload.component.html"),
             styles: [__webpack_require__(/*! ./multi-file-upload.component.scss */ "./src/app/components/multi-file-upload/multi-file-upload.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
     ], MultiFileUploadComponent);
     return MultiFileUploadComponent;
 }());
@@ -2820,7 +3522,7 @@ var Tab3PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title *ngIf=\"username\" size=\"large\" \n    style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Manage\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n\n  \n    \n    <ion-button shape=\"round\" (click)=\"addBookModal()\" margin-top expand=\"block\">\n        <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n        <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Add New Book</span>\n    </ion-button>\n    \n    <!--<ion-searchbar shape=\"round\" no-margin [(ngModel)]=\"searchTerm\"\n      (ionChange)=\"setFilteredItems()\" placeholder=\"Search my books by status, title or language ...\">\n    </ion-searchbar>-->\n\n  \n    \n  \n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n      <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n      </ion-refresher-content>\n    </ion-refresher>\n\n  <!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"clearCache($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>-->\n\n  <!--| sort: {property: column, order: order}-->\n  <ion-list>\n\n    <ion-button shape=\"round\" margin-top expand=\"block\">\n      <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n      <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">My books by status</span>\n   </ion-button>\n\n    <ion-select (ionChange)=\"displayBooksByStatus($event)\" interface=\"popover\" placeholder=\"Select ..\">\n      <ion-select-option *ngFor=\"let status of bookcurrentstatus\" [value]=\"status\"> {{status}}</ion-select-option>\n   </ion-select>\n   \n  <ion-item-sliding *ngFor=\"let rBook of reservedBooks\">\n    <ion-item *ngIf=\"showReserved\">\n      <ion-card *ngIf=\"showReserved\">\n       <ion-thumbnail *ngIf=\"showReserved\">\n         <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n         <img-loader [src]=\"(bookIdImageMap.get(rBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n       </ion-thumbnail>\n      </ion-card>\n      <ion-label *ngIf=\"showReserved\" class=\"ion-text-wrap\">\n           <strong>{{rBook.bookname}}</strong>\n           <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>\n           <p></p>\n           <ion-note *ngIf=\"rBook.bookcurrentstatus == 'available' \" style=\"color: green\">{{rBook.bookcurrentstatus}}</ion-note>\n           <ion-note *ngIf=\"rBook.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{rBook.bookcurrentstatus}}</ion-note>\n           <ion-note *ngIf=\"rBook.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{rBook.bookcurrentstatus}}</ion-note>       \n       </ion-label>\n    </ion-item>\n   <ion-item-options side=\"start\">\n     <ion-item-option *ngIf=\"showReserved\">\n       <ion-icon style=\"color: red\" *ngIf=\"rBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n       (click)=\"deleteBook(rBook._id)\"></ion-icon>\n     </ion-item-option>\n   </ion-item-options>\n  <ion-item-options side=\"end\">\n   <ion-item-option *ngIf=\"showReserved\">\n     <ion-icon style=\"color: darkgreen\" *ngIf=\"(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable\" slot=\"icon-only\"\n     src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(rBook._id)\"></ion-icon>\n   </ion-item-option>\n   <ion-item-option>\n    <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n    src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(rBook._id)\"></ion-icon>\n  </ion-item-option>\n  </ion-item-options>\n</ion-item-sliding>\n\n<ion-item-sliding *ngFor=\"let aBook of availableBooks \">\n  <ion-item *ngIf=\"showAvailable\">\n    <ion-card *ngIf=\"showAvailable\">\n     <ion-thumbnail *ngIf=\"showAvailable\">\n       <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n       <img-loader [src]=\"(bookIdImageMap.get(aBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showAvailable\"class=\"ion-text-wrap\">\n         <strong>{{aBook.bookname}}</strong>\n         <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>\n         <p></p>\n         <ion-note *ngIf=\"aBook.bookcurrentstatus == 'available' \" style=\"color: green\">{{aBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"aBook.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{aBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"aBook.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{aBook.bookcurrentstatus}}</ion-note>       \n     </ion-label>\n  </ion-item>\n  <ion-item-options side=\"start\">\n    <ion-item-option *ngIf=\"showAvailable\">\n      <ion-icon style=\"color: red\" *ngIf=\"aBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n      (click)=\"deleteBook(aBook._id)\"></ion-icon>\n    </ion-item-option>\n  </ion-item-options>\n  <ion-item-options side=\"end\">\n  <ion-item-option *ngIf=\"showAvailable\">\n    <ion-icon style=\"color: darkgreen\" *ngIf=\"(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable\" slot=\"icon-only\"\n    src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(aBook._id)\"></ion-icon>\n  </ion-item-option>   \n  <ion-item-option>\n    <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n    src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(aBook._id)\"></ion-icon>\n  </ion-item-option> \n  </ion-item-options>\n</ion-item-sliding>\n\n<ion-item-sliding *ngFor=\"let bBook of borrowedBooks\">\n  <ion-item *ngIf=\"showBorrowed\">\n    <ion-card *ngIf=\"showBorrowed\">\n     <ion-thumbnail *ngIf=\"showBorrowed\">\n       <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n       <img-loader [src]=\"(bookIdImageMap.get(bBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showBorrowed\" class=\"ion-text-wrap\">\n         <strong>{{bBook.bookname}}</strong>\n         <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>\n         <p></p>\n         <ion-note *ngIf=\"bBook.bookcurrentstatus == 'available' \" style=\"color: green\">{{bBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"bBook.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{bBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"bBook.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{bBook.bookcurrentstatus}}</ion-note>       \n     </ion-label>\n  </ion-item>\n <ion-item-options side=\"start\">\n   <ion-item-option *ngIf=\"showBorrowed\">\n     <ion-icon style=\"color: red\" *ngIf=\"bBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n     (click)=\"deleteBook(bBook._id)\"></ion-icon>\n   </ion-item-option>\n</ion-item-options>\n<ion-item-options side=\"end\">\n    <ion-item-option *ngIf=\"showBorrowed\">\n      <ion-icon style=\"color: darkgreen\" *ngIf=\"(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable\" slot=\"icon-only\"\n      src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(bBook._id)\"></ion-icon>\n    </ion-item-option>\n    <ion-item-option>\n      <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n      src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(bBook._id)\"></ion-icon>\n    </ion-item-option>\n</ion-item-options>\n</ion-item-sliding>\n\n<ion-button shape=\"round\" margin-top expand=\"block\">\n  <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n  <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">All my books</span>\n</ion-button>\n\n    <ion-item-sliding *ngFor=\"let book of allBooks \">\n         <ion-item>\n           <ion-card>\n            <ion-thumbnail>\n              <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n              <img-loader [src]=\"(bookIdImageMap.get(book._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            </ion-thumbnail>\n           </ion-card>\n           <ion-label class=\"ion-text-wrap\">\n                <strong>{{book.bookname}}</strong>\n                <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>\n                <p></p>\n                <ion-note *ngIf=\"book.bookcurrentstatus == 'available' \" style=\"color: green\">{{book.bookcurrentstatus}}</ion-note>\n                <ion-note *ngIf=\"book.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{book.bookcurrentstatus}}</ion-note>\n                <ion-note *ngIf=\"book.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{book.bookcurrentstatus}}</ion-note>       \n            </ion-label>\n         </ion-item>\n        <ion-item-options side=\"start\">\n          <ion-item-option >\n            <ion-icon style=\"color: red\" *ngIf=\"book.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n            (click)=\"deleteBook(book._id)\"></ion-icon>\n          </ion-item-option>\n       </ion-item-options>\n       <ion-item-options side=\"end\">\n        <ion-item-option>\n          <ion-icon style=\"color: darkgreen\" *ngIf=\"(book.isReserved || book.isBorrowed) && !book.isAvailable\" slot=\"icon-only\"\n          src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(book._id)\"></ion-icon>\n         <ion-item-option>\n            <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n            src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(book._id)\">\n          </ion-icon>\n          </ion-item-option>\n        </ion-item-option>    \n      </ion-item-options>\n    </ion-item-sliding>\n\n\n\n\n  </ion-list>\n  <!--<ion-infinite-scroll (ionInfinite)=\"loadMoreBooks($event)\">\n    <ion-infinite-scroll-content loadingText=\"..loading\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>-->\n\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title *ngIf=\"username\" size=\"large\" \n    style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Manage\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n\n  \n    \n    <ion-button shape=\"round\" (click)=\"addBookModal()\" margin-top expand=\"block\">\n        <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n        <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Add New Book</span>\n    </ion-button>\n    \n    <!--<ion-searchbar shape=\"round\" no-margin [(ngModel)]=\"searchTerm\"\n      (ionChange)=\"setFilteredItems()\" placeholder=\"Search my books by status, title or language ...\">\n    </ion-searchbar>-->\n\n  \n    \n  \n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n      <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n      </ion-refresher-content>\n    </ion-refresher>\n\n  <!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"clearCache($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>-->\n\n  <!--| sort: {property: column, order: order}-->\n  <ion-list>\n\n    <ion-button shape=\"round\" margin-top expand=\"block\">\n      <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n      <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">My books by status</span>\n   </ion-button>\n\n    <ion-select (ionChange)=\"displayBooksByStatus($event)\" interface=\"popover\" placeholder=\"Select ..\">\n      <ion-select-option *ngFor=\"let status of bookcurrentstatus\" [value]=\"status\"> {{status}}</ion-select-option>\n   </ion-select>\n   \n  <ion-item-sliding *ngFor=\"let rBook of reservedBooks\">\n    <ion-item *ngIf=\"showReserved\">\n      <ion-card *ngIf=\"showReserved\">\n       <ion-thumbnail *ngIf=\"showReserved\">\n         <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n         <img-loader [src]=\"(bookIdImageMap.get(rBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n       </ion-thumbnail>\n      </ion-card>\n      <ion-label *ngIf=\"showReserved\" class=\"ion-text-wrap\">\n           <strong>{{rBook.bookname}}</strong>\n           <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>\n           <p></p>\n           <ion-note *ngIf=\"rBook.bookcurrentstatus == 'available' \" style=\"color: green\">{{rBook.bookcurrentstatus}}</ion-note>\n           <ion-note *ngIf=\"rBook.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{rBook.bookcurrentstatus}}</ion-note>\n           <ion-note *ngIf=\"rBook.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{rBook.bookcurrentstatus}}</ion-note>       \n       </ion-label>\n    </ion-item>\n   <ion-item-options side=\"start\">\n     <ion-item-option *ngIf=\"showReserved\">\n       <ion-icon style=\"color: red\" *ngIf=\"rBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n       (click)=\"deleteBook(rBook._id)\"></ion-icon>\n     </ion-item-option>\n   </ion-item-options>\n  <ion-item-options side=\"end\">\n   <ion-item-option *ngIf=\"showReserved\">\n     <ion-icon style=\"color: darkgreen\" *ngIf=\"(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable\" slot=\"icon-only\"\n     src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(rBook._id)\"></ion-icon>\n   </ion-item-option>\n   <ion-item-option>\n    <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n    src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(rBook._id, rBook.bookname)\"></ion-icon>\n  </ion-item-option>\n  </ion-item-options>\n</ion-item-sliding>\n\n<ion-item-sliding *ngFor=\"let aBook of availableBooks \">\n  <ion-item *ngIf=\"showAvailable\">\n    <ion-card *ngIf=\"showAvailable\">\n     <ion-thumbnail *ngIf=\"showAvailable\">\n       <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n       <img-loader [src]=\"(bookIdImageMap.get(aBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showAvailable\"class=\"ion-text-wrap\">\n         <strong>{{aBook.bookname}}</strong>\n         <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>\n         <p></p>\n         <ion-note *ngIf=\"aBook.bookcurrentstatus == 'available' \" style=\"color: green\">{{aBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"aBook.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{aBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"aBook.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{aBook.bookcurrentstatus}}</ion-note>       \n     </ion-label>\n  </ion-item>\n  <ion-item-options side=\"start\">\n    <ion-item-option *ngIf=\"showAvailable\">\n      <ion-icon style=\"color: red\" *ngIf=\"aBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n      (click)=\"deleteBook(aBook._id)\"></ion-icon>\n    </ion-item-option>\n  </ion-item-options>\n  <ion-item-options side=\"end\">\n  <ion-item-option *ngIf=\"showAvailable\">\n    <ion-icon style=\"color: darkgreen\" *ngIf=\"(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable\" slot=\"icon-only\"\n    src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(aBook._id)\"></ion-icon>\n  </ion-item-option>   \n  <ion-item-option>\n    <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n    src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(aBook._id, aBook.bookname)\"></ion-icon>\n  </ion-item-option> \n  </ion-item-options>\n</ion-item-sliding>\n\n<ion-item-sliding *ngFor=\"let bBook of borrowedBooks\">\n  <ion-item *ngIf=\"showBorrowed\">\n    <ion-card *ngIf=\"showBorrowed\">\n     <ion-thumbnail *ngIf=\"showBorrowed\">\n       <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n       <img-loader [src]=\"(bookIdImageMap.get(bBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showBorrowed\" class=\"ion-text-wrap\">\n         <strong>{{bBook.bookname}}</strong>\n         <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>\n         <p></p>\n         <ion-note *ngIf=\"bBook.bookcurrentstatus == 'available' \" style=\"color: green\">{{bBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"bBook.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{bBook.bookcurrentstatus}}</ion-note>\n         <ion-note *ngIf=\"bBook.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{bBook.bookcurrentstatus}}</ion-note>       \n     </ion-label>\n  </ion-item>\n <ion-item-options side=\"start\">\n   <ion-item-option *ngIf=\"showBorrowed\">\n     <ion-icon style=\"color: red\" *ngIf=\"bBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n     (click)=\"deleteBook(bBook._id)\"></ion-icon>\n   </ion-item-option>\n</ion-item-options>\n<ion-item-options side=\"end\">\n    <ion-item-option *ngIf=\"showBorrowed\">\n      <ion-icon style=\"color: darkgreen\" *ngIf=\"(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable\" slot=\"icon-only\"\n      src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(bBook._id)\"></ion-icon>\n    </ion-item-option>\n    <ion-item-option>\n      <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n      src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(bBook._id, bBook.bookname)\"></ion-icon>\n    </ion-item-option>\n</ion-item-options>\n</ion-item-sliding>\n\n<ion-button shape=\"round\" margin-top expand=\"block\">\n  <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n  <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">All my books</span>\n</ion-button>\n\n    <ion-item-sliding *ngFor=\"let book of allBooks \">\n         <ion-item>\n           <ion-card>\n            <ion-thumbnail>\n              <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n              <img-loader [src]=\"(bookIdImageMap.get(book._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            </ion-thumbnail>\n           </ion-card>\n           <ion-label class=\"ion-text-wrap\">\n                <strong>{{book.bookname}}</strong>\n                <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>\n                <p></p>\n                <ion-note *ngIf=\"book.bookcurrentstatus == 'available' \" style=\"color: green\">{{book.bookcurrentstatus}}</ion-note>\n                <ion-note *ngIf=\"book.bookcurrentstatus == 'borrowed' \" style=\"color: red\">{{book.bookcurrentstatus}}</ion-note>\n                <ion-note *ngIf=\"book.bookcurrentstatus == 'reserved' \" style=\"color: orange\">{{book.bookcurrentstatus}}</ion-note>       \n            </ion-label>\n         </ion-item>\n        <ion-item-options side=\"start\">\n          <ion-item-option >\n            <ion-icon style=\"color: red\" *ngIf=\"book.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n            (click)=\"deleteBook(book._id)\"></ion-icon>\n          </ion-item-option>\n       </ion-item-options>\n       <ion-item-options side=\"end\">\n        <ion-item-option>\n          <ion-icon style=\"color: darkgreen\" *ngIf=\"(book.isReserved || book.isBorrowed) && !book.isAvailable\" slot=\"icon-only\"\n          src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(book._id)\"></ion-icon>\n         <ion-item-option>\n            <ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n            src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(book._id, book.bookname)\">\n          </ion-icon>\n          </ion-item-option>\n        </ion-item-option>    \n      </ion-item-options>\n    </ion-item-sliding>\n\n\n\n\n  </ion-list>\n  <!--<ion-infinite-scroll (ionInfinite)=\"loadMoreBooks($event)\">\n    <ion-infinite-scroll-content loadingText=\"..loading\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>-->\n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -3147,7 +3849,7 @@ var Tab3Page = /** @class */ (function () {
         }, function (errmess) { return _this.errMess = errmess; });
     };
     Tab3Page.prototype.storeBookIds = function (bookIds) {
-        console.log('BookIds stored are :', bookIds);
+        // console.log('BookIds stored are :', bookIds);
         localStorage.setItem('bookIds', JSON.stringify(bookIds));
     };
     Tab3Page.prototype.loadBookIds = function () {
@@ -3447,7 +4149,7 @@ var Tab3Page = /** @class */ (function () {
             });
         });
     };
-    Tab3Page.prototype.arBookModal = function (id) {
+    Tab3Page.prototype.arBookModal = function (id, name) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var arbookModal;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
@@ -3455,7 +4157,8 @@ var Tab3Page = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this._modalController.create({
                             component: _arbook_arbook_page__WEBPACK_IMPORTED_MODULE_18__["ArbookPage"],
                             componentProps: {
-                                bookId: id
+                                bookId: id,
+                                bookName: name
                             }
                         })];
                     case 1:

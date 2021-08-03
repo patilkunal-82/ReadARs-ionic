@@ -12,20 +12,22 @@
 <ion-content>
 
   <span margin-top *ngIf="!flag">
-    <img class="displayimg" src="../assets/images/homelibrary.jpeg" style="height: 500px;">
+    <!--<img class="displayimg" src="../assets/images/homelibrary.jpeg" style="height: 500px;">-->
+    
+        <ion-item-sliding>
+          <ion-slides #slider loop="true" pager="true" [options]="sliderConfig" (ionSlideTouchEnd)="slideChanged()"> 
+            <ion-slide  *ngFor="let taglineImage of TaglineImages">
+              <ion-img class="displayimg" [src]="taglineImage" style="height: 500px;"></ion-img>
+            </ion-slide>
+          </ion-slides>
+        </ion-item-sliding>
+     
+    
   </span>
   
   <ion-card *ngIf="flag">
-
-   
-
     <ion-card-content>
-
-     
-
       <form [formGroup]="loginFormGroup">
-
-       
         <ion-item>
           <ion-label color="medium">Username</ion-label>
           <ion-input formControlName="username" type="text"></ion-input>
@@ -46,12 +48,7 @@
              </ion-button>
           </ion-col>
         </ion-row>
-        
-
-        
-    
        <!-- <ion-button shape="round" (click)="cancel()" margin-top expand="block" style="color:grey">Cancel</ion-button>-->
-
       </form>
     </ion-card-content>
   </ion-card>

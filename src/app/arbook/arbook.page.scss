@@ -6,16 +6,50 @@
 }
 
 .displaycard {
-    // width: 30vw;
-     //height:30vh;
+     //width: 30vw;
+    // height:30vh;
     // border: grey solid 1px;
      margin: 5px;
      padding: 5px;
      //background-color: whitesmoke;
    }
 
+.anchor-display {
+
+    //margin:0 auto; - for centering the image
+    
+    padding-left: 5px;
+    padding-bottom: 10px;
+    padding-top:5px; 
+    
+}
+
+.anchorcontnet-display {
+
+  //margin: 10px;
+  padding-left: 2px;
+  padding-bottom: 5px;
+  padding-top:5px;
+  padding-right: 2px;
+  
+}
+
+ion-list-header {
+
+  padding-left:0px;
+  display:block;
+  text-align: center;
+
+}
+
 ion-button {
-    --background: #F4F6F7 ;
+  --background: #E9F7EF ;
+  
+}
+
+ion-card-subtitle {
+    text-align: center;
+    font-weight: bold;
   }
 
   ion-toolbar {

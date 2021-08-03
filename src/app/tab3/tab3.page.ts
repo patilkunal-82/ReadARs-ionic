@@ -382,7 +382,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
   }
 
   storeBookIds(bookIds: any[]) {
-    console.log('BookIds stored are :', bookIds);
+   // console.log('BookIds stored are :', bookIds);
     localStorage.setItem('bookIds', JSON.stringify(bookIds));
   }
 

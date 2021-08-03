@@ -195,8 +195,8 @@
   },
   "cordova-plugin-arplugin": {
     "source": {
-      "type": "local",
-      "path": "/Users/kunalpatil/PersonalFamily/WorkRelated/Programming/Ionic/ReadARs_Ionic/node_modules/arplugin"
+      "type": "registry",
+      "id": "https://github.com/patilkunal-82/arplugin.git"
     },
     "is_top_level": true,
     "variables": {}

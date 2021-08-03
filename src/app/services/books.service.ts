@@ -123,20 +123,40 @@ export class BooksService {
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
     }
 
-    uploadAnchorContentAndPlist(bookId: string, data: any, flag: boolean) {
+    updateBookARFlag(bookId: string, book: Book) {
+      console.log('inside Book Service : upload ar flag', bookId);
+      console.log('inside Book Service : ar flag', book.bookarenabled);
+      return this.http.put(baseURL+'mybooks/' + bookId, {'bookarenabled': book.bookarenabled})
+      .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    }
+
+    uploadAnchorContentAndPlist(bookId: string, data: any, flag: boolean, book: Book) {
       console.log('inside Book Service : upload XML... book id', bookId);
       console.log('inside Book Service : XML Data', data);
       console.log('flag', flag);
+
       if (flag) {
-        return this.http.put(baseURL + 'arrouter/' + bookId, data)
+        return this.http.put(baseURL + 'arxmlrouter/' + bookId, data)
         .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
       }
       else {
-        return this.http.post(baseURL + 'arrouter/' + bookId, data)
+        return this.http.post(baseURL + 'arxmlrouter/' + bookId, data)
         .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
       }
+
      
     }
+
+    /*
+     releaseBook(bookId: string, book: Book) {
+      console.log(book.bookcurrentuser);
+      console.log('inside Book Service release book ' + bookId);
+      return this.http.put(baseURL + 'mybooks/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 
+                                                           'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
+                                                           'bookcurrentstatus': book.bookcurrentstatus})
+      .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    }
+    */
 
     uploadMyProfileImage(myname: string, imageData: any) { 
       console.log('inside Book Service : upload my profile image, i am -> ', myname);
@@ -170,9 +190,17 @@ export class BooksService {
 
     getBookPlistXml(bookId: string) {
       console.log('Inside book service getBookPlistXml' + bookId);
-      return this.http.get(baseURL+'arrouter/'+ bookId)
+      return this.http.get(baseURL+'arxmlrouter/'+ bookId)
       .pipe(catchError(this.processHTTPMsgService.handleError));
     }
+
+    getBookARContent(bookId: string): Observable<any[]> {
+      console.log('Inside book service getBookARContent ' + bookId);
+      return this.http.get<any[]>(baseURL+'arimagerouter/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+    
 
   
 

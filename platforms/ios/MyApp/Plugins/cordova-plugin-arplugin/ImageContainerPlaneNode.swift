@@ -28,7 +28,10 @@ final class ImagesContainerPlaneNode: SCNNode {
           prepareGeometry()
         
     
-        simdWorldOrientation = simd_quatf(angle: Float.pi/2, axis: simd_float3(x: 0, y: 1, z: 0)) * simd_quatf(angle:Float.pi/2, axis: simd_float3(x: -1, y: 0, z: 0))
+       // simdWorldOrientation = simd_quatf(angle: Float.pi/2, axis: simd_float3(x: 0, y: 1, z: 0)) * simd_quatf(angle:Float.pi/2, axis: simd_float3(x: -1, y: 0, z: 0))
+        
+        simdWorldOrientation = simd_quatf(angle: Float.pi/2, axis: simd_float3(x: -1, y: 0, z: 0))
+        
           
       }
       
@@ -56,9 +59,9 @@ final class ImagesContainerPlaneNode: SCNNode {
                geometry?.firstMaterial?.diffuse.contents = image
              geometry?.firstMaterial?.locksAmbientWithDiffuse = true
                 
-            /*
-                simdWorldOrientation = simd_quatf(matrix_identity_float3x3)
-               simdWorldOrientation = simd_quatf(angle: Float.pi/2, axis: simd_float3(x: 0, y: 1, z: 0)) * simd_quatf(angle:Float.pi/2, axis: simd_float3(x: -1, y: 0, z: 0)) */
+            
+               // simdWorldOrientation = simd_quatf(matrix_identity_float3x3)
+               //simdWorldOrientation = simd_quatf(angle: Float.pi/2, axis: simd_float3(x: 0, y: 1, z: 0)) * simd_quatf(angle:Float.pi/2, axis: simd_float3(x: -1, y: 0, z: 0))
                 
                 
              

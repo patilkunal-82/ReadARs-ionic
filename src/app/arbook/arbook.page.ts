@@ -1,4 +1,4 @@
-import { Component, OnInit, SystemJsNgModuleLoader, ViewChild } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader, ViewChild, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BooksService } from '../services/books.service';
 import { Book } from '../shared/book';
@@ -11,18 +11,10 @@ import { baseURL} from '../shared/baseurl';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import { MultiFileUploadComponent} from '../components/multi-file-upload/multi-file-upload.component'
+import { MultiFileContentUploadComponent} from '../components/multi-file-content-upload/multi-file-content-upload.component'
+import { ImageLoaderService } from 'ionic-image-loader-v5';
+import { ToastController } from '@ionic/angular';
 
-import { xml } from 'xml-serializer-ts';
-import { stringify } from '@angular/core/src/util';
-//import { XMLElement, XMLAttribute, XMLChild, xml} from 'xml-decorators'
-
-
-type Anchor = {
-  anchorName: string;
-}
-type AnchorContent = {
-  contentName: string[];
-};
 
 
 @Component({
@@ -32,12 +24,101 @@ type AnchorContent = {
 })
 export class ArbookPage implements OnInit {
 
-  
+  sliderConfig = {
+    slidesPerView: 4,
+    coverflowEffect: {
+    rotate: 30,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
+    autoplay: true
+    //slideShadows: true,
+  },
+  on: {
+    beforeInit() {
+      const swiper = this;
+
+      swiper.classNames.push(`${swiper.params.containerModifierClass}coverflow`);
+      swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
+
+      swiper.params.watchSlidesProgress = true;
+      swiper.originalParams.watchSlidesProgress = true;
+    },
+    setTranslate() {
+      const swiper = this;
+      const {
+        width: swiperWidth, height: swiperHeight, slides, $wrapperEl, slidesSizesGrid, $
+      } = swiper;
+      const params = swiper.params.coverflowEffect;
+      const isHorizontal = swiper.isHorizontal();
+      const transform$$1 = swiper.translate;
+      const center = isHorizontal ? -transform$$1 + (swiperWidth / 2) : -transform$$1 + (swiperHeight / 2);
+      const rotate = isHorizontal ? params.rotate : -params.rotate;
+      const translate = params.depth;
+      // Each slide offset from center
+      for (let i = 0, length = slides.length; i < length; i += 1) {
+        const $slideEl = slides.eq(i);
+        const slideSize = slidesSizesGrid[i];
+        const slideOffset = $slideEl[0].swiperSlideOffset;
+        const offsetMultiplier = ((center - slideOffset - (slideSize / 2)) / slideSize) * params.modifier;
+
+         let rotateY = isHorizontal ? rotate * offsetMultiplier : 0;
+        let rotateX = isHorizontal ? 0 : rotate * offsetMultiplier;
+        // var rotateZ = 0
+        let translateZ = -translate * Math.abs(offsetMultiplier);
+
+         let translateY = isHorizontal ? 0 : params.stretch * (offsetMultiplier);
+        let translateX = isHorizontal ? params.stretch * (offsetMultiplier) : 0;
+
+         // Fix for ultra small values
+        if (Math.abs(translateX) < 0.001) translateX = 0;
+        if (Math.abs(translateY) < 0.001) translateY = 0;
+        if (Math.abs(translateZ) < 0.001) translateZ = 0;
+        if (Math.abs(rotateY) < 0.001) rotateY = 0;
+        if (Math.abs(rotateX) < 0.001) rotateX = 0;
+
+         const slideTransform = `translate3d(${translateX}px,${translateY}px,${translateZ}px)  rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+         $slideEl.transform(slideTransform);
+        $slideEl[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
+        if (params.slideShadows) {
+          // Set shadows
+          let $shadowBeforeEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
+          let $shadowAfterEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
+          if ($shadowBeforeEl.length === 0) {
+            $shadowBeforeEl = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'left' : 'top'}"></div>`);
+            $slideEl.append($shadowBeforeEl);
+          }
+          if ($shadowAfterEl.length === 0) {
+            $shadowAfterEl = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'right' : 'bottom'}"></div>`);
+            $slideEl.append($shadowAfterEl);
+          }
+          if ($shadowBeforeEl.length) $shadowBeforeEl[0].style.opacity = offsetMultiplier > 0 ? offsetMultiplier : 0;
+          if ($shadowAfterEl.length) $shadowAfterEl[0].style.opacity = (-offsetMultiplier) > 0 ? -offsetMultiplier : 0;
+        }
+      }
+
+       // Set correct perspective for IE10
+      if (swiper.support.pointerEvents || swiper.support.prefixedPointerEvents) {
+        const ws = $wrapperEl[0].style;
+        ws.perspectiveOrigin = `${center}px 50%`;
+      }
+    },
+    setTransition(duration) {
+      const swiper = this;
+      swiper.slides
+        .transition(duration)
+        .find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left')
+        .transition(duration);
+    }
+  }
+  }
 
   bookId; // from tab3 as part of component props
   bookName; //from tab3 as part of component props
  
   @ViewChild(MultiFileUploadComponent) fileField: MultiFileUploadComponent;
+  @ViewChild(MultiFileContentUploadComponent) fileContentField: MultiFileContentUploadComponent;
 
 
   bookCopy: Book;
@@ -47,7 +128,7 @@ export class ArbookPage implements OnInit {
   public dataReader = new FileReader();
   public event1;
   imgURL: any;
-  url: any;
+  
   receivedImageData: any;
   capturedImage: any;
   capturedImages: any[];
@@ -56,7 +137,7 @@ export class ArbookPage implements OnInit {
   markerImagesLength: number;
   uploadStatus: string = "";
   counter: number;
-  public urls: SafeResourceUrl[];
+  url: SafeResourceUrl[];
   files: File[] = [];
   anchorFiles: File[] = [];
   anchorContentFiles: File[] = [];
@@ -64,8 +145,26 @@ export class ArbookPage implements OnInit {
   text: string;
   //decoder = new TextDecoder();
   updateFlag: boolean = false;
+  showComonentFlag: boolean = false;
+  showContentAddComponentFlag: boolean = false;
+  pageRefreshFlag: boolean = false;
   plistCopy: any;
+  imgURLs: any[];
+  imgAnchorURLsMap = new Map();
+  imgContentURLsMap = new Map();
+  imgAnchorContentURLsMap = new Map();
   
+  
+  public bookAnchorContentURLsArray: any[] = [];
+  anchorURL: string = "";  // anchor0 url
+  contentMap: Map<string, string> = new Map(); // anchor0content1, anchor0content1 url
+  mapAnchorContentMap = new Map();
+  mapAnchorContentMapArray: any[]= [];
+  mapAnchorContentMapArrayValues: any[] = [];
+  addtlContents: any[] = [];
+  selectedAnchorName: string = "";
+  //nextContentValue: string = '';
+
   
 
   constructor(private _modalController: ModalController,
@@ -74,7 +173,9 @@ export class ArbookPage implements OnInit {
               private file: File,
               private _alertController: AlertController,
               private imagePicker: ImagePicker,
-              public transfer: FileTransfer) { }
+              public transfer: FileTransfer,
+              private imageLoaderService: ImageLoaderService,
+              public toastController: ToastController) { }
 
   ngOnInit() {
 
@@ -84,28 +185,315 @@ export class ArbookPage implements OnInit {
           console.log("Book Copy in AR Book", this.bookCopy);
       }, errmess => this.errMess = <any>errmess);
 
+    this.displayAnchorContentData();
+    
   }
+
+  displayAnchorContentData() {
+
+    this.booksService.getBookARContent(this.bookId)
+    .subscribe( x => {
+       this.imgURLs = x;    
+       this.booksService.getBookPlistXml(this.bookId)
+       .subscribe(plist => {
+          
+          if (plist && this.imgURLs) {
+            this.plistCopy = plist;
+            console.log("imgURLs", this.imgURLs);
+            console.log("plist copy", this.plistCopy);
+
+            /*
+            start reading the plist copy. get the values of all the key elements
+            follow the order of the files and assign urls to keys in that orders
+            */
+            var domParser = new DOMParser();
+            var xmlDocument = domParser.parseFromString(this.plistCopy.toString(), 'text/xml');
+            console.log("xmlDocument from s3", xmlDocument);
+            
+            let keys: any[] = [];
+            let values: any[] = [];
+            let keyvalues: any = [];
+            let mainKeys: any[] = [];
+            let mapArray: any[] = [new Map()];
+            let keyElLength = xmlDocument.getElementsByTagName('key').length;
+            let valElLength = xmlDocument.getElementsByTagName('value').length;
+
+            for (let i=0; i < keyElLength; i++) {
+              keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+            }
+            for (let i=0; i < valElLength; i++) {
+              values[i] = xmlDocument.getElementsByTagName('value')[i].childNodes[0].nodeValue;
+            }
+
+            for (let i=0; i< keyElLength; i++) {
+
+              keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+              keyvalues.push(keys[i]);
+              for (let j=0; j < valElLength; j++) {
+                if (values[j].includes(keys[i])) {
+                  keyvalues.push(values[j]);
+                }
+              }
+          
+            }
+            let bookAnchorContentURLsMap = new Map();
+            for (let i=0; i< keyvalues.length && i < this.imgURLs.length; i++) {
+              bookAnchorContentURLsMap.set(keyvalues[i], this.imgURLs[i]);
+            }
+           
+            for (let entry of Array.from(bookAnchorContentURLsMap.entries())) {
+
+              if (entry[0].indexOf("content") === -1) {
+                mainKeys.push(entry[0])
+              }
+            }
+            console.log("Main Keys", mainKeys);
+            for (let i=0; i<mainKeys.length;i++) {  
+              var entry1; 
+              let newContentMap = new Map();
+              let newAnchorMap = new Map();
+              for (let entry of Array.from(bookAnchorContentURLsMap.entries())) {
+                  if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i]) 
+                  && entry[0].includes('content')) {
+                        newContentMap.set(entry[0], entry[1]);  
+                  } 
+                  if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i]) 
+                  && entry[0].indexOf('content') === -1) ) {
+                        newAnchorMap.set(entry[0], entry[1])
+                  }
+              }
+              console.log("new content map", newContentMap);
+              console.log("new anchor map", newAnchorMap);
+              this.mapAnchorContentMap.set(mainKeys[i], [newAnchorMap, newContentMap]);
+            }
+            
+          console.log("mapAnchorContentMap", this.mapAnchorContentMap)
+          this.mapAnchorContentMapArray = Array.from(this.mapAnchorContentMap.entries());
+          console.log("mapAnchorContentMapArray", this.mapAnchorContentMapArray)
+
+          for (let mapAnchorContentEntry of this.mapAnchorContentMapArray) {
+            console.log("mapanchor content entry", mapAnchorContentEntry[0])
+            console.log(mapAnchorContentEntry[1][1].values());
+            this.mapAnchorContentMapArrayValues.push(Array.from(mapAnchorContentEntry[1][1].entries()));
+          }
+          console.log("mapAnchorContentMapArrayValues", this.mapAnchorContentMapArrayValues);
+          }
+          else {
+              console.log("plist is empty");
+              return;
+          }
+     }), errMess => console.log(errMess);
+
+
+    }, errmess => this.errMess = <any>errmess);
+    
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Data uploaded successfully.',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  onImageLoad(event) {
+    console.log("image ready");
+  }
+ 
+  anchorContentComponent() {
+    console.log("inside anchor and Content Component")
+    this.showComonentFlag = true
+  }
+
+  addContentToCurrentAnchor(anchorName, anchorURL) {
+
+    console.log("AnchorName", anchorName);
+    console.log("AnchorURL", anchorURL);
+
+    this.selectedAnchorName = anchorName;
+    
+    /*
+          1. select the anchor and get the corresponding anchorName, anchorURL - done
+          2. using the bookId get the Book plist - done
+          3. check if this plist contains selected anchorName - done
+          4. If yes, 
+              find out the last anchorNameContentX belonging to this entry in the plist - done
+              present option to the user to add new content - done
+              add that contnet in the xml as anchorNamecontentX+1 to corresponding anchorName - done
+              upload updated xml and anchorNamecontentX+1 to s3 - done
+            
+    */
+    
+    
+    this.booksService.getBookPlistXml(this.bookId)
+    .subscribe(plist => {
+        this.plistCopy = plist;
+        console.log("plist copy", this.plistCopy );
+        var domParser = new DOMParser();
+        var xmlDocument = domParser.parseFromString(this.plistCopy.toString(), 'text/xml');
+        console.log("xmlDocument from s3", xmlDocument);
+
+        let keyElLength = xmlDocument.getElementsByTagName('key').length;
+        console.log("keyElLength", keyElLength);
+        let valElLength = xmlDocument.getElementsByTagName('value').length;
+        console.log("valElLength", valElLength);
+        
+        for (let i=0; i<keyElLength;i++) {
+          let anchorKey = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+         
+          if (anchorKey === anchorName) {
+            this.showContentAddComponentFlag = true;
+            this.showComonentFlag = false;
+          }
+        }
+      }), errMess => console.log(errMess);
+    
+  }
+
+  uploadContent() {
+
+    console.log("this.selected anchor name", this.selectedAnchorName);
+    
+    this.addtlContents = this.fileContentField.getContentFiles();
+    console.log("Additional Contents", this.addtlContents);
+
+
+   this.booksService.getBookPlistXml(this.bookId)
+    .subscribe(plist => {
+        this.plistCopy = plist;
+        console.log("plist copy", this.plistCopy );
+
+        var domParser = new DOMParser();
+        var xmlDocument = domParser.parseFromString(this.plistCopy.toString(), 'text/xml');
+        console.log("xmlDocument from s3", xmlDocument);
+
+        let keyElLength = xmlDocument.getElementsByTagName('key').length;
+        console.log("keyElLength", keyElLength);
+        let valElLength = xmlDocument.getElementsByTagName('value').length;
+        console.log("valElLength", valElLength);
+        let existingContentValues = [];
+        for (let i=0; i<keyElLength;i++) {
+          let anchorKey = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+          //console.log("anchorkey", anchorKey);
+          if (anchorKey === this.selectedAnchorName) {
+            //console.log("Success", anchorKey);
+            //console.log("Success", anchorName);
+            for (let j=0;j<valElLength;j++) {
+              let value = xmlDocument.getElementsByTagName('value')[j].childNodes[0].nodeValue;
+              if (value.includes(this.selectedAnchorName)) {
+                existingContentValues.push(value);
+              }
+            } 
+          }
+        }
+
+        let plistMap = new Map<string, string[]>();
+        plistMap.set(this.selectedAnchorName, []);  
+        console.log("selected anchor name", this.selectedAnchorName);
+        for (let j=0; j < this.addtlContents.length;j++) {
+          let nextContentName = this.selectedAnchorName+'content'+(existingContentValues.length+j+1);
+          plistMap.get(this.selectedAnchorName).push(nextContentName);
+        }
+        console.log("plistMap", plistMap);
+
+       
+        //append content files
+        for (let i=0; i< this.addtlContents.length; i++) {
+          let nextContentName = this.selectedAnchorName+'content'+((existingContentValues.length+i+1));
+          this.uploadData.append('imageFile', this.addtlContents[i].rawFile,nextContentName);
+        }
+
+        // append entries to right key element in the xml document
+        let root = xmlDocument.getElementsByTagName('plist')[0];
+        console.log("root ", root);
+
+        let keys = xmlDocument.getElementsByTagName('key');
+        console.log("keys", keys)
+
+        for (let i=0; i<keys.length; i++) {
+
+          let nodevalue = keys[i].childNodes[0].nodeValue
+          console.log("nodevalue", nodevalue);
+
+          for (let entry of Array.from(plistMap.entries())) {
+              if (entry[0] === nodevalue) {
+                console.log("SUCCESS", entry[0], nodevalue);
+                console.log("keys[i]", keys[i]);
+                for (let j=0;j<entry[1].length;j++) {
+                  let valEL = xmlDocument.createElement('value');
+                  valEL.textContent = entry[1][j];
+                  keys[i].appendChild(valEL);
+                }
+              }
+          }
+        }
+
+        // serialize 
+        console.log("XML document before serializing", xmlDocument);
+        let serializer = new XMLSerializer();
+        let xmlSerializedDoc = serializer.serializeToString(xmlDocument);
+        console.log("xml serailizd doc", xmlSerializedDoc);
+
+        // append xml blob
+        var blob = new Blob([xmlSerializedDoc], {type: "text/xml"})
+        this.uploadData.append('xmlFile', blob, this.bookId+'plist');
+
+      // update book ar flag & then upload the data
+        this.updateFlag = true;
+        this.bookCopy.bookarenabled = true;
+        this.booksService.updateBookARFlag(this.bookId, this.bookCopy)
+        .subscribe(res => {
+            console.log(res); 
+          // upload data
+          this.booksService.uploadAnchorContentAndPlist(this.bookId, this.uploadData, this.updateFlag, this.bookCopy)
+          .subscribe(res => {
+            console.log(res);
+           
+            this.presentToast();
+            this.closeModal();
+          });    
+        });
+        
+      
+      }), errMess => console.log(errMess);
+    
+  
+  }
+
+  
 
   upload() {
 
     /*
-    1. read existing Booknameplist.xml from s3 bucket - done
-    2. if empty, create new one with the user selected set of anchor and content names populated - done
-    3. if !empty, 
+    1. check if there is plist xml existing for bookId. - DONE
+    2. If no, - DONE
+          create plist xml with new anchor and content 
+          upload content, xml to s3 bucket.
+    3. If yes, - DONE
+        Display the list of anchors and correspoding contents as thumbnails so that user knows which are anchors
+        and which are content
+        Ask user if s/he wants to add new content to an existing anchor OR to new anchor 
+        
+      3.1 - DONE
+        if (to an existing anchor) {
+          select the anchor
+          retrive the anchor URL, get the bookId 
+          extract the anchorName from the url
+          using the bookId get the Book plist and see if anchorName exists in the plist xml
+          when the plist xml has the anchorname {
+            find out the last anchorNamecontentX in the list
+            present option to the user to add new content
+            add that contnet in the xml as anchorNamecontentX+1
+            upload updated xml and anchorNamecontentX+1 to s3
+          }
+        }
+      3.2 - DONE
+        if (to new anchor) {
+          add new anchor and new content, append it to plist xml 
+          upload anchor, content, xml to s3 
+        }
 
-      3a.1 First check, against which anchor is user trying to add the content. - 
-      3a.2 Determine the anchorname from the xml file and append user selected content to it - done
-      3a.3 Update XML file and upload it on s3 - done
-
-      3b.1 If user is creating a new anchor, determine the anchorname from the xml file, and add new anchor next to it
-      3b.2 Add corresponding content against it 
-      3b.3 Update XML file and upload it on s3
-
-      HTML component for 3a.1 - 
-      Present list of existing anchors & content as thumbnails 
-      Ask user if he/she wishes to use an existing anchor. If yes, user selects the corresponding thmbnail and uses 
-      selector/uploaded dialogue to add the content. 
-    
   */
   this.booksService.getBookPlistXml(this.bookId)
   .subscribe(plist => {
@@ -123,8 +511,6 @@ export class ArbookPage implements OnInit {
       }
      }), errMess => console.log(errMess);
 
-
-
   }
 
   prepareAnchorAndContentsDataAndUpload(flag: boolean) {
@@ -133,6 +519,7 @@ export class ArbookPage implements OnInit {
     let contents = this.fileField.getAnchorContentFiles();
 
     // update existing xml plist
+    
     if (flag) {
 
       var domParser = new DOMParser();
@@ -141,13 +528,10 @@ export class ArbookPage implements OnInit {
 
       let keyElLength = xmlDocument.getElementsByTagName('key').length;
       console.log("keyElLength", keyElLength);
-      let prevAnchorName =  xmlDocument.getElementsByTagName('key')[keyElLength-1].childNodes[0].nodeValue;
-      console.log("prev anchor name", prevAnchorName);
-      let prevAnchorIndex = prevAnchorName.slice(6);
-      console.log("prev anchor index", prevAnchorIndex);
-      let newAnchorIndex = parseInt(prevAnchorIndex) + 1;
-      
-      let anchorName = 'anchor' + newAnchorIndex;
+      //let prevAnchorName =  xmlDocument.getElementsByTagName('key')[keyElLength-1].childNodes[0].nodeValue;
+     
+
+      let anchorName = 'anchor' + keyElLength;
       let plistMap = new Map<string, string[]>();
       plistMap.set(anchorName, []);   
       for (let j=0; j < contents.length;j++) {
@@ -238,18 +622,63 @@ export class ArbookPage implements OnInit {
     }
     
     
-    // upload
-    this.booksService.uploadAnchorContentAndPlist(this.bookId, this.uploadData, this.updateFlag)
+    // update book ar flag & then upload the data
+    this.bookCopy.bookarenabled = true;
+    this.booksService.updateBookARFlag(this.bookId, this.bookCopy)
     .subscribe(res => {
-      console.log(res);
+        console.log(res); 
+      // upload data
+      this.booksService.uploadAnchorContentAndPlist(this.bookId, this.uploadData, this.updateFlag, this.bookCopy)
+      .subscribe(res => {
+        console.log(res);
+        this.presentToast();
+        
+        
+        this.closeModal();
+      });
+        
     });
+
+   
   }
 
   closeModal() {
     console.log("inside close modal");
-    this._modalController.dismiss();
+    this.showComonentFlag = false;
+    this.showContentAddComponentFlag = false;
+    //this._modalController.dismiss();
   }
 
+  refreshBookList(event) {
+    setTimeout(() => {
+
+      this.clearCache();
+      event.target.complete();
+
+    }, 3000);
+  }
+
+  clearCache() {
+    this.imageLoaderService.clearCache();
+  
+   // refresher.complete();
+  }
+
+
+  close() {
+
+    if (this.showComonentFlag || this.showContentAddComponentFlag) {
+      this.closeModal();
+    }
+    else {
+      this._modalController.dismiss();
+      
+    }
+    
+  }
+
+  
+}
   
   /*async selectImageSource() {
 
@@ -399,4 +828,4 @@ export class ArbookPage implements OnInit {
 
 
 
-}
+

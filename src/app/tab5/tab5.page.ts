@@ -6,6 +6,7 @@ import { ImageLoaderService } from 'ionic-image-loader-v5';
 
 import { ReadarsService} from '../services/readars.service';
 import { BooksService } from '../services/books.service';
+import { ARenabledService} from '../services/arenabled.service';
 
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { Book } from '../shared/book';
@@ -23,7 +24,7 @@ export class Tab5Page implements OnInit {
   contacts = [];
   images = [];
   bookImages: Array<any>;
-  books: Book[] = [];
+  arbooks: Book[] = [];
   recobooks: Book[] = [];
   bookGenreCollection: Book[] = [];
   bookLanguageCollection: Book[] = [];
@@ -32,6 +33,18 @@ export class Tab5Page implements OnInit {
   errMess: string;
   username: string;
   category: string;
+
+  imgURLs: any;
+  plistCopy: any;
+  
+  mapAnchorContentMap = new Map();
+  mapAnchorContentMapArray: any[]= [];
+  mapAnchorContentMapArrayValues: any[] = [];
+  arrayAnchorContentURLs: any[] = [];
+  
+  
+ 
+
 
   showGenre: boolean;
   showLanguage: boolean;
@@ -47,17 +60,25 @@ export class Tab5Page implements OnInit {
     public alertController: AlertController,
     public readarsService: ReadarsService,
     private imageLoaderService: ImageLoaderService,
-    private booksService: BooksService)
+    private booksService: BooksService,
+    private arenabledService: ARenabledService)
+    
      
   {  }
 
   ngOnInit() {
 
-    this.readarsService.getBooks()
+    /*this.readarsService.getBooks()
     .subscribe(books => {
       this.books = books;
       this.prepareBookIdsImagesMap();
       console.log("BOOK COLLECTION IS ---------->", this.books)
+    }, errmess => this.errMess = <any>errmess);*/
+
+    this.arenabledService.getARenabledBooks()
+    .subscribe(arbooks => {
+      this.arbooks = arbooks;
+      this.prepareBookIdsImagesMap();
     }, errmess => this.errMess = <any>errmess);
 
   }
@@ -103,24 +124,156 @@ export class Tab5Page implements OnInit {
     return;
   }
 
-  async viewAR(bookID: string) {
-
-    console.log("bookID is ", bookID)
+  async viewAR(bookId: string, bookName: string) {
 
 
-    /*this.booksService.uploadMarkerImage(this.bookId, this.uploadData)
-    .subscribe(res => {
-      console.log("Uploaded image details ----->",res);
-    });*/
+   /*
+      1. arViewController.bookAnchorContentNames = send bookAnchorContentNames
+         bookAnchorContetNames should be in the format 
+         a0 => a0c1, a0c2, aoc3
+         a1 => a1c1, a1c2, a1c3
 
-    /*this.booksService.getAnchorAndContent(bookID)
-    .subscribe(res => {
-      console.log("anchor and content data for book id", bookID);
-      console.log(res);
-      this.pluginService.viewAR(bookID);
-    });*/
+      2. arViewController.bookDirectoryPath = send bookDirectoryPath
+      3. arViewController.currentBookName = send current bookname
+   */
 
+    this.getbookARdata(bookId, bookName);
     
+    
+    
+  }
+
+  getbookARdata(bookId: string, bookName: string) {
+
+    let bookAnchorContentURLsMap = new Map();
+    this.booksService.getBookARContent(bookId)
+      .subscribe( x => {
+         this.imgURLs = x;    
+         this.booksService.getBookPlistXml(bookId)
+         .subscribe(plist => {
+            
+            if (plist && this.imgURLs) {
+              this.plistCopy = plist;
+              console.log("imgURLs", this.imgURLs);
+              console.log("plist copy", this.plistCopy);
+  
+              /*
+              start reading the plist copy. get the values of all the key elements
+              follow the order of the files and assign urls to keys in that orders
+              */
+              var domParser = new DOMParser();
+              var xmlDocument = domParser.parseFromString(this.plistCopy.toString(), 'text/xml');
+              console.log("xmlDocument from s3", xmlDocument);
+              
+              let keys: any[] = [];
+              let values: any[] = [];
+              let keyvalues: any = [];
+              let mainKeys: any[] = [];
+              let mapArray: any[] = [new Map()];
+              let keyElLength = xmlDocument.getElementsByTagName('key').length;
+              let valElLength = xmlDocument.getElementsByTagName('value').length;
+  
+              for (let i=0; i < keyElLength; i++) {
+                keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+              }
+              for (let i=0; i < valElLength; i++) {
+                values[i] = xmlDocument.getElementsByTagName('value')[i].childNodes[0].nodeValue;
+              }
+  
+              for (let i=0; i< keyElLength; i++) {
+  
+                keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                keyvalues.push(keys[i]);
+                for (let j=0; j < valElLength; j++) {
+                  if (values[j].includes(keys[i])) {
+                    keyvalues.push(values[j]);
+                  }
+                }
+            
+              }
+              console.log("keyvalues", keyvalues);
+
+              for (let i=0; i< keyvalues.length && i < this.imgURLs.length; i++) {
+                    bookAnchorContentURLsMap.set(keyvalues[i], this.imgURLs[i]);
+              }
+             
+              for (let entry of Array.from(bookAnchorContentURLsMap.entries())) {
+  
+                if (entry[0].indexOf("content") === -1) {
+                  mainKeys.push(entry[0])
+                }
+              }
+              //console.log("Main Keys", mainKeys);
+              for (let i=0; i<mainKeys.length;i++) {  
+                var entry1; 
+                let newContentMap = new Map();
+                let newAnchorMap = new Map();
+                for (let entry of Array.from(bookAnchorContentURLsMap.entries())) {
+                    if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i]) 
+                    && entry[0].includes('content')) {
+                          newContentMap.set(entry[0], entry[1]);  
+                    } 
+                    if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i]) 
+                    && entry[0].indexOf('content') === -1) ) {
+                          newAnchorMap.set(entry[0], entry[1])
+                    }
+                }
+               // console.log("new content map", newContentMap);
+               // console.log("new anchor map", newAnchorMap);
+                this.mapAnchorContentMap.set(mainKeys[i], [newAnchorMap, newContentMap]);
+              }
+              
+           // console.log("mapAnchorContentMap", this.mapAnchorContentMap)
+            this.mapAnchorContentMapArray = Array.from(this.mapAnchorContentMap.entries());
+           // console.log("mapAnchorContentMapArray", this.mapAnchorContentMapArray)
+  
+            for (let mapAnchorContentEntry of this.mapAnchorContentMapArray) {
+              //console.log("mapanchor content entry", mapAnchorContentEntry[0])
+             // console.log(mapAnchorContentEntry[1][1].values());
+              this.mapAnchorContentMapArrayValues.push(Array.from(mapAnchorContentEntry[1][1].entries()));
+            }
+           // console.log("mapAnchorContentMapArrayValues", this.mapAnchorContentMapArrayValues);
+
+           
+            console.log("bookAnchorContentURLsMap", bookAnchorContentURLsMap);
+           
+            let anchorContentURLsMap = new Map();
+
+            for (let i=0; i < mainKeys.length;i++) {
+              let arrayContentURLs: any[] = [];
+              let anchorURL: string;
+
+              for (let entry of Array.from(bookAnchorContentURLsMap.entries())) {
+                if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i]) 
+                && entry[0].includes('content') && entry[1].includes(bookId)) {
+                      
+                  arrayContentURLs.push(entry[1]);
+                  
+                } 
+                if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i]) 
+                && entry[0].indexOf('content') === -1) && entry[1].includes(bookId)) {
+                  anchorURL = entry[1];  
+                } 
+              }
+              anchorContentURLsMap.set(anchorURL, arrayContentURLs);
+              
+            }
+
+            console.log("bookID is ", bookId);
+            console.log("book name is ", bookName);
+            console.log("Final anchorContentURLsMap", anchorContentURLsMap);
+            
+            
+            //calling the plugin service method
+            this.pluginService.viewAR(bookId, bookName, anchorContentURLsMap);
+            
+            }
+            else {
+                console.log("plist is empty");
+                return ;
+            }
+       }), errMess => console.log(errMess);
+      }, errmess => this.errMess = <any>errmess);
   }
 
   viewAnchors() {

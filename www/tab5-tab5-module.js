@@ -1,5 +1,67 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tab5-tab5-module"],{
 
+/***/ "./src/app/services/arenabled.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/services/arenabled.service.ts ***!
+  \***********************************************/
+/*! exports provided: ARenabledService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARenabledService", function() { return ARenabledService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_baseurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/baseurl */ "./src/app/shared/baseurl.ts");
+/* harmony import */ var _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./process-httpmsg.service */ "./src/app/services/process-httpmsg.service.ts");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auth.service */ "./src/app/services/auth.service.ts");
+
+
+
+
+
+
+
+
+var ARenabledService = /** @class */ (function () {
+    function ARenabledService(http, auth, processHTTPMsgService) {
+        this.http = http;
+        this.auth = auth;
+        this.processHTTPMsgService = processHTTPMsgService;
+    }
+    ARenabledService.prototype.getARenabledBooks = function () {
+        if (!this.auth.isLoggedIn()) {
+            return null;
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'arenabled?isARenabled=true')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.processHTTPMsgService.handleError));
+    };
+    ARenabledService.prototype.isARenabled = function (id) {
+        var _this = this;
+        if (!this.auth.isLoggedIn()) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({ exists: false, book: null });
+        }
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'arenabled/' + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    ARenabledService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _process_httpmsg_service__WEBPACK_IMPORTED_MODULE_6__["ProcessHTTPMsgService"]])
+    ], ARenabledService);
+    return ARenabledService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/plugin-service.service.ts":
 /*!****************************************************!*\
   !*** ./src/app/services/plugin-service.service.ts ***!
@@ -27,8 +89,10 @@ var PluginServiceService = /** @class */ (function (_super) {
     PluginServiceService.prototype.getContacts = function () {
         return Object(_ionic_native_core__WEBPACK_IMPORTED_MODULE_2__["cordova"])(this, 'getContacts', {}, [{}]);
     };
-    PluginServiceService.prototype.viewAR = function (bookID) {
-        return Object(_ionic_native_core__WEBPACK_IMPORTED_MODULE_2__["cordova"])(this, 'viewAR', {}, [{ param1: bookID }]);
+    PluginServiceService.prototype.viewAR = function (bookID, bookName, anchorContentURLsMap) {
+        console.log("anchorContentURLsMap", anchorContentURLsMap);
+        return Object(_ionic_native_core__WEBPACK_IMPORTED_MODULE_2__["cordova"])(this, 'viewAR', {}, [{ param1: bookName, param2: Array.from(anchorContentURLsMap.entries()),
+                param3: bookID }]);
     };
     //name in package.json file of plugin
     PluginServiceService.pluginName = 'arplugin';
@@ -111,7 +175,7 @@ var Tab5PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Immerse\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"close()\"><ion-icon name=\"close\" slot=\"icon-only\"></ion-icon></ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n   \n      \n        <!--<div id=\"container\">\n          <ion-button (click)=\"add()\">Add Numbers</ion-button>\n            <ion-list>\n              <ion-item>{{total}}</ion-item>\n            </ion-list>\n        </div>-->\n\n        \n         <!--<ion-button expand=\"full\" (click)=\"loadContacts()\">\n            Load Contacts\n          </ion-button>-->\n         \n          <!--<ion-list>\n            <ion-item *ngFor=\"let c of contacts\">\n              <ion-label>\n                {{ c.firstName }} {{ c.lastName }}\n                <p>\n                  {{ c.telephone }}\n                </p>\n              </ion-label>\n            </ion-item>\n          </ion-list>-->\n\n    <ion-list>\n      <ion-item *ngFor=\"let book of books\">\n        <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\"  \n        useImg (load)=\"onImageLoad($event)\" button>\n        </img-loader>\n        <ion-button  shape=\"round\" style=\"color: #145A32\" margin expand=\"block\"  (click)=\"viewAR(book._id)\">View AR</ion-button>\n        <p></p>\n        <ion-button  shape=\"round\" style=\"color: #145A32\" margin expand=\"block\" (click)=\"viewAnchors()\">View Anchor Index</ion-button>\n     </ion-item>\n    </ion-list>\n\n      \n\n          \n         \n          \n   \n\n</ion-content> \n\n \n\n\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Immerse\n    </ion-title>\n\n    <!--<ion-buttons slot=\"end\">\n      <ion-button (click)=\"close()\"><ion-icon name=\"close\" slot=\"icon-only\"></ion-icon></ion-button>\n    </ion-buttons>-->\n\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n   \n      \n        <!--<div id=\"container\">\n          <ion-button (click)=\"add()\">Add Numbers</ion-button>\n            <ion-list>\n              <ion-item>{{total}}</ion-item>\n            </ion-list>\n        </div>-->\n\n        \n         <!--<ion-button expand=\"full\" (click)=\"loadContacts()\">\n            Load Contacts\n          </ion-button>-->\n         \n          <!--<ion-list>\n            <ion-item *ngFor=\"let c of contacts\">\n              <ion-label>\n                {{ c.firstName }} {{ c.lastName }}\n                <p>\n                  {{ c.telephone }}\n                </p>\n              </ion-label>\n            </ion-item>\n          </ion-list>-->\n\n    <ion-list>\n      <ion-item *ngFor=\"let book of arbooks\">\n        <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\"  \n        useImg (load)=\"onImageLoad($event)\" button>\n        </img-loader>\n        <ion-button  shape=\"round\" style=\"color: #145A32\" margin expand=\"block\"  (click)=\"viewAR(book._id, book.bookname)\">View AR</ion-button>\n        <p></p>\n        <ion-button  shape=\"round\" style=\"color: #145A32\" margin expand=\"block\" (click)=\"viewAnchors()\">View Anchor Index</ion-button>\n     </ion-item>\n    </ion-list>\n\n      \n\n          \n         \n          \n   \n\n</ion-content> \n\n \n\n\n"
 
 /***/ }),
 
@@ -143,6 +207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
 /* harmony import */ var _services_readars_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/readars.service */ "./src/app/services/readars.service.ts");
 /* harmony import */ var _services_books_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/books.service */ "./src/app/services/books.service.ts");
+/* harmony import */ var _services_arenabled_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/arenabled.service */ "./src/app/services/arenabled.service.ts");
+
 
 
 
@@ -152,29 +218,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Tab5Page = /** @class */ (function () {
-    function Tab5Page(modalCtrl, pluginService, alertController, readarsService, imageLoaderService, booksService) {
+    function Tab5Page(modalCtrl, pluginService, alertController, readarsService, imageLoaderService, booksService, arenabledService) {
         this.modalCtrl = modalCtrl;
         this.pluginService = pluginService;
         this.alertController = alertController;
         this.readarsService = readarsService;
         this.imageLoaderService = imageLoaderService;
         this.booksService = booksService;
+        this.arenabledService = arenabledService;
         this.contacts = [];
         this.images = [];
-        this.books = [];
+        this.arbooks = [];
         this.recobooks = [];
         this.bookGenreCollection = [];
         this.bookLanguageCollection = [];
+        this.mapAnchorContentMap = new Map();
+        this.mapAnchorContentMapArray = [];
+        this.mapAnchorContentMapArrayValues = [];
+        this.arrayAnchorContentURLs = [];
         this.bookIdsImages = new Map();
         this.bookIdImageMap = new Map();
     }
     Tab5Page.prototype.ngOnInit = function () {
+        /*this.readarsService.getBooks()
+        .subscribe(books => {
+          this.books = books;
+          this.prepareBookIdsImagesMap();
+          console.log("BOOK COLLECTION IS ---------->", this.books)
+        }, errmess => this.errMess = <any>errmess);*/
         var _this = this;
-        this.readarsService.getBooks()
-            .subscribe(function (books) {
-            _this.books = books;
+        this.arenabledService.getARenabledBooks()
+            .subscribe(function (arbooks) {
+            _this.arbooks = arbooks;
             _this.prepareBookIdsImagesMap();
-            console.log("BOOK COLLECTION IS ---------->", _this.books);
         }, function (errmess) { return _this.errMess = errmess; });
     };
     Tab5Page.prototype.prepareBookIdsImagesMap = function () {
@@ -216,24 +292,134 @@ var Tab5Page = /** @class */ (function () {
         }
         return;
     };
-    Tab5Page.prototype.viewAR = function (bookID) {
+    Tab5Page.prototype.viewAR = function (bookId, bookName) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                console.log("bookID is ", bookID);
-                /*this.booksService.uploadMarkerImage(this.bookId, this.uploadData)
-                .subscribe(res => {
-                  console.log("Uploaded image details ----->",res);
-                });*/
-                this.booksService.getAnchorAndContent(bookID)
-                    .subscribe(function (res) {
-                    console.log("anchor and content data for book id", bookID);
-                    console.log(res);
-                    _this.pluginService.viewAR(bookID);
-                });
+                /*
+                   1. arViewController.bookAnchorContentNames = send bookAnchorContentNames
+                      bookAnchorContetNames should be in the format
+                      a0 => a0c1, a0c2, aoc3
+                      a1 => a1c1, a1c2, a1c3
+             
+                   2. arViewController.bookDirectoryPath = send bookDirectoryPath
+                   3. arViewController.currentBookName = send current bookname
+                */
+                this.getbookARdata(bookId, bookName);
                 return [2 /*return*/];
             });
         });
+    };
+    Tab5Page.prototype.getbookARdata = function (bookId, bookName) {
+        var _this = this;
+        var bookAnchorContentURLsMap = new Map();
+        this.booksService.getBookARContent(bookId)
+            .subscribe(function (x) {
+            _this.imgURLs = x;
+            _this.booksService.getBookPlistXml(bookId)
+                .subscribe(function (plist) {
+                if (plist && _this.imgURLs) {
+                    _this.plistCopy = plist;
+                    console.log("imgURLs", _this.imgURLs);
+                    console.log("plist copy", _this.plistCopy);
+                    /*
+                    start reading the plist copy. get the values of all the key elements
+                    follow the order of the files and assign urls to keys in that orders
+                    */
+                    var domParser = new DOMParser();
+                    var xmlDocument = domParser.parseFromString(_this.plistCopy.toString(), 'text/xml');
+                    console.log("xmlDocument from s3", xmlDocument);
+                    var keys = [];
+                    var values = [];
+                    var keyvalues = [];
+                    var mainKeys = [];
+                    var mapArray = [new Map()];
+                    var keyElLength = xmlDocument.getElementsByTagName('key').length;
+                    var valElLength = xmlDocument.getElementsByTagName('value').length;
+                    for (var i = 0; i < keyElLength; i++) {
+                        keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                    }
+                    for (var i = 0; i < valElLength; i++) {
+                        values[i] = xmlDocument.getElementsByTagName('value')[i].childNodes[0].nodeValue;
+                    }
+                    for (var i = 0; i < keyElLength; i++) {
+                        keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                        keyvalues.push(keys[i]);
+                        for (var j = 0; j < valElLength; j++) {
+                            if (values[j].includes(keys[i])) {
+                                keyvalues.push(values[j]);
+                            }
+                        }
+                    }
+                    console.log("keyvalues", keyvalues);
+                    for (var i = 0; i < keyvalues.length && i < _this.imgURLs.length; i++) {
+                        bookAnchorContentURLsMap.set(keyvalues[i], _this.imgURLs[i]);
+                    }
+                    for (var _i = 0, _a = Array.from(bookAnchorContentURLsMap.entries()); _i < _a.length; _i++) {
+                        var entry = _a[_i];
+                        if (entry[0].indexOf("content") === -1) {
+                            mainKeys.push(entry[0]);
+                        }
+                    }
+                    //console.log("Main Keys", mainKeys);
+                    for (var i = 0; i < mainKeys.length; i++) {
+                        var entry1;
+                        var newContentMap = new Map();
+                        var newAnchorMap = new Map();
+                        for (var _b = 0, _c = Array.from(bookAnchorContentURLsMap.entries()); _b < _c.length; _b++) {
+                            var entry = _c[_b];
+                            if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].includes('content')) {
+                                newContentMap.set(entry[0], entry[1]);
+                            }
+                            if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].indexOf('content') === -1)) {
+                                newAnchorMap.set(entry[0], entry[1]);
+                            }
+                        }
+                        // console.log("new content map", newContentMap);
+                        // console.log("new anchor map", newAnchorMap);
+                        _this.mapAnchorContentMap.set(mainKeys[i], [newAnchorMap, newContentMap]);
+                    }
+                    // console.log("mapAnchorContentMap", this.mapAnchorContentMap)
+                    _this.mapAnchorContentMapArray = Array.from(_this.mapAnchorContentMap.entries());
+                    // console.log("mapAnchorContentMapArray", this.mapAnchorContentMapArray)
+                    for (var _d = 0, _e = _this.mapAnchorContentMapArray; _d < _e.length; _d++) {
+                        var mapAnchorContentEntry = _e[_d];
+                        //console.log("mapanchor content entry", mapAnchorContentEntry[0])
+                        // console.log(mapAnchorContentEntry[1][1].values());
+                        _this.mapAnchorContentMapArrayValues.push(Array.from(mapAnchorContentEntry[1][1].entries()));
+                    }
+                    // console.log("mapAnchorContentMapArrayValues", this.mapAnchorContentMapArrayValues);
+                    console.log("bookAnchorContentURLsMap", bookAnchorContentURLsMap);
+                    var anchorContentURLsMap = new Map();
+                    for (var i = 0; i < mainKeys.length; i++) {
+                        var arrayContentURLs = [];
+                        var anchorURL = void 0;
+                        for (var _f = 0, _g = Array.from(bookAnchorContentURLsMap.entries()); _f < _g.length; _f++) {
+                            var entry = _g[_f];
+                            if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].includes('content') && entry[1].includes(bookId)) {
+                                arrayContentURLs.push(entry[1]);
+                            }
+                            if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].indexOf('content') === -1) && entry[1].includes(bookId)) {
+                                anchorURL = entry[1];
+                            }
+                        }
+                        anchorContentURLsMap.set(anchorURL, arrayContentURLs);
+                    }
+                    console.log("bookID is ", bookId);
+                    console.log("book name is ", bookName);
+                    console.log("Final anchorContentURLsMap", anchorContentURLsMap);
+                    //calling the plugin service method
+                    _this.pluginService.viewAR(bookId, bookName, anchorContentURLsMap);
+                }
+                else {
+                    console.log("plist is empty");
+                    return;
+                }
+            }), function (errMess) { return console.log(errMess); };
+        }, function (errmess) { return _this.errMess = errmess; });
     };
     Tab5Page.prototype.viewAnchors = function () {
     };
@@ -295,7 +481,8 @@ var Tab5Page = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
             _services_readars_service__WEBPACK_IMPORTED_MODULE_5__["ReadarsService"],
             ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_4__["ImageLoaderService"],
-            _services_books_service__WEBPACK_IMPORTED_MODULE_6__["BooksService"]])
+            _services_books_service__WEBPACK_IMPORTED_MODULE_6__["BooksService"],
+            _services_arenabled_service__WEBPACK_IMPORTED_MODULE_7__["ARenabledService"]])
     ], Tab5Page);
     return Tab5Page;
 }());

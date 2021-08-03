@@ -148,8 +148,6 @@ var Tab1Page = /** @class */ (function () {
                 stretch: 0,
                 depth: 100,
                 modifier: 1,
-                autoplay: true
-                //slideShadows: true,
             },
             on: {
                 beforeInit: function () {

@@ -46,7 +46,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
     stretch: 0,
     depth: 100,
     modifier: 1,
-    autoplay: true
+    //autoplay: true
     //slideShadows: true,
   },
   on: {

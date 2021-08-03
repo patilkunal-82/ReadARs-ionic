@@ -1,3 +1,4 @@
+import { jsonpCallbackContext } from '@angular/common/http/src/module';
 import { Injectable } from '@angular/core';
 import { cordova, IonicNativePlugin } from '@ionic-native/core'
 
@@ -24,8 +25,12 @@ export class PluginServiceService extends IonicNativePlugin {
     return cordova(this, 'getContacts', {}, [{}]);
   }
 
-  viewAR(bookID): Promise<any> {
-    return cordova(this, 'viewAR', {}, [{param1: bookID}]);
+  viewAR(bookID, bookName, anchorContentURLsMap): Promise<any> {
+    console.log("anchorContentURLsMap", anchorContentURLsMap);
+    
+    return cordova(this, 'viewAR', {}, [{param1: bookName, param2: Array.from(anchorContentURLsMap.entries()), 
+                                         param3: bookID}]);
+   
   }
 
 }

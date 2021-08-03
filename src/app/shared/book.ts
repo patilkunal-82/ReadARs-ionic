@@ -17,6 +17,7 @@
       bookavailable: boolean;
       bookreserved: boolean;
       bookborrowed: boolean;
+      bookarenabled: boolean;
       comments: Comment[];
       bookcoverimage: any;
       bookcurrentuser: string;

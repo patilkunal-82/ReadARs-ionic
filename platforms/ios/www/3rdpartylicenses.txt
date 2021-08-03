@@ -149,6 +149,8 @@ ionic-image-loader-v5
 
 loader
 
+ng2-file-upload
+
 rxjs
 Apache-2.0
                                Apache License

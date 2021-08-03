@@ -1,14 +1,28 @@
 <ion-header color="success" [translucent]="true" collapse="condense">
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-title size="large" 
                style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                color: #FDFEFE  ; font-weight: bolder; font-size: 15px;">
     Enable {{bookName}} as AR Book
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon style="color:#FDFEFE" name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header> 
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
+    <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
   
 <!--<ion-list>
   <ion-item>
@@ -45,24 +59,70 @@
         <ion-img [src]="capturedImage" *ngIf="capturedImage" height="100"></ion-img>
     </ion-thumbnail>-->
  
-  <!--call multi-file-upload component to select anchor/marker and images-->
-  <app-multi-file-upload></app-multi-file-upload>
+  
+  
+    
+  <ion-button *ngIf="!showComonentFlag && !showContentAddComponentFlag" shape="round" (click)="anchorContentComponent()" margin-top expand="block">
+      <ion-icon style="color: #145A32;" src="../assets/icon/add-circle.svg"></ion-icon>
+      <span style="color:  #17202A; margin-left: 5px; " class="ion-text-left">Add New Anchor and Content</span>
+  </ion-button>
 
-  <ion-button (click)="upload()" shape="round" style="color: black" 
+  <ion-list-header *ngIf="(!showComonentFlag && !showContentAddComponentFlag) && plistCopy">
+    <ion-item>
+      <ion-label style="color: #17202A "> Existing anchors & content </ion-label>
+    </ion-item>
+  </ion-list-header>
+
+
+  <ion-list *ngIf="!showComonentFlag && !showContentAddComponentFlag">
+    <ion-card *ngFor="let mapAnchorContentEntry of mapAnchorContentMapArray" button>
+      <ion-card-header>
+        <ion-card-subtitle>
+        Anchor
+        </ion-card-subtitle>
+        <ion-item>
+          <ion-thumbnail class="anchor-display">
+            <img-loader [src]="(mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))" useImg (load)="onImageLoad($event)"></img-loader>
+          </ion-thumbnail> 
+          <ion-button class="ion-text-center" 
+          (click)="addContentToCurrentAnchor(mapAnchorContentEntry[0],mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))"shape="round" style="color: #145A32">
+            <span >Augment Content</span>
+          </ion-button>
+        </ion-item>
+      </ion-card-header>
+      <ion-card-subtitle>
+        Existing content
+      </ion-card-subtitle>
+      <ion-card-content >
+         <ion-item-sliding *ngFor="let mapEntries of mapAnchorContentMapArrayValues">
+            <ion-slides [options]="sliderConfig">
+              <ion-slide *ngFor="let mapEntry of mapEntries" >
+                <ion-thumbnail *ngIf="mapEntry[0].includes(mapAnchorContentEntry[0])" class="anchorcontnet-display">
+                  <img-loader [src]="mapEntry[1]" useImg (load)="onImageLoad($event)"></img-loader>
+                </ion-thumbnail>
+              </ion-slide>
+            </ion-slides>
+          </ion-item-sliding>
+       </ion-card-content>
+  </ion-card>
+ </ion-list>
+
+ 
+
+  <!--call multi-file-upload component to select anchor/marker and images-->
+  <app-multi-file-upload *ngIf="showComonentFlag && !showContentAddComponentFlag"></app-multi-file-upload>
+  <!--call multi-file-content-upload component to add content-->
+  <app-multi-file-content-upload *ngIf="showContentAddComponentFlag && !showComonentFlag"></app-multi-file-content-upload>
+
+  <ion-button *ngIf="showComonentFlag && !showContentAddComponentFlag" (click)="upload()" shape="round" style="color: black" 
      margin-top expand="full">Upload Anchor & Content</ion-button>
 
-  <ion-col>
+  <ion-button *ngIf="!showComonentFlag && showContentAddComponentFlag" (click)="uploadContent()" shape="round" style="color: black" 
+     margin-top expand="full">Upload Content</ion-button>
+
+  <!--<ion-col *ngIf="showComonentFlag || showContentAddComponentFlag">
     <ion-button (click)="closeModal()" shape="round" style="color: grey" 
      margin-top expand="full">Cancel</ion-button>
-  </ion-col>
-
-
-
-
-
-
-
-
-
+  </ion-col>-->
 
 </ion-content>

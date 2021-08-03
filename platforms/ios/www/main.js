@@ -1542,6 +1542,37 @@ var BooksService = /** @class */ (function () {
         return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'qrImageUpload/' + bookId, imageData)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
+    BooksService.prototype.updateBookARFlag = function (bookId, book) {
+        var _this = this;
+        console.log('inside Book Service : upload ar flag', bookId);
+        console.log('inside Book Service : ar flag', book.bookarenabled);
+        return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId, { 'bookarenabled': book.bookarenabled })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+    };
+    BooksService.prototype.uploadAnchorContentAndPlist = function (bookId, data, flag, book) {
+        var _this = this;
+        console.log('inside Book Service : upload XML... book id', bookId);
+        console.log('inside Book Service : XML Data', data);
+        console.log('flag', flag);
+        if (flag) {
+            return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'arxmlrouter/' + bookId, data)
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+        }
+        else {
+            return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'arxmlrouter/' + bookId, data)
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
+        }
+    };
+    /*
+     releaseBook(bookId: string, book: Book) {
+      console.log(book.bookcurrentuser);
+      console.log('inside Book Service release book ' + bookId);
+      return this.http.put(baseURL + 'mybooks/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
+                                                           'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
+                                                           'bookcurrentstatus': book.bookcurrentstatus})
+      .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    }
+    */
     BooksService.prototype.uploadMyProfileImage = function (myname, imageData) {
         var _this = this;
         console.log('inside Book Service : upload my profile image, i am -> ', myname);
@@ -1549,21 +1580,34 @@ var BooksService = /** @class */ (function () {
         return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'profilepic/' + myname, imageData)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
-    BooksService.prototype.uploadMarkerImage = function (bookID, imageData) {
-        var _this = this;
-        console.log('inside Book Service : upload my marker image for bookId ', bookID);
-        console.log('upload my marker image : imageData', imageData);
-        return this.http.post(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookID, imageData)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
-    };
-    BooksService.prototype.getMarkerImages = function (bookId) {
-        console.log('Inside book service getBook ' + bookId);
-        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookId)
+    /* uploadMarkerImage(bookID: string, imageData: any) {
+ 
+       console.log('inside Book Service : upload my marker image for bookId ', bookID);
+       console.log('upload my marker image : imageData', imageData);
+ 
+       return this.http.post(baseURL + 'armarkerrouter/' + bookID, imageData)
+       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+ 
+     }*/
+    /*getMarkerImages(bookId: string) {
+      console.log('Inside book service getBook ' + bookId);
+      return this.http.get<any[]>(baseURL+'armarkerrouter/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+    getAnchorAndContent(bookId: string) {
+      console.log('Inside book service getBook ' + bookId);
+      return this.http.get<any[]>(baseURL+'armarkerrouter/'+ bookId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+    }*/
+    BooksService.prototype.getBookPlistXml = function (bookId) {
+        console.log('Inside book service getBookPlistXml' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'arxmlrouter/' + bookId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
     };
-    BooksService.prototype.getAnchorAndContent = function (bookId) {
-        console.log('Inside book service getBook ' + bookId);
-        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'armarkerrouter/' + bookId)
+    BooksService.prototype.getBookARContent = function (bookId) {
+        console.log('Inside book service getBookARContent ' + bookId);
+        return this.http.get(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'arimagerouter/' + bookId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.processHTTPMsgService.handleError));
     };
     // this method gets the url to BLOB and creates an blob object for the image to be displayed

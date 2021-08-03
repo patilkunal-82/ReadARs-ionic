@@ -6,9 +6,9 @@
      Immerse
     </ion-title>
 
-    <ion-buttons slot="end">
+    <!--<ion-buttons slot="end">
       <ion-button (click)="close()"><ion-icon name="close" slot="icon-only"></ion-icon></ion-button>
-    </ion-buttons>
+    </ion-buttons>-->
 
   </ion-toolbar>
 </ion-header> 
@@ -40,11 +40,11 @@
           </ion-list>-->
 
     <ion-list>
-      <ion-item *ngFor="let book of books">
+      <ion-item *ngFor="let book of arbooks">
         <img-loader class="bookimage" [src]="(bookIdImageMap.get(book._id))"  
         useImg (load)="onImageLoad($event)" button>
         </img-loader>
-        <ion-button  shape="round" style="color: #145A32" margin expand="block"  (click)="viewAR(book._id)">View AR</ion-button>
+        <ion-button  shape="round" style="color: #145A32" margin expand="block"  (click)="viewAR(book._id, book.bookname)">View AR</ion-button>
         <p></p>
         <ion-button  shape="round" style="color: #145A32" margin expand="block" (click)="viewAnchors()">View Anchor Index</ion-button>
      </ion-item>

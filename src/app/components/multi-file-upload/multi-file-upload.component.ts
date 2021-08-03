@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader, FileLikeObject } from 'ng2-file-upload';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-multi-file-upload',
@@ -12,7 +13,7 @@ export class MultiFileUploadComponent  {
   public uploaderContent: FileUploader = new FileUploader({});
   public hasBaseDropZoneOver: boolean = false;
 
-  constructor() { 
+  constructor(private _modalController: ModalController) { 
 
   }
 
@@ -36,6 +37,8 @@ export class MultiFileUploadComponent  {
     let element = this.uploaderAnchor.queue.splice(reorderEvent.detail.from, 1)[0];
     this.uploaderAnchor.queue.splice(reorderEvent.detail.to, 0, element);
   }
+
+  
 
   
 }
