@@ -28,6 +28,7 @@ import { ArbookPage} from '../arbook/arbook.page';
 import { Subscription } from 'rxjs';
 
 import { ImageLoaderService } from 'ionic-image-loader-v5';
+import { ToastController } from '@ionic/angular';
 
 
 enum CodeOps {
@@ -94,6 +95,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
   addbook: Book;
   removebook: Book;
   bookCopy: Book;
+ 
 
   booklanguage = BookLanguage;
   bookactions = BookActions;
@@ -135,7 +137,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
     private availableService: AvailableService,
     private activatedRoute: ActivatedRoute,
     private barCodeScanner: BarcodeScanner,
-    private imageLoaderService: ImageLoaderService) {
+    private imageLoaderService: ImageLoaderService,
+    private toastCtrl: ToastController) {
         this.searchControl = new FormControl();
   }
 
@@ -149,14 +152,18 @@ export class Tab3Page implements OnInit, AfterViewInit {
         
         console.log(name); 
         this.username = name; 
-        this.booksService.getBooks()
-         .subscribe(books => {
-          this.allBooks = books;
-          console.log("TAB3 BOOKS", this.allBooks);
-      }, errmess => this.errMess = <any>errmess);
+        if (this.username) {
+          this.booksService.getBooks()
+          .subscribe(books => {
+           this.allBooks = books;
+           console.log("TAB3 BOOKS", this.allBooks);
+       }, errmess => {
+             this.errMess = <any>errmess
+            
+           });
 
-      this.prepareBookIdsImagesMap();
-      
+           this.prepareBookIdsImagesMap();
+        }
       });
 
      
@@ -172,7 +179,11 @@ export class Tab3Page implements OnInit, AfterViewInit {
       .subscribe(books => {
           this.allBooks = books;
           console.log("TAB3 BOOKS", this.allBooks);
-      }, errmess => this.errMess = <any>errmess);
+      }, errmess => { 
+
+        this.errMess = <any>errmess 
+      
+      });
 
   }
 
@@ -198,6 +209,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
           }
           i++;
         }
+
+        if (this.availableBooks === undefined || this.availableBooks.length == 0) {
+          this.presentToast(event.detail.value + " - None exists");
+        }
         console.log("BOOK Status & COLLECTION", event.detail.value, this.availableBooks.length)
 
     }
@@ -216,6 +231,9 @@ export class Tab3Page implements OnInit, AfterViewInit {
         }
         i++;
       }
+      if (this.reservedBooks === undefined || this.reservedBooks.length == 0) {
+        this.presentToast(event.detail.value + " - None exists");
+      }
       console.log("BOOK Status & COLLECTION", event.detail.value, this.reservedBooks.length)
     }
 
@@ -233,6 +251,9 @@ export class Tab3Page implements OnInit, AfterViewInit {
         }
         i++;
       }
+      if (this.borrowedBooks === undefined || this.borrowedBooks.length == 0) {
+        this.presentToast(event.detail.value + " - None exists");
+      }
       console.log("BOOK Status & COLLECTION", event.detail.value, this.borrowedBooks.length)
      
     }
@@ -243,6 +264,14 @@ export class Tab3Page implements OnInit, AfterViewInit {
     }
   }
 
+  async presentToast(errmsg) {
+    const toast = await this.toastCtrl.create({
+      message: errmsg,
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
+  }
 
   clearCache() {
     this.imageLoaderService.clearCache();
@@ -374,7 +403,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
             console.log("this.url", this.url);
             this.bookIdImageMap.set(this.lbookIds[i], this.url);
             console.log("book image map", this.bookIdImageMap);
-        }, errMess => console.log(errMess));
+        }, errMess => {
+          console.log(errMess)
+        
+        });
 
 
       }
@@ -405,7 +437,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
     this.booksService.getBooks()
       .subscribe(books => {
         this.books = books;
-      }, errmess => this.errMess = <any>errmess);
+      }, errmess => {
+        this.errMess = <any>errmess
+       
+      });
 
       this.clearCache();
       event.target.complete();
@@ -423,8 +458,15 @@ export class Tab3Page implements OnInit, AfterViewInit {
     console.log('Deleting Book ' + id);
 
     this.booksService.deleteBook(id)
-    .subscribe(removebook => this.removebook = <Book>removebook,
-      errmess => this.errMess = <any>errmess);
+    .subscribe(removebook => {
+      this.removebook = <Book>removebook
+      this.presentToast("Book removed successfully");
+      },
+      errmess => {
+        this.errMess = <any>errmess
+        
+        
+      });
 
     this.booksService.deleteBookImage(id)
     .subscribe(resp => console.log(resp), errmess => this.errMess = <any>errmess);
@@ -445,6 +487,31 @@ export class Tab3Page implements OnInit, AfterViewInit {
     
   }
 
+  async checkDeleteConfirmation(id: string) {
+
+    const alert = await this._alertController.create({
+     // header: "All associated content will also be removed ",
+      message: "All associated content will also be removed",
+      header: "Do you wish to proceed ?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: ()=> {
+           this.deleteBook(id);
+           this.ngOnInit(); 
+          }
+        },
+        {
+          text: "No",
+          handler: ()=> {
+           return ;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   
 
   async scanToLendOrRelease(id: string) {
@@ -527,7 +594,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
 
                       console.log("MATCH SUCCESS")
                       console.log('LENDING BOOK ' + id);
-                       
+                      this.presentToast("Authorization Successful")
                           this.router.navigate([this.currentRouter]);
                           this.book = book;
                           this.book.bookavailable = false;
@@ -541,6 +608,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
                             this.borrowed = true; 
                             this.reserved = true;
                             this.qrCheckString = "";
+                            this.presentToast("Book is in borrowed status")
                           });
               
                           
@@ -550,11 +618,16 @@ export class Tab3Page implements OnInit, AfterViewInit {
                       
                     }
                     else {
-                      console.log("QR CODES DON'T MATCH");
+                      this.presentToast("QR Codes mismatch. Authorization failed")
+                      console.log("QR Codes mismatch. Authorization failed");
                     }
                     
                   })
-                  .catch(err => {console.log('Error', err);});
+                  .catch(err => {
+                    
+                        console.log('Error', err);
+                       
+                      });
 
 
       
@@ -597,7 +670,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
 
                       console.log("MATCH SUCCESS")
                       console.log('RELEASING BOOK ' + id);
-                       
+                      this.presentToast("Authorization Successful")
                       this.router.navigate([this.currentRouter]);
                      
                       //this.book.bookcurrentuser = "";
@@ -620,7 +693,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
                                 this.available = true; 
                                 this.reserved = false;
                                 this.qrCheckString = "";
-                              
+                                this.presentToast("Book is now available")
                               });
 
 
@@ -633,10 +706,15 @@ export class Tab3Page implements OnInit, AfterViewInit {
                     }
                     else {
                       console.log("QR CODES DON'T MATCH");
+                      this.presentToast("QR Codes mismatch. Authorization failed")
                     }
                     
                   })
-                  .catch(err => {console.log('Error', err);});
+                  .catch(err => {
+                    
+                    console.log('Error', err);
+                   
+                  });
 
 
       
@@ -738,6 +816,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
       this.books = this.bookList.concat(newBooks);*/
     }, 3000);
   }
+
+
 
   async addBookModal() {
 

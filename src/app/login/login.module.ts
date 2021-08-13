@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-
+import { IonicImageLoaderModule } from 'ionic-image-loader-v5';
 import { LoginPage } from './login.page';
 import { SignupPageModule } from '../signup/signup.module';
 
@@ -22,6 +22,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicImageLoaderModule,
     RouterModule.forChild(routes)
   ],
   //entryComponents: [LoginPage],

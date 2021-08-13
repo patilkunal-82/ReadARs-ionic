@@ -1,51 +1,70 @@
  
 
 
-
-
 <ion-content>
 
   <!--<div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploaderAnchor" class="drop-zone">
     Drop files here...
   </div>-->
-  <div class="file-input-container">
-    <label>
-      <input type="file" ng2FileSelect [uploader]="uploaderAnchor" single />
-      Add Anchor
-    </label>
-  </div>
-  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>
-  <ion-list>
-    <ion-reorder-group (ionItemReorder)="reorderFiles($event)" disabled="false">
-      <ion-item *ngFor="let item of uploaderAnchor.queue">
-        <ion-label>
-          {{ item?.file?.name }}
-        </ion-label>
-        <ion-reorder></ion-reorder>
+  <ion-card class="displaycard">
+    <div class="file-input-container">
+      <label>
+        <input type="file" ng2FileSelect [uploader]="uploaderAnchor" single />
+        Click to Add Anchor (max. 1)
+      </label>
+    </div>
+    <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>
+   
+   
+    <ion-list>
+      <ion-reorder-group (ionItemReorder)="reorderFiles($event)" disabled="false">
+        <ion-item *ngFor="let item of uploaderAnchor.queue">
+          <ion-label>
+            {{ item?.file?.name }}
+          </ion-label>
+          <ion-reorder></ion-reorder>
+        </ion-item>
+      </ion-reorder-group>
+    </ion-list>
+
+
+    <br><br>
+    <form id="addAnchorPageNr" [formGroup]="addAnchorPageNrGroup" #aform="ngForm">
+      <ion-item>
+        <ion-label style="font-size: smaller;" color="medium">Anchor's Book Page #:</ion-label>
+        <ion-input formControlName="anchorpagenr" type="text"></ion-input>
+        <!--<ion-button (click)="submitForm()" shape="round"  style="color:#1B4F72" 
+        [disabled]="addAnchorPageNrGroup.invalid" margin-top expand="full">Add</ion-button>-->
       </ion-item>
-    </ion-reorder-group>
-  </ion-list>
+    </form>
+
+  </ion-card>
+
+  
 
   <!--<div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploaderContent" class="drop-zone">
     Drop files here...
   </div>-->
-  <div class="file-input-container">
-    <label>
-      <input type="file" ng2FileSelect [uploader]="uploaderContent"  multiple />
-      Add Content corresponding to above anchor
-    </label>
-  </div>
-  <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>
-  <ion-list>
-    <ion-reorder-group (ionItemReorder)="reorderFiles($event)" disabled="false">
-      <ion-item *ngFor="let item of uploaderContent.queue">
-        <ion-label>
-          {{ item?.file?.name }}
-        </ion-label>
-        <ion-reorder></ion-reorder>
-      </ion-item>
-    </ion-reorder-group>
-  </ion-list>
+  <ion-card class="displaycard">
+    <div class="file-input-container">
+      <label>
+        <input type="file" ng2FileSelect [uploader]="uploaderContent"  multiple />
+        Click to Add Content corresponding to above anchor
+      </label>
+    </div>
+    <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>
+    <ion-list>
+      <ion-reorder-group (ionItemReorder)="reorderFiles($event)" disabled="false">
+        <ion-item *ngFor="let item of uploaderContent.queue">
+          <ion-label>
+            {{ item?.file?.name }}
+          </ion-label>
+          <ion-reorder></ion-reorder>
+        </ion-item>
+      </ion-reorder-group>
+    </ion-list>
+  </ion-card>
+  
   
   
   

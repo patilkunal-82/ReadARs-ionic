@@ -15,12 +15,15 @@
  .displayimg {
    // display: block;
     
+    margin-top: auto;
     margin-left: auto;
     margin-right: auto;
  }
 
 ion-button {
-  --background: #E9F7EF   ;
+  --background:  #145A32 ;
+  
+  
 }
 
 ion-content {
@@ -36,6 +39,23 @@ ion-fab-button {
 }
 
 ion-toolbar {
-  //--background: #1B4F72;
-  --background: #145A32;
+  
+ --background:  #145A32;
+ 
+}
+
+ion-slides {
+  --bullet-background: grey;
+  --bullet-background-active: #145A32;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  display: block !important;
+  
+}
+
+.alignme {
+  text-align: center;
 }

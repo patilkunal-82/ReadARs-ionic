@@ -10,6 +10,8 @@ import { ARenabledService} from '../services/arenabled.service';
 
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { Book } from '../shared/book';
+import { ViewaranchorindexPage } from '../viewaranchorindex/viewaranchorindex.page';
+
 
 
 @Component({
@@ -42,10 +44,7 @@ export class Tab5Page implements OnInit {
   mapAnchorContentMapArrayValues: any[] = [];
   arrayAnchorContentURLs: any[] = [];
   
-  
- 
-
-
+  loaded: boolean = false;
   showGenre: boolean;
   showLanguage: boolean;
 
@@ -265,7 +264,7 @@ export class Tab5Page implements OnInit {
             
             
             //calling the plugin service method
-            this.pluginService.viewAR(bookId, bookName, anchorContentURLsMap);
+            this.pluginService.viewAR(bookId, bookName, anchorContentURLsMap)
             
             }
             else {
@@ -276,8 +275,18 @@ export class Tab5Page implements OnInit {
       }, errmess => this.errMess = <any>errmess);
   }
 
-  viewAnchors() {
+  async viewAnchors(bookId: string, bookName: string) {
 
+    console.log("inside tab5 ID and Name", bookId, bookName)
+    const viewAnchorsModal = await this.modalCtrl.create({
+      component: ViewaranchorindexPage,
+      componentProps: {
+        bookid: bookId,
+        bookname: bookName
+      }
+    });
+
+    return viewAnchorsModal.present();
   }
 
 
@@ -309,6 +318,7 @@ close() {
     await alert.present();
   }
 
+  
   
   
 

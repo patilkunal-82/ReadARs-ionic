@@ -2,7 +2,7 @@
 
 platform :ios, '11.0'
 
-target 'MyApp' do
-	project 'MyApp.xcodeproj'
+target 'Booxar' do
+	project 'Booxar.xcodeproj'
 
 end

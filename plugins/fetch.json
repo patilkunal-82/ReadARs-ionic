@@ -196,7 +196,7 @@
   "cordova-plugin-arplugin": {
     "source": {
       "type": "registry",
-      "id": "https://github.com/patilkunal-82/arplugin.git"
+      "id": "https://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@github.com/patilkunal-82/arplugin.git"
     },
     "is_top_level": true,
     "variables": {}

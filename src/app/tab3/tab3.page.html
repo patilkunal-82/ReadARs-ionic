@@ -6,6 +6,8 @@
      Manage
     </ion-title>
   </ion-toolbar>
+
+  
 </ion-header> 
 
 <ion-content>
@@ -14,7 +16,7 @@
     
     <ion-button shape="round" (click)="addBookModal()" margin-top expand="block">
         <ion-icon style="color: #145A32;" src="../assets/icon/add-circle.svg"></ion-icon>
-        <span style="color:  #17202A; margin-left: 5px; " class="ion-text-left">Add New Book</span>
+        <span style="color:  #145A32; margin-left: 5px; " class="ion-text-left">Add New Book</span>
     </ion-button>
     
     <!--<ion-searchbar shape="round" no-margin [(ngModel)]="searchTerm"
@@ -39,7 +41,7 @@
 
     <ion-button shape="round" margin-top expand="block">
       <ion-icon style="color: #145A32; " src="../assets/icon/book.svg"></ion-icon>
-      <span style="color:  #17202A; margin-left: 5px; " class="ion-text-left">My books by status</span>
+      <span style="color:  #145A32; margin-left: 5px; " class="ion-text-left">My books by status</span>
    </ion-button>
 
     <ion-select (ionChange)="displayBooksByStatus($event)" interface="popover" placeholder="Select ..">
@@ -65,18 +67,19 @@
     </ion-item>
    <ion-item-options side="start">
      <ion-item-option *ngIf="showReserved">
-       <ion-icon style="color: red" *ngIf="rBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
-       (click)="deleteBook(rBook._id)"></ion-icon>
+       <ion-icon style="color: red;" *ngIf="rBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
+       (click)="checkDeleteConfirmation(rBook._id)"></ion-icon>
      </ion-item-option>
    </ion-item-options>
   <ion-item-options side="end">
    <ion-item-option *ngIf="showReserved">
-     <ion-icon style="color: darkgreen" *ngIf="(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable" slot="icon-only"
+     <ion-icon style="color: blue" *ngIf="(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable" slot="icon-only"
      src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(rBook._id)"></ion-icon>
    </ion-item-option>
    <ion-item-option>
-    <ion-icon style="color: darkgreen"  slot="icon-only"
-    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(rBook._id, rBook.bookname)"></ion-icon>
+    <!--<ion-icon style="color: darkgreen"  slot="icon-only"
+    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(rBook._id, rBook.bookname)">AR</ion-icon>-->
+    <ion-label style="color: darkgreen" (click)="arBookModal(rBook._id, rBook.bookname)">AR</ion-label>
   </ion-item-option>
   </ion-item-options>
 </ion-item-sliding>
@@ -101,17 +104,18 @@
   <ion-item-options side="start">
     <ion-item-option *ngIf="showAvailable">
       <ion-icon style="color: red" *ngIf="aBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
-      (click)="deleteBook(aBook._id)"></ion-icon>
+      (click)="checkDeleteConfirmation(aBook._id)"></ion-icon>
     </ion-item-option>
   </ion-item-options>
   <ion-item-options side="end">
   <ion-item-option *ngIf="showAvailable">
-    <ion-icon style="color: darkgreen" *ngIf="(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable" slot="icon-only"
+    <ion-icon style="color: blue" *ngIf="(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable" slot="icon-only"
     src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(aBook._id)"></ion-icon>
   </ion-item-option>   
   <ion-item-option>
-    <ion-icon style="color: darkgreen"  slot="icon-only"
-    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(aBook._id, aBook.bookname)"></ion-icon>
+    <!--<ion-icon style="color: darkgreen"  slot="icon-only"
+    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(aBook._id, aBook.bookname)">AR</ion-icon>-->
+    <ion-label style="color: darkgreen" (click)="arBookModal(aBook._id, aBook.bookname)">AR</ion-label>
   </ion-item-option> 
   </ion-item-options>
 </ion-item-sliding>
@@ -136,24 +140,25 @@
  <ion-item-options side="start">
    <ion-item-option *ngIf="showBorrowed">
      <ion-icon style="color: red" *ngIf="bBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
-     (click)="deleteBook(bBook._id)"></ion-icon>
+     (click)="checkDeleteConfirmation(bBook._id)"></ion-icon>
    </ion-item-option>
 </ion-item-options>
 <ion-item-options side="end">
     <ion-item-option *ngIf="showBorrowed">
-      <ion-icon style="color: darkgreen" *ngIf="(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable" slot="icon-only"
+      <ion-icon style="color: blue" *ngIf="(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable" slot="icon-only"
       src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(bBook._id)"></ion-icon>
     </ion-item-option>
     <ion-item-option>
-      <ion-icon style="color: darkgreen"  slot="icon-only"
-      src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(bBook._id, bBook.bookname)"></ion-icon>
+      <!--<ion-icon style="color: darkgreen"  slot="icon-only"
+      src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(bBook._id, bBook.bookname)">AR</ion-icon>-->
+      <ion-label style="color: darkgreen" (click)="arBookModal(bBook._id, bBook.bookname)">AR</ion-label>
     </ion-item-option>
 </ion-item-options>
 </ion-item-sliding>
 
 <ion-button shape="round" margin-top expand="block">
   <ion-icon style="color: #145A32; " src="../assets/icon/book.svg"></ion-icon>
-  <span style="color:  #17202A; margin-left: 5px; " class="ion-text-left">All my books</span>
+  <span style="color: #145A32 ; margin-left: 5px; " class="ion-text-left">All my books</span>
 </ion-button>
 
     <ion-item-sliding *ngFor="let book of allBooks ">
@@ -174,19 +179,21 @@
             </ion-label>
          </ion-item>
         <ion-item-options side="start">
-          <ion-item-option >
+          <ion-item-option style="border-color: darkgreen;">
             <ion-icon style="color: red" *ngIf="book.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
-            (click)="deleteBook(book._id)"></ion-icon>
+            (click)="checkDeleteConfirmation(book._id)"></ion-icon>
           </ion-item-option>
        </ion-item-options>
        <ion-item-options side="end">
         <ion-item-option>
-          <ion-icon style="color: darkgreen" *ngIf="(book.isReserved || book.isBorrowed) && !book.isAvailable" slot="icon-only"
+          <ion-icon style="color: blue" *ngIf="(book.isReserved || book.isBorrowed) && !book.isAvailable" slot="icon-only"
           src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(book._id)"></ion-icon>
          <ion-item-option>
-            <ion-icon style="color: darkgreen"  slot="icon-only"
-            src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(book._id, book.bookname)">
-          </ion-icon>
+            <!--<ion-icon style="color: darkgreen"  slot="icon-only" title="AR"
+            src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(book._id, book.bookname)"></ion-icon>-->
+            <ion-label style="color: darkgreen" (click)="arBookModal(book._id, book.bookname)">AR</ion-label>
+          
+          
           </ion-item-option>
         </ion-item-option>    
       </ion-item-options>

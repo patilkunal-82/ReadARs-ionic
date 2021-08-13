@@ -3,6 +3,7 @@ import { ModalController} from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -17,19 +18,89 @@ export class SignupPage implements OnInit {
   newuser = {firstname: '', lastname:'', username: '', password: '', email: ''};
   errMess: string;
 
+
+
   constructor(private _modalController: ModalController,
               formBuilder: FormBuilder,
-              private authService: AuthService, private router: Router) {
+              private authService: AuthService, private router: Router,
+              private toastCtrl: ToastController) {
 
                 this.signupFormGroup = formBuilder.group({
                   firstname: ["", [Validators.required]],
                   lastname: ["", [Validators.required]],
-                  username: ["", [Validators.required]],
-                  password: ["", [Validators.required]],
-                  email: ["", [Validators.required]]
+                  username: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+                  password: ["", [Validators.required,Validators.minLength(5), Validators.maxLength(25),         
+                   // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+                  ]],
+                    
+                  email: ["", [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]]
                 });
 
-               }
+                this.signupFormGroup.valueChanges
+                .subscribe(data => this.onValueChanged(data));
+            
+                this.onValueChanged();
+
+    }
+
+    onValueChanged(data?: any) {
+      if (!this.signupFormGroup) { return; }
+      const form = this.signupFormGroup;
+      for (const field in this.formErrors) {
+        if (this.formErrors.hasOwnProperty(field)) {
+          // clear previous error message (if any)
+          this.formErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            for (const key in control.errors) {
+              if (control.errors.hasOwnProperty(key)) {
+                this.formErrors[field] += messages[key] + ' ';
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+
+    formErrors = {
+      'firstname': '',
+      'lastname': '',
+      'username':'',
+      'password':'',
+      'email': ''
+    };
+  
+    validationMessages = {
+
+      'firstname': {
+        'required':      'Firstname is required.',
+      },
+      'lastname': {
+        'required':      'Lastname is required.',
+      },
+      'username': {
+        'required':      'Username is required.',
+        'minlength':     'Username must be at least 2 characters long.',
+        'maxlength':     'Username cannot be more than 25 characters long.'
+      },
+      'password': {
+        'required':      'Password is required.',
+        'minlength':     'Password must be at least 5 characters long.',
+        'maxlength':     'Password cannot be more than 25 characters long.',
+        'pattern':       'Password must contain only numbers and letters.'
+      },
+      'email': {
+        'required':      'Email Address is required.',
+        'pattern':       'Email Address must be in valid format' 
+
+      }
+    }; 
+  
+
+             
 
   ngOnInit() {
 
@@ -47,14 +118,25 @@ export class SignupPage implements OnInit {
           this.router.navigateByUrl('/tabs/tab1');
         } else {
           console.log(res);
+          this.presentToast(res)
         }
       },
       error => {
         console.log(error);
         this.errMess = error;
+        this.presentToast(this.errMess)
       });
 
       this.closeModal();
+  }
+
+  async presentToast(errmsg) {
+    const toast = await this.toastCtrl.create({
+      message: errmsg,
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
   closeModal() {

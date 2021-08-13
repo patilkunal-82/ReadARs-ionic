@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProcessHTTPMsgService {
 
-  constructor() { }
+  constructor( private toastCtrl: ToastController) { }
 
   public handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
@@ -41,10 +42,12 @@ export class ProcessHTTPMsgService {
     else if (`${error.status}` == '500') {
           console.log("inside 500");
           errMsg = 'Sorry for your inconvenience. Please try again later!';
+         
       }
     else if (`${error.status}` == '0') {
             console.log("inside 0");
             errMsg = 'Site is closed for maintennce. Please try again later!';
+           
       }
     else {
        console.log("inside else");
@@ -54,6 +57,15 @@ export class ProcessHTTPMsgService {
     console.log("above return throw err message");
     console.log(errMsg);
     return throwError(errMsg);
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
     //console.log("after handle error method");

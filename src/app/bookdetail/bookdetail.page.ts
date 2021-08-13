@@ -22,6 +22,7 @@ import { File, FileEntry} from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Base64} from '@ionic-native/base64/ngx'
 import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 //import { VERSION} from '@angular/material';
 //import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -142,7 +143,8 @@ export class BookdetailPage implements OnInit {
     private booksService: BooksService,
     private _alertController: AlertController,
     private favoriteService: FavoriteService,
-    private recommendService: RecommendService
+    private recommendService: RecommendService,
+    private toastCtrl: ToastController
     //private plt: Platform,
     //private storage: Storage
    // private ref: ChangeDetectorRef,
@@ -163,6 +165,16 @@ export class BookdetailPage implements OnInit {
       })
 
 
+    }
+
+    async presentToast(msg) {
+      const toast = await this.toastCtrl.create({
+        message: msg,
+        duration: 4000,
+        position: "middle"
+
+      });
+      toast.present();
     }
 
   ionViewWillEnter() {
@@ -382,11 +394,11 @@ export class BookdetailPage implements OnInit {
 
     console.log("inside reserveBook of BookdetailComponent.ts");
     
-    const alert = await this._alertController.create({
+    /*const alert = await this._alertController.create({
       header: "Book is reserved for you",
       message: "Collect the book from the owner in next 48 hours. Failing which, the book will be made available to others !",
     });
-    alert.present();
+    alert.present();*/
     
     //alert("Contact & collect the book from the owner in next 48 hours. Failing which, the book will be made available to others !");
     this.book.bookavailable = false;
@@ -396,6 +408,7 @@ export class BookdetailPage implements OnInit {
     this.book.bookcurrentstatus = 'reserved';
     this.readarsService.reserveBook(this.book._id, this.book)
       .subscribe(book => { 
+        this.presentToast("Book Reserved. Collect the book from the owner in next 48 hours. Failing which, it will be made available to others !")
         console.log(book); 
         this.reserved = true;
         this.createQRcode();
@@ -405,11 +418,11 @@ export class BookdetailPage implements OnInit {
 
   async recommendBook() {
 
-    const alert = await this._alertController.create({
+    /*const alert = await this._alertController.create({
       header: "Thank You",
       message: "Your recommendation will now be posted..",
     });
-    alert.present();
+    alert.present();*/
 
     console.log("inside recommendBook of BookdetailComponent.ts");
     this.book.bookrecommend = true;
@@ -417,7 +430,7 @@ export class BookdetailPage implements OnInit {
       .subscribe(book => { 
         console.log(book); 
         //this.recommend = true;
-        
+        this.presentToast("Thank you. Your recommendation has been posted");
       });
     
 

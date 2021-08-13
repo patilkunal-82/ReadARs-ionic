@@ -22,6 +22,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File, FileEntry} from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { ToastController } from '@ionic/angular';
 //import { Storage } from '@ionic/storage';
 //const STORAGE_KEY = 'book_images';
 
@@ -140,6 +141,7 @@ export class AddbookPage implements OnInit {
               //private storage: Storage,
               private webview: WebView,
               //private ref: ChangeDetectorRef,
+              private toastCtrl: ToastController
               
               ) { }
 
@@ -149,6 +151,7 @@ export class AddbookPage implements OnInit {
     this.authService.loadUserCredentials();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { console.log(name); this.username = name; });
+    
     this.booksService.getBooks()
       .subscribe(books => {
           this.books = books;
@@ -179,6 +182,15 @@ export class AddbookPage implements OnInit {
   this.dataReader.readAsArrayBuffer(event.target.files[0]);
 
  }
+
+ async presentToast(msg) {
+  const toast = await this.toastCtrl.create({
+    message: msg,
+    duration: 2000,
+    position: 'middle'
+  });
+  toast.present();
+}
 
   createForm() {
         this.addBookFormGroup = this.fb.group({
@@ -242,6 +254,8 @@ export class AddbookPage implements OnInit {
                   this.booksService.uploadImage(this.submitted._id, this.uploadData)
                   .subscribe(res => {
                       console.log(res);
+                      this.presentToast("Book Added Successfully")
+                      this.ngOnInit();
                       this.receivedImageData = res;
                       this.base64Data = this.receivedImageData.pic;
                       this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data;
@@ -289,6 +303,8 @@ export class AddbookPage implements OnInit {
                   this.booksService.uploadImage(this.submitted._id, this.uploadData)
                   .subscribe(res => {
                       console.log(res);
+                      this.presentToast("Book Added Successfully")
+                      this.ngOnInit();
                       this.receivedImageData = res;
                       this.base64Data = this.receivedImageData.pic;
                       this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data;

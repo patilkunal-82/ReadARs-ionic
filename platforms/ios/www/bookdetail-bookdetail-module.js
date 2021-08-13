@@ -51,7 +51,7 @@ var AddcommentPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    Add Your Comments\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n\n  <ion-card class=\"displaycard\">\n    <ion-card-subtitle>\n      Post your rating, review on this book\n    </ion-card-subtitle>\n    <ion-card-content>\n      <form [formGroup]=\"commentFormGroup\" #cform=\"ngForm\">\n      <ion-item>\n          <ion-textarea formControlName=\"comment\" type=\"text\" placeholder=\"Your Comments\"></ion-textarea>\n      </ion-item>\n      <ion-item>\n          <ion-text>Your Rating</ion-text>\n          <ion-range min=\"1\" max=\"5\" tickInterval=\"1\" value=\"5\" pin=\"true\" snaps name=\"rating\"\n          formControlName=\"rating\" ></ion-range>\n      </ion-item>\n\n      <ion-row>\n        <ion-col>\n          <ion-button shape=\"round\" (click)=\"onSubmit()\" style=\"color: #1B4F72\"\n          [disabled]=\"commentFormGroup.invalid\" margin-top expand=\"full\">Submit</ion-button>\n        </ion-col>\n        <ion-col>\n          <ion-button  shape=\"round\" size=\"mini\" (click)=\"closeModal()\" expand=\"block\" \n          margin-top style=\"color:grey\">\n          Cancel\n          </ion-button>\n        </ion-col>\n      </ion-row>\n       \n      </form>\n    </ion-card-content>\n  </ion-card>\n\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n\n    <!--<ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    Add Your Comments\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"closeModal()\">\n        <ion-icon style=\"color: white; background: #145A32; \" name=\"close\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n\n    \n      \n    \n      <ion-title size=\"large\" text-center\n      style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n      color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;\">\n     Add Your Comments\n    </ion-title>\n  \n     <ion-buttons slot=\"end\"> \n      <ion-icon style=\"color: whitesmoke;\" src=\"../assets/icon/close-outline.svg\" size=\"medium\" (click)=\"closeModal()\"></ion-icon>\n     </ion-buttons>\n   \n  </ion-toolbar>\n\n \n</ion-header> \n\n<ion-content>\n\n  <ion-card class=\"displaycard\" style=\"box-shadow: none;\">\n    <ion-card-subtitle>\n      Post your rating, review on this book\n    </ion-card-subtitle>\n    <ion-card-content>\n      <form [formGroup]=\"commentFormGroup\" #cform=\"ngForm\">\n      <ion-item>\n          <ion-textarea formControlName=\"comment\" type=\"text\" placeholder=\"Your Comments\"></ion-textarea>\n      </ion-item>\n      <ion-item>\n          <ion-text>Your Rating</ion-text>\n          <ion-range min=\"1\" max=\"5\" tickInterval=\"1\" value=\"5\" pin=\"true\" snaps name=\"rating\"\n          formControlName=\"rating\" ></ion-range>\n      </ion-item>\n\n      <ion-row>\n        <ion-col>\n          <ion-button shape=\"round\" (click)=\"onSubmit()\" style=\"color: #17202A;\"\n          [disabled]=\"commentFormGroup.invalid\" margin-top expand=\"full\">Submit</ion-button>\n        </ion-col>\n       <!--<ion-col>\n          <ion-button  shape=\"round\" size=\"mini\" (click)=\"closeModal()\" expand=\"block\" \n          margin-top style=\"color:grey; \">\n          Cancel\n          </ion-button>\n        </ion-col>-->\n      </ion-row>\n       \n      </form>\n    </ion-card-content>\n  </ion-card>\n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -62,7 +62,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".displaycard {\n  margin: 10px;\n  padding: 10px; }\n\nion-button {\n  --background: #F4F6F7 ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9hZGRjb21tZW50L2FkZGNvbW1lbnQucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBSUssWUFBWTtFQUNaLGFBQWEsRUFBQTs7QUFJbEI7RUFDSSxzQkFBYSxFQUFBOztBQUdmO0VBRUUscUJBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FkZGNvbW1lbnQvYWRkY29tbWVudC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGlzcGxheWNhcmQge1xuICAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgICAvL2hlaWdodDozMHZoO1xuICAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgIG1hcmdpbjogMTBweDtcbiAgICAgcGFkZGluZzogMTBweDtcbiAgICAgLy9iYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZXNtb2tlO1xuICB9XG5cbmlvbi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogI0Y0RjZGNyA7XG4gIH1cblxuICBpb24tdG9vbGJhciB7XG4gICAgLy8tLWJhY2tncm91bmQ6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufSJdfQ== */"
+module.exports = ".displaycard {\n  margin: 10px;\n  padding: 10px; }\n\nion-button {\n  --background: #E9F7EF ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9hZGRjb21tZW50L2FkZGNvbW1lbnQucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBSUssWUFBWTtFQUNaLGFBQWEsRUFBQTs7QUFJbEI7RUFDSSxzQkFBYSxFQUFBOztBQUdmO0VBRUUscUJBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FkZGNvbW1lbnQvYWRkY29tbWVudC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGlzcGxheWNhcmQge1xuICAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgICAvL2hlaWdodDozMHZoO1xuICAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgIG1hcmdpbjogMTBweDtcbiAgICAgcGFkZGluZzogMTBweDtcbiAgICAgLy9iYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZXNtb2tlO1xuICB9XG5cbmlvbi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogI0U5RjdFRiA7XG4gIH1cblxuICBpb24tdG9vbGJhciB7XG4gICAgLy8tLWJhY2tncm91bmQ6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -86,10 +86,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var AddcommentPage = /** @class */ (function () {
-    function AddcommentPage(_modalController, formBuilder, readarsService) {
+    function AddcommentPage(_modalController, formBuilder, readarsService, toastCtrl) {
         this._modalController = _modalController;
         this.readarsService = readarsService;
+        this.toastCtrl = toastCtrl;
         this.commentData = { comment: '', rating: '' };
         this.commentFormGroup = formBuilder.group({
             comment: ["", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
@@ -99,6 +101,24 @@ var AddcommentPage = /** @class */ (function () {
     AddcommentPage.prototype.ngOnInit = function () {
         this.bookid = this.bookId;
         console.log("BOOK ID", this.bookId);
+    };
+    AddcommentPage.prototype.presentToast = function (msg) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastCtrl.create({
+                            message: msg,
+                            duration: 3000,
+                            position: 'middle'
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     AddcommentPage.prototype.onSubmit = function () {
         var _this = this;
@@ -115,6 +135,8 @@ var AddcommentPage = /** @class */ (function () {
         this.readarsService.postComment(this.bookid, this.commentFormGroup.value)
             .subscribe(function (book) {
             _this.book = book;
+            _this.presentToast("Comment Posted!");
+            _this.closeModal();
         }, function (errmess) { return _this.errMess = errmess; });
         this.commentFormDirective.resetForm();
         this.commentFormGroup.reset({
@@ -137,7 +159,7 @@ var AddcommentPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"],
-            _services_readars_service__WEBPACK_IMPORTED_MODULE_4__["ReadarsService"]])
+            _services_readars_service__WEBPACK_IMPORTED_MODULE_4__["ReadarsService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
     ], AddcommentPage);
     return AddcommentPage;
 }());
@@ -217,7 +239,7 @@ var BookdetailPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n               color: darkgreen; font-weight: bolder;\">\n    \n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n\n<ion-content>\n<!--  <ion-img [src]=\"(bookDetail | async)?.image\"></ion-img> -->\n\n<!-- SCAN QR CODE -->\n  \n <!-- <ion-card>\n  <ion-card-header>\n    <ion-card-title>Barcode/QR Scanning</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-button expand=\"full\" color=\"success\" (click)=\"scanBarcode()\">Scan a Code</ion-button>\n    <div *ngIf=\"scannedData\">\n      <p>\n        Scanned Code Text : <b>{{ scannedData[\"text\"] }}</b>\n      </p>\n      <p>\n        Scanned Code Format : <b>{{ scannedData[\"format\"] }}</b>\n      </p>\n    </div>\n  </ion-card-content>\n</ion-card> -->\n\n<!-- CREATE QR CODE -->\n  <!-- <ion-card>\n  <ion-card-header>\n    <ion-card-title>QR Code Creation</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-input type=\"text\" [(ngModel)] = \"qrData\" placeholder=\"Enter any text\"></ion-input>\n    <ion-button expand=\"full\" color=\"success\" (click)=\"createQRcode()\">Create QR code</ion-button>\n    \n    <ion-card>\n      <div *ngIf=\"createdCode\">\n        <p>\n          Created Code Image : <b>{{ createdCode[\"file\"] }}</b>\n        </p>\n        <p>\n          Created Code Format : <b>{{ createdCode[\"format\"] }}</b>\n        </p>\n        \n      </div>\n      <ion-img [src]=\"capturedImagePath\"></ion-img> \n    </ion-card>\n  </ion-card-content>\n</ion-card> -->\n\n<!-- SHOW QR CODE -->\n<!--<ion-card>\n  <ion-card-header>\n    <ion-card-title>QR Code from Server</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-button expand=\"full\" color=\"primary\" (click)=\"showServerQRcode()\">Show QR code</ion-button>\n  </ion-card-content>\n  <ion-card>\n    <ion-img [src]=\"this.urlQR\"></ion-img> \n  </ion-card>\n</ion-card> -->\n\n<!-- DELETE QR CODE -->\n<!--<ion-card>\n  <ion-card-header>\n    <ion-card-title>Delete QR Code on Server</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-button expand=\"full\" color=\"primary\" (click)=\"deleteServerQRcode()\">Delete QR code</ion-button>\n  </ion-card-content>\n</ion-card>-->\n\n\n<ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n  <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n  </ion-refresher-content>\n</ion-refresher>\n\n\n<!--<button mat-button (click)=\"addToFavorites()\">\n  <span class=\"{{favorite ? 'fa fa-heart fa-lg' : 'fa fa-heart-o fa-lg'}}\"></span></button> -->\n\n\n  <ion-card>\n\n    \n\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-wrap\">\n        {{book?.bookname}}\n      </ion-card-title>\n      <ion-card-subtitle class=\"ion-text-wrap\">\n        Author: {{book?.bookauthor}}\n      </ion-card-subtitle>\n      <!--<ion-img [src]=\"url\" class=\"bookimage\"></ion-img> --> \n    </ion-card-header>\n    <ion-card-content style=\"color: darkblue;\">\n      <ion-chip color=\"primary\">\n        Available?\n       <ion-icon *ngIf=\"available && !reserved && !borrowed\" name=\"checkmark-circle\" color=\"success\"></ion-icon>\n       <ion-icon *ngIf=\"reserved && !available && !borrowed\"  src=\"../assets/icon/pause-circle.svg\" color=\"warning\"></ion-icon>\n       <ion-icon *ngIf=\"borrowed && !available\" name=\"close-circle\" color=\"danger\"></ion-icon>\n       </ion-chip>\n\n       <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button color=\"darkgreen\" size=\"small\">\n          <ion-icon  src=\"../assets/icon/caret-back.svg\" style=\"color: #145A32;\"></ion-icon>\n        </ion-fab-button>\n        <ion-fab-list side=\"start\">\n          <!-- show QR code button available to only those who have requested the current book-->\n          <ion-fab-button *ngIf=\"(reserved || borrowed) && showQRButtonFlag\" (click)=\"showServerQRcode()\">\n            <ion-icon src=\"../assets/icon/qr-code-sharp.svg\" style=\"color: #145A32;\" ></ion-icon>\n          </ion-fab-button>\n          <!--<ion-fab-button (click)=\"manageFavorites()\">\n            <ion-icon color=\"primary\" src=\"{{favorite ? '../assets/icon/heart.svg' : '../assets/icon/heart-outline.svg'}}\"></ion-icon>\n          </ion-fab-button>-->\n          <ion-fab-button (click)=\"openAddCommentModal()\">\n            <ion-icon src=\"../assets/icon/create.svg\" style=\"color: #145A32;\"></ion-icon>\n          </ion-fab-button>\n          <ion-fab-button *ngIf=\"showCommentFlag\" (click)=\"openViewcommentsModal()\">\n            <ion-icon  src=\"../assets/icon/eye-sharp.svg\" style=\"color: #145A32;\"></ion-icon>\n          </ion-fab-button>\n        </ion-fab-list>\n      </ion-fab>\n\n\n\n      <ion-list>\n        <ion-item>\n          <ion-label class=\"ion-text-wrap\">\n            <h3>Book Owner: {{book?.bookowner.firstname}} {{book?.bookowner.lastname}}</h3>\n          </ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label class=\"ion-text-wrap\">\n            <p> Owner's Rating: {{book?.bookrating}}<ion-icon color=\"warning\" src=\"../assets/icon/star.svg\"></ion-icon></p>\n            <p> Owner's Address: {{book?.bookowneraddress}}</p>\n          </ion-label>\n        </ion-item>\n      </ion-list>\n      <ion-list *ngIf=\"available\">\n        <ion-item>\n            <h2> Reserve</h2>\n            <ion-chip color=\"success\">\n              <ion-icon size=\"large\" color=\"success\" src=\"../assets/icon/cart.svg\" button (click)=\"reserveBook()\"></ion-icon>\n            </ion-chip>\n        </ion-item>\n        <ion-item>\n          <h2> Contact Owner</h2>\n          <ion-chip color=\"primary\">\n            <ion-icon size=\"large\" color=\"primary\" src=\"../assets/icon/people.svg\" button (click)=\"contactOwner()\"></ion-icon>\n          </ion-chip>\n      </ion-item>\n      <ion-item *ngIf=\"!recommended\">\n        <h2> Recommend this book to others ? </h2>\n        <ion-chip color=\"primary\">\n          <ion-icon color=\"primary\" src=\"../assets/icon/thumbs-up.svg\" button (click)=\"recommendBook()\"></ion-icon>\n        </ion-chip>\n    </ion-item>\n      </ion-list>\n\n       \n      <!--<ion-card-subtitle>\n        <strong>Book Description:</strong>{{book?.bookdescription}}\n      </ion-card-subtitle>\n      <ion-card-subtitle>\n        <strong>Book Owner:</strong>{{book?.bookowner.firstname}} {{book?.bookowner.lastname}}\n      </ion-card-subtitle>\n      <ion-card-subtitle>\n        <strong>Owners' Rating : </strong>{{book?.bookrating}}<ion-icon color=\"warning\" src=\"../assets/icon/star.svg\"></ion-icon>\n      </ion-card-subtitle>\n      <ion-card-subtitle>\n        <strong>Owners' Address:</strong>{{book?.bookowneraddress}}\n      </ion-card-subtitle> -->\n    </ion-card-content>\n  <!--  <ion-row>\n      <ion-col>\n        <ion-card *ngIf=\"available\" no-margin>\n\n          <ion-card-content color=\"success\">\n            <ion-label color=\"success\"><strong> Reserve </strong></ion-label>\n            <ion-chip color=\"success\">\n              <ion-icon size=\"large\" color=\"success\" src=\"../assets/icon/cart.svg\" button (click)=\"reserveBook()\"></ion-icon>\n            </ion-chip>\n          </ion-card-content>\n         <ion-card-content>\n          <ion-label color=\"primary\"><strong> Contact Owner </strong></ion-label>\n          <ion-chip color=\"primary\">\n            <ion-icon size=\"large\" color=\"primary\" src=\"../assets/icon/people.svg\" button (click)=\"contactOwner()\"></ion-icon>\n          </ion-chip>\n         </ion-card-content>\n       </ion-card>\n      </ion-col>\n    </ion-row> -->\n\n  </ion-card>\n\n  <!--<ion-card>\n    <ion-img [src]=\"this.urlQR\"></ion-img> \n  </ion-card> -->\n\n</ion-content>\n\n\n"
+module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n               color: darkgreen; font-weight: bolder;\">\n    \n    </ion-title>\n  </ion-toolbar>\n\n  \n  \n</ion-header> \n\n\n<ion-content>\n<!--  <ion-img [src]=\"(bookDetail | async)?.image\"></ion-img> -->\n\n<!-- SCAN QR CODE -->\n  \n <!-- <ion-card>\n  <ion-card-header>\n    <ion-card-title>Barcode/QR Scanning</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-button expand=\"full\" color=\"success\" (click)=\"scanBarcode()\">Scan a Code</ion-button>\n    <div *ngIf=\"scannedData\">\n      <p>\n        Scanned Code Text : <b>{{ scannedData[\"text\"] }}</b>\n      </p>\n      <p>\n        Scanned Code Format : <b>{{ scannedData[\"format\"] }}</b>\n      </p>\n    </div>\n  </ion-card-content>\n</ion-card> -->\n\n<!-- CREATE QR CODE -->\n  <!-- <ion-card>\n  <ion-card-header>\n    <ion-card-title>QR Code Creation</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-input type=\"text\" [(ngModel)] = \"qrData\" placeholder=\"Enter any text\"></ion-input>\n    <ion-button expand=\"full\" color=\"success\" (click)=\"createQRcode()\">Create QR code</ion-button>\n    \n    <ion-card>\n      <div *ngIf=\"createdCode\">\n        <p>\n          Created Code Image : <b>{{ createdCode[\"file\"] }}</b>\n        </p>\n        <p>\n          Created Code Format : <b>{{ createdCode[\"format\"] }}</b>\n        </p>\n        \n      </div>\n      <ion-img [src]=\"capturedImagePath\"></ion-img> \n    </ion-card>\n  </ion-card-content>\n</ion-card> -->\n\n<!-- SHOW QR CODE -->\n<!--<ion-card>\n  <ion-card-header>\n    <ion-card-title>QR Code from Server</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-button expand=\"full\" color=\"primary\" (click)=\"showServerQRcode()\">Show QR code</ion-button>\n  </ion-card-content>\n  <ion-card>\n    <ion-img [src]=\"this.urlQR\"></ion-img> \n  </ion-card>\n</ion-card> -->\n\n<!-- DELETE QR CODE -->\n<!--<ion-card>\n  <ion-card-header>\n    <ion-card-title>Delete QR Code on Server</ion-card-title>\n    <ion-card-subtitle>In Angular Cordova Apps</ion-card-subtitle>\n  </ion-card-header>\n  <ion-card-content>\n    <ion-button expand=\"full\" color=\"primary\" (click)=\"deleteServerQRcode()\">Delete QR code</ion-button>\n  </ion-card-content>\n</ion-card>-->\n\n\n<ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n  <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n  </ion-refresher-content>\n</ion-refresher>\n\n\n<!--<button mat-button (click)=\"addToFavorites()\">\n  <span class=\"{{favorite ? 'fa fa-heart fa-lg' : 'fa fa-heart-o fa-lg'}}\"></span></button> -->\n\n\n  <ion-card style=\"box-shadow: olivedrab;\">\n\n    \n\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-wrap\">\n        {{book?.bookname}}\n      </ion-card-title>\n      <ion-card-subtitle class=\"ion-text-wrap\">\n        Author: {{book?.bookauthor}}\n      </ion-card-subtitle>\n      <!--<ion-img [src]=\"url\" class=\"bookimage\"></ion-img> --> \n    </ion-card-header>\n    <ion-card-content style=\"color: darkblue;\">\n      <ion-chip color=\"primary\">\n        Available?\n       <ion-icon *ngIf=\"available && !reserved && !borrowed\" name=\"checkmark-circle\" color=\"success\"></ion-icon>\n       <ion-icon *ngIf=\"reserved && !available && !borrowed\"  src=\"../assets/icon/pause-circle.svg\" color=\"warning\"></ion-icon>\n       <ion-icon *ngIf=\"borrowed && !available\" name=\"close-circle\" color=\"danger\"></ion-icon>\n       </ion-chip>\n\n      <!--<ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button color=\"darkgreen\" size=\"small\">\n          <ion-icon  src=\"../assets/icon/caret-back.svg\" style=\"color: #145A32;\"></ion-icon>\n        </ion-fab-button>-->\n        <!--<ion-fab-list side=\"start\">-->\n          <!-- show QR code button available to only those who have requested the current book-->\n         <!--<ion-fab-button *ngIf=\"(reserved || borrowed) && showQRButtonFlag\" (click)=\"showServerQRcode()\">\n            <ion-icon src=\"../assets/icon/qr-code-sharp.svg\" style=\"color: #145A32;\" ></ion-icon>\n          </ion-fab-button>\n         \n          <ion-fab-button (click)=\"openAddCommentModal()\">\n            <ion-icon src=\"../assets/icon/create.svg\" style=\"color: #145A32;\"></ion-icon>\n          </ion-fab-button>\n          <ion-fab-button *ngIf=\"showCommentFlag\" (click)=\"openViewcommentsModal()\">\n            <ion-icon  src=\"../assets/icon/eye-sharp.svg\" style=\"color: #145A32;\"></ion-icon>\n          </ion-fab-button>\n        </ion-fab-list>\n      </ion-fab>-->\n\n\n\n      <ion-list>\n        <ion-item>\n          <ion-label class=\"ion-text-wrap\">\n            <h3>Book Owner: {{book?.bookowner.firstname}} {{book?.bookowner.lastname}}</h3>\n          </ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label class=\"ion-text-wrap\">\n            <p> Owner's Rating: {{book?.bookrating}}<ion-icon color=\"warning\" src=\"../assets/icon/star.svg\"></ion-icon></p>\n            <p> Owner's Address: {{book?.bookowneraddress}}</p>\n          </ion-label>\n        </ion-item>\n      </ion-list>\n      <ion-list *ngIf=\"available\">\n        <ion-item>\n           \n            <ion-label style=\"font-size: small; color:darkolivegreen\">Reserve</ion-label>\n            <ion-chip>\n              <ion-icon size=\"large\" color=\"success\" src=\"../assets/icon/cart.svg\" button (click)=\"reserveBook()\"></ion-icon>\n            </ion-chip>\n        </ion-item>\n        <ion-item>\n        \n          <ion-label style=\"font-size: small; color:darkolivegreen;\">Contact Owner</ion-label>\n          <ion-chip>\n            <ion-icon size=\"large\" style=\"color:darkseagreen\" src=\"../assets/icon/people.svg\" button (click)=\"contactOwner()\"></ion-icon>\n          </ion-chip>\n      </ion-item>\n      <ion-item *ngIf=\"!recommended\">\n        <ion-label style=\"font-size: small; color:darkolivegreen;\">Recommend this book to others ? </ion-label>\n        <ion-chip>\n          <ion-icon style=\"color: darkgreen\" src=\"../assets/icon/thumbs-up.svg\" button (click)=\"recommendBook()\"></ion-icon>\n        </ion-chip>\n    </ion-item>\n      </ion-list>\n\n       \n      <!--<ion-card-subtitle>\n        <strong>Book Description:</strong>{{book?.bookdescription}}\n      </ion-card-subtitle>\n      <ion-card-subtitle>\n        <strong>Book Owner:</strong>{{book?.bookowner.firstname}} {{book?.bookowner.lastname}}\n      </ion-card-subtitle>\n      <ion-card-subtitle>\n        <strong>Owners' Rating : </strong>{{book?.bookrating}}<ion-icon color=\"warning\" src=\"../assets/icon/star.svg\"></ion-icon>\n      </ion-card-subtitle>\n      <ion-card-subtitle>\n        <strong>Owners' Address:</strong>{{book?.bookowneraddress}}\n      </ion-card-subtitle> -->\n    </ion-card-content>\n  <!--  <ion-row>\n      <ion-col>\n        <ion-card *ngIf=\"available\" no-margin>\n\n          <ion-card-content color=\"success\">\n            <ion-label color=\"success\"><strong> Reserve </strong></ion-label>\n            <ion-chip color=\"success\">\n              <ion-icon size=\"large\" color=\"success\" src=\"../assets/icon/cart.svg\" button (click)=\"reserveBook()\"></ion-icon>\n            </ion-chip>\n          </ion-card-content>\n         <ion-card-content>\n          <ion-label color=\"primary\"><strong> Contact Owner </strong></ion-label>\n          <ion-chip color=\"primary\">\n            <ion-icon size=\"large\" color=\"primary\" src=\"../assets/icon/people.svg\" button (click)=\"contactOwner()\"></ion-icon>\n          </ion-chip>\n         </ion-card-content>\n       </ion-card>\n      </ion-col>\n    </ion-row> -->\n\n  </ion-card>\n\n  <!--<ion-card>\n    <ion-img [src]=\"this.urlQR\"></ion-img> \n  </ion-card> -->\n\n  \n  <ion-card style=\"box-shadow: none\">\n    <ion-card-content style=\"text-align: center;\">\n        <!-- show QR code button available to only those who have requested the current book-->\n        <ion-icon *ngIf=\"(reserved || borrowed) && showQRButtonFlag\" (click)=\"showServerQRcode()\" \n        src=\"../assets/icon/qr-code-sharp.svg\" style=\"color: #145A32; margin: 10px; text-align: center;\" \n        size=\"large\" title=\"Show QR code\" button></ion-icon>\n\n        <ion-icon (click)=\"openAddCommentModal()\"src=\"../assets/icon/create.svg\" \n        style=\"color: #145A32; margin: 10px; text-align: center;\" size=\"large\" button></ion-icon>\n\n        <ion-icon *ngIf=\"showCommentFlag\" (click)=\"openViewcommentsModal()\" src=\"../assets/icon/eye-sharp.svg\"\n        style=\"color: #145A32; margin: 10px; text-align: center;\" size=\"large\" button></ion-icon>\n    </ion-card-content>\n   \n  </ion-card>\n     \n  \n \n \n   \n    \n  \n\n   \n     \n\n   \n\n\n\n  \n        <!-- show QR code button available to only those who have requested the current book-->\n        <!--<ion-button style=\"background: white;\" *ngIf=\"(reserved || borrowed) && showQRButtonFlag\" (click)=\"showServerQRcode()\">\n          <ion-icon src=\"../assets/icon/qr-code-sharp.svg\" style=\"color: #145A32;\" ></ion-icon>-->\n        <!--<ion-button (click)=\"openAddCommentModal()\">\n          <ion-icon src=\"../assets/icon/create.svg\" style=\"color: #145A32;\"></ion-icon>\n        </ion-button>-->\n        <!--<ion-button *ngIf=\"showCommentFlag\" (click)=\"openViewcommentsModal()\">\n          <ion-icon  src=\"../assets/icon/eye-sharp.svg\" style=\"color: #145A32;\"></ion-icon>\n        </ion-button>-->\n \n\n</ion-content>\n\n\n"
 
 /***/ }),
 
@@ -228,7 +250,7 @@ module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collaps
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".book-image {\n  width: 300px;\n  height: 300px;\n  margin: 10px auto; }\n\n.comment-card {\n  width: 30vw;\n  height: 30vh;\n  border: green solid 1px;\n  margin: 10px auto; }\n\n.bookimage {\n  width: 100%;\n  height: auto;\n  margin: 10px auto; }\n\nion-fab-button {\n  color: #145A32; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-back-button {\n  color: #FDFEFE; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9ib29rZGV0YWlsL2Jvb2tkZXRhaWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFFYixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBQ1gsWUFBVztFQUNYLHVCQUF1QjtFQUN2QixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBRVgsWUFBWTtFQUVaLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLGNBQWMsRUFBQTs7QUFHbEI7RUFFSSxxQkFBYSxFQUFBOztBQUdqQjtFQUNJLGNBQWMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Jvb2tkZXRhaWwvYm9va2RldGFpbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbi5ib29rLWltYWdlIHtcbiAgICB3aWR0aDogMzAwcHg7XG4gICAgaGVpZ2h0OiAzMDBweDtcbiAgICAvL2JvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbi5jb21tZW50LWNhcmQge1xuICAgIHdpZHRoOiAzMHZ3O1xuICAgIGhlaWdodDozMHZoO1xuICAgIGJvcmRlcjogZ3JlZW4gc29saWQgMXB4O1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG4uYm9va2ltYWdlIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICAvL2hlaWdodDogYXV0bztcbiAgICBoZWlnaHQ6IGF1dG87XG4gICAgLy9tYXJnaW4tdG9wOiAyNXZoO1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG5pb24tZmFiLWJ1dHRvbiB7XG4gICAgLy9jb2xvcjogIzFCNEY3MiA7XG4gICAgY29sb3I6ICMxNDVBMzI7XG59XG5cbmlvbi10b29sYmFyIHtcbiAgICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgICAtLWJhY2tncm91bmQ6ICMxNDVBMzI7XG59XG5cbmlvbi1iYWNrLWJ1dHRvbiB7XG4gICAgY29sb3I6ICNGREZFRkU7XG59XG5cblxuXG5cblxuIl19 */"
+module.exports = ".book-image {\n  width: 300px;\n  height: 300px;\n  margin: 10px auto; }\n\n.comment-card {\n  width: 30vw;\n  height: 30vh;\n  border: green solid 1px;\n  margin: 10px auto; }\n\n.bookimage {\n  width: 100%;\n  height: auto;\n  margin: 10px auto; }\n\nion-fab-button {\n  color: whitesmoke; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-back-button {\n  color: #FDFEFE; }\n\nion-chip {\n  background-color: white; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9ib29rZGV0YWlsL2Jvb2tkZXRhaWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFFYixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBQ1gsWUFBVztFQUNYLHVCQUF1QjtFQUN2QixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBRVgsWUFBWTtFQUVaLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLHFCQUFhLEVBQUE7O0FBR2pCO0VBQ0ksY0FBYyxFQUFBOztBQUdsQjtFQUNJLHVCQUF1QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYm9va2RldGFpbC9ib29rZGV0YWlsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLmJvb2staW1hZ2Uge1xuICAgIHdpZHRoOiAzMDBweDtcbiAgICBoZWlnaHQ6IDMwMHB4O1xuICAgIC8vYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDEwcHggYXV0bztcbn1cblxuLmNvbW1lbnQtY2FyZCB7XG4gICAgd2lkdGg6IDMwdnc7XG4gICAgaGVpZ2h0OjMwdmg7XG4gICAgYm9yZGVyOiBncmVlbiBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbi5ib29raW1hZ2Uge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIC8vaGVpZ2h0OiBhdXRvO1xuICAgIGhlaWdodDogYXV0bztcbiAgICAvL21hcmdpbi10b3A6IDI1dmg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbmlvbi1mYWItYnV0dG9uIHtcbiAgICAvL2NvbG9yOiAjMUI0RjcyIDtcbiAgICBjb2xvcjogd2hpdGVzbW9rZTtcbn1cblxuaW9uLXRvb2xiYXIge1xuICAgXG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG5pb24tYmFjay1idXR0b24ge1xuICAgIGNvbG9yOiAjRkRGRUZFO1xufVxuXG5pb24tY2hpcCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cblxuXG5cblxuXG5cblxuXG5cbiJdfQ== */"
 
 /***/ }),
 
@@ -301,10 +323,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //import { read } from 'fs';
 var STORAGE_KEY = 'qrcode_images';
 var BookdetailPage = /** @class */ (function () {
-    function BookdetailPage(_socialShare, _modalController, bookdetailService, activatedRoute, readarsService, reservedService, route, router, emailComposer, callNumber, formBuilder, availableService, borrowedService, sanitizer, barCodeScanner, base64ToGallery, file, filePath, fileOpener, base64, webview, authService, booksService, _alertController, favoriteService, recommendService
+    function BookdetailPage(_socialShare, _modalController, bookdetailService, activatedRoute, readarsService, reservedService, route, router, emailComposer, callNumber, formBuilder, availableService, borrowedService, sanitizer, barCodeScanner, base64ToGallery, file, filePath, fileOpener, base64, webview, authService, booksService, _alertController, favoriteService, recommendService, toastCtrl
     //private plt: Platform,
     //private storage: Storage
     // private ref: ChangeDetectorRef,
@@ -341,6 +364,7 @@ var BookdetailPage = /** @class */ (function () {
         this._alertController = _alertController;
         this.favoriteService = favoriteService;
         this.recommendService = recommendService;
+        this.toastCtrl = toastCtrl;
         this.images = [];
         this.username = undefined;
         this.qrData = null;
@@ -360,6 +384,24 @@ var BookdetailPage = /** @class */ (function () {
             text: ["", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]]
         });
     }
+    BookdetailPage.prototype.presentToast = function (msg) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastCtrl.create({
+                            message: msg,
+                            duration: 4000,
+                            position: "middle"
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     BookdetailPage.prototype.ionViewWillEnter = function () {
         var _this = this;
         this.authService.loadUserCredentials();
@@ -520,58 +562,50 @@ var BookdetailPage = /** @class */ (function () {
     };
     BookdetailPage.prototype.reserveBook = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log("inside reserveBook of BookdetailComponent.ts");
-                        return [4 /*yield*/, this._alertController.create({
-                                header: "Book is reserved for you",
-                                message: "Collect the book from the owner in next 48 hours. Failing which, the book will be made available to others !",
-                            })];
-                    case 1:
-                        alert = _a.sent();
-                        alert.present();
-                        //alert("Contact & collect the book from the owner in next 48 hours. Failing which, the book will be made available to others !");
-                        this.book.bookavailable = false;
-                        this.book.bookreserved = true;
-                        this.book.bookborrowed = false;
-                        this.book.bookcurrentuser = this.username;
-                        this.book.bookcurrentstatus = 'reserved';
-                        this.readarsService.reserveBook(this.book._id, this.book)
-                            .subscribe(function (book) {
-                            console.log(book);
-                            _this.reserved = true;
-                            _this.createQRcode();
-                        });
-                        this.ngOnInit();
-                        return [2 /*return*/];
-                }
+                console.log("inside reserveBook of BookdetailComponent.ts");
+                /*const alert = await this._alertController.create({
+                  header: "Book is reserved for you",
+                  message: "Collect the book from the owner in next 48 hours. Failing which, the book will be made available to others !",
+                });
+                alert.present();*/
+                //alert("Contact & collect the book from the owner in next 48 hours. Failing which, the book will be made available to others !");
+                this.book.bookavailable = false;
+                this.book.bookreserved = true;
+                this.book.bookborrowed = false;
+                this.book.bookcurrentuser = this.username;
+                this.book.bookcurrentstatus = 'reserved';
+                this.readarsService.reserveBook(this.book._id, this.book)
+                    .subscribe(function (book) {
+                    _this.presentToast("Book Reserved. Collect the book from the owner in next 48 hours. Failing which, it will be made available to others !");
+                    console.log(book);
+                    _this.reserved = true;
+                    _this.createQRcode();
+                });
+                this.ngOnInit();
+                return [2 /*return*/];
             });
         });
     };
     BookdetailPage.prototype.recommendBook = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
+            var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._alertController.create({
-                            header: "Thank You",
-                            message: "Your recommendation will now be posted..",
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        alert.present();
-                        console.log("inside recommendBook of BookdetailComponent.ts");
-                        this.book.bookrecommend = true;
-                        this.readarsService.recommendBook(this.book._id, this.book)
-                            .subscribe(function (book) {
-                            console.log(book);
-                            //this.recommend = true;
-                        });
-                        return [2 /*return*/];
-                }
+                /*const alert = await this._alertController.create({
+                  header: "Thank You",
+                  message: "Your recommendation will now be posted..",
+                });
+                alert.present();*/
+                console.log("inside recommendBook of BookdetailComponent.ts");
+                this.book.bookrecommend = true;
+                this.readarsService.recommendBook(this.book._id, this.book)
+                    .subscribe(function (book) {
+                    console.log(book);
+                    //this.recommend = true;
+                    _this.presentToast("Thank you. Your recommendation has been posted");
+                });
+                return [2 /*return*/];
             });
         });
     };
@@ -892,7 +926,8 @@ var BookdetailPage = /** @class */ (function () {
             _services_books_service__WEBPACK_IMPORTED_MODULE_19__["BooksService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"],
             _services_favorite_service__WEBPACK_IMPORTED_MODULE_21__["FavoriteService"],
-            _services_recommend_service__WEBPACK_IMPORTED_MODULE_25__["RecommendService"]
+            _services_recommend_service__WEBPACK_IMPORTED_MODULE_25__["RecommendService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["ToastController"]
             //private plt: Platform,
             //private storage: Storage
             // private ref: ChangeDetectorRef,
@@ -1063,7 +1098,7 @@ var QrcodeActivitiesPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    QR Code of the book\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n\n  <ion-card>\n  <ion-card-header>\n    <!--<ion-card-title>QR Code from Server</ion-card-title>-->\n    <ion-card-subtitle>Book : {{bookname}}</ion-card-subtitle>\n  </ion-card-header>\n  <!--<ion-card-content>\n    <ion-button expand=\"full\" color=\"primary\" (click)=\"showServerQRcode()\">Show QR code</ion-button>\n  </ion-card-content> -->\n  <ion-card>\n    <ion-img [src]=\"this.urlQR\"></ion-img> \n  </ion-card>\n <!-- <div *ngIf=\"this.urlQR\" [@expand]>\n    <h3>Receiving QR Code</h3>\n    <ion-spinner></ion-spinner><h4>Receiving...</h4>\n  </div>\n  <div *ngIf=\"errMess\" [@expand]>\n    <h3>QR code not found</h3>\n  </div> -->\n</ion-card> \n\n  <!--<ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\n    <ion-fab-button color=\"danger\" (click)=\"closeQRModal()\">\n      <ion-icon name=\"close\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab> -->\n\n\n  <ion-button  shape=\"round\" size=\"mini\" (click)=\"closeQRModal()\" expand=\"block\" \n  margin-top style=\"color:grey\">\n   Close\n  </ion-button>\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <!--<ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    QR Code of the book\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"closeQRModal()\">\n        <ion-icon style=\"color: white; background: #145A32; \" name=\"close\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n\n   \n      <ion-title size=\"large\" text-center\n            style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n            color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;\">\n          QR Code of the book\n      </ion-title>\n   \n      <ion-buttons slot=\"end\">\n        <ion-icon style=\"color: whitesmoke;\" src=\"../assets/icon/close-outline.svg\" size=\"medium\" (click)=\"closeQRModal()\"></ion-icon>\n      </ion-buttons>\n     \n   \n  </ion-toolbar>\n    \n    \n\n</ion-header> \n\n<ion-content>\n\n  <ion-card style=\"box-shadow: none;\">\n  <ion-card-header>\n    <!--<ion-card-title>QR Code from Server</ion-card-title>-->\n    <ion-card-subtitle>Book : {{bookname}}</ion-card-subtitle>\n  </ion-card-header>\n  <!--<ion-card-content>\n    <ion-button expand=\"full\" color=\"primary\" (click)=\"showServerQRcode()\">Show QR code</ion-button>\n  </ion-card-content> -->\n  <ion-card>\n    <ion-img [src]=\"this.urlQR\"></ion-img> \n  </ion-card>\n <!-- <div *ngIf=\"this.urlQR\" [@expand]>\n    <h3>Receiving QR Code</h3>\n    <ion-spinner></ion-spinner><h4>Receiving...</h4>\n  </div>\n  <div *ngIf=\"errMess\" [@expand]>\n    <h3>QR code not found</h3>\n  </div> -->\n</ion-card> \n\n  <!--<ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\n    <ion-fab-button color=\"danger\" (click)=\"closeQRModal()\">\n      <ion-icon name=\"close\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab> -->\n\n\n  <!--<ion-button  shape=\"round\" size=\"mini\" (click)=\"closeQRModal()\" expand=\"block\" \n  margin-top style=\"color:grey\">\n   Close\n  </ion-button>-->\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -1273,7 +1308,7 @@ var ViewcommentsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    View Readers' Comments\n    </ion-title>\n  </ion-toolbar>\n</ion-header> \n\n\n<ion-content>\n\n  <ion-card class=\"displaycard\">\n    <ion-card-content *ngIf=\"commentsOnBook\">\n        <ion-slides>\n          <ion-slide *ngFor=\"let comment of commentsOnBook.comments\" >\n            \n                <ion-label color=\"primary\">\n                  <h2>{{comment.comment}}</h2>\n                  <ion-chip color=\"primary\">\n                      <p> {{comment.rating}} <ion-icon color=\"warning\" src=\"../assets/icon/star.svg\"></ion-icon></p>\n                  </ion-chip>\n                  <p></p>\n                  <ion-chip color=\"tertiary\">{{comment.author.firstname}} {{comment.author.lastname}}\n                    ({{comment.updatedAt | date }})\n                  </ion-chip>\n                </ion-label>\n       \n          </ion-slide>\n        </ion-slides>\n    </ion-card-content>\n  </ion-card>\n\n  <!--<ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\n    <ion-fab-button (click)=\"closeModal()\" color=\"danger\">\n      <ion-icon name=\"close\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab> -->\n\n    <ion-button  shape=\"round\" size=\"mini\" (click)=\"closeModal()\" expand=\"block\" \n    margin-top style=\"color:grey\">\n     Close\n    </ion-button>\n\n  \n\n\n</ion-content>\n\n\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <!--<ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    View Readers' Comments\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"closeModal()\">\n        <ion-icon style=\"color: white; background: #145A32; \" name=\"close\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n\n    <ion-title size=\"large\" text-center\n        style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n        color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;\">\n      View Readers' Comments\n    </ion-title>\n  \n    <ion-buttons slot=\"end\">\n      <ion-icon style=\"color: whitesmoke;\" src=\"../assets/icon/close-outline.svg\" size=\"medium\" (click)=\"closeModal()\"></ion-icon>\n    </ion-buttons>\n\n  </ion-toolbar>\n\n  \n  \n \n</ion-header> \n\n\n<ion-content>\n\n  <ion-card class=\"displaycard\" style=\"box-shadow: olivedrab;\" *ngFor=\"let comment of commentsOnBook.comments\" >\n    <ion-card-content *ngIf=\"commentsOnBook\">\n      <ion-label style=\"color: #145a32; font-weight: bold;\">\n       {{comment.comment}}\n        <ion-chip style=\"background-color: #E9F7EF;  \">\n            {{comment.rating}} <ion-icon color=\"warning\" src=\"../assets/icon/star.svg\"></ion-icon>\n        </ion-chip>\n        <p></p>\n        <ion-text style=\"color: gray; font-weight: normal;\"> {{comment.author.firstname}} {{comment.author.lastname}} -  \n          {{comment.updatedAt | date }}\n        </ion-text>\n      </ion-label>\n       \n    </ion-card-content>\n    <ion-card-content *ngIf=\"!commentsOnBook\">\n      <ion-label>No comments exist on this book</ion-label>\n    </ion-card-content>\n  </ion-card>\n\n  <!--<ion-fab vertical=\"bottom\" horizontal=\"center\" slot=\"fixed\">\n    <ion-fab-button (click)=\"closeModal()\" color=\"danger\">\n      <ion-icon name=\"close\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab> -->\n\n   \n\n  \n\n\n</ion-content>\n\n\n"
 
 /***/ }),
 

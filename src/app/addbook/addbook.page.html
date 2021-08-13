@@ -1,11 +1,38 @@
 <ion-header color="success" [translucent]="true" collapse="condense">
   <ion-toolbar >
-    <ion-title size="large" 
+    <!--<ion-title size="large" 
                style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                color: #FDFEFE  ; font-weight: bolder; font-size: 15px;">
     Add 1 or more books..
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon style="color: white; background: #145A32; " name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>-->
+
+   
+      
+    
+      <ion-title size="large" text-center
+             style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+             color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;">
+            Add 1 or more books..
+       </ion-title>
+   
+      
+       <ion-buttons slot="end">
+        <ion-icon style="color: whitesmoke;" src="../assets/icon/close-outline.svg" 
+        size="medium" (click)="closeModal()"></ion-icon>
+      </ion-buttons>
+  
+    
+   
+
   </ion-toolbar>
+
+  
 </ion-header> 
 
 <ion-content>
@@ -15,8 +42,15 @@
 
       <ion-item>
         <ion-label color="medium">Book Name:</ion-label>
-        <ion-input formControlName="bookname" type="text"></ion-input>
+        <ion-input formControlName="bookname" type="text" required></ion-input>
       </ion-item>
+      <div *ngIf="formErrors.bookname">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.bookname}}
+          </div>
+        </ng-container>
+      </div>
 
     <!--<ion-item>
         <ion-label color="medium">Book Cover Image:</ion-label>
@@ -32,32 +66,53 @@
           </ion-label>
     
           <ion-thumbnail>
-            <ion-img formControlName="bookcoverimage" [src]="capturedImage" *ngIf="capturedImage" height="100"></ion-img>
+            <ion-img formControlName="bookcoverimage" [src]="capturedImage" *ngIf="capturedImage" height="100" required></ion-img>
           </ion-thumbnail>
-      </ion-item> 
+      </ion-item>
 
       <ion-item>
         <ion-label color="medium">Book Genre:</ion-label>
-        <ion-select formControlName="bookgenre">
+        <ion-select formControlName="bookgenre" required>
           <ion-select-option *ngFor="let bgenre of bookgenre" [value]="bgenre">
                   {{bgenre}}
         </ion-select-option>
         </ion-select>
       </ion-item>
+      <div *ngIf="formErrors.bookgenre">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.bookgenre}}
+          </div>
+        </ng-container>
+      </div>
 
       <ion-item>
         <ion-label color="medium">Book Language:</ion-label>
-        <ion-select formControlName="booklanguage">
+        <ion-select formControlName="booklanguage" required>
           <ion-select-option *ngFor="let blanguage of booklanguage" [value]="blanguage">
                   {{blanguage}}
         </ion-select-option>
         </ion-select>
       </ion-item>
+      <div *ngIf="formErrors.booklanguage">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.booklanguage}}
+          </div>
+        </ng-container>
+      </div>
 
      <ion-item>
         <ion-label color="medium">Book's Author:</ion-label>
-        <ion-input formControlName="bookauthor" type="text"></ion-input>
+        <ion-input formControlName="bookauthor" type="text" required></ion-input>
       </ion-item>
+      <div *ngIf="formErrors.bookauthor">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.bookauthor}}
+          </div>
+        </ng-container>
+      </div>
 
       <!--<ion-item>
         <ion-label color="medium">Book Description:</ion-label>
@@ -67,18 +122,39 @@
       <ion-item>
           <ion-text color="medium">Your Rating for the book:</ion-text>
           <ion-range min="1" max="5" tickInterval="1" value="5" pin="true" snaps name="rating"
-          formControlName="bookrating" ></ion-range>
+          formControlName="bookrating" required></ion-range>
       </ion-item>
+      <div *ngIf="formErrors.bookrating">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.bookrating}}
+          </div>
+        </ng-container>
+      </div>
 
       <ion-item>
         <ion-label color="medium">Your address:</ion-label>
-        <ion-input formControlName="bookowneraddress" type="text"></ion-input>
+        <ion-input formControlName="bookowneraddress" type="text" required></ion-input>
       </ion-item>
+      <div *ngIf="formErrors.bookowneraddress">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.bookowneraddress}}
+          </div>
+        </ng-container>
+      </div>
 
       <ion-item>
         <ion-label color="medium">Your contact number:</ion-label>
-        <ion-input formControlName="bookownertelnum" type="text"></ion-input>
+        <ion-input formControlName="bookownertelnum" type="text" required></ion-input>
       </ion-item>
+      <div *ngIf="formErrors.bookownertelnum">
+        <ng-container >
+          <div style="color:darkgrey;">
+            {{formErrors.bookownertelnum}}
+          </div>
+        </ng-container>
+      </div>
 
 
       <ion-row>
@@ -87,8 +163,8 @@
           [disabled]="addBookFormGroup.invalid" margin-top expand="full">Submit</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button (click)="closeModal()" shape="round" style="color: grey" 
-          margin-top expand="full">Cancel</ion-button>
+          <!--<ion-button (click)="closeModal()" shape="round" style="color: grey" 
+          margin-top expand="full">Cancel</ion-button>-->
         </ion-col>
       </ion-row>
     </form>

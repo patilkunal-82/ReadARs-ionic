@@ -1,16 +1,39 @@
 <ion-header color="success" [translucent]="true" collapse="condense">
   <ion-toolbar >
-    <ion-title size="large" 
+
+    <!--<ion-title size="large" 
                style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                color: #FDFEFE  ; font-weight: bolder; font-size: 15px;">
     Add Your Comments
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon style="color: white; background: #145A32; " name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>-->
+
+    
+      
+    
+      <ion-title size="large" text-center
+      style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;">
+     Add Your Comments
+    </ion-title>
+  
+     <ion-buttons slot="end"> 
+      <ion-icon style="color: whitesmoke;" src="../assets/icon/close-outline.svg" size="medium" (click)="closeModal()"></ion-icon>
+     </ion-buttons>
+   
   </ion-toolbar>
+
+ 
 </ion-header> 
 
 <ion-content>
 
-  <ion-card class="displaycard">
+  <ion-card class="displaycard" style="box-shadow: none;">
     <ion-card-subtitle>
       Post your rating, review on this book
     </ion-card-subtitle>
@@ -27,15 +50,15 @@
 
       <ion-row>
         <ion-col>
-          <ion-button shape="round" (click)="onSubmit()" style="color: #1B4F72"
+          <ion-button shape="round" (click)="onSubmit()" style="color: #17202A;"
           [disabled]="commentFormGroup.invalid" margin-top expand="full">Submit</ion-button>
         </ion-col>
-        <ion-col>
+       <!--<ion-col>
           <ion-button  shape="round" size="mini" (click)="closeModal()" expand="block" 
-          margin-top style="color:grey">
+          margin-top style="color:grey; ">
           Cancel
           </ion-button>
-        </ion-col>
+        </ion-col>-->
       </ion-row>
        
       </form>

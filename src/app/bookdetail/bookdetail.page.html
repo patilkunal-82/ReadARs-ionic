@@ -10,6 +10,9 @@
     
     </ion-title>
   </ion-toolbar>
+
+  
+  
 </ion-header> 
 
 
@@ -97,7 +100,7 @@
   <span class="{{favorite ? 'fa fa-heart fa-lg' : 'fa fa-heart-o fa-lg'}}"></span></button> -->
 
 
-  <ion-card>
+  <ion-card style="box-shadow: olivedrab;">
 
     
 
@@ -118,18 +121,16 @@
        <ion-icon *ngIf="borrowed && !available" name="close-circle" color="danger"></ion-icon>
        </ion-chip>
 
-       <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <!--<ion-fab vertical="top" horizontal="end" slot="fixed">
         <ion-fab-button color="darkgreen" size="small">
           <ion-icon  src="../assets/icon/caret-back.svg" style="color: #145A32;"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-list side="start">
+        </ion-fab-button>-->
+        <!--<ion-fab-list side="start">-->
           <!-- show QR code button available to only those who have requested the current book-->
-          <ion-fab-button *ngIf="(reserved || borrowed) && showQRButtonFlag" (click)="showServerQRcode()">
+         <!--<ion-fab-button *ngIf="(reserved || borrowed) && showQRButtonFlag" (click)="showServerQRcode()">
             <ion-icon src="../assets/icon/qr-code-sharp.svg" style="color: #145A32;" ></ion-icon>
           </ion-fab-button>
-          <!--<ion-fab-button (click)="manageFavorites()">
-            <ion-icon color="primary" src="{{favorite ? '../assets/icon/heart.svg' : '../assets/icon/heart-outline.svg'}}"></ion-icon>
-          </ion-fab-button>-->
+         
           <ion-fab-button (click)="openAddCommentModal()">
             <ion-icon src="../assets/icon/create.svg" style="color: #145A32;"></ion-icon>
           </ion-fab-button>
@@ -137,7 +138,7 @@
             <ion-icon  src="../assets/icon/eye-sharp.svg" style="color: #145A32;"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
-      </ion-fab>
+      </ion-fab>-->
 
 
 
@@ -156,21 +157,23 @@
       </ion-list>
       <ion-list *ngIf="available">
         <ion-item>
-            <h2> Reserve</h2>
-            <ion-chip color="success">
+           
+            <ion-label style="font-size: small; color:darkolivegreen">Reserve</ion-label>
+            <ion-chip>
               <ion-icon size="large" color="success" src="../assets/icon/cart.svg" button (click)="reserveBook()"></ion-icon>
             </ion-chip>
         </ion-item>
         <ion-item>
-          <h2> Contact Owner</h2>
-          <ion-chip color="primary">
-            <ion-icon size="large" color="primary" src="../assets/icon/people.svg" button (click)="contactOwner()"></ion-icon>
+        
+          <ion-label style="font-size: small; color:darkolivegreen;">Contact Owner</ion-label>
+          <ion-chip>
+            <ion-icon size="large" style="color:darkseagreen" src="../assets/icon/people.svg" button (click)="contactOwner()"></ion-icon>
           </ion-chip>
       </ion-item>
       <ion-item *ngIf="!recommended">
-        <h2> Recommend this book to others ? </h2>
-        <ion-chip color="primary">
-          <ion-icon color="primary" src="../assets/icon/thumbs-up.svg" button (click)="recommendBook()"></ion-icon>
+        <ion-label style="font-size: small; color:darkolivegreen;">Recommend this book to others ? </ion-label>
+        <ion-chip>
+          <ion-icon style="color: darkgreen" src="../assets/icon/thumbs-up.svg" button (click)="recommendBook()"></ion-icon>
         </ion-chip>
     </ion-item>
       </ion-list>
@@ -214,6 +217,49 @@
   <!--<ion-card>
     <ion-img [src]="this.urlQR"></ion-img> 
   </ion-card> -->
+
+  
+  <ion-card style="box-shadow: none">
+    <ion-card-content style="text-align: center;">
+        <!-- show QR code button available to only those who have requested the current book-->
+        <ion-icon *ngIf="(reserved || borrowed) && showQRButtonFlag" (click)="showServerQRcode()" 
+        src="../assets/icon/qr-code-sharp.svg" style="color: #145A32; margin: 10px; text-align: center;" 
+        size="large" title="Show QR code" button></ion-icon>
+
+        <ion-icon (click)="openAddCommentModal()"src="../assets/icon/create.svg" 
+        style="color: #145A32; margin: 10px; text-align: center;" size="large" button></ion-icon>
+
+        <ion-icon *ngIf="showCommentFlag" (click)="openViewcommentsModal()" src="../assets/icon/eye-sharp.svg"
+        style="color: #145A32; margin: 10px; text-align: center;" size="large" button></ion-icon>
+    </ion-card-content>
+   
+  </ion-card>
+     
+  
+ 
+ 
+   
+    
+  
+
+   
+     
+
+   
+
+
+
+  
+        <!-- show QR code button available to only those who have requested the current book-->
+        <!--<ion-button style="background: white;" *ngIf="(reserved || borrowed) && showQRButtonFlag" (click)="showServerQRcode()">
+          <ion-icon src="../assets/icon/qr-code-sharp.svg" style="color: #145A32;" ></ion-icon>-->
+        <!--<ion-button (click)="openAddCommentModal()">
+          <ion-icon src="../assets/icon/create.svg" style="color: #145A32;"></ion-icon>
+        </ion-button>-->
+        <!--<ion-button *ngIf="showCommentFlag" (click)="openViewcommentsModal()">
+          <ion-icon  src="../assets/icon/eye-sharp.svg" style="color: #145A32;"></ion-icon>
+        </ion-button>-->
+ 
 
 </ion-content>
 

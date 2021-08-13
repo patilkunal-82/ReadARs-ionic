@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IonicImageLoaderModule } from 'ionic-image-loader-v5';
 
 import { Tab5Page } from './tab5.page';
+import { ViewaranchorindexPageModule } from '../viewaranchorindex/viewaranchorindex.module';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    ViewaranchorindexPageModule,
     CommonModule,
     FormsModule,
     IonicModule,
@@ -26,3 +28,4 @@ const routes: Routes = [
   declarations: [Tab5Page]
 })
 export class Tab5PageModule {}
+

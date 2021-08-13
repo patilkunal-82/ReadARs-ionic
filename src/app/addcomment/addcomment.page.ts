@@ -7,6 +7,8 @@ import { ReadarsService } from '../services/readars.service';
 import { Book } from '../shared/book';
 import { Comment } from '../shared/comment';
 import { Router, Params, ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-addcomment',
@@ -27,7 +29,7 @@ export class AddcommentPage implements OnInit {
 
   constructor(private _modalController: ModalController,
               formBuilder: FormBuilder,
-              private readarsService: ReadarsService) { 
+              private readarsService: ReadarsService, private toastCtrl: ToastController) { 
 
                 this.commentFormGroup = formBuilder.group({
                   comment: ["", [Validators.required]],
@@ -41,6 +43,15 @@ export class AddcommentPage implements OnInit {
       this.bookid = this.bookId;
       console.log("BOOK ID", this.bookId);
 
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
   onSubmit() {
@@ -59,7 +70,9 @@ export class AddcommentPage implements OnInit {
     this.readarsService.postComment(this.bookid, this.commentFormGroup.value)
       .subscribe(book => {
         this.book = <Book>book;
-
+        this.presentToast("Comment Posted!")
+        this.closeModal();
+        
       }, errmess => this.errMess = <any>errmess);
     this.commentFormDirective.resetForm();
     this.commentFormGroup.reset({

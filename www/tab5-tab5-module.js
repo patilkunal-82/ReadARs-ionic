@@ -132,6 +132,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
 /* harmony import */ var _tab5_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tab5.page */ "./src/app/tab5/tab5.page.ts");
+/* harmony import */ var _viewaranchorindex_viewaranchorindex_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../viewaranchorindex/viewaranchorindex.module */ "./src/app/viewaranchorindex/viewaranchorindex.module.ts");
+
 
 
 
@@ -152,6 +154,7 @@ var Tab5PageModule = /** @class */ (function () {
     Tab5PageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
+                _viewaranchorindex_viewaranchorindex_module__WEBPACK_IMPORTED_MODULE_8__["ViewaranchorindexPageModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
@@ -175,7 +178,7 @@ var Tab5PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Immerse\n    </ion-title>\n\n    <!--<ion-buttons slot=\"end\">\n      <ion-button (click)=\"close()\"><ion-icon name=\"close\" slot=\"icon-only\"></ion-icon></ion-button>\n    </ion-buttons>-->\n\n  </ion-toolbar>\n</ion-header> \n\n<ion-content>\n   \n      \n        <!--<div id=\"container\">\n          <ion-button (click)=\"add()\">Add Numbers</ion-button>\n            <ion-list>\n              <ion-item>{{total}}</ion-item>\n            </ion-list>\n        </div>-->\n\n        \n         <!--<ion-button expand=\"full\" (click)=\"loadContacts()\">\n            Load Contacts\n          </ion-button>-->\n         \n          <!--<ion-list>\n            <ion-item *ngFor=\"let c of contacts\">\n              <ion-label>\n                {{ c.firstName }} {{ c.lastName }}\n                <p>\n                  {{ c.telephone }}\n                </p>\n              </ion-label>\n            </ion-item>\n          </ion-list>-->\n\n    <ion-list>\n      <ion-item *ngFor=\"let book of arbooks\">\n        <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\"  \n        useImg (load)=\"onImageLoad($event)\" button>\n        </img-loader>\n        <ion-button  shape=\"round\" style=\"color: #145A32\" margin expand=\"block\"  (click)=\"viewAR(book._id, book.bookname)\">View AR</ion-button>\n        <p></p>\n        <ion-button  shape=\"round\" style=\"color: #145A32\" margin expand=\"block\" (click)=\"viewAnchors()\">View Anchor Index</ion-button>\n     </ion-item>\n    </ion-list>\n\n      \n\n          \n         \n          \n   \n\n</ion-content> \n\n \n\n\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Immerse\n    </ion-title>\n  </ion-toolbar>\n\n \n\n</ion-header> \n\n<ion-content>\n   \n      \n        <!--<div id=\"container\">\n          <ion-button (click)=\"add()\">Add Numbers</ion-button>\n            <ion-list>\n              <ion-item>{{total}}</ion-item>\n            </ion-list>\n        </div>-->\n\n        \n         <!--<ion-button expand=\"full\" (click)=\"loadContacts()\">\n            Load Contacts\n          </ion-button>-->\n         \n          <!--<ion-list>\n            <ion-item *ngFor=\"let c of contacts\">\n              <ion-label>\n                {{ c.firstName }} {{ c.lastName }}\n                <p>\n                  {{ c.telephone }}\n                </p>\n              </ion-label>\n            </ion-item>\n          </ion-list>-->\n   \n   \n\n       \n    <ion-list>\n      <ion-item *ngFor=\"let book of arbooks\">\n        <ion-row>\n          <ion-col>\n            <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\"  \n            useImg (load)=\"onImageLoad($event)\" button>\n            </img-loader>\n          </ion-col>\n          <ion-col>\n            <ion-row>\n              <ion-button  shape=\"round\" style=\"color: #145A32\" margin (click)=\"viewAR(book._id, book.bookname)\">\n                <!--<ion-icon style=\"color: #145A32;\" src=\"../assets/icon/eye-sharp.svg\"></ion-icon>-->\n                <span style=\"color:  #145A32; margin-left: 5px; \" class=\"ion-text-left\">View in AR</span>\n              </ion-button>\n            </ion-row>\n            <ion-row>\n              <ion-button  shape=\"round\" style=\"color: #145A32\" margin  (click)=\"viewAnchors(book._id, book.bookname)\">AR Anchors</ion-button>\n            </ion-row>\n          </ion-col>   \n        </ion-row>\n     </ion-item>\n    </ion-list>\n   \n</ion-content> \n\n \n\n\n"
 
 /***/ }),
 
@@ -208,6 +211,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_readars_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/readars.service */ "./src/app/services/readars.service.ts");
 /* harmony import */ var _services_books_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/books.service */ "./src/app/services/books.service.ts");
 /* harmony import */ var _services_arenabled_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/arenabled.service */ "./src/app/services/arenabled.service.ts");
+/* harmony import */ var _viewaranchorindex_viewaranchorindex_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../viewaranchorindex/viewaranchorindex.page */ "./src/app/viewaranchorindex/viewaranchorindex.page.ts");
+
 
 
 
@@ -236,6 +241,7 @@ var Tab5Page = /** @class */ (function () {
         this.mapAnchorContentMapArray = [];
         this.mapAnchorContentMapArrayValues = [];
         this.arrayAnchorContentURLs = [];
+        this.loaded = false;
         this.bookIdsImages = new Map();
         this.bookIdImageMap = new Map();
     }
@@ -421,7 +427,26 @@ var Tab5Page = /** @class */ (function () {
             }), function (errMess) { return console.log(errMess); };
         }, function (errmess) { return _this.errMess = errmess; });
     };
-    Tab5Page.prototype.viewAnchors = function () {
+    Tab5Page.prototype.viewAnchors = function (bookId, bookName) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var viewAnchorsModal;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("inside tab5 ID and Name", bookId, bookName);
+                        return [4 /*yield*/, this.modalCtrl.create({
+                                component: _viewaranchorindex_viewaranchorindex_page__WEBPACK_IMPORTED_MODULE_8__["ViewaranchorindexPage"],
+                                componentProps: {
+                                    bookid: bookId,
+                                    bookname: bookName
+                                }
+                            })];
+                    case 1:
+                        viewAnchorsModal = _a.sent();
+                        return [2 /*return*/, viewAnchorsModal.present()];
+                }
+            });
+        });
     };
     Tab5Page.prototype.close = function () {
         this.modalCtrl.dismiss();
@@ -485,6 +510,237 @@ var Tab5Page = /** @class */ (function () {
             _services_arenabled_service__WEBPACK_IMPORTED_MODULE_7__["ARenabledService"]])
     ], Tab5Page);
     return Tab5Page;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/viewaranchorindex/viewaranchorindex.module.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/viewaranchorindex/viewaranchorindex.module.ts ***!
+  \***************************************************************/
+/*! exports provided: ViewaranchorindexPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewaranchorindexPageModule", function() { return ViewaranchorindexPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _viewaranchorindex_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./viewaranchorindex.page */ "./src/app/viewaranchorindex/viewaranchorindex.page.ts");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
+
+
+
+
+
+
+var ViewaranchorindexPageModule = /** @class */ (function () {
+    function ViewaranchorindexPageModule() {
+    }
+    ViewaranchorindexPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
+                ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_6__["IonicImageLoaderModule"]
+            ],
+            entryComponents: [_viewaranchorindex_page__WEBPACK_IMPORTED_MODULE_5__["ViewaranchorindexPage"]],
+            declarations: [_viewaranchorindex_page__WEBPACK_IMPORTED_MODULE_5__["ViewaranchorindexPage"]]
+        })
+    ], ViewaranchorindexPageModule);
+    return ViewaranchorindexPageModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/viewaranchorindex/viewaranchorindex.page.html":
+/*!***************************************************************!*\
+  !*** ./src/app/viewaranchorindex/viewaranchorindex.page.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n\n   \n    <ion-title size=\"large\" text-center\n      style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n      color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    {{bookname}} - Index\n    </ion-title>\n    \n  \n    <ion-buttons slot=\"end\">\n      <ion-icon style=\"color: whitesmoke; margin-right: 3px;\" src=\"../assets/icon/close-outline.svg\" \n      size=\"medium\" (click)=\"closeModal()\" button></ion-icon>\n    </ion-buttons>\n    \n     \n    \n\n    \n      \n        <!--<ion-icon name=\"close\" slot=\"icon-only\"></ion-icon>-->\n        \n     \n    \n    \n  </ion-toolbar>\n\n \n\n</ion-header> \n\n\n<ion-content>\n\n  \n \n  <!--<ion-grid class=\"ion-text-center\">\n    <ion-row class=\"header-row\">\n      <ion-col>\n        <ion-text style=\"color: darkgreen\">AR Anchor</ion-text>\n      </ion-col>\n      <ion-col>\n        <ion-text style=\"color: darkgreen\">Book Page #</ion-text>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <ion-text *ngFor=\"let mapAnchorContentEntry of mapAnchorContentMapArray\" >\n          <ion-thumbnail>\n            <img-loader [src]=\"(mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n          </ion-thumbnail> \n        </ion-text>\n      </ion-col>\n        <ion-col>\n          <ion-text *ngFor=\"let pageNr of pageNrs\">\n            <ion-label style=\"color: darkgreen;\">{{pageNr}}</ion-label>\n          </ion-text>\n        </ion-col>\n    </ion-row>\n  </ion-grid>-->\n\n\n  <ion-grid class=\"ion-text-center\">\n    <ion-row class=\"header-row\">\n      <ion-col>\n        <ion-text style=\"color: darkgreen; font-size: small;\">AR Anchor</ion-text>\n      </ion-col>\n      <ion-col>\n        <ion-text style=\"color: darkgreen; font-size: small;\">Book Page #</ion-text>\n      </ion-col>\n    </ion-row>\n    <ion-row *ngFor=\"let entry of anchorPageNrArray\">\n      <ion-col>\n        <ion-thumbnail>\n          <img-loader [src]=\"entry[0]\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n        </ion-thumbnail> \n      </ion-col>\n      <ion-col>\n        <ion-label style=\"color: darkgreen;\">{{entry[1]}}</ion-label>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n\n  \n    <!--<ion-button  shape=\"round\" size=\"mini\" (click)=\"closeModal()\" expand=\"block\" \n    margin-top style=\"color:grey\">\n     Close\n    </ion-button>-->\n\n  \n</ion-content>\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/viewaranchorindex/viewaranchorindex.page.scss":
+/*!***************************************************************!*\
+  !*** ./src/app/viewaranchorindex/viewaranchorindex.page.scss ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".displaycard {\n  margin: 5px;\n  padding: 5px; }\n\nion-button {\n  --background: #F4F6F7  ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.header-row {\n  background: #E9F7EF;\n  color: #fff;\n  font-size: 16px; }\n\nion-col {\n  border: 1px solid #ECEEEF; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC92aWV3YXJhbmNob3JpbmRleC92aWV3YXJhbmNob3JpbmRleC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFJSyxXQUFXO0VBQ1gsWUFBWSxFQUFBOztBQUlkO0VBQ0MsdUJBQWEsRUFBQTs7QUFHZjtFQUVFLHFCQUFhLEVBQUE7O0FBR2Y7RUFDRSxtQkFBbUI7RUFDbkIsV0FBVztFQUNYLGVBQWUsRUFBQTs7QUFHakI7RUFDRSx5QkFBeUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdhcmFuY2hvcmluZGV4L3ZpZXdhcmFuY2hvcmluZGV4LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kaXNwbGF5Y2FyZCB7XG4gICAgLy8gd2lkdGg6IDMwdnc7XG4gICAgIC8vaGVpZ2h0OjMwdmg7XG4gICAgLy8gYm9yZGVyOiBncmV5IHNvbGlkIDFweDtcbiAgICAgbWFyZ2luOiA1cHg7XG4gICAgIHBhZGRpbmc6IDVweDtcbiAgICAgLy9iYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZXNtb2tlO1xuICAgfVxuXG4gICBpb24tYnV0dG9uIHtcbiAgICAtLWJhY2tncm91bmQ6ICNGNEY2RjcgIDtcbiAgfVxuXG4gIGlvbi10b29sYmFyIHtcbiAgICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgICAtLWJhY2tncm91bmQ6ICMxNDVBMzI7XG4gIH1cblxuICAuaGVhZGVyLXJvdyB7XG4gICAgYmFja2dyb3VuZDogI0U5RjdFRjtcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gIH1cbiAgXG4gIGlvbi1jb2wge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNFQ0VFRUY7XG4gIH1cbiAgIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/viewaranchorindex/viewaranchorindex.page.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/viewaranchorindex/viewaranchorindex.page.ts ***!
+  \*************************************************************/
+/*! exports provided: ViewaranchorindexPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewaranchorindexPage", function() { return ViewaranchorindexPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _services_books_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/books.service */ "./src/app/services/books.service.ts");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
+
+
+
+
+var ViewaranchorindexPage = /** @class */ (function () {
+    function ViewaranchorindexPage(_modalController, booksService, imageLoaderService) {
+        this._modalController = _modalController;
+        this.booksService = booksService;
+        this.imageLoaderService = imageLoaderService;
+        this.pageNrs = [];
+        this.mapAnchorContentMap = new Map();
+        this.mapAnchorContentMapArray = [];
+        this.mapAnchorContentMapArrayValues = [];
+        this.anchorPageNrMap = new Map();
+        this.anchorPageNrArray = [];
+    }
+    ViewaranchorindexPage.prototype.ngOnInit = function () {
+        console.log("Book ID", this.bookid);
+        console.log("Book Name", this.bookname);
+        this.readPlistForIndex();
+    };
+    ViewaranchorindexPage.prototype.onImageLoad = function (event) {
+        console.log("image ready");
+    };
+    ViewaranchorindexPage.prototype.clearCache = function () {
+        this.imageLoaderService.clearCache();
+        // refresher.complete();
+    };
+    ViewaranchorindexPage.prototype.readPlistForIndex = function () {
+        var _this = this;
+        this.booksService.getBookARContent(this.bookid)
+            .subscribe(function (x) {
+            _this.imgURLs = x;
+            _this.booksService.getBookPlistXml(_this.bookid)
+                .subscribe(function (plist) {
+                if (plist) {
+                    _this.plistCopy = plist;
+                    console.log("plist copy", _this.plistCopy);
+                    /*
+                    start reading the plist copy. get the values of all the key elements
+                    follow the order of the files and assign urls to keys in that orders
+                    */
+                    var domParser = new DOMParser();
+                    var xmlDocument = domParser.parseFromString(_this.plistCopy.toString(), 'text/xml');
+                    console.log("xmlDocument from s3", xmlDocument);
+                    var keys = [];
+                    var values = [];
+                    var keyvalues = [];
+                    var mainKeys = [];
+                    var mapArray = [new Map()];
+                    var keyElLength = xmlDocument.getElementsByTagName('key').length;
+                    var valElLength = xmlDocument.getElementsByTagName('value').length;
+                    var pageNrElLength = xmlDocument.getElementsByTagName('anchorPageNr').length;
+                    for (var i = 0; i < keyElLength; i++) {
+                        keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                    }
+                    for (var i = 0; i < valElLength; i++) {
+                        values[i] = xmlDocument.getElementsByTagName('value')[i].childNodes[0].nodeValue;
+                    }
+                    for (var i = 0; i < pageNrElLength; i++) {
+                        _this.pageNrs[i] = xmlDocument.getElementsByTagName('anchorPageNr')[i].childNodes[0].nodeValue;
+                    }
+                    console.log("Anchors keys", keys);
+                    console.log("PageNrs", _this.pageNrs);
+                    console.log("Values", values);
+                    for (var i = 0; i < keyElLength; i++) {
+                        keys[i] = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
+                        keyvalues.push(keys[i]);
+                        for (var j = 0; j < valElLength; j++) {
+                            if (values[j].includes(keys[i])) {
+                                keyvalues.push(values[j]);
+                            }
+                        }
+                    }
+                    var bookAnchorContentURLsMap = new Map();
+                    for (var i = 0; i < keyvalues.length && i < _this.imgURLs.length; i++) {
+                        bookAnchorContentURLsMap.set(keyvalues[i], _this.imgURLs[i]);
+                    }
+                    for (var _i = 0, _a = Array.from(bookAnchorContentURLsMap.entries()); _i < _a.length; _i++) {
+                        var entry = _a[_i];
+                        if (entry[0].indexOf("content") === -1) {
+                            mainKeys.push(entry[0]);
+                        }
+                    }
+                    console.log("Main Keys", mainKeys);
+                    for (var i = 0; i < mainKeys.length; i++) {
+                        var entry1;
+                        var newContentMap = new Map();
+                        var newAnchorMap = new Map();
+                        for (var _b = 0, _c = Array.from(bookAnchorContentURLsMap.entries()); _b < _c.length; _b++) {
+                            var entry = _c[_b];
+                            if (entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].includes('content')) {
+                                newContentMap.set(entry[0], entry[1]);
+                            }
+                            if ((entry[0].includes(mainKeys[i]) && entry[1].includes(mainKeys[i])
+                                && entry[0].indexOf('content') === -1)) {
+                                newAnchorMap.set(entry[0], entry[1]);
+                            }
+                        }
+                        console.log("new content map", newContentMap);
+                        console.log("new anchor map", newAnchorMap);
+                        _this.mapAnchorContentMap.set(mainKeys[i], [newAnchorMap, newContentMap]);
+                        _this.anchorPageNrMap.set(newAnchorMap.get(mainKeys[i]), _this.pageNrs[i]);
+                    }
+                    console.log("mapAnchorContentMap", _this.mapAnchorContentMap);
+                    _this.mapAnchorContentMapArray = Array.from(_this.mapAnchorContentMap.entries());
+                    console.log("mapAnchorContentMapArray", _this.mapAnchorContentMapArray);
+                    for (var _d = 0, _e = _this.mapAnchorContentMapArray; _d < _e.length; _d++) {
+                        var mapAnchorContentEntry = _e[_d];
+                        console.log("mapanchor content entry", mapAnchorContentEntry[0]);
+                        console.log(mapAnchorContentEntry[1][1].values());
+                        _this.mapAnchorContentMapArrayValues.push(Array.from(mapAnchorContentEntry[1][1].entries()));
+                    }
+                    console.log("mapAnchorContentMapArrayValues", _this.mapAnchorContentMapArrayValues);
+                    // let mapAnchorContentEntry of mapAnchorContentMapArray
+                    // "(mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))"
+                    _this.anchorPageNrArray = Array.from(_this.anchorPageNrMap.entries());
+                }
+                else {
+                    console.log("plist is empty");
+                    return;
+                }
+            }), function (errMess) { return console.log(errMess); };
+        }, function (errmess) { return _this.errMess = errmess; });
+    };
+    ViewaranchorindexPage.prototype.closeModal = function () {
+        console.log("inside close modal");
+        this._modalController.dismiss();
+    };
+    ViewaranchorindexPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-viewaranchorindex',
+            template: __webpack_require__(/*! ./viewaranchorindex.page.html */ "./src/app/viewaranchorindex/viewaranchorindex.page.html"),
+            styles: [__webpack_require__(/*! ./viewaranchorindex.page.scss */ "./src/app/viewaranchorindex/viewaranchorindex.page.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _services_books_service__WEBPACK_IMPORTED_MODULE_3__["BooksService"],
+            ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_4__["ImageLoaderService"]])
+    ], ViewaranchorindexPage);
+    return ViewaranchorindexPage;
 }());
 
 

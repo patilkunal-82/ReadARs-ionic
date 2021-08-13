@@ -52,12 +52,14 @@ export class Tab2Page {
 
   ngOnInit() {
 
+
     this.authService.loadUserCredentials();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { 
         console.log(name); 
-        this.username = name; 
-        this.booksService.getMyProfileImage(this.username)
+        this.username = name;
+        if (this.username) {
+          this.booksService.getMyProfileImage(this.username)
         .subscribe(x => {
           this.url = x;
           console.log("this.url", this.url);
@@ -66,7 +68,8 @@ export class Tab2Page {
         console.log(errMess);
         this.url = undefined;
       });
-    });
+    }   
+  });
   }
 
   refreshPage() {

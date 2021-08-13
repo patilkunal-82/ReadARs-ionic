@@ -27,7 +27,7 @@ import { FilePath} from '@ionic-native/file-path/ngx';
 import { finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ImageLoaderService } from 'ionic-image-loader-v5';
- 
+import { ToastController } from '@ionic/angular';
 //const STORAGE_KEY = 'book_images';
 
 @Component({
@@ -191,7 +191,8 @@ export class Tab1Page implements OnInit, AfterViewInit {
              // private ref: ChangeDetectorRef, 
               private filePath: FilePath,
               private httpClient: HttpClient,
-              private imageLoaderService: ImageLoaderService
+              private imageLoaderService: ImageLoaderService,
+              private toastCtrl: ToastController
               ) {
               this.searchControl = new FormControl();
 
@@ -233,6 +234,15 @@ export class Tab1Page implements OnInit, AfterViewInit {
     });
    
 
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
   ionViewWillEnter() {
@@ -328,6 +338,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
       }
       i++; 
     }
+    if ((this.bookGenreCollection === undefined || this.bookGenreCollection.length == 0)) {
+        this.presentToast("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
+    }
     console.log("BOOK GENRE & COLLECTION", event.detail.value, this.bookGenreCollection.length)
   }
 
@@ -345,6 +358,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
       }
       i++; 
     }
+    if ((this.bookLanguageCollection === undefined || this.bookLanguageCollection.length == 0)) {
+      this.presentToast("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
+  }
     console.log("BOOK LANGUAGE & COLLECTION", event.detail.value, this.bookLanguageCollection)
   }
    

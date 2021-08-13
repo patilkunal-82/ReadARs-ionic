@@ -17,12 +17,26 @@
     }
 
     label {
+        background-color: #E9F7EF;
         border: 1px solid #ccc;
-        padding: 6px 12px;
+        padding: 5px;
         cursor: pointer;
+        margin: 5px;
     }
 }
 
 .nv-file-over { 
     border: dotted 3px red; 
 }
+
+.displaycard {
+    // width: 30vw;
+     //height:30vh;
+    // border: grey solid 1px;
+     margin: 10px;
+     padding-left: 5px;
+     padding-right: 1px;
+     padding-bottom: 5px;
+     padding-top: 5px;
+     //background-color: whitesmoke;
+   }

@@ -162,6 +162,7 @@ export class ArbookPage implements OnInit {
   mapAnchorContentMapArray: any[]= [];
   mapAnchorContentMapArrayValues: any[] = [];
   addtlContents: any[] = [];
+  
   selectedAnchorName: string = "";
   //nextContentValue: string = '';
 
@@ -289,10 +290,11 @@ export class ArbookPage implements OnInit {
     
   }
 
-  async presentToast() {
+  async presentToast(msg) {
     const toast = await this.toastController.create({
-      message: 'Data uploaded successfully.',
-      duration: 2000
+      message: msg,
+      duration: 3000,
+      position: 'middle'
     });
     toast.present();
   }
@@ -358,6 +360,7 @@ export class ArbookPage implements OnInit {
     this.addtlContents = this.fileContentField.getContentFiles();
     console.log("Additional Contents", this.addtlContents);
 
+    
 
    this.booksService.getBookPlistXml(this.bookId)
     .subscribe(plist => {
@@ -392,16 +395,32 @@ export class ArbookPage implements OnInit {
         plistMap.set(this.selectedAnchorName, []);  
         console.log("selected anchor name", this.selectedAnchorName);
         for (let j=0; j < this.addtlContents.length;j++) {
-          let nextContentName = this.selectedAnchorName+'content'+(existingContentValues.length+j+1);
+          let index = this.addtlContents[j].rawFile.type.indexOf("/");
+          let contenttype = this.addtlContents[j].rawFile.type.substring(0,index);
+          let nextContentName = this.selectedAnchorName+'content'+(existingContentValues.length+j+1)+contenttype;
           plistMap.get(this.selectedAnchorName).push(nextContentName);
         }
         console.log("plistMap", plistMap);
 
+        /*
+              for (let i=0; i<this.addtlContents.length;i++) {
+              console.log("Additional content name", this.addtlContents[i].rawFile.name);
+              let type = this.addtlContents[i].rawFile.type
+              let index = type.indexOf("/");
+              let contenttype = type.substring(0,index);
+              console.log("Additional content type", contenttype);
+            }
+
+        */
+
        
         //append content files
         for (let i=0; i< this.addtlContents.length; i++) {
-          let nextContentName = this.selectedAnchorName+'content'+((existingContentValues.length+i+1));
+          let index = this.addtlContents[i].rawFile.type.indexOf("/");
+          let contenttype = this.addtlContents[i].rawFile.type.substring(0,index);
+          let nextContentName = this.selectedAnchorName+'content'+((existingContentValues.length+i+1))+contenttype;
           this.uploadData.append('imageFile', this.addtlContents[i].rawFile,nextContentName);
+         
         }
 
         // append entries to right key element in the xml document
@@ -450,8 +469,10 @@ export class ArbookPage implements OnInit {
           .subscribe(res => {
             console.log(res);
            
-            this.presentToast();
-            this.closeModal();
+            this.presentToast("Content Data Augmented Successfully!");
+            this._modalController.dismiss()
+            //this.closeModal();
+            
           });    
         });
         
@@ -468,7 +489,7 @@ export class ArbookPage implements OnInit {
     /*
     1. check if there is plist xml existing for bookId. - DONE
     2. If no, - DONE
-          create plist xml with new anchor and content 
+          create plist xml with new anchor, anchor's page nr and content 
           upload content, xml to s3 bucket.
     3. If yes, - DONE
         Display the list of anchors and correspoding contents as thumbnails so that user knows which are anchors
@@ -516,9 +537,14 @@ export class ArbookPage implements OnInit {
   prepareAnchorAndContentsDataAndUpload(flag: boolean) {
 
     let anchor = this.fileField.getAnchorFiles();
+    console.log("Anchor from filefield", anchor);
     let contents = this.fileField.getAnchorContentFiles();
-
-    // update existing xml plist
+    console.log("CONTENTS, CONTENT", contents)
+    let arPageValue = this.fileField.addAnchorPageNrGroup.value
+    let anchorPageNr = arPageValue['anchorpagenr'];
+    
+    console.log("Page Number", anchorPageNr)
+    // update existing xml plist with page number of the new anchor, anchor and content data
     
     if (flag) {
 
@@ -530,22 +556,29 @@ export class ArbookPage implements OnInit {
       console.log("keyElLength", keyElLength);
       //let prevAnchorName =  xmlDocument.getElementsByTagName('key')[keyElLength-1].childNodes[0].nodeValue;
      
-
+      
       let anchorName = 'anchor' + keyElLength;
       let plistMap = new Map<string, string[]>();
       plistMap.set(anchorName, []);   
       for (let j=0; j < contents.length;j++) {
-        let contentName = anchorName + 'content' + (j+1);
+        let index = contents[j].type.indexOf('/');
+        let contenttype = contents[j].type.substring(0,index);
+        let contentName = anchorName + 'content' + (j+1) + contenttype;
         plistMap.get(anchorName).push(contentName)
       }
       console.log("plistMap", plistMap);
-
+      console.log("Anchor raw file", anchor[0].rawFile )
       // append anchor file
       this.uploadData.append('imageFile', anchor[0].rawFile, anchorName);
       // append cotent files
       for (let i=0; i< contents.length; i++) {
-        let contentName = anchorName + 'content' + (i+1);
+        let index = contents[i].type.indexOf('/');
+        let contenttype = contents[i].type.substring(0,index);
+        /*let index = contents[i].rawFile.type.indexOf("/");
+        let contenttype = this.addtlContents[j].rawFile.type.substring(0,index);*/
+        let contentName = anchorName + 'content' + (i+1)+ contenttype;
         this.uploadData.append('imageFile', contents[i].rawFile,contentName);
+        
       }
   
       let root = xmlDocument.getElementsByTagName('plist')[0];
@@ -557,6 +590,10 @@ export class ArbookPage implements OnInit {
           let keyEl = xmlDocument.createElement('key');
           keyEl.textContent = entry[0];
           root.appendChild(keyEl);
+
+          let pageNr = xmlDocument.createElement('anchorPageNr');
+          pageNr.textContent = anchorPageNr
+          keyEl.appendChild(pageNr);
         
           let keyElvalues = entry[1];
           for (let j=0; j < keyElvalues.length; j++) {
@@ -580,7 +617,9 @@ export class ArbookPage implements OnInit {
         let plistMap = new Map<string, string[]>();
         plistMap.set(anchorName, []);   
         for (let j=0; j < contents.length;j++) {
-          let contentName = anchorName + 'content' + (j+1);
+          let index = contents[j].type.indexOf('/');
+          let contenttype = contents[j].type.substring(0,index);
+          let contentName = anchorName + 'content' + (j+1) + contenttype;
           plistMap.get(anchorName).push(contentName)
         }
         console.log("plistMap", plistMap);
@@ -589,7 +628,9 @@ export class ArbookPage implements OnInit {
         this.uploadData.append('imageFile', anchor[0].rawFile, anchorName);
         // append cotent files as anchor0content0, anchor0,content1
         for (let i=0; i < contents.length; i++) {
-          let contentName = anchorName + 'content' + (i+1);
+          let index = contents[i].type.indexOf('/');
+          let contenttype = contents[i].type.substring(0,index);
+          let contentName = anchorName + 'content' + (i+1) + contenttype;
           this.uploadData.append('imageFile', contents[i].rawFile, contentName);
         }
     
@@ -598,12 +639,19 @@ export class ArbookPage implements OnInit {
         let root = doc.createElement('plist');
         doc.appendChild(root);
 
+        
+
         for (let entry of Array.from(plistMap.entries())) {
 
           console.log("Entries", entry);
+
             let keyEl = doc.createElement('key');
             keyEl.textContent = entry[0];
             root.appendChild(keyEl);
+
+            let pageNr = doc.createElement('anchorPageNr');
+            pageNr.textContent = anchorPageNr
+            keyEl.appendChild(pageNr);
           
             let keyElvalues = entry[1];
             for (let j=0; j < keyElvalues.length; j++) {
@@ -631,10 +679,10 @@ export class ArbookPage implements OnInit {
       this.booksService.uploadAnchorContentAndPlist(this.bookId, this.uploadData, this.updateFlag, this.bookCopy)
       .subscribe(res => {
         console.log(res);
-        this.presentToast();
+        this.presentToast("Anchor and Content Data Uploaded Successfully !");
+        this._modalController.dismiss()
+        //this.closeModal();
         
-        
-        this.closeModal();
       });
         
     });

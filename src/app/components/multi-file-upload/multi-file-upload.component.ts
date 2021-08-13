@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileUploader, FileLikeObject } from 'ng2-file-upload';
 import { ModalController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-multi-file-upload',
@@ -11,11 +12,48 @@ export class MultiFileUploadComponent  {
 
   public uploaderAnchor: FileUploader = new FileUploader({});
   public uploaderContent: FileUploader = new FileUploader({});
+  public uploaderNumber: number;
   public hasBaseDropZoneOver: boolean = false;
 
-  constructor(private _modalController: ModalController) { 
+  pageNr: number;
+
+  addAnchorPageNrGroup: FormGroup;
+  @ViewChild('aform') addAnchorPageNrGroupFormDirective;
+
+  constructor(private _modalController: ModalController,  private fb: FormBuilder,) { 
 
   }
+
+  ngOnInit() {
+    this.createForm();
+    
+  }
+
+  submitNr() {
+    this.pageNr = this.addAnchorPageNrGroup.value;
+  }
+
+  formErrors = {
+    'anchorpagenr': ''
+  };
+
+  validationMessages = {
+    'anchorpagenr': {
+      'required':      'Anchor Book Page # is required.',
+      'minlength':     'Must be at least 1 character long.',
+      'maxlength':     'Cannot be more than 5 characters long.'
+    },
+  };
+
+
+  createForm() {
+    this.addAnchorPageNrGroup = this.fb.group({
+      anchorpagenr: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(5)] ]
+     
+    });
+  }
+
+  
 
   getAnchorFiles(): FileLikeObject[] {    
     return this.uploaderAnchor.queue.map((fileItem) => {
@@ -23,7 +61,10 @@ export class MultiFileUploadComponent  {
     }); 
   }
 
+  
+
   getAnchorContentFiles(): FileLikeObject[] {
+    
     return this.uploaderContent.queue.map((fileItem) => {
       return fileItem.file;
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -7,6 +7,9 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { SignupPage } from '../signup/signup.page';
 import { ModalController} from '@ionic/angular';
+import { ImageLoaderService } from 'ionic-image-loader-v5';
+import { ToastController } from '@ionic/angular';
+
 
 
 @Component({
@@ -16,99 +19,20 @@ import { ModalController} from '@ionic/angular';
 })
 export class LoginPage implements OnInit, OnDestroy {
 
+ 
+
   slider: any;
   sliderConfig = {
-    
-    speed: 300,
     initialSlide: 0,
     slidesPerView: 1,
-   // autoplay:true
-    /*coverflowEffect: {
-    rotate: 30,
-    stretch: 0,
-    depth: 100,
-    modifier: 1,
-    autoplay: true
-    //slideShadows: true,
-  },
-  on: {
-    beforeInit() {
-      const swiper = this;
-
-      swiper.classNames.push(`${swiper.params.containerModifierClass}coverflow`);
-      swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
-
-      swiper.params.watchSlidesProgress = true;
-      swiper.originalParams.watchSlidesProgress = true;
+    //loop: true,
+    autoplay: {
+      
+     //disableOnInteraction: false,
+      delay: 4000
     },
-    setTranslate() {
-      const swiper = this;
-      const {
-        width: swiperWidth, height: swiperHeight, slides, $wrapperEl, slidesSizesGrid, $
-      } = swiper;
-      const params = swiper.params.coverflowEffect;
-      const isHorizontal = swiper.isHorizontal();
-      const transform$$1 = swiper.translate;
-      const center = isHorizontal ? -transform$$1 + (swiperWidth / 2) : -transform$$1 + (swiperHeight / 2);
-      const rotate = isHorizontal ? params.rotate : -params.rotate;
-      const translate = params.depth;
-      // Each slide offset from center
-      for (let i = 0, length = slides.length; i < length; i += 1) {
-        const $slideEl = slides.eq(i);
-        const slideSize = slidesSizesGrid[i];
-        const slideOffset = $slideEl[0].swiperSlideOffset;
-        const offsetMultiplier = ((center - slideOffset - (slideSize / 2)) / slideSize) * params.modifier;
-
-         let rotateY = isHorizontal ? rotate * offsetMultiplier : 0;
-        let rotateX = isHorizontal ? 0 : rotate * offsetMultiplier;
-        // var rotateZ = 0
-        let translateZ = -translate * Math.abs(offsetMultiplier);
-
-         let translateY = isHorizontal ? 0 : params.stretch * (offsetMultiplier);
-        let translateX = isHorizontal ? params.stretch * (offsetMultiplier) : 0;
-
-         // Fix for ultra small values
-        if (Math.abs(translateX) < 0.001) translateX = 0;
-        if (Math.abs(translateY) < 0.001) translateY = 0;
-        if (Math.abs(translateZ) < 0.001) translateZ = 0;
-        if (Math.abs(rotateY) < 0.001) rotateY = 0;
-        if (Math.abs(rotateX) < 0.001) rotateX = 0;
-
-         const slideTransform = `translate3d(${translateX}px,${translateY}px,${translateZ}px)  rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-         $slideEl.transform(slideTransform);
-        $slideEl[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
-        if (params.slideShadows) {
-          // Set shadows
-          let $shadowBeforeEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
-          let $shadowAfterEl = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
-          if ($shadowBeforeEl.length === 0) {
-            $shadowBeforeEl = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'left' : 'top'}"></div>`);
-            $slideEl.append($shadowBeforeEl);
-          }
-          if ($shadowAfterEl.length === 0) {
-            $shadowAfterEl = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'right' : 'bottom'}"></div>`);
-            $slideEl.append($shadowAfterEl);
-          }
-          if ($shadowBeforeEl.length) $shadowBeforeEl[0].style.opacity = offsetMultiplier > 0 ? offsetMultiplier : 0;
-          if ($shadowAfterEl.length) $shadowAfterEl[0].style.opacity = (-offsetMultiplier) > 0 ? -offsetMultiplier : 0;
-        }
-      }
-
-       // Set correct perspective for IE10
-      if (swiper.support.pointerEvents || swiper.support.prefixedPointerEvents) {
-        const ws = $wrapperEl[0].style;
-        ws.perspectiveOrigin = `${center}px 50%`;
-      }
-    },
-    setTransition(duration) {
-      const swiper = this;
-      swiper.slides
-        .transition(duration)
-        .find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left')
-        .transition(duration);
-    }
-  }*/
+    
+    
   }
 
   loginFormGroup: FormGroup;
@@ -120,29 +44,116 @@ export class LoginPage implements OnInit, OnDestroy {
                           "../assets/images/Tagline2.JPG", 
                           "../assets/images/Tagline3.JPG"];
 
-  TaggLines: any[] = ["","",""];
+  /*
+  ["../assets/images/Tagline1.JPG", "Discover treasure trove of books hidden in others' bookshelves"],
+  ["../assets/images/Tagline3.JPG", "Build network & amplify your happines by exchanging books"],
+  ["../assets/images/Tagline2.JPG", "Augment your imagination with immersive reading experience"]
+  */
+
+  
+
+  taglinesMap = new Map([
+  ["../assets/images/Tagline1.JPG", "Discover books hidden in others' bookshelves"],
+  
+  ["../assets/images/Tagline3.JPG", "Connect & network with like-minded readers"],
+  
+  ["../assets/images/Tagline2.JPG", "Get immersed by augmenting your imagination"]
+  ])
+
+  taglinesArray = Array.from(this.taglinesMap.entries());
+ 
+  formErrors = {
+    'username': '',
+    'password': ''
+  };
+
+  validationMessages = {
+    'username': {
+      'required':      'Username is required.',
+      'minlength':     'Username must be at least 2 characters long.',
+      'maxlength':     'Username cannot be more than 25 characters long.'
+    },
+    'password': {
+      'required':      'Password is required.',
+      'minlength':     'Password must be at least 5 characters long.',
+      'maxlength':     'Password cannot be more than 25 characters long.',
+      'pattern':       'Password must contain only numbers and letters.'
+    }
+  }; 
 
   user = {username: '', password: '', remember: false};
   errMess: string;
 
   constructor(
     formBuilder: FormBuilder, private authService: AuthService, private router: Router,
-    private _modalController: ModalController) {
+    private _modalController: ModalController, private imageLoaderService: ImageLoaderService,
+    private toastCtrl: ToastController) {
+
     this.loginFormGroup = formBuilder.group({
       username: ["", [Validators.required]],
+      
       password: ["", [Validators.required]]
+     
     });
 
+    this.loginFormGroup.valueChanges
+    .subscribe(data => this.onValueChanged(data));
+
+    this.onValueChanged();
     
   }
 
-  slideChanged()
+  onValueChanged(data?: any) {
+    if (!this.loginFormGroup) { return; }
+    const form = this.loginFormGroup;
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        // clear previous error message (if any)
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  clearCache() {
+    this.imageLoaderService.clearCache();
+   
+    //refresher.complete();
+  }
+
+  onImageLoad(event) {
+    console.log("image ready");
+  }
+
+  slideChanged(event)
   {
-     this.slider.stopAutoplay(); //this code for slide after page change
+     //this.slider.stopAutoplay(); //this code for slide after page change
+     //this.slider.startAutoplay();
+     this.sliderConfig.autoplay
+     
+     
   }
 
   ionViewWillEnter() {
     this.flag = false;
+  }
+
+  async presentToast(errmsg) {
+    const toast = await this.toastCtrl.create({
+      message: errmsg,
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
   ngOnInit() {
@@ -201,12 +212,14 @@ export class LoginPage implements OnInit, OnDestroy {
           //this.dialogRef.close(res.success);
           this.router.navigateByUrl('/tabs/tab1');
         } else {
+         
           console.log(res);
         }
       },
       error => {
         console.log(error);
         this.errMess = error;
+        this.presentToast(this.errMess);
       });
 
   }

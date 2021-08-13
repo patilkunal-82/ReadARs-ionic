@@ -3,16 +3,21 @@
     <ion-title size="large" 
                style="font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                color:  #FDFEFE  ; font-weight: bolder; font-size: 25px;">
-     Join ReadARs
+     Join Booxar
     </ion-title>
   </ion-toolbar>
+
+
+  
+
+ 
 </ion-header> 
 
 <ion-content>
 
 
  
-  <ion-card>
+  <ion-card style="box-shadow:olivedrab">
 
     
 
@@ -20,41 +25,76 @@
 
       
 
-      <form [formGroup]="signupFormGroup" #fform="ngForm">
+      <form [formGroup]="signupFormGroup">
 
         
         <ion-item>
           <ion-label color="medium">First Name</ion-label>
-          <ion-input formControlName="firstname" type="text"></ion-input>
+          <ion-input formControlName="firstname" type="text" required></ion-input>
         </ion-item>
+        
         <ion-item>
           <ion-label color="medium">Last Name</ion-label>
-          <ion-input formControlName="lastname" type="text"></ion-input>
+          <ion-input formControlName="lastname" type="text" required></ion-input>
         </ion-item>
+        
         <ion-item>
           <ion-label color="medium">Username</ion-label>
-          <ion-input formControlName="username" type="text"></ion-input>
+          <ion-input formControlName="username" type="text" required></ion-input>
         </ion-item>
+        <div *ngIf="formErrors.username">
+          <ng-container >
+            <div style="color:grey; font-size:x-small;">
+              {{formErrors.username}}
+            </div>
+          </ng-container>
+        </div>
         <ion-item>
           <ion-label color="medium">Password</ion-label>
-          <ion-input formControlName="password" type="password"></ion-input>
+          <ion-input formControlName="password" type="password" required></ion-input>
         </ion-item>
+        <div *ngIf="formErrors.password">
+          <ng-container >
+            <div style="color:grey; font-size:x-small;">
+              {{formErrors.password}}
+            </div>
+          </ng-container>
+        </div>
         <ion-item>
           <ion-label color="medium">Email</ion-label>
-          <ion-input formControlName="email" type="email"></ion-input>
+          <ion-input formControlName="email" type="email" required></ion-input>
         </ion-item>
-        <ion-row>
+        <div *ngIf="formErrors.email">
+          <ng-container >
+            <div style="color:grey; font-size:x-small;">
+              {{formErrors.email}}
+            </div>
+          </ng-container>
+        </div>
+
+        <!--<ion-row>
           <ion-col>
-            <ion-button shape="round" (click)="onSubmit()" style="color: darkgreen;"
+            <ion-button shape="round" (click)="onSubmit()" style="color: white; background-color: darkgreen"
             [disabled]="signupFormGroup.invalid" margin-top expand="full">Join</ion-button>
           </ion-col>
           <ion-col>
             <ion-button  shape="round" size="mini" (click)="closeModal()" expand="block" 
-            margin-top style="color:grey">
+            margin-top style="color:grey; ">
              Cancel
              </ion-button>
           </ion-col>
-        </ion-row>
+        </ion-row>-->
+
+        <ion-card style="box-shadow: none;">
+          <ion-button margin-top shape="round" *ngIf="!flag" (click)="onSubmit()"  expand="block"
+          [disabled]="signupFormGroup.invalid" style="color: white; font-size:large; font-style: normal; " class="center"> 
+          Join
+          </ion-button>
+         <ion-card-subtitle *ngIf="!flag" margin-top shape="round" (click)="closeModal()" button 
+         style="color: #145A32; font-size: larger; font-weight: bolder; font-style: normal" class="ion-text-center">
+           Cancel
+         </ion-card-subtitle>
+        </ion-card>
 
        
        
