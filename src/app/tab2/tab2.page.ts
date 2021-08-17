@@ -56,7 +56,7 @@ export class Tab2Page {
 
 
     this.authService.loadUserCredentials();
-    
+    this.presentLoading();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { 
         console.log(name); 
@@ -77,8 +77,8 @@ export class Tab2Page {
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Loading...please wait',
-      duration: 2400
+      //message: 'Loading...please wait',
+      duration: 400
     });
     await loading.present();
 
