@@ -18,7 +18,7 @@
           "NSPhotoLibraryAddUsageDescription": [
             {
               "xml": "<string>To save QR codes and for AR</string>",
-              "count": 2,
+              "count": 1,
               "mode": "merge",
               "id": "config.xml"
             }

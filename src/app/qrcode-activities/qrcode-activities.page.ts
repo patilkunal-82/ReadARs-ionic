@@ -5,6 +5,7 @@ import { BooksService } from '../services/books.service';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-qrcode-activities',
@@ -25,7 +26,8 @@ export class QrcodeActivitiesPage implements OnInit {
   constructor(private _modalController: ModalController,
               private booksService: BooksService,
               private _alertController: AlertController,
-              private authService: AuthService) 
+              private authService: AuthService,
+              public loadingController: LoadingController) 
               
               { 
                 /*this.authService.loadUserCredentials();
@@ -39,11 +41,13 @@ export class QrcodeActivitiesPage implements OnInit {
     
   }
 
+  
   ngOnInit() {
 
     this.bookname = this.bookName;
     console.log("RECEIVED BOOK ID IS", this.bookId);
     console.log("RECEIVED BOOK NAME IS", this.bookName);
+    this.presentLoading();
     this.booksService.getBookQRImage(this.bookId)
       .subscribe(x => {
           this.urlQR = x;
@@ -58,6 +62,18 @@ export class QrcodeActivitiesPage implements OnInit {
       
       });
 
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   async showError() {

@@ -13,6 +13,7 @@ import { debounceTime } from "rxjs/operators";
 import { FormControl } from "@angular/forms";
 import { SortPipe } from '../shared/sort.pipe'
 import { ImageLoaderService } from 'ionic-image-loader-v5';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -44,11 +45,14 @@ export class Tab4Page implements OnInit, AfterViewInit {
 
   constructor(public navCtrl: NavController, private authService: AuthService, private booksService: BooksService,
     private readarsService: ReadarsService, private imageLoaderService: ImageLoaderService,
-  @Inject('baseURL') private baseURL, private router: Router, private searchedData: SearchedData){
+  @Inject('baseURL') private baseURL, private router: Router, private searchedData: SearchedData, 
+   public loadingController: LoadingController){
     this.searchControl = new FormControl();
   }
   ngOnInit() {
     //this.showForm = false;
+
+      this.presentLoading();
       this.setFilteredItems();
       this.readarsService.getBooks()
        .subscribe(books => {
@@ -64,6 +68,18 @@ export class Tab4Page implements OnInit, AfterViewInit {
       });*/
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
   ionViewWillEnter() {
 
    
@@ -71,6 +87,8 @@ export class Tab4Page implements OnInit, AfterViewInit {
  
    
   }
+
+  
 
   clearCache() {
     this.imageLoaderService.clearCache();

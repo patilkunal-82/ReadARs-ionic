@@ -250,7 +250,7 @@ module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collaps
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".book-image {\n  width: 300px;\n  height: 300px;\n  margin: 10px auto; }\n\n.comment-card {\n  width: 30vw;\n  height: 30vh;\n  border: green solid 1px;\n  margin: 10px auto; }\n\n.bookimage {\n  width: 100%;\n  height: auto;\n  margin: 10px auto; }\n\nion-fab-button {\n  color: whitesmoke; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-back-button {\n  color: #FDFEFE; }\n\nion-chip {\n  background-color: white; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9ib29rZGV0YWlsL2Jvb2tkZXRhaWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFFYixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBQ1gsWUFBVztFQUNYLHVCQUF1QjtFQUN2QixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBRVgsWUFBWTtFQUVaLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLHFCQUFhLEVBQUE7O0FBR2pCO0VBQ0ksY0FBYyxFQUFBOztBQUdsQjtFQUNJLHVCQUF1QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYm9va2RldGFpbC9ib29rZGV0YWlsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLmJvb2staW1hZ2Uge1xuICAgIHdpZHRoOiAzMDBweDtcbiAgICBoZWlnaHQ6IDMwMHB4O1xuICAgIC8vYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDEwcHggYXV0bztcbn1cblxuLmNvbW1lbnQtY2FyZCB7XG4gICAgd2lkdGg6IDMwdnc7XG4gICAgaGVpZ2h0OjMwdmg7XG4gICAgYm9yZGVyOiBncmVlbiBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbi5ib29raW1hZ2Uge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIC8vaGVpZ2h0OiBhdXRvO1xuICAgIGhlaWdodDogYXV0bztcbiAgICAvL21hcmdpbi10b3A6IDI1dmg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbmlvbi1mYWItYnV0dG9uIHtcbiAgICAvL2NvbG9yOiAjMUI0RjcyIDtcbiAgICBjb2xvcjogd2hpdGVzbW9rZTtcbn1cblxuaW9uLXRvb2xiYXIge1xuICAgXG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG5pb24tYmFjay1idXR0b24ge1xuICAgIGNvbG9yOiAjRkRGRUZFO1xufVxuXG5pb24tY2hpcCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cblxuXG5cblxuXG5cblxuXG5cbiJdfQ== */"
+module.exports = ".book-image {\n  width: 300px;\n  height: 300px;\n  margin: 10px auto; }\n\n.comment-card {\n  width: 30vw;\n  height: 30vh;\n  border: green solid 1px;\n  margin: 10px auto; }\n\n.bookimage {\n  width: 100%;\n  height: auto;\n  margin: 10px auto; }\n\nion-fab-button {\n  color: whitesmoke; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-back-button {\n  color: #FDFEFE; }\n\nion-chip {\n  background-color: white; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9ib29rZGV0YWlsL2Jvb2tkZXRhaWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFFYixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBQ1gsWUFBVztFQUNYLHVCQUF1QjtFQUN2QixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxXQUFXO0VBRVgsWUFBWTtFQUVaLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLGlCQUFpQixFQUFBOztBQUdyQjtFQUVJLHFCQUFhLEVBQUE7O0FBR2pCO0VBQ0ksY0FBYyxFQUFBOztBQUdsQjtFQUNJLHVCQUF1QixFQUFBOztBQUczQjtFQUNJLGtCQUFhO0VBQ2IscUJBQWdCO0VBRWhCLFdBQVcsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Jvb2tkZXRhaWwvYm9va2RldGFpbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbi5ib29rLWltYWdlIHtcbiAgICB3aWR0aDogMzAwcHg7XG4gICAgaGVpZ2h0OiAzMDBweDtcbiAgICAvL2JvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbi5jb21tZW50LWNhcmQge1xuICAgIHdpZHRoOiAzMHZ3O1xuICAgIGhlaWdodDozMHZoO1xuICAgIGJvcmRlcjogZ3JlZW4gc29saWQgMXB4O1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG4uYm9va2ltYWdlIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICAvL2hlaWdodDogYXV0bztcbiAgICBoZWlnaHQ6IGF1dG87XG4gICAgLy9tYXJnaW4tdG9wOiAyNXZoO1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG5pb24tZmFiLWJ1dHRvbiB7XG4gICAgLy9jb2xvcjogIzFCNEY3MiA7XG4gICAgY29sb3I6IHdoaXRlc21va2U7XG59XG5cbmlvbi10b29sYmFyIHtcbiAgIFxuICAgIC0tYmFja2dyb3VuZDogIzE0NUEzMjtcbn1cblxuaW9uLWJhY2stYnV0dG9uIHtcbiAgICBjb2xvcjogI0ZERkVGRTtcbn1cblxuaW9uLWNoaXAge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG4ubXktY3VzdG9tLWNsYXNzIHtcbiAgICAtLWJhY2tncm91bmQ6ICMyMjI7XG4gICAgLS1zcGlubmVyLWNvbG9yOiAjZmZmO1xuICBcbiAgICBjb2xvcjogI2ZmZjtcbiAgfVxuXG5cblxuXG5cblxuXG5cblxuXG5cblxuIl19 */"
 
 /***/ }),
 
@@ -324,10 +324,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //import { read } from 'fs';
 var STORAGE_KEY = 'qrcode_images';
 var BookdetailPage = /** @class */ (function () {
-    function BookdetailPage(_socialShare, _modalController, bookdetailService, activatedRoute, readarsService, reservedService, route, router, emailComposer, callNumber, formBuilder, availableService, borrowedService, sanitizer, barCodeScanner, base64ToGallery, file, filePath, fileOpener, base64, webview, authService, booksService, _alertController, favoriteService, recommendService, toastCtrl
+    function BookdetailPage(_socialShare, _modalController, bookdetailService, activatedRoute, readarsService, reservedService, route, router, emailComposer, callNumber, formBuilder, availableService, borrowedService, sanitizer, barCodeScanner, base64ToGallery, file, filePath, fileOpener, base64, webview, authService, booksService, _alertController, favoriteService, recommendService, toastCtrl, loadingController
     //private plt: Platform,
     //private storage: Storage
     // private ref: ChangeDetectorRef,
@@ -365,6 +366,7 @@ var BookdetailPage = /** @class */ (function () {
         this.favoriteService = favoriteService;
         this.recommendService = recommendService;
         this.toastCtrl = toastCtrl;
+        this.loadingController = loadingController;
         this.images = [];
         this.username = undefined;
         this.qrData = null;
@@ -461,6 +463,7 @@ var BookdetailPage = /** @class */ (function () {
     };
     BookdetailPage.prototype.ngOnInit = function () {
         //this.createForm();
+        this.presentLoading();
         /* this.plt.ready().then(() => {
           this.loadStoredImages();
          })*/
@@ -488,6 +491,30 @@ var BookdetailPage = /** @class */ (function () {
             }, function (errmess) { return _this.errMess = errmess; });
             event.target.complete();
         }, 2000);
+    };
+    BookdetailPage.prototype.presentLoading = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var loading, _a, role, data;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.loadingController.create({
+                            cssClass: 'my-custom-class',
+                            message: 'Loading...please wait',
+                            duration: 1000
+                        })];
+                    case 1:
+                        loading = _b.sent();
+                        return [4 /*yield*/, loading.present()];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, loading.onDidDismiss()];
+                    case 3:
+                        _a = _b.sent(), role = _a.role, data = _a.data;
+                        console.log('Loading dismissed!');
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     BookdetailPage.prototype.manageFavorites = function () {
         //you can remove favorite iff you were the ones who had posted it...
@@ -927,7 +954,8 @@ var BookdetailPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"],
             _services_favorite_service__WEBPACK_IMPORTED_MODULE_21__["FavoriteService"],
             _services_recommend_service__WEBPACK_IMPORTED_MODULE_25__["RecommendService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["ToastController"]
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["ToastController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["LoadingController"]
             //private plt: Platform,
             //private storage: Storage
             // private ref: ChangeDetectorRef,
@@ -1109,7 +1137,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-button {\n  --background: #F4F6F7  ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9xcmNvZGUtYWN0aXZpdGllcy9xcmNvZGUtYWN0aXZpdGllcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx1QkFBYSxFQUFBOztBQUdmO0VBRUUscUJBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3FyY29kZS1hY3Rpdml0aWVzL3FyY29kZS1hY3Rpdml0aWVzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogI0Y0RjZGNyAgO1xuICB9XG5cbiAgaW9uLXRvb2xiYXIge1xuICAgIC8vLS1iYWNrZ3JvdW5kOiAjMUI0RjcyO1xuICAgIC0tYmFja2dyb3VuZDogIzE0NUEzMjtcbiAgfSJdfQ== */"
+module.exports = "ion-button {\n  --background: #F4F6F7  ; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9xcmNvZGUtYWN0aXZpdGllcy9xcmNvZGUtYWN0aXZpdGllcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx1QkFBYSxFQUFBOztBQUdmO0VBRUUscUJBQWEsRUFBQTs7QUFHZjtFQUNFLGtCQUFhO0VBQ2IscUJBQWdCO0VBRWhCLFdBQVcsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3FyY29kZS1hY3Rpdml0aWVzL3FyY29kZS1hY3Rpdml0aWVzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZDogI0Y0RjZGNyAgO1xuICB9XG5cbiAgaW9uLXRvb2xiYXIge1xuICAgIC8vLS1iYWNrZ3JvdW5kOiAjMUI0RjcyO1xuICAgIC0tYmFja2dyb3VuZDogIzE0NUEzMjtcbiAgfVxuXG4gIC5teS1jdXN0b20tY2xhc3Mge1xuICAgIC0tYmFja2dyb3VuZDogIzIyMjtcbiAgICAtLXNwaW5uZXItY29sb3I6ICNmZmY7XG4gIFxuICAgIGNvbG9yOiAjZmZmO1xuICB9XG5cbiAiXX0= */"
 
 /***/ }),
 
@@ -1134,14 +1162,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var QrcodeActivitiesPage = /** @class */ (function () {
     //username: string = undefined;
     //subscription: Subscription;
-    function QrcodeActivitiesPage(_modalController, booksService, _alertController, authService) {
+    function QrcodeActivitiesPage(_modalController, booksService, _alertController, authService, loadingController) {
         this._modalController = _modalController;
         this.booksService = booksService;
         this._alertController = _alertController;
         this.authService = authService;
+        this.loadingController = loadingController;
         /*this.authService.loadUserCredentials();
         this.subscription = this.authService.getUsername()
         .subscribe(name => { console.log(name); this.username = name; });*/
@@ -1153,6 +1183,7 @@ var QrcodeActivitiesPage = /** @class */ (function () {
         this.bookname = this.bookName;
         console.log("RECEIVED BOOK ID IS", this.bookId);
         console.log("RECEIVED BOOK NAME IS", this.bookName);
+        this.presentLoading();
         this.booksService.getBookQRImage(this.bookId)
             .subscribe(function (x) {
             _this.urlQR = x;
@@ -1162,6 +1193,30 @@ var QrcodeActivitiesPage = /** @class */ (function () {
         }, function (errmess) {
             _this.errMess = errmess;
             _this.showError();
+        });
+    };
+    QrcodeActivitiesPage.prototype.presentLoading = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var loading, _a, role, data;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.loadingController.create({
+                            cssClass: 'my-custom-class',
+                            message: 'Loading...please wait',
+                            duration: 2000
+                        })];
+                    case 1:
+                        loading = _b.sent();
+                        return [4 /*yield*/, loading.present()];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, loading.onDidDismiss()];
+                    case 3:
+                        _a = _b.sent(), role = _a.role, data = _a.data;
+                        console.log('Loading dismissed!');
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     QrcodeActivitiesPage.prototype.showError = function () {
@@ -1194,7 +1249,8 @@ var QrcodeActivitiesPage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             _services_books_service__WEBPACK_IMPORTED_MODULE_3__["BooksService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-            _services_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"]])
+            _services_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
     ], QrcodeActivitiesPage);
     return QrcodeActivitiesPage;
 }());

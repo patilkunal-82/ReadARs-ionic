@@ -12,6 +12,8 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
 import { Book } from '../shared/book';
 import { ViewaranchorindexPage } from '../viewaranchorindex/viewaranchorindex.page';
 
+import { LoadingController } from '@ionic/angular';
+
 
 
 @Component({
@@ -60,10 +62,11 @@ export class Tab5Page implements OnInit {
     public readarsService: ReadarsService,
     private imageLoaderService: ImageLoaderService,
     private booksService: BooksService,
-    private arenabledService: ARenabledService)
-    
-     
-  {  }
+    private arenabledService: ARenabledService, 
+    public loadingController: LoadingController) { 
+
+
+     }
 
   ngOnInit() {
 
@@ -73,13 +76,25 @@ export class Tab5Page implements OnInit {
       this.prepareBookIdsImagesMap();
       console.log("BOOK COLLECTION IS ---------->", this.books)
     }, errmess => this.errMess = <any>errmess);*/
-
+    this.presentLoading();
     this.arenabledService.getARenabledBooks()
     .subscribe(arbooks => {
       this.arbooks = arbooks;
       this.prepareBookIdsImagesMap();
     }, errmess => this.errMess = <any>errmess);
 
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   prepareBookIdsImagesMap() {
@@ -122,6 +137,8 @@ export class Tab5Page implements OnInit {
     }
     return;
   }
+
+  
 
   async viewAR(bookId: string, bookName: string) {
 

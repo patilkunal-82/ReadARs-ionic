@@ -23,6 +23,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Base64} from '@ionic-native/base64/ngx'
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 //import { VERSION} from '@angular/material';
 //import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -144,7 +145,8 @@ export class BookdetailPage implements OnInit {
     private _alertController: AlertController,
     private favoriteService: FavoriteService,
     private recommendService: RecommendService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    public loadingController: LoadingController
     //private plt: Platform,
     //private storage: Storage
    // private ref: ChangeDetectorRef,
@@ -177,12 +179,14 @@ export class BookdetailPage implements OnInit {
       toast.present();
     }
 
+
+
   ionViewWillEnter() {
 
     this.authService.loadUserCredentials();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { console.log(name); this.username = name; });
-
+   
   
 
     this.readarsService.getBookIds().subscribe(bookIds => {
@@ -254,7 +258,7 @@ export class BookdetailPage implements OnInit {
   ngOnInit() {
     //this.createForm();
 
-    
+   this.presentLoading();
     
    /* this.plt.ready().then(() => {
      this.loadStoredImages();
@@ -288,6 +292,18 @@ export class BookdetailPage implements OnInit {
       event.target.complete();
 
     }, 2000);
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   manageFavorites() {

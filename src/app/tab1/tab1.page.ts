@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, ViewChild, NgZone } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -28,6 +28,7 @@ import { finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 //const STORAGE_KEY = 'book_images';
 
 @Component({
@@ -192,7 +193,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
               private filePath: FilePath,
               private httpClient: HttpClient,
               private imageLoaderService: ImageLoaderService,
-              private toastCtrl: ToastController
+              private toastCtrl: ToastController,
+              public zone: NgZone,
+              public loadingController: LoadingController
               ) {
               this.searchControl = new FormControl();
 
@@ -207,23 +210,41 @@ export class Tab1Page implements OnInit, AfterViewInit {
     
     
    // this.loadStoredImages();
-
+    this.presentLoading();
     this.readarsService.getBooks()
     .subscribe(books => {
+
       this.books = books;
       this.prepareBookIdsImagesMap();
       console.log("BOOK COLLECTION IS ---------->", this.books)
+    
     }, errmess => this.errMess = <any>errmess);
 
     this.readarsService.getRecommendedBooks()
     .subscribe(recobooks => {
+
       this.recobooks = recobooks;
       console.log("RECO BOOK COLLECTION IS ---------->", this.recobooks)
+
     }, errmess => this.errMess = <any>errmess);
 
     
 
   }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2400
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+  
+
 
   createForm() {
     this.selectCategoryFormGroup = this.fb.group({
@@ -257,6 +278,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
 
   onImageLoad(event) {
     console.log("image ready");
+   
   }
  
   
@@ -280,6 +302,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
             console.log("book image map", this.bookIdImageMap);
         }, errMess => console.log(errMess));
       }
+      
     }, errmess => this.errMess = <any>errmess);
   }
 

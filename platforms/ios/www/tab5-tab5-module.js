@@ -178,7 +178,7 @@ var Tab5PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Immerse\n    </ion-title>\n  </ion-toolbar>\n\n \n\n</ion-header> \n\n<ion-content>\n   \n      \n        <!--<div id=\"container\">\n          <ion-button (click)=\"add()\">Add Numbers</ion-button>\n            <ion-list>\n              <ion-item>{{total}}</ion-item>\n            </ion-list>\n        </div>-->\n\n        \n         <!--<ion-button expand=\"full\" (click)=\"loadContacts()\">\n            Load Contacts\n          </ion-button>-->\n         \n          <!--<ion-list>\n            <ion-item *ngFor=\"let c of contacts\">\n              <ion-label>\n                {{ c.firstName }} {{ c.lastName }}\n                <p>\n                  {{ c.telephone }}\n                </p>\n              </ion-label>\n            </ion-item>\n          </ion-list>-->\n   \n   \n\n       \n    <ion-list>\n      <ion-item *ngFor=\"let book of arbooks\">\n        <ion-row>\n          <ion-col>\n            <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\"  \n            useImg (load)=\"onImageLoad($event)\" button>\n            </img-loader>\n          </ion-col>\n          <ion-col>\n            <ion-row>\n              <ion-button  shape=\"round\" style=\"color: #145A32\" margin (click)=\"viewAR(book._id, book.bookname)\">\n                <!--<ion-icon style=\"color: #145A32;\" src=\"../assets/icon/eye-sharp.svg\"></ion-icon>-->\n                <span style=\"color:  #145A32; margin-left: 5px; \" class=\"ion-text-left\">View in AR</span>\n              </ion-button>\n            </ion-row>\n            <ion-row>\n              <ion-button  shape=\"round\" style=\"color: #145A32\" margin  (click)=\"viewAnchors(book._id, book.bookname)\">AR Anchors</ion-button>\n            </ion-row>\n          </ion-col>   \n        </ion-row>\n     </ion-item>\n    </ion-list>\n   \n</ion-content> \n\n \n\n\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Immerse\n    </ion-title>\n  </ion-toolbar>\n\n \n\n</ion-header> \n\n<ion-content>\n   \n      \n        <!--<div id=\"container\">\n          <ion-button (click)=\"add()\">Add Numbers</ion-button>\n            <ion-list>\n              <ion-item>{{total}}</ion-item>\n            </ion-list>\n        </div>-->\n\n        \n         <!--<ion-button expand=\"full\" (click)=\"loadContacts()\">\n            Load Contacts\n          </ion-button>-->\n         \n          <!--<ion-list>\n            <ion-item *ngFor=\"let c of contacts\">\n              <ion-label>\n                {{ c.firstName }} {{ c.lastName }}\n                <p>\n                  {{ c.telephone }}\n                </p>\n              </ion-label>\n            </ion-item>\n          </ion-list>-->\n   \n   \n\n  \n       <ion-label style=\"color: gray; margin-left: 10px;\n       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n       font-size: smaller;\" class=\"ion-text-wrap\">\n        Supported on iOS 13.0 & above based devices only\n       </ion-label>\n    \n    <ion-list>\n      <ion-item *ngFor=\"let book of arbooks\">\n        <ion-row>\n          <ion-col>\n            <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\"  \n            useImg (load)=\"onImageLoad($event)\" button>\n            </img-loader>\n          </ion-col>\n          <ion-col>\n            <ion-row>\n              <ion-button  shape=\"round\" style=\"color: #145A32\" margin (click)=\"viewAR(book._id, book.bookname)\">\n                <!--<ion-icon style=\"color: #145A32;\" src=\"../assets/icon/eye-sharp.svg\"></ion-icon>-->\n                <span style=\"color:  #145A32; margin-left: 5px; \" class=\"ion-text-left\">View in AR</span>\n              </ion-button>\n            </ion-row>\n            <ion-row>\n              <ion-button  shape=\"round\" style=\"color: #145A32\" margin  (click)=\"viewAnchors(book._id, book.bookname)\">AR Anchors</ion-button>\n            </ion-row>\n          </ion-col>   \n        </ion-row>\n     </ion-item>\n    </ion-list>\n   \n</ion-content> \n\n \n\n\n"
 
 /***/ }),
 
@@ -189,7 +189,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-toolbar {\n  --background: #145A32; }\n\niframe {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  border: none; }\n\n.bookimage {\n  width: 225%;\n  height: auto;\n  margin: 10px auto; }\n\nion-button {\n  --background: #E9F7EF   ; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWI1L3RhYjUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUkscUJBQWEsRUFBQTs7QUFHakI7RUFDSSxrQkFBa0I7RUFDbEIsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksV0FBVztFQUVYLFlBQVk7RUFFWixpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSx3QkFBYSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdGFiNS90YWI1LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi10b29sYmFyIHtcbiAgICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgICAtLWJhY2tncm91bmQ6ICMxNDVBMzI7XG59XG5cbmlmcmFtZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBib3JkZXI6IG5vbmU7XG59XG5cbi5ib29raW1hZ2Uge1xuICAgIHdpZHRoOiAyMjUlO1xuICAgIC8vaGVpZ2h0OiBhdXRvO1xuICAgIGhlaWdodDogYXV0bztcbiAgICAvL21hcmdpbi10b3A6IDI1dmg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIH1cblxuICBpb24tYnV0dG9uIHtcbiAgICAtLWJhY2tncm91bmQ6ICNFOUY3RUYgICA7XG4gIH1cblxuIl19 */"
+module.exports = "ion-toolbar {\n  --background: #145A32; }\n\niframe {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  border: none; }\n\n.bookimage {\n  width: 225%;\n  height: auto;\n  margin: 10px auto; }\n\nion-button {\n  --background: #E9F7EF   ; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWI1L3RhYjUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUkscUJBQWEsRUFBQTs7QUFHakI7RUFDSSxrQkFBa0I7RUFDbEIsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksV0FBVztFQUVYLFlBQVk7RUFFWixpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSx3QkFBYSxFQUFBOztBQUdmO0VBQ0Usa0JBQWE7RUFDYixxQkFBZ0I7RUFFaEIsV0FBVyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdGFiNS90YWI1LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi10b29sYmFyIHtcbiAgICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgICAtLWJhY2tncm91bmQ6ICMxNDVBMzI7XG59XG5cbmlmcmFtZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBib3JkZXI6IG5vbmU7XG59XG5cbi5ib29raW1hZ2Uge1xuICAgIHdpZHRoOiAyMjUlO1xuICAgIC8vaGVpZ2h0OiBhdXRvO1xuICAgIGhlaWdodDogYXV0bztcbiAgICAvL21hcmdpbi10b3A6IDI1dmg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIH1cblxuICBpb24tYnV0dG9uIHtcbiAgICAtLWJhY2tncm91bmQ6ICNFOUY3RUYgICA7XG4gIH1cblxuICAubXktY3VzdG9tLWNsYXNzIHtcbiAgICAtLWJhY2tncm91bmQ6ICMyMjI7XG4gICAgLS1zcGlubmVyLWNvbG9yOiAjZmZmO1xuICBcbiAgICBjb2xvcjogI2ZmZjtcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -222,8 +222,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var Tab5Page = /** @class */ (function () {
-    function Tab5Page(modalCtrl, pluginService, alertController, readarsService, imageLoaderService, booksService, arenabledService) {
+    function Tab5Page(modalCtrl, pluginService, alertController, readarsService, imageLoaderService, booksService, arenabledService, loadingController) {
         this.modalCtrl = modalCtrl;
         this.pluginService = pluginService;
         this.alertController = alertController;
@@ -231,6 +232,7 @@ var Tab5Page = /** @class */ (function () {
         this.imageLoaderService = imageLoaderService;
         this.booksService = booksService;
         this.arenabledService = arenabledService;
+        this.loadingController = loadingController;
         this.contacts = [];
         this.images = [];
         this.arbooks = [];
@@ -246,18 +248,43 @@ var Tab5Page = /** @class */ (function () {
         this.bookIdImageMap = new Map();
     }
     Tab5Page.prototype.ngOnInit = function () {
+        var _this = this;
         /*this.readarsService.getBooks()
         .subscribe(books => {
           this.books = books;
           this.prepareBookIdsImagesMap();
           console.log("BOOK COLLECTION IS ---------->", this.books)
         }, errmess => this.errMess = <any>errmess);*/
-        var _this = this;
+        this.presentLoading();
         this.arenabledService.getARenabledBooks()
             .subscribe(function (arbooks) {
             _this.arbooks = arbooks;
             _this.prepareBookIdsImagesMap();
         }, function (errmess) { return _this.errMess = errmess; });
+    };
+    Tab5Page.prototype.presentLoading = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var loading, _a, role, data;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.loadingController.create({
+                            cssClass: 'my-custom-class',
+                            message: 'Loading...please wait',
+                            duration: 2000
+                        })];
+                    case 1:
+                        loading = _b.sent();
+                        return [4 /*yield*/, loading.present()];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, loading.onDidDismiss()];
+                    case 3:
+                        _a = _b.sent(), role = _a.role, data = _a.data;
+                        console.log('Loading dismissed!');
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     Tab5Page.prototype.prepareBookIdsImagesMap = function () {
         // get all the  bookIds
@@ -507,7 +534,8 @@ var Tab5Page = /** @class */ (function () {
             _services_readars_service__WEBPACK_IMPORTED_MODULE_5__["ReadarsService"],
             ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_4__["ImageLoaderService"],
             _services_books_service__WEBPACK_IMPORTED_MODULE_6__["BooksService"],
-            _services_arenabled_service__WEBPACK_IMPORTED_MODULE_7__["ARenabledService"]])
+            _services_arenabled_service__WEBPACK_IMPORTED_MODULE_7__["ARenabledService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
     ], Tab5Page);
     return Tab5Page;
 }());

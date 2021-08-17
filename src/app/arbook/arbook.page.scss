@@ -118,3 +118,10 @@ ion-card-subtitle {
 .nv-file-over { 
   border: dotted 3px red; 
 }
+
+.my-custom-class {
+  --background: #222;
+  --spinner-color: #fff;
+
+  color: #fff;
+}

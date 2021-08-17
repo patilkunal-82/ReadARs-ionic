@@ -25,7 +25,7 @@ export class LoginPage implements OnInit, OnDestroy {
   sliderConfig = {
     initialSlide: 0,
     slidesPerView: 1,
-    //loop: true,
+    loop: true,
     autoplay: {
       
      //disableOnInteraction: false,
@@ -40,9 +40,9 @@ export class LoginPage implements OnInit, OnDestroy {
   subscription: Subscription;
   displayflag: boolean;
   flag: boolean;
-  TaglineImages: any[] = ["../assets/images/Tagline1.JPG", 
-                          "../assets/images/Tagline2.JPG", 
-                          "../assets/images/Tagline3.JPG"];
+  TaglineImages: any[] = ["../assets/images/Tagline-1.PNG", 
+                          "../assets/images/Tagline-2.PNG", 
+                          "../assets/images/Tagline-3.PNG"];
 
   /*
   ["../assets/images/Tagline1.JPG", "Discover treasure trove of books hidden in others' bookshelves"],
@@ -53,11 +53,11 @@ export class LoginPage implements OnInit, OnDestroy {
   
 
   taglinesMap = new Map([
-  ["../assets/images/Tagline1.JPG", "Discover books hidden in others' bookshelves"],
+  ["../assets/images/Tagline-1.png", "Discover books hidden in others' bookshelves"],
   
-  ["../assets/images/Tagline3.JPG", "Connect & network with like-minded readers"],
+  ["../assets/images/Tagline-3.png", "Connect & network with like-minded readers"],
   
-  ["../assets/images/Tagline2.JPG", "Get immersed by augmenting your imagination"]
+  ["../assets/images/Tagline-2.png", "Get immersed by augmenting your imagination"]
   ])
 
   taglinesArray = Array.from(this.taglinesMap.entries());

@@ -29,6 +29,7 @@ import { Subscription } from 'rxjs';
 
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 
 enum CodeOps {
@@ -138,14 +139,16 @@ export class Tab3Page implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private barCodeScanner: BarcodeScanner,
     private imageLoaderService: ImageLoaderService,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController, 
+    public loadingController: LoadingController
+    ) {
         this.searchControl = new FormControl();
   }
 
   ngOnInit() {
     this.setFilteredItems();
 
-    
+    this.presentLoading();
     this.authService.loadUserCredentials();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { 
@@ -166,10 +169,18 @@ export class Tab3Page implements OnInit, AfterViewInit {
         }
       });
 
-     
+  }
 
-    
-    
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   ionViewWillEnter() {
@@ -186,6 +197,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
       });
 
   }
+
+  
 
   displayBooksByStatus(event) {
 

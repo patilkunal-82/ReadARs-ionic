@@ -24,10 +24,39 @@
     <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
     </ion-refresher-content>
   </ion-refresher>-->
+  <!--
+    <div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
+    <mat-list>
+      <h3>Comments</h3>
+      <mat-list-item *ngFor="let comment of dish.comments">
+        <h4 matLine> {{comment.comment}} </h4>
+        <p matLine> {{comment.rating}} Stars</p>
+        <p matLine>
+          <span> -- {{comment.author.firstname}} {{comment.author.lastname}} -- {{comment.updatedAt | date }} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+    <form novalidate [formGroup]="commentForm" #cform="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-slider min="1" max="5" step="1" thumbLabel tickInterval="1" name="rating" formControlName="rating"></mat-slider>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="comment" placeholder="Your Comment" rows=12></textarea>
+          <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
+    </form>
+  </div>
+  <div [hidden]="dish || errMess">
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+  -->
 
   <ion-list>
-    
-    
     <ion-list-header color="">
       <ion-item class="">
        <ion-icon style="color: #145A32; margin-right: 5px;" src="../assets/icon/list.svg"></ion-icon>
@@ -37,15 +66,15 @@
     <ion-item-sliding>
       <ion-slides [options]="sliderConfig">
         <ion-slide *ngFor="let book of books">
-            <!--<ion-img class="bookimage" [src]="(bookIdImageMap.get(book._id))" 
-              [routerLink]="['bookdetail', book._id]" button></ion-img>-->
             <img-loader class="bookimage" [src]="(bookIdImageMap.get(book._id))" [routerLink]="['bookdetail', book._id]"  
             useImg (load)="onImageLoad($event)" button></img-loader>
+           
+            <!--<img class="bookimage" [src]="(bookIdImageMap.get(book._id))" 
+              [routerLink]="['bookdetail', book._id]" button/>-->
+  
         </ion-slide>
       </ion-slides> 
     </ion-item-sliding>
- 
-  
     <ion-list-header color="">
       <ion-item class="">
         <ion-icon style="color: #145A32; margin-right: 5px;" src="../assets/icon/albums.svg"></ion-icon>
@@ -61,7 +90,7 @@
       <ion-select (ionChange)="displayGenreCollection($event)" interface="popover" placeholder="Select genre..">
         <ion-select-option *ngFor="let bgenre of bookgenre" [value]="bgenre"> {{bgenre}}</ion-select-option>
      </ion-select>
-     
+  
       <ion-slides [options]="sliderConfig" *ngIf="!((bookGenreCollection === undefined) || (bookGenreCollection.length == 0))">
         <ion-slide *ngFor="let bookGenre of bookGenreCollection" >
           <!--<ion-img class="bookimage" [src]="(bookIdImageMap.get(bookGenre._id))" 
@@ -70,7 +99,7 @@
                 useImg (load)="onImageLoad($event)" button></img-loader>
         </ion-slide>
       </ion-slides>
-      
+
     </ion-item-sliding>
 
     <ion-item-sliding *ngIf="showLanguage">
@@ -104,6 +133,12 @@
       </ion-slides>
     </ion-item-sliding>
   </ion-list>
+  <ion-list [hidden]="errMess || books || recobooks">
+    <ion-spinner name="lines-small">
+      <span>Loading...please wait</span>
+    </ion-spinner>
+  </ion-list>
+
  
 
 

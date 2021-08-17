@@ -14,7 +14,7 @@ import { MultiFileUploadComponent} from '../components/multi-file-upload/multi-f
 import { MultiFileContentUploadComponent} from '../components/multi-file-content-upload/multi-file-content-upload.component'
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
-
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -176,10 +176,12 @@ export class ArbookPage implements OnInit {
               private imagePicker: ImagePicker,
               public transfer: FileTransfer,
               private imageLoaderService: ImageLoaderService,
-              public toastController: ToastController) { }
+              public toastController: ToastController,
+              public loadingController: LoadingController) { }
 
   ngOnInit() {
 
+    this.presentLoading();
     this.booksService.getBook(this.bookId)
       .subscribe(book => {
           this.bookCopy = book;
@@ -188,6 +190,18 @@ export class ArbookPage implements OnInit {
 
     this.displayAnchorContentData();
     
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   displayAnchorContentData() {

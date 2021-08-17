@@ -154,7 +154,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.spinner-container {\n  width: 100%;\n  text-align: center;\n  padding: 10px; }\n\n.book-display {\n  margin: 5px;\n  padding: 5px; }\n\n.book-image {\n  margin: 5px; }\n\nion-toolbar {\n  --background: #145A32; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWI0L3RhYjQucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGFBQWEsRUFBQTs7QUFHZjtFQUlJLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBR2hCO0VBSUksV0FBVyxFQUFBOztBQUdmO0VBRUUscUJBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYjQvdGFiNC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uZGlzcGxheV9oZWFkaW5nIHtcbiAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5zcGlubmVyLWNvbnRhaW5lciB7XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5ib29rLWRpc3BsYXkge1xuXG4gICAgLy9oZWlnaHQ6NTBweDtcbiAgICAvL2JvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHg7XG4gICAgcGFkZGluZzogNXB4O1xufVxuXG4uYm9vay1pbWFnZSB7XG4gICAgLy93aWR0aDogMzAwcHg7XG4gICAgLy9oZWlnaHQ6IDMwMHB4O1xuICAgIC8vYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDVweDtcbn1cblxuaW9uLXRvb2xiYXIge1xuICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG5cbiJdfQ== */"
+module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.spinner-container {\n  width: 100%;\n  text-align: center;\n  padding: 10px; }\n\n.book-display {\n  margin: 5px;\n  padding: 5px; }\n\n.book-image {\n  margin: 5px; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWI0L3RhYjQucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGFBQWEsRUFBQTs7QUFHZjtFQUlJLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBR2hCO0VBSUksV0FBVyxFQUFBOztBQUdmO0VBRUUscUJBQWEsRUFBQTs7QUFHZjtFQUNFLGtCQUFhO0VBQ2IscUJBQWdCO0VBRWhCLFdBQVcsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYjQvdGFiNC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uZGlzcGxheV9oZWFkaW5nIHtcbiAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5zcGlubmVyLWNvbnRhaW5lciB7XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5ib29rLWRpc3BsYXkge1xuXG4gICAgLy9oZWlnaHQ6NTBweDtcbiAgICAvL2JvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHg7XG4gICAgcGFkZGluZzogNXB4O1xufVxuXG4uYm9vay1pbWFnZSB7XG4gICAgLy93aWR0aDogMzAwcHg7XG4gICAgLy9oZWlnaHQ6IDMwMHB4O1xuICAgIC8vYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDVweDtcbn1cblxuaW9uLXRvb2xiYXIge1xuICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG4ubXktY3VzdG9tLWNsYXNzIHtcbiAgLS1iYWNrZ3JvdW5kOiAjMjIyO1xuICAtLXNwaW5uZXItY29sb3I6ICNmZmY7XG5cbiAgY29sb3I6ICNmZmY7XG59XG5cbiJdfQ== */"
 
 /***/ }),
 
@@ -188,8 +188,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var Tab4Page = /** @class */ (function () {
-    function Tab4Page(navCtrl, authService, booksService, readarsService, imageLoaderService, baseURL, router, searchedData) {
+    function Tab4Page(navCtrl, authService, booksService, readarsService, imageLoaderService, baseURL, router, searchedData, loadingController) {
         this.navCtrl = navCtrl;
         this.authService = authService;
         this.booksService = booksService;
@@ -198,6 +199,7 @@ var Tab4Page = /** @class */ (function () {
         this.baseURL = baseURL;
         this.router = router;
         this.searchedData = searchedData;
+        this.loadingController = loadingController;
         this.bookIdsImages = new Map();
         this.bookIdImageMap = new Map();
         this.searchTerm = "";
@@ -206,8 +208,9 @@ var Tab4Page = /** @class */ (function () {
         this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormControl"]();
     }
     Tab4Page.prototype.ngOnInit = function () {
-        var _this = this;
         //this.showForm = false;
+        var _this = this;
+        this.presentLoading();
         this.setFilteredItems();
         this.readarsService.getBooks()
             .subscribe(function (books) {
@@ -220,6 +223,30 @@ var Tab4Page = /** @class */ (function () {
           .subscribe(search => {
             this.setFilteredItems(search);
           });*/
+    };
+    Tab4Page.prototype.presentLoading = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var loading, _a, role, data;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.loadingController.create({
+                            cssClass: 'my-custom-class',
+                            message: 'Loading...please wait',
+                            duration: 2000
+                        })];
+                    case 1:
+                        loading = _b.sent();
+                        return [4 /*yield*/, loading.present()];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, loading.onDidDismiss()];
+                    case 3:
+                        _a = _b.sent(), role = _a.role, data = _a.data;
+                        console.log('Loading dismissed!');
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     Tab4Page.prototype.ionViewWillEnter = function () {
         this.prepareBookIdsImagesMap();
@@ -302,7 +329,8 @@ var Tab4Page = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](5, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])('baseURL')),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"], _services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"], _services_books_service__WEBPACK_IMPORTED_MODULE_3__["BooksService"],
-            _services_readars_service__WEBPACK_IMPORTED_MODULE_4__["ReadarsService"], ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_9__["ImageLoaderService"], Object, _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_searchbooks_service__WEBPACK_IMPORTED_MODULE_7__["SearchedData"]])
+            _services_readars_service__WEBPACK_IMPORTED_MODULE_4__["ReadarsService"], ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_9__["ImageLoaderService"], Object, _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_searchbooks_service__WEBPACK_IMPORTED_MODULE_7__["SearchedData"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]])
     ], Tab4Page);
     return Tab4Page;
 }());

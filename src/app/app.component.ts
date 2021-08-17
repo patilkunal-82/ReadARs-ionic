@@ -36,6 +36,7 @@ export class AppComponent {
      this.imageLoaderConfigService.enableFallbackAsPlaceholder(true);
      this.imageLoaderConfigService.setFallbackUrl('assets/icon/cloud-download.svg');
      this.imageLoaderConfigService.setMaximumCacheAge(24 * 60 * 60 * 1000);
+     
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();

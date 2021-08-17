@@ -15,6 +15,7 @@ import { BooksService } from '../services/books.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -41,7 +42,8 @@ export class Tab2Page {
     private file: File,
     private booksService: BooksService,
     private imageLoaderService: ImageLoaderService,
-    private router: Router){
+    private router: Router,
+    public loadingController: LoadingController){
 
     setTimeout(() => {
       this.bookList = bookdetailService.getAllBooks();
@@ -54,6 +56,7 @@ export class Tab2Page {
 
 
     this.authService.loadUserCredentials();
+    
     this.subscription = this.authService.getUsername()
       .subscribe(name => { 
         console.log(name); 
@@ -71,6 +74,17 @@ export class Tab2Page {
     }   
   });
   }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2400
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
 
   refreshPage() {
     console.log("inside refreshpage")
@@ -80,6 +94,8 @@ export class Tab2Page {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  
 
   clearCache(refresher) {
     this.imageLoaderService.clearCache();

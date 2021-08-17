@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="readARs82" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="CDVWebViewEngine">
         <param name="ios-package" value="CDVWebViewEngine" />
     </feature>
@@ -84,7 +84,7 @@
     </feature>
     <name>Booxar</name>
     <description>App for bookexchange and immersive reading experience</description>
-    <author email="patilkunal@gmail.com" href="http://ionicframework.com/">Kunal Patil</author>
+    <author email="kunal.s.patil@icloud.com" href="http://ionicframework.com/">Kunal Patil</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="*" />

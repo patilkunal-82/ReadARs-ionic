@@ -66,7 +66,7 @@ module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collaps
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.skeleton-image {\n  height: 175px; }\n\n.profile-pic {\n  width: 200px;\n  height: 200px;\n  border: gray solid 1px;\n  margin: 10px auto; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.my-custom-menu {\n  --width: 500px; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-button {\n  --background: #FDFEFE; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWIyL3RhYjIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLGFBQWEsRUFBQTs7QUFHZjtFQUNJLFlBQVk7RUFDWixhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxjQUFRLEVBQUE7O0FBRVY7RUFFRSxxQkFBYSxFQUFBOztBQUdmO0VBQ0UscUJBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYjIvdGFiMi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuLnNrZWxldG9uLWltYWdlIHtcbiAgaGVpZ2h0OiAxNzVweDtcbn1cblxuLnByb2ZpbGUtcGljIHtcbiAgICB3aWR0aDogMjAwcHg7XG4gICAgaGVpZ2h0OiAyMDBweDtcbiAgICBib3JkZXI6IGdyYXkgc29saWQgMXB4O1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG4uZGlzcGxheV9oZWFkaW5nIHtcbiAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5teS1jdXN0b20tbWVudSB7XG4gIC0td2lkdGg6IDUwMHB4O1xufVxuaW9uLXRvb2xiYXIge1xuICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG5pb24tYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjRkRGRUZFO1xufVxuXG5cbiJdfQ== */"
+module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.skeleton-image {\n  height: 175px; }\n\n.profile-pic {\n  width: 200px;\n  height: 200px;\n  border: gray solid 1px;\n  margin: 10px auto; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.my-custom-menu {\n  --width: 500px; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-button {\n  --background: #FDFEFE; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWIyL3RhYjIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLGFBQWEsRUFBQTs7QUFHZjtFQUNJLFlBQVk7RUFDWixhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxjQUFRLEVBQUE7O0FBRVY7RUFFRSxxQkFBYSxFQUFBOztBQUdmO0VBQ0UscUJBQWEsRUFBQTs7QUFHZjtFQUNFLGtCQUFhO0VBQ2IscUJBQWdCO0VBRWhCLFdBQVcsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3RhYjIvdGFiMi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuLnNrZWxldG9uLWltYWdlIHtcbiAgaGVpZ2h0OiAxNzVweDtcbn1cblxuLnByb2ZpbGUtcGljIHtcbiAgICB3aWR0aDogMjAwcHg7XG4gICAgaGVpZ2h0OiAyMDBweDtcbiAgICBib3JkZXI6IGdyYXkgc29saWQgMXB4O1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG4uZGlzcGxheV9oZWFkaW5nIHtcbiAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5teS1jdXN0b20tbWVudSB7XG4gIC0td2lkdGg6IDUwMHB4O1xufVxuaW9uLXRvb2xiYXIge1xuICAvLy0tYmFja2dyb3VuZDogIzFCNEY3MjtcbiAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xufVxuXG5pb24tYnV0dG9uIHtcbiAgLS1iYWNrZ3JvdW5kOiAjRkRGRUZFO1xufVxuXG4ubXktY3VzdG9tLWNsYXNzIHtcbiAgLS1iYWNrZ3JvdW5kOiAjMjIyO1xuICAtLXNwaW5uZXItY29sb3I6ICNmZmY7XG5cbiAgY29sb3I6ICNmZmY7XG59XG5cblxuIl19 */"
 
 /***/ }),
 
@@ -101,8 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var Tab2Page = /** @class */ (function () {
-    function Tab2Page(bookdetailService, authService, _camera, _alertController, _modalController, file, booksService, imageLoaderService, router) {
+    function Tab2Page(bookdetailService, authService, _camera, _alertController, _modalController, file, booksService, imageLoaderService, router, loadingController) {
         var _this = this;
         this.authService = authService;
         this._camera = _camera;
@@ -112,6 +113,7 @@ var Tab2Page = /** @class */ (function () {
         this.booksService = booksService;
         this.imageLoaderService = imageLoaderService;
         this.router = router;
+        this.loadingController = loadingController;
         this.dataReader = new FileReader();
         this.username = undefined;
         setTimeout(function () {
@@ -136,6 +138,30 @@ var Tab2Page = /** @class */ (function () {
                     _this.url = undefined;
                 });
             }
+        });
+    };
+    Tab2Page.prototype.presentLoading = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var loading, _a, role, data;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.loadingController.create({
+                            cssClass: 'my-custom-class',
+                            message: 'Loading...please wait',
+                            duration: 2400
+                        })];
+                    case 1:
+                        loading = _b.sent();
+                        return [4 /*yield*/, loading.present()];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, loading.onDidDismiss()];
+                    case 3:
+                        _a = _b.sent(), role = _a.role, data = _a.data;
+                        console.log('Loading dismissed!');
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     Tab2Page.prototype.refreshPage = function () {
@@ -297,7 +323,8 @@ var Tab2Page = /** @class */ (function () {
             _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
             _services_books_service__WEBPACK_IMPORTED_MODULE_7__["BooksService"],
             ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_8__["ImageLoaderService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]])
     ], Tab2Page);
     return Tab2Page;
 }());
