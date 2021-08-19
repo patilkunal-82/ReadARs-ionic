@@ -16,6 +16,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -43,7 +44,8 @@ export class Tab2Page {
     private booksService: BooksService,
     private imageLoaderService: ImageLoaderService,
     private router: Router,
-    public loadingController: LoadingController){
+    public loadingController: LoadingController,
+    private toastCtrl: ToastController){
 
     setTimeout(() => {
       this.bookList = bookdetailService.getAllBooks();
@@ -86,6 +88,16 @@ export class Tab2Page {
     console.log('Loading dismissed!');
   }
 
+  async presentToast(errmsg) {
+    const toast = await this.toastCtrl.create({
+      message: errmsg,
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();
+  }
+
+
   refreshPage() {
     console.log("inside refreshpage")
     window.location.reload();
@@ -104,6 +116,7 @@ export class Tab2Page {
   }
   onImageLoad(event) {
     console.log("image ready");
+    
   }
 
   async selectImageSource() {
@@ -226,6 +239,8 @@ export class Tab2Page {
         this.booksService.uploadMyProfileImage(this.username, this.uploadData)
                     .subscribe(res => {
                       console.log(res);
+                      this.presentToast("Photo Updated SuccessFully!")
+                      this.ngOnInit();
                       this.receivedImageData = res;
                       this.base64Data = this.receivedImageData.pic;
                       this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data;

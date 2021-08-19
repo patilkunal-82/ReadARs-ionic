@@ -19,7 +19,7 @@
     //height:50px;
     //border: gray solid 1px;
     margin: 5px;
-    padding: 5px;
+    padding: 2px;
 }
 
 .book-image {
@@ -27,6 +27,13 @@
     //height: 300px;
     //border: gray solid 1px;
     margin: 5px;
+}
+
+.bookimage1 {
+  width: 70px;
+  height: 70px;
+  //margin-left: 5px;
+  box-shadow: grey;
 }
 
 ion-toolbar {
@@ -40,4 +47,15 @@ ion-toolbar {
 
   color: #fff;
 }
+
+ion-avatar  {     
+  width:100% !important;  
+  height : 100% !important;  
+  max-width: 60px !important;  //any size
+  max-height: 60px !important; //any size 
+  margin: auto;
+  //margin-top: 20px;
+  }
+
+
 

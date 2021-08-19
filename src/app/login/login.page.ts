@@ -9,7 +9,7 @@ import { SignupPage } from '../signup/signup.page';
 import { ModalController} from '@ionic/angular';
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
-
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -87,7 +87,7 @@ export class LoginPage implements OnInit, OnDestroy {
   constructor(
     formBuilder: FormBuilder, private authService: AuthService, private router: Router,
     private _modalController: ModalController, private imageLoaderService: ImageLoaderService,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,  public loadingController: LoadingController) {
 
     this.loginFormGroup = formBuilder.group({
       username: ["", [Validators.required]],
@@ -183,6 +183,18 @@ export class LoginPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Signing In...please wait',
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
   async signupModal() {
 
     const singupmodal = await this._modalController.create({
@@ -204,11 +216,13 @@ export class LoginPage implements OnInit, OnDestroy {
   logIn() {
     this.user = this.loginFormGroup.value;
     console.log('User: ', this.user);
-
+    this.presentLoading();
     this.authService.logIn(this.user)
       .subscribe(res => {
+        
         if (res.success) {
           console.log("Success");
+          
           //this.dialogRef.close(res.success);
           this.router.navigateByUrl('/tabs/tab1');
         } else {

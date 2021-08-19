@@ -19,8 +19,59 @@ const routes: Routes = [
           {
             path: 'bookdetail/:bookID',
             loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
-          }
-
+          },
+          {
+            path: 'showallbooks',
+            children: [
+              {
+                path: '',
+                loadChildren: '../showallbooks/showallbooks.module#ShowallbooksPageModule'
+              },
+              {
+                path: 'bookdetail/:bookID',
+                loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
+              }
+            ]
+          },
+          {
+            path: 'showrecommendations',
+            children: [
+              {
+                path: '',
+                loadChildren: '../showrecommendations/showrecommendations.module#ShowrecommendationsPageModule'
+              },
+              {
+                path: 'bookdetail/:bookID',
+                loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
+              }
+            ]
+          },
+          {
+            path: 'showbylanguage',
+            children: [
+              {
+                path: '',
+                loadChildren: '../showbylanguage/showbylanguage.module#ShowbylanguagePageModule'
+              },
+              {
+                path: 'bookdetail/:bookID',
+                loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
+              }
+            ]
+          },
+          {
+            path: 'showbygenre',
+            children: [
+              {
+                path: '',
+                loadChildren: '../showbygenre/showbygenre.module#ShowbygenrePageModule'
+              },
+              {
+                path: 'bookdetail/:bookID',
+                loadChildren: '../bookdetail/bookdetail.module#BookdetailPageModule'
+              }
+            ]
+          },
         ]
       },
       {

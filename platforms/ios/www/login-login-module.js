@@ -109,14 +109,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var LoginPage = /** @class */ (function () {
-    function LoginPage(formBuilder, authService, router, _modalController, imageLoaderService, toastCtrl) {
+    function LoginPage(formBuilder, authService, router, _modalController, imageLoaderService, toastCtrl, loadingController) {
         var _this = this;
         this.authService = authService;
         this.router = router;
         this._modalController = _modalController;
         this.imageLoaderService = imageLoaderService;
         this.toastCtrl = toastCtrl;
+        this.loadingController = loadingController;
         this.sliderConfig = {
             initialSlide: 0,
             slidesPerView: 1,
@@ -244,6 +246,30 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
+    LoginPage.prototype.presentLoading = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var loading, _a, role, data;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.loadingController.create({
+                            cssClass: 'my-custom-class',
+                            message: 'Signing In...please wait',
+                            duration: 1000
+                        })];
+                    case 1:
+                        loading = _b.sent();
+                        return [4 /*yield*/, loading.present()];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, loading.onDidDismiss()];
+                    case 3:
+                        _a = _b.sent(), role = _a.role, data = _a.data;
+                        console.log('Loading dismissed!');
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     LoginPage.prototype.signupModal = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var singupmodal;
@@ -271,6 +297,7 @@ var LoginPage = /** @class */ (function () {
         var _this = this;
         this.user = this.loginFormGroup.value;
         console.log('User: ', this.user);
+        this.presentLoading();
         this.authService.logIn(this.user)
             .subscribe(function (res) {
             if (res.success) {
@@ -299,7 +326,7 @@ var LoginPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"], ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_7__["ImageLoaderService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]])
     ], LoginPage);
     return LoginPage;
 }());

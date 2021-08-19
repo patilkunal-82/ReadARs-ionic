@@ -38,23 +38,48 @@
     </ion-refresher-content>
   </ion-refresher>-->
 
-  <ion-list>
+  
+
+  <!--<ion-list>
        <ion-item [routerLink]="['bookdetail', book._id]" button  
           *ngFor="let book of books | sort: {property: column, order: order}">
          <ion-thumbnail>
-          <!--<ion-img [src]="(bookIdImageMap.get(book._id))" class=""></ion-img>-->
           <img-loader [src]="(bookIdImageMap.get(book._id))" useImg (load)="onImageLoad($event)"></img-loader>
          </ion-thumbnail> 
          <ion-label class="book-display">
            <strong class="ion-text-wrap">{{book.bookname}}</strong>
-          <!-- <p>{{book.bookdescription}}</p> -->
            <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>
            <ion-note *ngIf="book.bookcurrentstatus == 'available' " style="color: green">{{book.bookcurrentstatus}}</ion-note>
            <ion-note *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red">{{book.bookcurrentstatus}}</ion-note>
            <ion-note *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange">{{book.bookcurrentstatus}}</ion-note>
          </ion-label>
        </ion-item>
+  </ion-list>-->
+
+  <ion-list>
+    <ion-virtual-scroll [items]="books | sort: {property: column, order: order}">
+      <div *virtualItem="let book">
+          <ion-item [routerLink]="['bookdetail', book._id]"> 
+            <ion-avatar>
+              <ion-img [src]="(bookIdImageMap.get(book._id))"></ion-img>
+              <!--<img-loader [src]="(bookIdImageMap.get(book._id))" useImg (load)="onImageLoad($event)"></img-loader>-->
+            </ion-avatar>
+             <ion-label class="book-display">
+              <span class="ion-text-wrap"><h3><strong>{{book.bookname}}</strong></h3></span>
+              <h4 style="color:darkgrey"> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h4>
+              <!--<h5 *ngIf="book.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{book.bookcurrentstatus}}</h5>
+              <h5 *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{book.bookcurrentstatus}}</h5>
+              <h5 *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{book.bookcurrentstatus}}</h5>-->
+              <span *ngIf="book.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{book.bookcurrentstatus}}</span>
+              <span *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{book.bookcurrentstatus}}</span>
+              <span *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{book.bookcurrentstatus}}</span>
+            </ion-label>
+          </ion-item>
+      </div>
+    </ion-virtual-scroll>
   </ion-list>
+
+ 
 
   <!-- <ion-infinite-scroll (ionInfinite)="loadMoreBooks($event)">
     <ion-infinite-scroll-content loadingText="..loading">

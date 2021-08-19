@@ -9,6 +9,7 @@ import { Tab1Page } from './tab1.page';
 import { SortPipe } from '../shared/sort.pipe';
 import { SearchPipe } from '../shared/search.pipe';
 
+
 @NgModule({
   imports: [
     IonicModule,
@@ -16,7 +17,8 @@ import { SearchPipe } from '../shared/search.pipe';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }]),
-    IonicImageLoaderModule
+    IonicImageLoaderModule,
+   
   ],
   declarations: [Tab1Page],
   exports: []

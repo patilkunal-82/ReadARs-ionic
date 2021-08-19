@@ -37,4 +37,20 @@ ion-button {
   
 }
 
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  display: block !important;
+  
+}
+
+ion-avatar  {     
+  width:100% !important;  
+  height : 100% !important;  
+  max-width: 100px !important;  //any size
+  max-height: 100px !important; //any size 
+  margin: auto;
+  margin-top: 20px;
+  }
+
 

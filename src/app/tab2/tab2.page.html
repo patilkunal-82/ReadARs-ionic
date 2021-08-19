@@ -2,11 +2,6 @@
 <ion-header color="success" [translucent]="true" collapse="condense">
 
   <ion-toolbar *ngIf="username">
-    <img-loader useImg (load)="onImageLoad($event)" button> 
-        <ion-avatar *ngIf="this.url">
-          <img (click)="selectImageSource()" style="margin-right: 10px;" [src]="this.url">
-        </ion-avatar>
-    </img-loader>
     <ion-title size="large" 
       style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       color: #FDFEFE  ; font-weight: bolder; font-size: 25px; white-space: normal;">Hello, {{username}}
@@ -29,19 +24,33 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-list>
+  
+    <img-loader useImg (load)="onImageLoad($event)" button> 
+    <ion-avatar *ngIf="this.url">
+      <img [src]="this.url">
+    </ion-avatar>
+    </img-loader>
+
+  
    
-    <ion-item>
+
+  <ion-list style="margin-top: 30px;">
+   
+    <ion-item (click)="selectImageSource()"> 
+      <span style="font-size: small;">Update Photo</span>
+    </ion-item>
+    <ion-item >
+      <span style="color:darkgrey; font-size: small;">Update Profile</span> 
     </ion-item>
     <ion-item>
+     <span style="color:darkgrey; font-size: small;">Wallet</span> 
     </ion-item>
     <ion-item>
+      <ion-icon src="../assets/icon/log-out-outline.svg" 
+       (click)="logOut()"></ion-icon>
     </ion-item>
-    <ion-item>
-    </ion-item>
-    <ion-item>
-      <ion-button fill="clear" (click)="logOut()" style="color: #7B7D7D" name="log-out">Log Out</ion-button>
-    </ion-item>
+   
+   
 
   </ion-list>
   

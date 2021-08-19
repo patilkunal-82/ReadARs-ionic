@@ -838,6 +838,26 @@ var map = {
 		"common",
 		"bookdetail-bookdetail-module"
 	],
+	"../showallbooks/showallbooks.module": [
+		"./src/app/showallbooks/showallbooks.module.ts",
+		"common",
+		"showallbooks-showallbooks-module"
+	],
+	"../showbygenre/showbygenre.module": [
+		"./src/app/showbygenre/showbygenre.module.ts",
+		"common",
+		"showbygenre-showbygenre-module"
+	],
+	"../showbylanguage/showbylanguage.module": [
+		"./src/app/showbylanguage/showbylanguage.module.ts",
+		"common",
+		"showbylanguage-showbylanguage-module"
+	],
+	"../showrecommendations/showrecommendations.module": [
+		"./src/app/showrecommendations/showrecommendations.module.ts",
+		"common",
+		"showrecommendations-showrecommendations-module"
+	],
 	"../tab1/tab1.module": [
 		"./src/app/tab1/tab1.module.ts",
 		"common",
@@ -913,7 +933,7 @@ var routes = [
     {
         path: 'login',
         loadChildren: './login/login.module#LoginPageModule',
-    },
+    }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

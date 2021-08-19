@@ -16,6 +16,7 @@ import { LoadingController } from '@ionic/angular';
 
 
 
+
 @Component({
   selector: 'app-tab5',
   templateUrl: './tab5.page.html',
@@ -80,6 +81,7 @@ export class Tab5Page implements OnInit {
     this.arenabledService.getARenabledBooks()
     .subscribe(arbooks => {
       this.arbooks = arbooks;
+      console.log("AR Books", this.arbooks)
       this.prepareBookIdsImagesMap();
     }, errmess => this.errMess = <any>errmess);
 

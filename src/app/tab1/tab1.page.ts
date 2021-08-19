@@ -29,6 +29,7 @@ import { HttpClient } from '@angular/common/http';
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+
 //const STORAGE_KEY = 'book_images';
 
 @Component({
@@ -210,8 +211,8 @@ export class Tab1Page implements OnInit, AfterViewInit {
     
     
    // this.loadStoredImages();
-    this.presentLoading();
-    this.readarsService.getBooks()
+    //this.presentLoading();
+    /*this.readarsService.getBooks()
     .subscribe(books => {
 
       this.books = books;
@@ -226,7 +227,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
       this.recobooks = recobooks;
       console.log("RECO BOOK COLLECTION IS ---------->", this.recobooks)
 
-    }, errmess => this.errMess = <any>errmess);
+    }, errmess => this.errMess = <any>errmess);*/
 
     
 
@@ -267,7 +268,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
   }
 
   ionViewWillEnter() {
-    this.prepareBookIdsImagesMap();
+   // this.prepareBookIdsImagesMap();
   }
 
   clearCache() {
@@ -340,6 +341,11 @@ export class Tab1Page implements OnInit, AfterViewInit {
       this.showLanguage = true;
      
     }
+  }
+
+
+  showAllBooks() {
+    console.log("Inside Show All Books");
   }
 
   /*

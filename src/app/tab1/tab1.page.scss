@@ -3,6 +3,14 @@
   overflow: hidden;
 }
 
+.displayimg {
+  // display: block;
+   height: 120px;
+   //margin-top: auto;
+   //margin-left: auto;
+   //margin-right: auto;
+  
+}
 .displaycard {
  // width: 30vw;
   //height:30vh;
@@ -55,11 +63,24 @@ ion-list-header {
 }
 
 .bookimage {
-  width: 225%;
+  width: 100%;
   //height: auto;
   height: auto;
   //margin-top: 25vh;
-  margin: 10px auto;
+  //margin: 10px auto;
+}
+
+.bookcard {
+  width: 145px;
+  height: 145px;
+  background-color: white;
+  object-fit: cover;
+}
+
+.bookimage1 {
+  width: 150px;
+  height: 150px;
+  margin: 5px;
 }
 
 .my-custom-menu {
@@ -76,6 +97,17 @@ ion-toolbar {
   --spinner-color: #fff;
 
   color: #fff;
+}
+
+ion-icon {
+  font-size: 64px;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  display: block !important;
+  
 }
 
 

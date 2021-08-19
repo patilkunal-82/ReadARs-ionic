@@ -11,16 +11,24 @@ iframe {
 }
 
 .bookimage {
-    width: 225%;
+    width: auto;
     //height: auto;
-    height: auto;
+    height: 100px;
     //margin-top: 25vh;
-    margin: 10px auto;
+    margin: 5px;
+
   }
 
-  ion-button {
-    --background: #E9F7EF   ;
+  .bookimage1 {
+    width: 100px;
+    height: 100px;
+    //margin-left: 5px;
+    box-shadow: grey;
   }
+
+ ion-button {
+   --background: #e9f7e9;
+ }
 
   .my-custom-class {
     --background: #222;

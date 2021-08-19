@@ -1,0 +1,108 @@
+.welcome-card ion-img {
+    max-height: 35vh;
+    overflow: hidden;
+  }
+  
+  .displaycard {
+   // width: 30vw;
+    //height:30vh;
+   // border: grey solid 1px;
+    margin: 5px;
+    padding: 5px;
+    //background-color: whitesmoke;
+  }
+  
+  .displayinnercard {
+    // width: 30vw;
+     //height:30vh;
+    // border: grey solid 1px;
+     margin-top: auto;
+     //margin-left: 30px;
+     padding: 5px;
+     //background-color:ghostwhite;
+   }
+  
+   ion-select {
+    width:100%;
+    max-width: 100% !important;
+    padding-left:20px;
+  }
+  
+  ion-list-header {
+  
+    padding-left:0px;
+    display:block;
+    text-align: center;
+  
+  }
+
+  ion-back-button {
+    color: #FDFEFE;
+}
+  
+  .display_heading {
+    margin-left: 0px;
+    padding: 0px;
+  }
+  
+  .spinner-container {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .book-image {
+      width: 300px;
+      height: 300px;
+      //border: gray solid 1px;
+      margin: 10px auto;
+  }
+  
+  .bookimage {
+    width: 225%;
+    //height: auto;
+    height: 4%;
+    //margin-top: 25vh;
+    margin: 10px auto;
+  }
+  
+  .bookcard {
+    width: 20%;
+    height: 20%;
+    margin: 10px;
+    text-align: center;
+    //object-fit: cover;
+    
+  }
+  
+  .bookimage1 {
+    width: 100px;
+    height: 100px;
+    //margin-left: 5px;
+    box-shadow: grey;
+  }
+  
+  .my-custom-menu {
+    --width: 500px;
+  }
+  
+  ion-toolbar {
+    //--background: #1B4F72;
+    --background: #145A32;
+  }
+  
+  .my-custom-class {
+    --background: #222;
+    --spinner-color: #fff;
+  
+    color: #fff;
+  }
+  
+ 
+  
+  .center{
+    margin-left: auto;
+    margin-right: auto;
+    display: block !important;
+    
+  }
