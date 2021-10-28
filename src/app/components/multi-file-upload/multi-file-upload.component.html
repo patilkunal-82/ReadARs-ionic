@@ -10,7 +10,7 @@
     <div class="file-input-container">
       <label>
         <input type="file" ng2FileSelect [uploader]="uploaderAnchor" single />
-        Click to Add Anchor (max. 1)
+        <span style="font-size: small;">Select anchor (max. 1)</span>
       </label>
     </div>
     <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>
@@ -49,7 +49,7 @@
     <div class="file-input-container">
       <label>
         <input type="file" ng2FileSelect [uploader]="uploaderContent"  multiple />
-        Click to Add Content corresponding to above anchor
+        <span style="font-size: small;">Select corresponding content</span>
       </label>
     </div>
     <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>

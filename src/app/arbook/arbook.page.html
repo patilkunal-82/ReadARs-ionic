@@ -36,45 +36,6 @@
   </ion-refresher>
 
 
-  
-<!--<ion-list>
-  <ion-item>
-    <ion-button fill="clear" style="color: #7B7D7D" (click)="selectImageSource()">Capture Markers
-      <span style="margin-right: 20px; " class="ion-text-center"></span>
-      <ion-icon src="../assets/icon/camera-outline.svg">
-      </ion-icon>
-    </ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-label *ngIf="markerImagesLength">No. of markers captured - {{markerImagesLength}}</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-thumbnail *ngFor="let image of markerImages">
-      <ion-img src={{image}} *ngIf="markerImages" height="50"></ion-img>
-  </ion-thumbnail>
-  </ion-item>
-    <ion-button fill="clear" style="color: #7B7D7D" name="create-markers" (click)="createMarkers()">Upload All Markers
-      <span style="margin-right: 10px; " class="ion-text-center"></span>
-      <ion-icon name="cloud-upload">
-      </ion-icon>
-    </ion-button>
-    <ion-item>
-      <ion-thumbnail *ngFor="let url of urls ">
-        <ion-img src={{url}} height="50"></ion-img>
-      </ion-thumbnail>
-    </ion-item>
-</ion-list>-->
-    <!--<ion-button shape="round" margin-top expand="block">
-          <ion-icon style="color: #145A32;" src="../assets/icon/add-circle.svg"></ion-icon>
-          <span style="color:  #17202A; margin-left: 5px; " class="ion-text-left">Upload Markers for  </span>
-    </ion-button>
-    <ion-thumbnail>
-        <ion-img [src]="capturedImage" *ngIf="capturedImage" height="100"></ion-img>
-    </ion-thumbnail>-->
- 
-  
-  
-    
   <ion-button *ngIf="!showComonentFlag && !showContentAddComponentFlag" shape="round" (click)="anchorContentComponent()" margin-top expand="block">
       <ion-icon style="color: #145A32;" src="../assets/icon/add-circle.svg"></ion-icon>
       <span style="color:  #17202A; margin-left: 5px; " class="ion-text-left">New Anchor and Content</span>
@@ -125,18 +86,20 @@
   </ion-card>
  </ion-list>
 
- 
+   
+  <ion-button *ngIf="showComonentFlag && !showContentAddComponentFlag" (click)="upload()" shape="round" style="color: black" 
+  margin-top expand="full">Upload Selected Anchor & Content</ion-button>
+  <ion-button *ngIf="!showComonentFlag && showContentAddComponentFlag && fileContentField" (click)="uploadContent()" shape="round" style="color: black" 
+  margin-top expand="full">Upload Selected Content</ion-button>
 
   <!--call multi-file-upload component to select anchor/marker and images-->
   <app-multi-file-upload *ngIf="showComonentFlag && !showContentAddComponentFlag"></app-multi-file-upload>
+  
   <!--call multi-file-content-upload component to add content-->
   <app-multi-file-content-upload *ngIf="showContentAddComponentFlag && !showComonentFlag"></app-multi-file-content-upload>
+  
 
-  <ion-button *ngIf="showComonentFlag && !showContentAddComponentFlag" (click)="upload()" shape="round" style="color: black" 
-     margin-top expand="full">Upload Anchor & Content</ion-button>
-
-  <ion-button *ngIf="!showComonentFlag && showContentAddComponentFlag" (click)="uploadContent()" shape="round" style="color: black" 
-     margin-top expand="full">Upload Content</ion-button>
+ 
 
   <!--<ion-col *ngIf="showComonentFlag || showContentAddComponentFlag">
     <ion-button (click)="closeModal()" shape="round" style="color: grey" 

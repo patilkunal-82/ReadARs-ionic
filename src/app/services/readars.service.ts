@@ -105,7 +105,7 @@ export class ReadarsService {
     reserveBook(bookId: string, book: Book) {
       return this.http.put(baseURL + 'books/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 
                            'bookborrowed':book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
-                           'bookcurrentstatus': book.bookcurrentstatus})
+                           'bookcurrentstatus': book.bookcurrentstatus, 'bookreserveddate': book.bookreserveddate})
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
     }
 

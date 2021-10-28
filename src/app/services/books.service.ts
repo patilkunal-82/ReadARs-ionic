@@ -96,7 +96,8 @@ export class BooksService {
       console.log('inside Book Service lend book ' + bookId);
       return this.http.put(baseURL + 'mybooks/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 
                                                             'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
-                                                            'bookcurrentstatus': book.bookcurrentstatus})
+                                                            'bookcurrentstatus': book.bookcurrentstatus, 'bookborroweddate': book.bookborroweddate,
+                                                            'bookreserveddate': book.bookreserveddate, 'bookreturnbydate': book.bookreturnbydate})
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
     }
 
@@ -105,7 +106,8 @@ export class BooksService {
       console.log('inside Book Service release book ' + bookId);
       return this.http.put(baseURL + 'mybooks/' + bookId, {'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved, 
                                                            'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
-                                                           'bookcurrentstatus': book.bookcurrentstatus})
+                                                           'bookcurrentstatus': book.bookcurrentstatus, 'bookborroweddate': book.bookborroweddate,
+                                                           'bookreturnbydate': book.bookreturnbydate})
       .pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
     }
 

@@ -72,10 +72,20 @@ const routes: Routes = [
               }
             ]
           },
+          {
+            path: 'showebooks',
+            children: [
+              {
+                path: '',
+                loadChildren: '../showebooks/showebooks.module#ShowebooksPageModule'
+              }
+            ]
+          },
         ]
       },
       {
         path: 'tab2',
+        //loadChildren: '../tab2/tab2.module#Tab2PageModule'
         children: [
           {
             path: '',
@@ -85,6 +95,7 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
+        //loadChildren: '../tab3/tab3.module#Tab3PageModule'
         children: [
           {
             path: '',
@@ -114,13 +125,14 @@ const routes: Routes = [
             loadChildren: '../tab5/tab5.module#Tab5PageModule'
           }
         ]
-      }
-
+      },
+     
     ]
   },
   {
     path: '',
     redirectTo: '/login',
+    
     pathMatch: 'full'
   }
   

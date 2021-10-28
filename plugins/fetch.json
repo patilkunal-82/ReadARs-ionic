@@ -200,5 +200,21 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-document-viewer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-document-viewer@^1.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "pspdfkit-cordova": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/PSPDFKit/PSPDFKit-Cordova.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

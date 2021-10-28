@@ -2485,7 +2485,7 @@ var ArbookPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n\n   <!--<ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    {{bookName}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"close()\">\n        <ion-icon style=\"color: white; background: #145A32; \" name=\"close\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n\n  \n    <ion-title size=\"large\" text-center\n      style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n      color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;\">\n     {{bookName}}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n    <ion-icon style=\"color: whitesmoke;\" src=\"../assets/icon/close-outline.svg\" size=\"medium\" (click)=\"close()\"></ion-icon>\n    </ion-buttons>\n \n  </ion-toolbar>\n\n\n</ion-header> \n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>\n\n\n  \n<!--<ion-list>\n  <ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" (click)=\"selectImageSource()\">Capture Markers\n      <span style=\"margin-right: 20px; \" class=\"ion-text-center\"></span>\n      <ion-icon src=\"../assets/icon/camera-outline.svg\">\n      </ion-icon>\n    </ion-button>\n  </ion-item>\n  <ion-item>\n    <ion-label *ngIf=\"markerImagesLength\">No. of markers captured - {{markerImagesLength}}</ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-thumbnail *ngFor=\"let image of markerImages\">\n      <ion-img src={{image}} *ngIf=\"markerImages\" height=\"50\"></ion-img>\n  </ion-thumbnail>\n  </ion-item>\n    <ion-button fill=\"clear\" style=\"color: #7B7D7D\" name=\"create-markers\" (click)=\"createMarkers()\">Upload All Markers\n      <span style=\"margin-right: 10px; \" class=\"ion-text-center\"></span>\n      <ion-icon name=\"cloud-upload\">\n      </ion-icon>\n    </ion-button>\n    <ion-item>\n      <ion-thumbnail *ngFor=\"let url of urls \">\n        <ion-img src={{url}} height=\"50\"></ion-img>\n      </ion-thumbnail>\n    </ion-item>\n</ion-list>-->\n    <!--<ion-button shape=\"round\" margin-top expand=\"block\">\n          <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n          <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">Upload Markers for  </span>\n    </ion-button>\n    <ion-thumbnail>\n        <ion-img [src]=\"capturedImage\" *ngIf=\"capturedImage\" height=\"100\"></ion-img>\n    </ion-thumbnail>-->\n \n  \n  \n    \n  <ion-button *ngIf=\"!showComonentFlag && !showContentAddComponentFlag\" shape=\"round\" (click)=\"anchorContentComponent()\" margin-top expand=\"block\">\n      <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n      <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">New Anchor and Content</span>\n  </ion-button>\n\n  <ion-list-header *ngIf=\"(!showComonentFlag && !showContentAddComponentFlag) && plistCopy\">\n    <ion-item>\n      <ion-label style=\"color: #17202A \"> Existing anchors & content </ion-label>\n    </ion-item>\n  </ion-list-header>\n\n\n  <ion-list *ngIf=\"!showComonentFlag && !showContentAddComponentFlag\">\n    <ion-card *ngFor=\"let mapAnchorContentEntry of mapAnchorContentMapArray\" style=\"box-shadow:darkolivegreen;\">\n      <ion-card-header>\n        <ion-card-title style=\"font-size: small;\">\n        Anchor\n        </ion-card-title>\n\n        <ion-item>\n          \n            <ion-thumbnail class=\"anchor-display\">\n              <img-loader [src]=\"(mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            </ion-thumbnail> \n         \n            <ion-chip (click)=\"addContentToCurrentAnchor(mapAnchorContentEntry[0],mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\" \n            shape=\"round\" class=\"ion-text-left\" style=\"margin-left: 5px;\" button>\n              <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/document-attach.svg\"></ion-icon>\n              <span style=\"color:  #17202A; margin-left: 2px; font-size: small;\" class=\"ion-text-left\">New Content</span>\n            </ion-chip>\n         \n        </ion-item>\n      </ion-card-header>\n      <ion-card-title style=\"font-size: small; margin-left: 15px;\">\n        Existing content\n      </ion-card-title>\n      <ion-card-content >\n         <ion-item-sliding *ngFor=\"let mapEntries of mapAnchorContentMapArrayValues\">\n            <ion-slides [options]=\"sliderConfig\">\n              <ion-slide *ngFor=\"let mapEntry of mapEntries\" >\n                <ion-thumbnail *ngIf=\"mapEntry[0].includes(mapAnchorContentEntry[0])\" class=\"anchorcontnet-display\">\n                  <img-loader [src]=\"mapEntry[1]\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n                </ion-thumbnail>\n              </ion-slide>\n            </ion-slides>\n          </ion-item-sliding>\n       </ion-card-content>\n  </ion-card>\n </ion-list>\n\n \n\n  <!--call multi-file-upload component to select anchor/marker and images-->\n  <app-multi-file-upload *ngIf=\"showComonentFlag && !showContentAddComponentFlag\"></app-multi-file-upload>\n  <!--call multi-file-content-upload component to add content-->\n  <app-multi-file-content-upload *ngIf=\"showContentAddComponentFlag && !showComonentFlag\"></app-multi-file-content-upload>\n\n  <ion-button *ngIf=\"showComonentFlag && !showContentAddComponentFlag\" (click)=\"upload()\" shape=\"round\" style=\"color: black\" \n     margin-top expand=\"full\">Upload Anchor & Content</ion-button>\n\n  <ion-button *ngIf=\"!showComonentFlag && showContentAddComponentFlag\" (click)=\"uploadContent()\" shape=\"round\" style=\"color: black\" \n     margin-top expand=\"full\">Upload Content</ion-button>\n\n  <!--<ion-col *ngIf=\"showComonentFlag || showContentAddComponentFlag\">\n    <ion-button (click)=\"closeModal()\" shape=\"round\" style=\"color: grey\" \n     margin-top expand=\"full\">Cancel</ion-button>\n  </ion-col>-->\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n\n   <!--<ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 15px;\">\n    {{bookName}}\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"close()\">\n        <ion-icon style=\"color: white; background: #145A32; \" name=\"close\" slot=\"icon-only\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n\n  \n    <ion-title size=\"large\" text-center\n      style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n      color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;\">\n     {{bookName}}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n    <ion-icon style=\"color: whitesmoke;\" src=\"../assets/icon/close-outline.svg\" size=\"medium\" (click)=\"close()\"></ion-icon>\n    </ion-buttons>\n \n  </ion-toolbar>\n\n\n</ion-header> \n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>\n\n\n  <ion-button *ngIf=\"!showComonentFlag && !showContentAddComponentFlag\" shape=\"round\" (click)=\"anchorContentComponent()\" margin-top expand=\"block\">\n      <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n      <span style=\"color:  #17202A; margin-left: 5px; \" class=\"ion-text-left\">New Anchor and Content</span>\n  </ion-button>\n\n  <ion-list-header *ngIf=\"(!showComonentFlag && !showContentAddComponentFlag) && plistCopy\">\n    <ion-item>\n      <ion-label style=\"color: #17202A \"> Existing anchors & content </ion-label>\n    </ion-item>\n  </ion-list-header>\n\n\n  <ion-list *ngIf=\"!showComonentFlag && !showContentAddComponentFlag\">\n    <ion-card *ngFor=\"let mapAnchorContentEntry of mapAnchorContentMapArray\" style=\"box-shadow:darkolivegreen;\">\n      <ion-card-header>\n        <ion-card-title style=\"font-size: small;\">\n        Anchor\n        </ion-card-title>\n\n        <ion-item>\n          \n            <ion-thumbnail class=\"anchor-display\">\n              <img-loader [src]=\"(mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            </ion-thumbnail> \n         \n            <ion-chip (click)=\"addContentToCurrentAnchor(mapAnchorContentEntry[0],mapAnchorContentEntry[1][0].get(mapAnchorContentEntry[0]))\" \n            shape=\"round\" class=\"ion-text-left\" style=\"margin-left: 5px;\" button>\n              <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/document-attach.svg\"></ion-icon>\n              <span style=\"color:  #17202A; margin-left: 2px; font-size: small;\" class=\"ion-text-left\">New Content</span>\n            </ion-chip>\n         \n        </ion-item>\n      </ion-card-header>\n      <ion-card-title style=\"font-size: small; margin-left: 15px;\">\n        Existing content\n      </ion-card-title>\n      <ion-card-content >\n         <ion-item-sliding *ngFor=\"let mapEntries of mapAnchorContentMapArrayValues\">\n            <ion-slides [options]=\"sliderConfig\">\n              <ion-slide *ngFor=\"let mapEntry of mapEntries\" >\n                <ion-thumbnail *ngIf=\"mapEntry[0].includes(mapAnchorContentEntry[0])\" class=\"anchorcontnet-display\">\n                  <img-loader [src]=\"mapEntry[1]\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n                </ion-thumbnail>\n              </ion-slide>\n            </ion-slides>\n          </ion-item-sliding>\n       </ion-card-content>\n  </ion-card>\n </ion-list>\n\n   \n  <ion-button *ngIf=\"showComonentFlag && !showContentAddComponentFlag\" (click)=\"upload()\" shape=\"round\" style=\"color: black\" \n  margin-top expand=\"full\">Upload Selected Anchor & Content</ion-button>\n  <ion-button *ngIf=\"!showComonentFlag && showContentAddComponentFlag && fileContentField\" (click)=\"uploadContent()\" shape=\"round\" style=\"color: black\" \n  margin-top expand=\"full\">Upload Selected Content</ion-button>\n\n  <!--call multi-file-upload component to select anchor/marker and images-->\n  <app-multi-file-upload *ngIf=\"showComonentFlag && !showContentAddComponentFlag\"></app-multi-file-upload>\n  \n  <!--call multi-file-content-upload component to add content-->\n  <app-multi-file-content-upload *ngIf=\"showContentAddComponentFlag && !showComonentFlag\"></app-multi-file-content-upload>\n  \n\n \n\n  <!--<ion-col *ngIf=\"showComonentFlag || showContentAddComponentFlag\">\n    <ion-button (click)=\"closeModal()\" shape=\"round\" style=\"color: grey\" \n     margin-top expand=\"full\">Cancel</ion-button>\n  </ion-col>-->\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -2859,10 +2859,7 @@ var ArbookPage = /** @class */ (function () {
             var existingContentValues = [];
             for (var i = 0; i < keyElLength; i++) {
                 var anchorKey = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
-                //console.log("anchorkey", anchorKey);
                 if (anchorKey === _this.selectedAnchorName) {
-                    //console.log("Success", anchorKey);
-                    //console.log("Success", anchorName);
                     for (var j = 0; j < valElLength; j++) {
                         var value = xmlDocument.getElementsByTagName('value')[j].childNodes[0].nodeValue;
                         if (value.includes(_this.selectedAnchorName)) {
@@ -2881,16 +2878,6 @@ var ArbookPage = /** @class */ (function () {
                 plistMap.get(_this.selectedAnchorName).push(nextContentName);
             }
             console.log("plistMap", plistMap);
-            /*
-                  for (let i=0; i<this.addtlContents.length;i++) {
-                  console.log("Additional content name", this.addtlContents[i].rawFile.name);
-                  let type = this.addtlContents[i].rawFile.type
-                  let index = type.indexOf("/");
-                  let contenttype = type.substring(0,index);
-                  console.log("Additional content type", contenttype);
-                }
-    
-            */
             //append content files
             for (var i = 0; i < _this.addtlContents.length; i++) {
                 var index = _this.addtlContents[i].rawFile.type.indexOf("/");
@@ -3323,7 +3310,7 @@ var ArbookPage = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n      Add Anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>-->\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n        Click to Augment Content to the selected anchor\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderContent.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n  \n  </ion-card>\n  \n\n</ion-content>\n"
+module.exports = "\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>\n  <div class=\"file-input-container\">\n    <label>\n      <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n      Add Anchor\n    </label>\n  </div>\n  <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n  <ion-list>\n    <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n      <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n        <ion-label>\n          {{ item?.file?.name }}\n        </ion-label>\n        <ion-reorder></ion-reorder>\n      </ion-item>\n    </ion-reorder-group>\n  </ion-list>-->\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <!--<ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n        Click to Augment Content to the selected anchor\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderContent.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n  \n  </ion-card>-->\n\n  <ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n         <span style=\"font-size: small;\">Select content</span>\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderContent.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n  \n  </ion-card>\n\n\n\n  \n\n</ion-content>\n"
 
 /***/ }),
 
@@ -3334,7 +3321,7 @@ module.exports = "\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-fil
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    background-color: #E9F7EF;\n    border: 1px solid #ccc;\n    padding: 5px;\n    cursor: pointer;\n    margin: 5px; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n.displaycard {\n  margin: 10px;\n  padding-left: 5px;\n  padding-right: 1px;\n  padding-bottom: 5px;\n  padding-top: 5px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtY29udGVudC11cGxvYWQvbXVsdGktZmlsZS1jb250ZW50LXVwbG9hZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUF5QjtFQUN6QiwwQkFBMEI7RUFDMUIsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCO0VBQ3ZCLGNBQWMsRUFBQTs7QUFHbEI7RUFFSSxpQkFBaUIsRUFBQTs7QUFGckI7SUFLUSxhQUFhLEVBQUE7O0FBTHJCO0lBU1EseUJBQXlCO0lBQ3pCLHNCQUFzQjtJQUN0QixZQUFZO0lBQ1osZUFBZTtJQUNmLFdBQVcsRUFBQTs7QUFJbkI7RUFDSSxzQkFBc0IsRUFBQTs7QUFHMUI7RUFJSyxZQUFZO0VBQ1osaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQixtQkFBbUI7RUFDbkIsZ0JBQWdCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtY29udGVudC11cGxvYWQvbXVsdGktZmlsZS1jb250ZW50LXVwbG9hZC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kcm9wLXpvbmUgeyBcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjZmNmY2O1xuICAgIGJvcmRlcjogZG90dGVkIDNweCAjZGVkZGRkOyBcbiAgICBoZWlnaHQ6IDMwdmg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIG1hcmdpbjogMjBweCAwO1xufVxuXG4uZmlsZS1pbnB1dC1jb250YWluZXIge1xuXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG5cbiAgICBpbnB1dFt0eXBlPVwiZmlsZVwiXSB7XG4gICAgICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgfVxuXG4gICAgbGFiZWwge1xuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjRTlGN0VGO1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICAgICAgICBwYWRkaW5nOiA1cHg7XG4gICAgICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICAgICAgbWFyZ2luOiA1cHg7XG4gICAgfVxufVxuXG4ubnYtZmlsZS1vdmVyIHsgXG4gICAgYm9yZGVyOiBkb3R0ZWQgM3B4IHJlZDsgXG59XG5cbi5kaXNwbGF5Y2FyZCB7XG4gICAgLy8gd2lkdGg6IDMwdnc7XG4gICAgIC8vaGVpZ2h0OjMwdmg7XG4gICAgLy8gYm9yZGVyOiBncmV5IHNvbGlkIDFweDtcbiAgICAgbWFyZ2luOiAxMHB4O1xuICAgICBwYWRkaW5nLWxlZnQ6IDVweDtcbiAgICAgcGFkZGluZy1yaWdodDogMXB4O1xuICAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xuICAgICBwYWRkaW5nLXRvcDogNXB4O1xuICAgICAvL2JhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gICB9Il19 */"
+module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: center; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    background-color: #E9F7EF;\n    border: 1px solid #ccc;\n    padding: 5px;\n    cursor: pointer;\n    margin: 5px; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n.displaycard {\n  margin: 10px;\n  padding-left: 5px;\n  padding-right: 1px;\n  padding-bottom: 5px;\n  padding-top: 5px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtY29udGVudC11cGxvYWQvbXVsdGktZmlsZS1jb250ZW50LXVwbG9hZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUF5QjtFQUN6QiwwQkFBMEI7RUFDMUIsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCO0VBQ3ZCLGNBQWMsRUFBQTs7QUFHbEI7RUFFSSxrQkFBa0IsRUFBQTs7QUFGdEI7SUFLUSxhQUFhLEVBQUE7O0FBTHJCO0lBU1EseUJBQXlCO0lBQ3pCLHNCQUFzQjtJQUN0QixZQUFZO0lBQ1osZUFBZTtJQUNmLFdBQVcsRUFBQTs7QUFLbkI7RUFDSSxzQkFBc0IsRUFBQTs7QUFHMUI7RUFJSyxZQUFZO0VBQ1osaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQixtQkFBbUI7RUFDbkIsZ0JBQWdCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtY29udGVudC11cGxvYWQvbXVsdGktZmlsZS1jb250ZW50LXVwbG9hZC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kcm9wLXpvbmUgeyBcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjZmNmY2O1xuICAgIGJvcmRlcjogZG90dGVkIDNweCAjZGVkZGRkOyBcbiAgICBoZWlnaHQ6IDMwdmg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIG1hcmdpbjogMjBweCAwO1xufVxuXG4uZmlsZS1pbnB1dC1jb250YWluZXIge1xuXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuXG4gICAgaW5wdXRbdHlwZT1cImZpbGVcIl0ge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cblxuICAgIGxhYmVsIHtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogI0U5RjdFRjtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgICAgICAgcGFkZGluZzogNXB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIG1hcmdpbjogNXB4O1xuICAgICAgICBcbiAgICB9XG59XG5cbi5udi1maWxlLW92ZXIgeyBcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggcmVkOyBcbn1cblxuLmRpc3BsYXljYXJkIHtcbiAgICAvLyB3aWR0aDogMzB2dztcbiAgICAgLy9oZWlnaHQ6MzB2aDtcbiAgICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgICBtYXJnaW46IDEwcHg7XG4gICAgIHBhZGRpbmctbGVmdDogNXB4O1xuICAgICBwYWRkaW5nLXJpZ2h0OiAxcHg7XG4gICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gICAgIHBhZGRpbmctdG9wOiA1cHg7XG4gICAgIC8vYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgIH0iXX0= */"
 
 /***/ }),
 
@@ -3402,7 +3389,7 @@ var MultiFileContentUploadComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " \n\n\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n        Click to Add Anchor (max. 1)\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n   \n   \n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n\n\n    <br><br>\n    <form id=\"addAnchorPageNr\" [formGroup]=\"addAnchorPageNrGroup\" #aform=\"ngForm\">\n      <ion-item>\n        <ion-label style=\"font-size: smaller;\" color=\"medium\">Anchor's Book Page #:</ion-label>\n        <ion-input formControlName=\"anchorpagenr\" type=\"text\"></ion-input>\n        <!--<ion-button (click)=\"submitForm()\" shape=\"round\"  style=\"color:#1B4F72\" \n        [disabled]=\"addAnchorPageNrGroup.invalid\" margin-top expand=\"full\">Add</ion-button>-->\n      </ion-item>\n    </form>\n\n  </ion-card>\n\n  \n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n        Click to Add Content corresponding to above anchor\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderContent.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n  </ion-card>\n  \n  \n  \n  \n\n</ion-content>\n\n\n\n\n"
+module.exports = " \n\n\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderAnchor\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderAnchor\" single />\n        <span style=\"font-size: small;\">Select anchor (max. 1)</span>\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderAnchor?.queue?.length }}</ion-label>\n   \n   \n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderAnchor.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n\n\n    <br><br>\n    <form id=\"addAnchorPageNr\" [formGroup]=\"addAnchorPageNrGroup\" #aform=\"ngForm\">\n      <ion-item>\n        <ion-label style=\"font-size: smaller;\" color=\"medium\">Anchor's Book Page #:</ion-label>\n        <ion-input formControlName=\"anchorpagenr\" type=\"text\"></ion-input>\n        <!--<ion-button (click)=\"submitForm()\" shape=\"round\"  style=\"color:#1B4F72\" \n        [disabled]=\"addAnchorPageNrGroup.invalid\" margin-top expand=\"full\">Add</ion-button>-->\n      </ion-item>\n    </form>\n\n  </ion-card>\n\n  \n\n  <!--<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploaderContent\" class=\"drop-zone\">\n    Drop files here...\n  </div>-->\n  <ion-card class=\"displaycard\">\n    <div class=\"file-input-container\">\n      <label>\n        <input type=\"file\" ng2FileSelect [uploader]=\"uploaderContent\"  multiple />\n        <span style=\"font-size: small;\">Select corresponding content</span>\n      </label>\n    </div>\n    <ion-label>Files: {{ uploaderContent?.queue?.length }}</ion-label>\n    <ion-list>\n      <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"false\">\n        <ion-item *ngFor=\"let item of uploaderContent.queue\">\n          <ion-label>\n            {{ item?.file?.name }}\n          </ion-label>\n          <ion-reorder></ion-reorder>\n        </ion-item>\n      </ion-reorder-group>\n    </ion-list>\n  </ion-card>\n  \n  \n  \n  \n\n</ion-content>\n\n\n\n\n"
 
 /***/ }),
 
@@ -3413,7 +3400,7 @@ module.exports = " \n\n\n<ion-content>\n\n  <!--<div ng2FileDrop [ngClass]=\"{'n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    background-color: #E9F7EF;\n    border: 1px solid #ccc;\n    padding: 5px;\n    cursor: pointer;\n    margin: 5px; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n.displaycard {\n  margin: 10px;\n  padding-left: 5px;\n  padding-right: 1px;\n  padding-bottom: 5px;\n  padding-top: 5px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtdXBsb2FkL211bHRpLWZpbGUtdXBsb2FkLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQXlCO0VBQ3pCLDBCQUEwQjtFQUMxQixZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQix1QkFBdUI7RUFDdkIsY0FBYyxFQUFBOztBQUdsQjtFQUVJLGlCQUFpQixFQUFBOztBQUZyQjtJQUtRLGFBQWEsRUFBQTs7QUFMckI7SUFTUSx5QkFBeUI7SUFDekIsc0JBQXNCO0lBQ3RCLFlBQVk7SUFDWixlQUFlO0lBQ2YsV0FBVyxFQUFBOztBQUluQjtFQUNJLHNCQUFzQixFQUFBOztBQUcxQjtFQUlLLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsa0JBQWtCO0VBQ2xCLG1CQUFtQjtFQUNuQixnQkFBZ0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvbXVsdGktZmlsZS11cGxvYWQvbXVsdGktZmlsZS11cGxvYWQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZHJvcC16b25lIHsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggI2RlZGRkZDsgXG4gICAgaGVpZ2h0OiAzMHZoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmZpbGUtaW5wdXQtY29udGFpbmVyIHtcblxuICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuXG4gICAgaW5wdXRbdHlwZT1cImZpbGVcIl0ge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cblxuICAgIGxhYmVsIHtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogI0U5RjdFRjtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgICAgICAgcGFkZGluZzogNXB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIG1hcmdpbjogNXB4O1xuICAgIH1cbn1cblxuLm52LWZpbGUtb3ZlciB7IFxuICAgIGJvcmRlcjogZG90dGVkIDNweCByZWQ7IFxufVxuXG4uZGlzcGxheWNhcmQge1xuICAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgICAvL2hlaWdodDozMHZoO1xuICAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgIG1hcmdpbjogMTBweDtcbiAgICAgcGFkZGluZy1sZWZ0OiA1cHg7XG4gICAgIHBhZGRpbmctcmlnaHQ6IDFweDtcbiAgICAgcGFkZGluZy1ib3R0b206IDVweDtcbiAgICAgcGFkZGluZy10b3A6IDVweDtcbiAgICAgLy9iYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZXNtb2tlO1xuICAgfSJdfQ== */"
+module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: center; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    background-color: #E9F7EF;\n    border: 1px solid #ccc;\n    padding: 5px;\n    cursor: pointer;\n    margin: 5px; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n.displaycard {\n  margin: 10px;\n  padding-left: 5px;\n  padding-right: 1px;\n  padding-bottom: 5px;\n  padding-top: 5px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9jb21wb25lbnRzL211bHRpLWZpbGUtdXBsb2FkL211bHRpLWZpbGUtdXBsb2FkLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kseUJBQXlCO0VBQ3pCLDBCQUEwQjtFQUMxQixZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQix1QkFBdUI7RUFDdkIsY0FBYyxFQUFBOztBQUdsQjtFQUVJLGtCQUFrQixFQUFBOztBQUZ0QjtJQUtRLGFBQWEsRUFBQTs7QUFMckI7SUFTUSx5QkFBeUI7SUFDekIsc0JBQXNCO0lBQ3RCLFlBQVk7SUFDWixlQUFlO0lBQ2YsV0FBVyxFQUFBOztBQUluQjtFQUNJLHNCQUFzQixFQUFBOztBQUcxQjtFQUlLLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsa0JBQWtCO0VBQ2xCLG1CQUFtQjtFQUNuQixnQkFBZ0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvbXVsdGktZmlsZS11cGxvYWQvbXVsdGktZmlsZS11cGxvYWQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZHJvcC16b25lIHsgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggI2RlZGRkZDsgXG4gICAgaGVpZ2h0OiAzMHZoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmZpbGUtaW5wdXQtY29udGFpbmVyIHtcblxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcblxuICAgIGlucHV0W3R5cGU9XCJmaWxlXCJdIHtcbiAgICAgICAgZGlzcGxheTogbm9uZTtcbiAgICB9XG5cbiAgICBsYWJlbCB7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNFOUY3RUY7XG4gICAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7XG4gICAgICAgIHBhZGRpbmc6IDVweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBtYXJnaW46IDVweDtcbiAgICB9XG59XG5cbi5udi1maWxlLW92ZXIgeyBcbiAgICBib3JkZXI6IGRvdHRlZCAzcHggcmVkOyBcbn1cblxuLmRpc3BsYXljYXJkIHtcbiAgICAvLyB3aWR0aDogMzB2dztcbiAgICAgLy9oZWlnaHQ6MzB2aDtcbiAgICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgICBtYXJnaW46IDEwcHg7XG4gICAgIHBhZGRpbmctbGVmdDogNXB4O1xuICAgICBwYWRkaW5nLXJpZ2h0OiAxcHg7XG4gICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gICAgIHBhZGRpbmctdG9wOiA1cHg7XG4gICAgIC8vYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgIH0iXX0= */"
 
 /***/ }),
 
@@ -3496,6 +3483,113 @@ var MultiFileUploadComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"]])
     ], MultiFileUploadComponent);
     return MultiFileUploadComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/managebookshelp/managebookshelp.module.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/managebookshelp/managebookshelp.module.ts ***!
+  \***********************************************************/
+/*! exports provided: ManagebookshelpPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ManagebookshelpPageModule", function() { return ManagebookshelpPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _managebookshelp_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./managebookshelp.page */ "./src/app/managebookshelp/managebookshelp.page.ts");
+
+
+
+
+
+
+var ManagebookshelpPageModule = /** @class */ (function () {
+    function ManagebookshelpPageModule() {
+    }
+    ManagebookshelpPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"]
+            ],
+            entryComponents: [_managebookshelp_page__WEBPACK_IMPORTED_MODULE_5__["ManagebookshelpPage"]],
+            declarations: [_managebookshelp_page__WEBPACK_IMPORTED_MODULE_5__["ManagebookshelpPage"]]
+        })
+    ], ManagebookshelpPageModule);
+    return ManagebookshelpPageModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/managebookshelp/managebookshelp.page.html":
+/*!***********************************************************!*\
+  !*** ./src/app/managebookshelp/managebookshelp.page.html ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\n  <ion-toolbar >\n      <ion-title size=\"large\" text-center\n             style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n             color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;\">\n            HOWTO - Manage Books\n       </ion-title>\n       <ion-buttons slot=\"end\">\n        <ion-icon style=\"color: whitesmoke;\" src=\"../assets/icon/close-outline.svg\" \n        size=\"medium\" (click)=\"closeModal()\"></ion-icon>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card>\n    <ion-card-title style=\"font-weight: bold; padding: 10px;\">\n      Add New Book in the bookshelf\n    </ion-card-title>\n    <ion-card-content>\n      The dialogue provided for you to add your books in <strong>Booxar</strong> bookshelf. \n    </ion-card-content>\n    <ion-card-content>\n      After successful entry, newly added book will be made available for others to borrow.\n      You will start seeing it in the <strong>'Bookshelf'</strong> tab in the app.\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-title style=\"font-weight: bold; padding: 10px;\">\n      My books - as Book Owner\n    </ion-card-title>\n    <ion-card-content>\n      Dropdown list containing all the books logged in user has added in the bookshelf as <strong>\n      'Book Owner'</strong>.\n    </ion-card-content>\n    <ion-card-content>\n      Books, for which the logged in user is not the owner,  will not be listed. User can filter the books as per \n      the current status - <strong>'Available', 'Borrowed', 'Reserved'</strong>. \n    </ion-card-content>\n\n    <ion-card-content>\n     <strong>Take Action</strong>: As a book owner you can perform following actions on the book.\n     <ion-card-content>\n      <strong> 1. Lend or Make Available </strong>: Scan the QR code presented by the book requester. \n      If the QR code matches, requester or bnorrower authorization is successful. \n      Lend the book to the borrower OR accept the book back from the borrower.\n     </ion-card-content>\n     <ion-card-content>\n      <strong> 2. Enanble for AR (Augmented Reality)</strong>: The dialogues provided here enable the book owner to add Anchors\n      and corresponding content to be augmented. \n      <ion-card-content>\n        <strong>Anchors</strong>: Anchors are the makrers on top of which additional contextual content is augmented. i.e. \n      when the app user points smart device on the anchors, augmented content is rendered. For the <strong>Booxar</strong>\n      app, Anchor can be existing images in the book. \n      </ion-card-content>\n      <ion-card-content>\n        <strong>Content</strong>: Conten is the media content you want to attach and upload so that it is augmented on the existing\n        anchors in the book. When the app user points  smart device on the anchors, this content is rendered.\n      </ion-card-content>\n      Once <strong>Anchor</strong> and <strong>Content</strong> are uploaded for the book, the book is 'AR Enabled' and it\n      starts appearing in the <strong>ARBooks</strong> tab of the app. \n     </ion-card-content>\n     <ion-card-content>\n      <strong> 3. Delete</strong>: The dialogue provided for the <strong>book owner</strong> to remove the book from bookshelf. \n      Once the book is removed, other app users will not see this book listed in the <strong>Bookshelf</strong> tab.\n     </ion-card-content>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-card-title style=\"font-weight: bold; padding: 10px;\">\n      My books - as Book Requester\n    </ion-card-title>\n    <ion-card-content>\n      The dialogue provided for you to view the books you have <strong>reserved</strong> or <strong>\n      borrowed</strong> from other book owners. If the book has been borrowed, it also lists the 'Return By' date.\n    </ion-card-content>\n  </ion-card>\n\n\n</ion-content>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/managebookshelp/managebookshelp.page.scss":
+/*!***********************************************************!*\
+  !*** ./src/app/managebookshelp/managebookshelp.page.scss ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-button {\n  --background: #F4F6F7 ; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-card {\n  border-radius: 10px;\n  border: #145A32; }\n\n.center {\n  margin-left: auto;\n  margin-right: auto;\n  display: block !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9tYW5hZ2Vib29rc2hlbHAvbWFuYWdlYm9va3NoZWxwLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNJLHNCQUFhLEVBQUE7O0FBR2Y7RUFFRSxxQkFBYSxFQUFBOztBQUdqQjtFQUNJLG1CQUFtQjtFQUNuQixlQUFlLEVBQUE7O0FBR25CO0VBQ0UsaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQix5QkFBeUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21hbmFnZWJvb2tzaGVscC9tYW5hZ2Vib29rc2hlbHAucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG5pb24tYnV0dG9uIHtcbiAgICAtLWJhY2tncm91bmQ6ICNGNEY2RjcgO1xuICB9XG5cbiAgaW9uLXRvb2xiYXIge1xuICAgIC8vLS1iYWNrZ3JvdW5kOiAjMUI0RjcyO1xuICAgIC0tYmFja2dyb3VuZDogIzE0NUEzMjtcbn1cblxuaW9uLWNhcmR7XG4gICAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgICBib3JkZXI6ICMxNDVBMzI7XG59XG5cbi5jZW50ZXJ7XG4gIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gIGRpc3BsYXk6IGJsb2NrICFpbXBvcnRhbnQ7XG4gIFxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/managebookshelp/managebookshelp.page.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/managebookshelp/managebookshelp.page.ts ***!
+  \*********************************************************/
+/*! exports provided: ManagebookshelpPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ManagebookshelpPage", function() { return ManagebookshelpPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var ManagebookshelpPage = /** @class */ (function () {
+    function ManagebookshelpPage(_modalController) {
+        this._modalController = _modalController;
+    }
+    ManagebookshelpPage.prototype.ngOnInit = function () {
+    };
+    ManagebookshelpPage.prototype.closeModal = function () {
+        console.log("inside close modal");
+        this._modalController.dismiss();
+    };
+    ManagebookshelpPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-managebookshelp',
+            template: __webpack_require__(/*! ./managebookshelp.page.html */ "./src/app/managebookshelp/managebookshelp.page.html"),
+            styles: [__webpack_require__(/*! ./managebookshelp.page.scss */ "./src/app/managebookshelp/managebookshelp.page.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+    ], ManagebookshelpPage);
+    return ManagebookshelpPage;
 }());
 
 
@@ -3602,6 +3696,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _addbook_addbook_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../addbook/addbook.module */ "./src/app/addbook/addbook.module.ts");
 /* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
 /* harmony import */ var _arbook_arbook_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../arbook/arbook.module */ "./src/app/arbook/arbook.module.ts");
+/* harmony import */ var _managebookshelp_managebookshelp_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../managebookshelp/managebookshelp.module */ "./src/app/managebookshelp/managebookshelp.module.ts");
+
 
 
 
@@ -3620,6 +3716,7 @@ var Tab3PageModule = /** @class */ (function () {
             imports: [
                 _addbook_addbook_module__WEBPACK_IMPORTED_MODULE_7__["AddbookPageModule"],
                 _arbook_arbook_module__WEBPACK_IMPORTED_MODULE_9__["ArbookPageModule"],
+                _managebookshelp_managebookshelp_module__WEBPACK_IMPORTED_MODULE_10__["ManagebookshelpPageModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["IonicModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
@@ -3644,7 +3741,7 @@ var Tab3PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title *ngIf=\"username\" size=\"large\" \n    style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Manage\n    </ion-title>\n  </ion-toolbar>\n\n  \n</ion-header> \n\n<ion-content>\n\n  \n    \n    <ion-button shape=\"round\" (click)=\"addBookModal()\" margin-top expand=\"block\">\n        <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n        <span style=\"color:  #145A32; margin-left: 5px; \" class=\"ion-text-left\">Add New Book</span>\n    </ion-button>\n   \n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n      <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n      </ion-refresher-content>\n    </ion-refresher>\n\n  \n  <ion-list>\n\n    <ion-button shape=\"round\" margin-top expand=\"block\">\n      <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n      <span style=\"color:  #145A32; margin-left: 5px; \" class=\"ion-text-left\">My books by status</span>\n   </ion-button>\n\n    <ion-select (ionChange)=\"displayBooksByStatus($event)\" interface=\"popover\" placeholder=\"Select ..\">\n      <ion-select-option *ngFor=\"let status of bookcurrentstatus\" [value]=\"status\"> {{status}}</ion-select-option>\n   </ion-select>\n   \n  <ion-item-sliding *ngFor=\"let rBook of reservedBooks\">\n    <ion-item *ngIf=\"showReserved\">\n      <ion-card *ngIf=\"showReserved\">\n       <ion-thumbnail *ngIf=\"showReserved\">\n        \n         <img-loader [src]=\"(bookIdImageMap.get(rBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n       </ion-thumbnail>\n      </ion-card>\n      <ion-label *ngIf=\"showReserved\" class=\"ion-text-wrap\">\n           <strong>{{rBook.bookname}}</strong>\n           <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>\n           <h3 *ngIf=\"rBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{rBook.bookcurrentstatus}}</h3>\n           <h3 *ngIf=\"rBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{rBook.bookcurrentstatus}}</h3>\n           <h3 *ngIf=\"rBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{rBook.bookcurrentstatus}}</h3>\n           <!--<span *ngIf=\"rBook.bookcurrentstatus == 'available' \" style=\"color: green; font-size: small;\">{{rBook.bookcurrentstatus}}</span>\n           <span *ngIf=\"rBook.bookcurrentstatus == 'borrowed' \" style=\"color: red; font-size: small;\">{{rBook.bookcurrentstatus}}</span>\n           <span *ngIf=\"rBook.bookcurrentstatus == 'reserved' \" style=\"color: orange; font-size: small;\">{{rBook.bookcurrentstatus}}</span>-->      \n       </ion-label>\n    </ion-item>\n   <ion-item-options side=\"start\">\n     <ion-item-option *ngIf=\"showReserved\">\n       <ion-icon style=\"color: red;\" *ngIf=\"rBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n       (click)=\"checkDeleteConfirmation(rBook._id)\"></ion-icon>\n     </ion-item-option>\n   </ion-item-options>\n  <ion-item-options side=\"end\">\n   <ion-item-option *ngIf=\"showReserved\">\n     <ion-icon style=\"color: blue\" *ngIf=\"(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable\" slot=\"icon-only\"\n     src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(rBook._id)\"></ion-icon>\n   </ion-item-option>\n   <ion-item-option>\n    <!--<ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n    src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(rBook._id, rBook.bookname)\">AR</ion-icon>-->\n    <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(rBook._id, rBook.bookname)\">AR</ion-label>\n  </ion-item-option>\n  </ion-item-options>\n</ion-item-sliding>\n\n<ion-item-sliding *ngFor=\"let aBook of availableBooks \">\n  <ion-item *ngIf=\"showAvailable\">\n    <ion-card *ngIf=\"showAvailable\">\n     <ion-thumbnail *ngIf=\"showAvailable\">\n       <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n       <img-loader [src]=\"(bookIdImageMap.get(aBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showAvailable\"class=\"ion-text-wrap\">\n         <strong>{{aBook.bookname}}</strong>\n         <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>\n         <h3 *ngIf=\"aBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{aBook.bookcurrentstatus}}</h3>\n           <h3 *ngIf=\"aBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{aBook.bookcurrentstatus}}</h3>\n           <h3 *ngIf=\"aBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{aBook.bookcurrentstatus}}</h3>\n         \n         <!--<span *ngIf=\"aBook.bookcurrentstatus == 'available' \" style=\"color: green; font-size: small;\">{{aBook.bookcurrentstatus}}</span>\n         <span *ngIf=\"aBook.bookcurrentstatus == 'borrowed' \" style=\"color: red; font-size: small;\">{{aBook.bookcurrentstatus}}</span>\n         <span *ngIf=\"aBook.bookcurrentstatus == 'reserved' \" style=\"color: orange; font-size: small;\">{{aBook.bookcurrentstatus}}</span>-->    \n     </ion-label>\n  </ion-item>\n  <ion-item-options side=\"start\">\n    <ion-item-option *ngIf=\"showAvailable\">\n      <ion-icon style=\"color: red\" *ngIf=\"aBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n      (click)=\"checkDeleteConfirmation(aBook._id)\"></ion-icon>\n    </ion-item-option>\n  </ion-item-options>\n  <ion-item-options side=\"end\">\n  <ion-item-option *ngIf=\"showAvailable\">\n    <ion-icon style=\"color: blue\" *ngIf=\"(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable\" slot=\"icon-only\"\n    src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(aBook._id)\"></ion-icon>\n  </ion-item-option>   \n  <ion-item-option>\n    <!--<ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n    src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(aBook._id, aBook.bookname)\">AR</ion-icon>-->\n    <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(aBook._id, aBook.bookname)\">AR</ion-label>\n  </ion-item-option> \n  </ion-item-options>\n</ion-item-sliding>\n\n<ion-item-sliding *ngFor=\"let bBook of borrowedBooks\">\n  <ion-item *ngIf=\"showBorrowed\">\n    <ion-card *ngIf=\"showBorrowed\">\n     <ion-thumbnail *ngIf=\"showBorrowed\">\n       <!--<ion-img [src]=\"(bookIdImageMap.get(book._id))\"></ion-img>-->\n       <img-loader [src]=\"(bookIdImageMap.get(bBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showBorrowed\" class=\"ion-text-wrap\">\n         <strong>{{bBook.bookname}}</strong>\n         <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>\n         <h3 *ngIf=\"bBook.bookcurrentstatus == 'available' \" style=\"color: green; \">{{bBook.bookcurrentstatus}}</h3>\n         <h3 *ngIf=\"bBook.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{bBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"bBook.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{bBook.bookcurrentstatus}}</h3>\n         <!--<span *ngIf=\"bBook.bookcurrentstatus == 'available' \" style=\"color: green; font-size: small;\">{{bBook.bookcurrentstatus}}</span>\n         <span *ngIf=\"bBook.bookcurrentstatus == 'borrowed' \" style=\"color: red; font-size: small;\">{{bBook.bookcurrentstatus}}</span>\n         <span *ngIf=\"bBook.bookcurrentstatus == 'reserved' \" style=\"color: orange; font-size: small;\">{{bBook.bookcurrentstatus}}</span>-->   \n     </ion-label>\n  </ion-item>\n <ion-item-options side=\"start\">\n   <ion-item-option *ngIf=\"showBorrowed\">\n     <ion-icon style=\"color: red\" *ngIf=\"bBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n     (click)=\"checkDeleteConfirmation(bBook._id)\"></ion-icon>\n   </ion-item-option>\n</ion-item-options>\n<ion-item-options side=\"end\">\n    <ion-item-option *ngIf=\"showBorrowed\">\n      <ion-icon style=\"color: blue\" *ngIf=\"(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable\" slot=\"icon-only\"\n      src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(bBook._id)\"></ion-icon>\n    </ion-item-option>\n    <ion-item-option>\n      <!--<ion-icon style=\"color: darkgreen\"  slot=\"icon-only\"\n      src=\"../assets/icon/scan-circle-outline.svg\" (click)=\"arBookModal(bBook._id, bBook.bookname)\">AR</ion-icon>-->\n      <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(bBook._id, bBook.bookname)\">AR</ion-label>\n    </ion-item-option>\n</ion-item-options>\n</ion-item-sliding>\n\n<ion-button shape=\"round\" margin-top expand=\"block\">\n  <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n  <span style=\"color: #145A32 ; margin-left: 5px; \" class=\"ion-text-left\">All my books</span>\n</ion-button>\n\n    <ion-item-sliding *ngFor=\"let book of allBooks \">\n         <ion-item>\n           <ion-card>\n            <ion-thumbnail>\n              <img-loader [src]=\"(bookIdImageMap.get(book._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            </ion-thumbnail>\n           </ion-card>\n           <ion-label class=\"ion-text-wrap\">\n                <strong>{{book.bookname}}</strong>\n                <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>\n                <h3 *ngIf=\"book.bookcurrentstatus == 'available' \" style=\"color: green; \">{{book.bookcurrentstatus}}</h3>\n                <h3 *ngIf=\"book.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{book.bookcurrentstatus}}</h3>\n                <h3 *ngIf=\"book.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{book.bookcurrentstatus}}</h3>\n                <!--<span *ngIf=\"book.bookcurrentstatus == 'available' \" style=\"color: green; font-size: small;\">{{book.bookcurrentstatus}}</span>\n                <span *ngIf=\"book.bookcurrentstatus == 'borrowed' \" style=\"color: red; font-size: small;\">{{book.bookcurrentstatus}}</span>\n                <span *ngIf=\"book.bookcurrentstatus == 'reserved' \" style=\"color: orange; font-size: small;\">{{book.bookcurrentstatus}}</span>-->      \n            </ion-label>\n         </ion-item>\n        <ion-item-options side=\"start\">\n          <ion-item-option style=\"border-color: darkgreen;\">\n            <ion-icon style=\"color: red\" *ngIf=\"book.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n            (click)=\"checkDeleteConfirmation(book._id)\"></ion-icon>\n          </ion-item-option>\n       </ion-item-options>\n       <ion-item-options side=\"end\">\n        <ion-item-option>\n          <ion-icon style=\"color: blue\" *ngIf=\"(book.isReserved || book.isBorrowed) && !book.isAvailable\" slot=\"icon-only\"\n          src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(book._id)\"></ion-icon>\n         <ion-item-option>\n            <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(book._id, book.bookname)\">AR</ion-label>\n          </ion-item-option>\n        </ion-item-option>    \n      </ion-item-options>\n    </ion-item-sliding>\n\n\n   \n\n  </ion-list>\n  <!--<ion-infinite-scroll (ionInfinite)=\"loadMoreBooks($event)\">\n    <ion-infinite-scroll-content loadingText=\"..loading\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>-->\n\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n    \n    <ion-title size=\"large\" \n    style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Manage \n   \n    </ion-title>\n    \n\n    <ion-buttons slot=\"end\">\n     \n      <ion-icon style=\"color: #FDFEFE;\" src=\"../assets/icon/information-circle.svg\" size=\"medium\" (click)=\"helpModal()\"></ion-icon>\n    </ion-buttons>\n  </ion-toolbar>\n  \n  \n\n\n</ion-header> \n\n\n\n<ion-content>\n\n  \n    \n    <ion-button shape=\"round\" (click)=\"addBookModal()\" margin-top expand=\"block\" style=\"color:darkgreen\">\n        <ion-icon style=\"color: #145A32;\" src=\"../assets/icon/add-circle.svg\"></ion-icon>\n        <span style=\"color:  #145A32; margin-left: 5px; \" class=\"ion-text-left\"> Add new book in the bookshelf</span>\n    </ion-button>\n   \n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n      <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n      </ion-refresher-content>\n    </ion-refresher>\n\n  \n  <!--<ion-list>-->\n\n    <ion-button shape=\"round\" margin-top expand=\"block\">\n      <ion-icon style=\"color: olivedrab; \" src=\"../assets/icon/book.svg\"></ion-icon>\n      <span style=\"color:  olivedrab; margin-left: 5px; \" class=\"ion-text-left\"> My books - as Book Owner</span>\n    </ion-button>\n\n    <ion-select (ionChange)=\"displayBooksByStatus($event)\" interface=\"popover\" placeholder=\"Select current status...\">\n      <ion-select-option *ngFor=\"let status of bookcurrentstatus\" [value]=\"status\"> {{status}}</ion-select-option>\n   </ion-select>\n   \n   <!--<ion-label class=\"ion-text-wrap\" *ngIf=\"nobooksEXIST\" style=\"color: green; padding: 20px; font-size: small;\">You have not added any books yet</ion-label>-->\n   <ion-label class=\"ion-text-wrap\" *ngIf=\"nobooksAVAILABLE\" style=\"color: green; padding: 20px; font-size: small;\">None Available OR you have not added any!</ion-label>\n   <ion-label class=\"ion-text-wrap\"*ngIf=\"nobooksRESERVED\" style=\"color: green; padding: 20px; font-size: small;\">No one has Reserved your books so far..</ion-label>\n   <ion-label class=\"ion-text-wrap\" *ngIf=\"nobooksBORROWED\" style=\"color: green; padding: 20px; font-size: small;\">No one has Borrowed your books so far..</ion-label>\n\n    <ion-list *ngIf=\"showReserved\" >\n      <ion-item *ngFor=\"let rBook of reservedBooks\">\n        <ion-card>\n          <ion-thumbnail>\n            <img-loader [src]=\"(bookIdImageMap.get(rBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n          </ion-thumbnail>\n        </ion-card>\n        <ion-label class=\"ion-text-wrap\">\n              <strong>{{rBook.bookname}}</strong>\n              <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>\n              <h3 *ngIf=\"rBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{rBook.bookcurrentstatus}}</h3>\n              <h3 *ngIf=\"rBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{rBook.bookcurrentstatus}}</h3>\n              <h3 *ngIf=\"rBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{rBook.bookcurrentstatus}}\n              <span style=\"font-size: small; color: darkgray;\"> by : {{rBook.bookcurrentuser}}</span>\n              </h3> \n              <ion-button shape=\"round\" style=\"color:darkslategray\" (click)=\"presentActionSheet(rBook._id, rBook.bookname, rBook.bookcurrentstatus )\">Take Action..</ion-button>\n        </ion-label>\n      </ion-item>\n    </ion-list>\n\n<!--<ion-item-sliding *ngFor=\"let rBook of reservedBooks\">\n  <ion-item *ngIf=\"showReserved\">\n    <ion-card>\n      <ion-thumbnail>\n        <img-loader [src]=\"(bookIdImageMap.get(rBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n      </ion-thumbnail>\n    </ion-card>\n    <ion-label class=\"ion-text-wrap\">\n          <strong>{{rBook.bookname}}</strong>\n          <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>\n          <h3 *ngIf=\"rBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{rBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"rBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{rBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"rBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{rBook.bookcurrentstatus}}\n          <span style=\"font-size: small; color: darkgray;\"> by : {{rBook.bookcurrentuser}}</span>\n          </h3> \n      </ion-label>\n  </ion-item>\n  <ion-item-options *ngIf=\"showReserved\" side=\"start\">\n    <ion-item-option >\n      <ion-icon style=\"color: red;\" *ngIf=\"rBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n      (click)=\"checkDeleteConfirmation(rBook._id)\"></ion-icon>\n    </ion-item-option>\n  </ion-item-options>\n  <ion-item-options *ngIf=\"showReserved\" side=\"end\">\n    <ion-item-option>\n      <ion-icon style=\"color: blue\" *ngIf=\"(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable\" slot=\"icon-only\"\n      src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(rBook._id)\"></ion-icon>\n    </ion-item-option>\n    <ion-item-option>\n      <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(rBook._id, rBook.bookname)\">AR</ion-label>\n    </ion-item-option>\n  </ion-item-options>\n</ion-item-sliding>-->\n\n<ion-list *ngIf=\"showAvailable\" >\n  <ion-item *ngFor=\"let aBook of availableBooks\">\n    <ion-card>\n      <ion-thumbnail>\n        <img-loader [src]=\"(bookIdImageMap.get(aBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n      </ion-thumbnail>\n    </ion-card>\n    <ion-label class=\"ion-text-wrap\">\n          <strong>{{aBook.bookname}}</strong>\n          <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>\n          <h3 *ngIf=\"aBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{aBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"aBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{aBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"aBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{aBook.bookcurrentstatus}}\n          <span style=\"font-size: small; color: darkgray;\"> by : {{aBook.bookcurrentuser}}</span>\n          </h3> \n          <ion-button shape=\"round\" style=\"color:darkslategray\" (click)=\"presentActionSheet(aBook._id, aBook.bookname, aBook.bookcurrentstatus )\">Take Action..</ion-button>\n    </ion-label>\n  </ion-item>\n</ion-list>\n  \n<!--<ion-item-sliding *ngFor=\"let aBook of availableBooks \">\n  <ion-item *ngIf=\"showAvailable\">\n    <ion-card *ngIf=\"showAvailable\">\n     <ion-thumbnail *ngIf=\"showAvailable\">\n       <img-loader [src]=\"(bookIdImageMap.get(aBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showAvailable\" class=\"ion-text-wrap\">\n         <strong>{{aBook.bookname}}</strong>\n         <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>\n         <h3 *ngIf=\"aBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{aBook.bookcurrentstatus}}</h3>\n           <h3 *ngIf=\"aBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{aBook.bookcurrentstatus}}</h3>\n           <h3 *ngIf=\"aBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{aBook.bookcurrentstatus}}</h3>\n    </ion-label>\n  </ion-item>\n  <ion-item-options *ngIf=\"showAvailable\" side=\"start\">\n    <ion-item-option>\n      <ion-icon style=\"color: red\" *ngIf=\"aBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n      (click)=\"checkDeleteConfirmation(aBook._id)\"></ion-icon>\n    </ion-item-option>\n  </ion-item-options>\n  <ion-item-options *ngIf=\"showAvailable\" side=\"end\">\n  <ion-item-option>\n    <ion-icon style=\"color: blue\" *ngIf=\"(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable\" slot=\"icon-only\"\n    src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(aBook._id)\"></ion-icon>\n  </ion-item-option>   \n  <ion-item-option>\n    <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(aBook._id, aBook.bookname)\">AR</ion-label>\n  </ion-item-option> \n  </ion-item-options>\n</ion-item-sliding>-->\n\n<ion-list *ngIf=\"showBorrowed\" >\n  <ion-item *ngFor=\"let bBook of borrowedBooks\">\n    <ion-card>\n      <ion-thumbnail>\n        <img-loader [src]=\"(bookIdImageMap.get(bBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n      </ion-thumbnail>\n    </ion-card>\n    <ion-label class=\"ion-text-wrap\">\n          <strong>{{bBook.bookname}}</strong>\n          <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>\n          <h3 *ngIf=\"bBook.bookcurrentstatus == 'available' \" style=\"color: green;\">{{bBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"bBook.bookcurrentstatus == 'borrowed' \" style=\"color: red;\">{{bBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"bBook.bookcurrentstatus == 'reserved' \" style=\"color: orange;\">{{bBook.bookcurrentstatus}}\n          <span style=\"font-size: small; color: darkgray;\"> by : {{bBook.bookcurrentuser}}</span>\n          </h3> \n          <ion-button shape=\"round\" style=\"color:darkslategray\" (click)=\"presentActionSheet(bBook._id, bBook.bookname, bBook.bookcurrentstatus )\">Take Action..</ion-button>\n    </ion-label>\n  </ion-item>\n</ion-list>\n\n<!--<ion-item-sliding *ngFor=\"let bBook of borrowedBooks\">\n  <ion-item *ngIf=\"showBorrowed\">\n    <ion-card *ngIf=\"showBorrowed\">\n     <ion-thumbnail *ngIf=\"showBorrowed\">\n       <img-loader [src]=\"(bookIdImageMap.get(bBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n     </ion-thumbnail>\n    </ion-card>\n    <ion-label *ngIf=\"showBorrowed\" class=\"ion-text-wrap\">\n         <strong>{{bBook.bookname}}</strong>\n         <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>\n         <h3 *ngIf=\"bBook.bookcurrentstatus == 'available' \" style=\"color: green; \">{{bBook.bookcurrentstatus}}</h3>\n         <h3 *ngIf=\"bBook.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{bBook.bookcurrentstatus}}\n          <span style=\"font-size: small; color: darkgray;\"> by : {{bBook.bookcurrentuser}}</span>\n        </h3>\n          <h3 *ngIf=\"bBook.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{bBook.bookcurrentstatus}}</h3>\n     </ion-label>\n  </ion-item>\n <ion-item-options *ngIf=\"showBorrowed\" side=\"start\">\n   <ion-item-option>\n     <ion-icon style=\"color: red\" *ngIf=\"bBook.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n     (click)=\"checkDeleteConfirmation(bBook._id)\"></ion-icon>\n   </ion-item-option>\n  </ion-item-options>\n  <ion-item-options *ngIf=\"showBorrowed\" side=\"end\">\n      <ion-item-option>\n        <ion-icon style=\"color: blue\" *ngIf=\"(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable\" slot=\"icon-only\"\n        src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(bBook._id)\"></ion-icon>\n      </ion-item-option>\n      <ion-item-option>\n        <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(bBook._id, bBook.bookname)\">AR</ion-label>\n      </ion-item-option>\n  </ion-item-options>\n</ion-item-sliding>-->\n\n\n<ion-button shape=\"round\" margin-top expand=\"block\">\n  <ion-icon style=\"color: olivedrab \" src=\"../assets/icon/book.svg\"></ion-icon>\n  <span style=\"color:  olivedrab; margin-left: 5px; \" class=\"ion-text-left\">My books - as Book Requester </span>\n</ion-button>\n\n<ion-select *ngIf=\"!nobooksREQUESTEDRESERVEDBORROWED\" (ionChange)=\"displayRequestedBooksByStatus($event)\" interface=\"popover\" placeholder=\"Select current status...\">\n  <ion-select-option *ngFor=\"let status of bookrequestedstatus\" [value]=\"status\"> {{status}}</ion-select-option>\n</ion-select>\n\n<ion-label *ngIf=\"nobooksREQUESTEDRESERVEDBORROWED\" style=\"color: green; padding: 20px; font-size: small;\">\n  You have not reserved or borrowed any books so far</ion-label>\n<ion-label *ngIf=\"nobooksREQUESTEDRESERVED\" style=\"color: green; padding: 20px; font-size: small;\">\n  You haven't reserved any books yet</ion-label>\n<ion-label *ngIf=\"nobooksREQUESTEDBORROWED\" style=\"color: green; padding: 20px; font-size: small;\">\n  You haven't borrowed any books yet</ion-label>\n\n\n<ion-list *ngIf=\"showRequestedReservedBooks\" >\n  <ion-item *ngFor=\"let rRbook of requestedReservedBooks\">\n    <ion-card>\n      <ion-thumbnail>\n        <img-loader [src]=\"(bookIdImageMap.get(rRbook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n      </ion-thumbnail>\n    </ion-card>\n    <ion-label class=\"ion-text-wrap\">\n      <strong>{{rRbook.bookname}}</strong>\n      <h3> in {{rRbook.booklanguage}}. By - {{rRbook.bookauthor}}</h3>\n      <h3 *ngIf=\"rRbook.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{rRbook.bookcurrentstatus}}</h3>\n      <h3 *ngIf=\"rRbook.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{rRbook.bookcurrentstatus}}</h3>\n     \n    </ion-label>\n  </ion-item>\n</ion-list>\n\n<ion-list *ngIf=\"showRequestedBorrowedBooks\" >\n  <ion-item *ngFor=\"let rBbook of requestedBorrowedBooks\">\n    <ion-card>\n      <ion-thumbnail>\n        <img-loader [src]=\"(bookIdImageMap.get(rBbook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n      </ion-thumbnail>\n    </ion-card>\n    <ion-label class=\"ion-text-wrap\">\n      <strong>{{rBbook.bookname}}</strong>\n      <h3> in {{rBbook.booklanguage}}. By - {{rBbook.bookauthor}}</h3>\n      <h3 *ngIf=\"rBbook.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{rBbook.bookcurrentstatus}}</h3>\n      <h3 *ngIf=\"rBbook.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{rBbook.bookcurrentstatus}}</h3>\n      <h3 *ngIf=\"rBbook.bookcurrentstatus == 'borrowed' \" style=\"font-size: small;\">  Return by : {{rBbook.bookreturnbydate}}</h3> \n    </ion-label>\n  </ion-item>\n</ion-list>\n\n<!--<ion-list *ngIf=\"!nobooksRESERVEDBORROWED\">\n  <ion-item *ngFor=\"let nBook of notMyBooks\">\n    <ion-card>\n      <ion-thumbnail>\n        <img-loader [src]=\"(notMyBookIdImageMap.get(nBook._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n      </ion-thumbnail>\n      </ion-card>\n      <ion-label class=\"ion-text-wrap\">\n          <h3>{{nBook.bookname}}</h3>\n          <h3> in {{nBook.booklanguage}}. By - {{nBook.bookauthor}}</h3>\n          <h3 *ngIf=\"nBook.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{nBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"nBook.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{nBook.bookcurrentstatus}}</h3>\n          <h3 *ngIf=\"nBook.bookcurrentstatus == 'borrowed' \" style=\"font-size: small; color:orangered\">  Return by : {{nBook.bookreturnbydate}}</h3>\n      </ion-label>\n  </ion-item>\n</ion-list>-->\n\n\n\n<!--<ion-button shape=\"round\" margin-top expand=\"block\">\n  <ion-icon style=\"color: #145A32; \" src=\"../assets/icon/book.svg\"></ion-icon>\n  <span style=\"color: #145A32 ; margin-left: 5px; \" class=\"ion-text-left\">All my books</span>\n</ion-button>\n\n    <ion-item-sliding *ngFor=\"let book of allBooks \">\n         <ion-item>\n           <ion-card>\n            <ion-thumbnail>\n              <img-loader [src]=\"(bookIdImageMap.get(book._id))\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            </ion-thumbnail>\n           </ion-card>\n           <ion-label class=\"ion-text-wrap\">\n                <strong>{{book.bookname}}</strong>\n                <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>\n                <h3 *ngIf=\"book.bookcurrentstatus == 'available' \" style=\"color: green; \">{{book.bookcurrentstatus}}</h3>\n                <h3 *ngIf=\"book.bookcurrentstatus == 'borrowed' \" style=\"color: red; \">{{book.bookcurrentstatus}}</h3>\n                <h3 *ngIf=\"book.bookcurrentstatus == 'reserved' \" style=\"color: orange; \">{{book.bookcurrentstatus}}</h3>      \n            </ion-label>\n         </ion-item>\n        <ion-item-options side=\"start\">\n          <ion-item-option style=\"border-color: darkgreen;\">\n            <ion-icon style=\"color: red\" *ngIf=\"book.isAvailable\" slot=\"icon-only\" src=\"../assets/icon/trash.svg\"\n            (click)=\"checkDeleteConfirmation(book._id)\"></ion-icon>\n          </ion-item-option>\n       </ion-item-options>\n       <ion-item-options side=\"end\">\n        <ion-item-option>\n          <ion-icon style=\"color: blue\" *ngIf=\"(book.isReserved || book.isBorrowed) && !book.isAvailable\" slot=\"icon-only\"\n          src=\"../assets/icon/scan.svg\" (click)=\"scanToLendOrRelease(book._id)\"></ion-icon>\n         <ion-item-option>\n            <ion-label style=\"color: darkgreen\" (click)=\"arBookModal(book._id, book.bookname)\">AR</ion-label>\n          </ion-item-option>\n        </ion-item-option>    \n      </ion-item-options>\n    </ion-item-sliding>-->\n\n\n   \n\n  <!--</ion-list>-->\n  <!--<ion-infinite-scroll (ionInfinite)=\"loadMoreBooks($event)\">\n    <ion-infinite-scroll-content loadingText=\"..loading\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>-->\n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -3655,7 +3752,7 @@ module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".profile-pic {\n  width: 200px;\n  height: 200px;\n  border: gray solid 1px;\n  margin: 10px auto; }\n\n.welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.spinner-container {\n  width: 100%;\n  text-align: center;\n  padding: 10px; }\n\n.book-card {\n  margin: 5px;\n  padding: 10px; }\n\n.book-image {\n  border: gray solid 1px;\n  margin: 5px; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px;\n  background-color: whitesmoke; }\n\n.displayinnercard {\n  margin-top: auto;\n  margin-left: 30px;\n  padding: 5px;\n  background-color: ghostwhite; }\n\n.display_heading {\n  margin-left: 0px;\n  padding: 0px; }\n\nion-button {\n  --background: #E9F7EF; }\n\nion-button span {\n    text-align: left; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-item-option {\n  --background: white; }\n\nion-list-header {\n  padding-left: 0px;\n  display: block;\n  text-align: center; }\n\nspan.ion-text-left {\n  margin-right: auto; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWIzL3RhYjMucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGFBQWEsRUFBQTs7QUFHZjtFQUlJLFdBQVc7RUFDWCxhQUFhLEVBQUE7O0FBR2pCO0VBR0ksc0JBQXNCO0VBQ3RCLFdBQVcsRUFBQTs7QUFHZjtFQUlHLFdBQVc7RUFDWCxZQUFZO0VBQ1osNEJBQTRCLEVBQUE7O0FBRzlCO0VBSUcsZ0JBQWdCO0VBQ2hCLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osNEJBQTJCLEVBQUE7O0FBRzdCO0VBQ0UsZ0JBQWdCO0VBQ2hCLFlBQVksRUFBQTs7QUFHZDtFQUNFLHFCQUFhLEVBQUE7O0FBRGY7SUFHSSxnQkFBZSxFQUFBOztBQUtuQjtFQUVFLHFCQUFhLEVBQUE7O0FBR2Y7RUFDRSxtQkFBYSxFQUFBOztBQUlmO0VBRUUsaUJBQWdCO0VBQ2hCLGNBQWE7RUFDYixrQkFBa0IsRUFBQTs7QUFJcEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFHdEI7RUFDRSxrQkFBYTtFQUNiLHFCQUFnQjtFQUVoQixXQUFXLEVBQUEiLCJmaWxlIjoic3JjL2FwcC90YWIzL3RhYjMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG4ucHJvZmlsZS1waWMge1xuICAgIHdpZHRoOiAyMDBweDtcbiAgICBoZWlnaHQ6IDIwMHB4O1xuICAgIGJvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG59XG5cbi53ZWxjb21lLWNhcmQgaW9uLWltZyB7XG4gIG1heC1oZWlnaHQ6IDM1dmg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG5cbi5kaXNwbGF5X2hlYWRpbmcge1xuICBtYXJnaW46IDEwcHggYXV0bztcbiAgcGFkZGluZzogMTBweDtcbn1cblxuLnNwaW5uZXItY29udGFpbmVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcGFkZGluZzogMTBweDtcbn1cblxuLmJvb2stY2FyZCB7XG5cbiAgICAvL2hlaWdodDo1MHB4O1xuICAgIC8vYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICBtYXJnaW46IDVweDtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uYm9vay1pbWFnZSB7XG4gICAgLy93aWR0aDogMzAwcHg7XG4gICAgLy9oZWlnaHQ6IDMwMHB4O1xuICAgIGJvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHg7XG59XG5cbi5kaXNwbGF5Y2FyZCB7XG4gIC8vIHdpZHRoOiAzMHZ3O1xuICAgLy9oZWlnaHQ6MzB2aDtcbiAgLy8gYm9yZGVyOiBncmV5IHNvbGlkIDFweDtcbiAgIG1hcmdpbjogNXB4O1xuICAgcGFkZGluZzogNXB4O1xuICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiB9XG4gXG4gLmRpc3BsYXlpbm5lcmNhcmQge1xuICAgLy8gd2lkdGg6IDMwdnc7XG4gICAgLy9oZWlnaHQ6MzB2aDtcbiAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luLXRvcDogYXV0bztcbiAgICBtYXJnaW4tbGVmdDogMzBweDtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjpnaG9zdHdoaXRlO1xuICB9XG5cbiAgLmRpc3BsYXlfaGVhZGluZyB7XG4gICAgbWFyZ2luLWxlZnQ6IDBweDtcbiAgICBwYWRkaW5nOiAwcHg7XG4gIH1cblxuICBpb24tYnV0dG9uIHtcbiAgICAtLWJhY2tncm91bmQ6ICNFOUY3RUY7XG4gICAgc3BhbntcbiAgICAgIHRleHQtYWxpZ246bGVmdDtcbiAgICAgIFxuICAgIH1cbiAgfVxuXG4gIGlvbi10b29sYmFyIHtcbiAgICAvL0BhdC1yb290OiAjMUI0RjcyO1xuICAgIC0tYmFja2dyb3VuZDogIzE0NUEzMjtcbiAgfVxuXG4gIGlvbi1pdGVtLW9wdGlvbiB7XG4gICAgLS1iYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgIFxuICB9XG5cbiAgaW9uLWxpc3QtaGVhZGVyIHtcblxuICAgIHBhZGRpbmctbGVmdDowcHg7XG4gICAgZGlzcGxheTpibG9jaztcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICBcbiAgfVxuXG4gIHNwYW4uaW9uLXRleHQtbGVmdCB7XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xufVxuXG4ubXktY3VzdG9tLWNsYXNzIHtcbiAgLS1iYWNrZ3JvdW5kOiAjMjIyO1xuICAtLXNwaW5uZXItY29sb3I6ICNmZmY7XG5cbiAgY29sb3I6ICNmZmY7XG59XG5cbiBcbiJdfQ== */"
+module.exports = ".profile-pic {\n  width: 200px;\n  height: 200px;\n  border: gray solid 1px;\n  margin: 10px auto; }\n\n.welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.display_heading {\n  margin: 10px auto;\n  padding: 10px; }\n\n.spinner-container {\n  width: 100%;\n  text-align: center;\n  padding: 10px; }\n\n.book-card {\n  margin: 5px;\n  padding: 10px; }\n\n.book-image {\n  border: gray solid 1px;\n  margin: 5px; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px;\n  background-color: whitesmoke; }\n\n.displayinnercard {\n  margin-top: auto;\n  margin-left: 30px;\n  padding: 5px;\n  background-color: ghostwhite; }\n\n.display_heading {\n  margin-left: 0px;\n  padding: 0px; }\n\nion-button {\n  --background: #E9F7EF; }\n\nion-button span {\n    text-align: center; }\n\nion-toolbar {\n  --background: #145A32; }\n\nion-item-option {\n  --background: white; }\n\nion-list-header {\n  padding-left: 0px;\n  display: block;\n  text-align: center; }\n\nspan.ion-text-left {\n  margin-right: auto; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC90YWIzL3RhYjMucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBR2Y7RUFDRSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGFBQWEsRUFBQTs7QUFHZjtFQUlJLFdBQVc7RUFDWCxhQUFhLEVBQUE7O0FBR2pCO0VBR0ksc0JBQXNCO0VBQ3RCLFdBQVcsRUFBQTs7QUFHZjtFQUlHLFdBQVc7RUFDWCxZQUFZO0VBQ1osNEJBQTRCLEVBQUE7O0FBRzlCO0VBSUcsZ0JBQWdCO0VBQ2hCLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osNEJBQTJCLEVBQUE7O0FBRzdCO0VBQ0UsZ0JBQWdCO0VBQ2hCLFlBQVksRUFBQTs7QUFHZDtFQUNFLHFCQUFhLEVBQUE7O0FBRGY7SUFJRyxrQkFBaUIsRUFBQTs7QUFLcEI7RUFFRSxxQkFBYSxFQUFBOztBQUdmO0VBQ0UsbUJBQWEsRUFBQTs7QUFJZjtFQUVFLGlCQUFnQjtFQUNoQixjQUFhO0VBQ2Isa0JBQWtCLEVBQUE7O0FBSXBCO0VBQ0Usa0JBQWtCLEVBQUE7O0FBR3RCO0VBQ0Usa0JBQWE7RUFDYixxQkFBZ0I7RUFFaEIsV0FBVyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdGFiMy90YWIzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLnByb2ZpbGUtcGljIHtcbiAgICB3aWR0aDogMjAwcHg7XG4gICAgaGVpZ2h0OiAyMDBweDtcbiAgICBib3JkZXI6IGdyYXkgc29saWQgMXB4O1xuICAgIG1hcmdpbjogMTBweCBhdXRvO1xufVxuXG4ud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICBtYXgtaGVpZ2h0OiAzNXZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uZGlzcGxheV9oZWFkaW5nIHtcbiAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5zcGlubmVyLWNvbnRhaW5lciB7XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5ib29rLWNhcmQge1xuXG4gICAgLy9oZWlnaHQ6NTBweDtcbiAgICAvL2JvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHg7XG4gICAgcGFkZGluZzogMTBweDtcbn1cblxuLmJvb2staW1hZ2Uge1xuICAgIC8vd2lkdGg6IDMwMHB4O1xuICAgIC8vaGVpZ2h0OiAzMDBweDtcbiAgICBib3JkZXI6IGdyYXkgc29saWQgMXB4O1xuICAgIG1hcmdpbjogNXB4O1xufVxuXG4uZGlzcGxheWNhcmQge1xuICAvLyB3aWR0aDogMzB2dztcbiAgIC8vaGVpZ2h0OjMwdmg7XG4gIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICBtYXJnaW46IDVweDtcbiAgIHBhZGRpbmc6IDVweDtcbiAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gfVxuIFxuIC5kaXNwbGF5aW5uZXJjYXJkIHtcbiAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgIC8vaGVpZ2h0OjMwdmg7XG4gICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgIG1hcmdpbi10b3A6IGF1dG87XG4gICAgbWFyZ2luLWxlZnQ6IDMwcHg7XG4gICAgcGFkZGluZzogNXB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6Z2hvc3R3aGl0ZTtcbiAgfVxuXG4gIC5kaXNwbGF5X2hlYWRpbmcge1xuICAgIG1hcmdpbi1sZWZ0OiAwcHg7XG4gICAgcGFkZGluZzogMHB4O1xuICB9XG5cbiAgaW9uLWJ1dHRvbiB7XG4gICAgLS1iYWNrZ3JvdW5kOiAjRTlGN0VGO1xuICAgIC8vLS1iYWNrZ3JvdW5kOiAjRkRGRUZFO1xuICAgIHNwYW57XG4gICAgIHRleHQtYWxpZ246Y2VudGVyO1xuICAgICAgXG4gICAgfVxuICB9XG5cbiAgaW9uLXRvb2xiYXIge1xuICAgIC8vQGF0LXJvb3Q6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xuICB9XG5cbiAgaW9uLWl0ZW0tb3B0aW9uIHtcbiAgICAtLWJhY2tncm91bmQ6IHdoaXRlO1xuICAgXG4gIH1cblxuICBpb24tbGlzdC1oZWFkZXIge1xuXG4gICAgcGFkZGluZy1sZWZ0OjBweDtcbiAgICBkaXNwbGF5OmJsb2NrO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgIFxuICB9XG5cbiAgc3Bhbi5pb24tdGV4dC1sZWZ0IHtcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG59XG5cbi5teS1jdXN0b20tY2xhc3Mge1xuICAtLWJhY2tncm91bmQ6ICMyMjI7XG4gIC0tc3Bpbm5lci1jb2xvcjogI2ZmZjtcblxuICBjb2xvcjogI2ZmZjtcbn1cblxuXG5cblxuIFxuIl19 */"
 
 /***/ }),
 
@@ -3688,7 +3785,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_searchmybooks_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../services/searchmybooks.service */ "./src/app/services/searchmybooks.service.ts");
 /* harmony import */ var _addbook_addbook_page__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../addbook/addbook.page */ "./src/app/addbook/addbook.page.ts");
 /* harmony import */ var _arbook_arbook_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../arbook/arbook.page */ "./src/app/arbook/arbook.page.ts");
-/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+/* harmony import */ var _managebookshelp_managebookshelp_page__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../managebookshelp/managebookshelp.page */ "./src/app/managebookshelp/managebookshelp.page.ts");
+/* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
+
+
 
 
 
@@ -3720,7 +3820,7 @@ var CodeOps;
     CodeOps[CodeOps["compareCodes"] = 2] = "compareCodes";
 })(CodeOps || (CodeOps = {}));
 var Tab3Page = /** @class */ (function () {
-    function Tab3Page(_camera, _alertController, _modalController, authService, navCtrl, readarsService, baseURL, router, route, searchedMyData, fb, feedbackservice, booksService, reservedService, borrowedService, availableService, activatedRoute, barCodeScanner, imageLoaderService, toastCtrl, loadingController) {
+    function Tab3Page(_camera, _alertController, _modalController, authService, navCtrl, readarsService, baseURL, router, route, searchedMyData, fb, feedbackservice, booksService, reservedService, borrowedService, availableService, activatedRoute, barCodeScanner, imageLoaderService, toastCtrl, loadingController, actionSheetController) {
         this._camera = _camera;
         this._alertController = _alertController;
         this._modalController = _modalController;
@@ -3742,46 +3842,84 @@ var Tab3Page = /** @class */ (function () {
         this.imageLoaderService = imageLoaderService;
         this.toastCtrl = toastCtrl;
         this.loadingController = loadingController;
+        this.actionSheetController = actionSheetController;
         this.username = undefined;
+        this.books = [];
+        this.books1 = [];
         this.reservedBooks = [];
         this.availableBooks = [];
         this.borrowedBooks = [];
+        this.requestedReservedBooks = [];
+        this.requestedBorrowedBooks = [];
         this.searchTerm = "";
         this.descending = false;
         this.column = 'booklanguage';
         this.bookIdsImages = new Map();
         this.bookIdImageMap = new Map();
+        this.notMyBookIdImageMap = new Map();
         this.name = 'Angular';
         this.currentRouter = this.router.url;
         this.booklanguage = _shared_book__WEBPACK_IMPORTED_MODULE_7__["BookLanguage"];
         this.bookactions = _shared_book__WEBPACK_IMPORTED_MODULE_7__["BookActions"];
         this.bookcurrentstatus = _shared_book__WEBPACK_IMPORTED_MODULE_7__["BookCurrentStatus"];
+        this.bookrequestedstatus = _shared_book__WEBPACK_IMPORTED_MODULE_7__["BookRequestedStatus"];
         //feedback: Feedback;
         this.contactType = _shared_feedback__WEBPACK_IMPORTED_MODULE_8__["ContactType"];
         this.submitted = null;
         this.showForm = true;
+        this.showAvailable = false;
+        this.showReserved = false;
+        this.showBorrowed = false;
+        this.showAll = false;
+        this.showNotMyBooks = false;
+        this.showRequestedReservedBooks = false;
+        this.showRequestedBorrowedBooks = false;
+        this.noBorrowedReservedExists = false;
         this.panelOpenState = false;
+        this.nobooksEXIST = false;
+        this.nobooksREQUESTEDRESERVEDBORROWED = true;
         this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
     }
+    ;
     Tab3Page.prototype.ngOnInit = function () {
         var _this = this;
         this.setFilteredItems();
-        this.presentLoading();
+        //this.presentLoading();
         this.authService.loadUserCredentials();
         this.subscription = this.authService.getUsername()
             .subscribe(function (name) {
             console.log(name);
             _this.username = name;
-            if (_this.username) {
-                _this.booksService.getBooks()
-                    .subscribe(function (books) {
-                    _this.allBooks = books;
-                    console.log("TAB3 BOOKS", _this.allBooks);
-                }, function (errmess) {
-                    _this.errMess = errmess;
-                });
+            //  if (name) {
+            _this.booksService.getBooks()
+                .subscribe(function (books) {
+                _this.allBooks = books;
                 _this.prepareBookIdsImagesMap();
-            }
+                console.log("TAB3 BOOKS", _this.allBooks);
+                if (_this.allBooks.length == 0 || _this.allBooks === undefined) {
+                    _this.nobooksEXIST = true;
+                }
+                else {
+                    _this.nobooksEXIST = false;
+                }
+                //this.getBooksBoorowedOrReservedByMe();
+            }, function (errmess) {
+                _this.errMess = errmess;
+            });
+            //   }
+            _this.readarsService.getBooks()
+                .subscribe(function (books1) {
+                _this.allBooks1 = books1;
+                console.log("allbooks1", _this.allBooks1);
+                for (var i = 0; i < _this.allBooks1.length; i++) {
+                    console.log("Book Current user", _this.allBooks1[i].bookcurrentuser);
+                    console.log("this.username", _this.username);
+                    if (_this.allBooks1[i].bookcurrentuser === _this.username) {
+                        _this.nobooksREQUESTEDRESERVEDBORROWED = false;
+                        console.log(" this.nobooksREQUESTEDRESERVEDBORROWED", _this.nobooksREQUESTEDRESERVEDBORROWED);
+                    }
+                }
+            });
         });
     };
     Tab3Page.prototype.presentLoading = function () {
@@ -3810,24 +3948,69 @@ var Tab3Page = /** @class */ (function () {
     };
     Tab3Page.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.prepareBookIdsImagesMap();
         this.booksService.getBooks()
             .subscribe(function (books) {
             _this.allBooks = books;
+            _this.prepareBookIdsImagesMap();
+            if (_this.allBooks.length == 0 || _this.allBooks === undefined) {
+                _this.nobooksEXIST = true;
+            }
+            else {
+                _this.nobooksEXIST = false;
+            }
             console.log("TAB3 BOOKS", _this.allBooks);
         }, function (errmess) {
             _this.errMess = errmess;
         });
     };
+    /*getBooksBoorowedOrReservedByMe() {
+  
+      this.nobooksREQUESTEDRESERVEDBORROWED = false;
+      this.readarsService.getBooks()
+      .subscribe(booksAll => {
+        console.log("booksALL", booksAll);
+        for (let i=0; i<booksAll.length;i++) {
+          //console.log("Book Current user", booksAll[i].bookcurrentuser)
+          //console.log("this.username", this.username)
+          if (booksAll[i].bookcurrentuser === this.username) {
+            
+            this.notMyBooks.push(booksAll[i]);
+            console.log("FOUND books current user", booksAll[i].bookcurrentuser);
+            this.booksService.getBookImage(booksAll[i]._id)
+            .subscribe(x => {
+                this.url = x;
+                console.log("this.url", this.url);
+                this.notMyBookIdImageMap.set(booksAll[i]._id, this.url);
+                console.log("notMyBookIdImageMap", this.notMyBookIdImageMap);
+             }, errMess => {
+              console.log(errMess)
+            });
+            
+          }
+        }
+        console.log("NOT MY BOOKS", this.notMyBooks)
+        if (this.notMyBooks === undefined || this.notMyBooks.length == 0) {
+          this.nobooksREQUESTEDRESERVEDBORROWED = true;
+        }
+      }, errmess => {
+        this.errMess = <any>errmess
+       
+      });
+    }*/
     Tab3Page.prototype.displayBooksByStatus = function (event) {
         console.log("inside displayBooksBYStatus function");
         this.showAvailable = false;
         this.showReserved = false;
         this.showBorrowed = false;
         this.showAll = false;
+        this.nobooksAVAILABLE = false;
+        this.nobooksBORROWED = false;
+        this.nobooksRESERVED = false;
         if (event.detail.value === 'Available') {
             console.log("inside AVAILABLE condition");
             this.showAvailable = true;
+            this.showBorrowed = false;
+            this.showReserved = false;
             this.availableBooks = [];
             var i = 0;
             var j = 0;
@@ -3839,13 +4022,18 @@ var Tab3Page = /** @class */ (function () {
                 i++;
             }
             if (this.availableBooks === undefined || this.availableBooks.length == 0) {
-                this.presentToast(event.detail.value + " - None exists");
+                //this.presentToast(event.detail.value + " - None exists");
+                this.nobooksAVAILABLE = true;
+                this.nobooksBORROWED = false;
+                this.nobooksRESERVED = false;
             }
             console.log("BOOK Status & COLLECTION", event.detail.value, this.availableBooks.length);
         }
         if (event.detail.value === 'Reserved') {
             console.log("inside RESERVED condition");
             this.showReserved = true;
+            this.showAvailable = false;
+            this.showBorrowed = false;
             this.reservedBooks = [];
             var i = 0;
             var j = 0;
@@ -3857,13 +4045,18 @@ var Tab3Page = /** @class */ (function () {
                 i++;
             }
             if (this.reservedBooks === undefined || this.reservedBooks.length == 0) {
-                this.presentToast(event.detail.value + " - None exists");
+                //this.presentToast(event.detail.value + " - None exists");
+                this.nobooksRESERVED = true;
+                this.nobooksAVAILABLE = false;
+                this.nobooksBORROWED = false;
             }
             console.log("BOOK Status & COLLECTION", event.detail.value, this.reservedBooks.length);
         }
         if (event.detail.value === 'Borrowed') {
             console.log("inside BORROWED condition");
             this.showBorrowed = true;
+            this.showAvailable = false;
+            this.showReserved = false;
             this.borrowedBooks = [];
             var i = 0;
             var j = 0;
@@ -3875,13 +4068,148 @@ var Tab3Page = /** @class */ (function () {
                 i++;
             }
             if (this.borrowedBooks === undefined || this.borrowedBooks.length == 0) {
-                this.presentToast(event.detail.value + " - None exists");
+                //this.presentToast(event.detail.value + " - None exists");
+                this.nobooksBORROWED = true;
+                this.nobooksRESERVED = false;
+                this.nobooksAVAILABLE = false;
             }
             console.log("BOOK Status & COLLECTION", event.detail.value, this.borrowedBooks.length);
         }
         if (event.detail.value === 'All') {
             this.showAll = true;
         }
+    };
+    Tab3Page.prototype.displayRequestedBooksByStatus = function (event) {
+        var _this = this;
+        this.notMyBooks = [];
+        // this.nobooksREQUESTEDRESERVEDBORROWED = false;
+        this.readarsService.getBooks()
+            .subscribe(function (booksAll) {
+            console.log("booksALL", booksAll);
+            var _loop_1 = function (i) {
+                //console.log("Book Current user", booksAll[i].bookcurrentuser)
+                //console.log("this.username", this.username)
+                if (booksAll[i].bookcurrentuser === _this.username) {
+                    _this.notMyBooks.push(booksAll[i]);
+                    console.log("FOUND books current user", booksAll[i].bookcurrentuser);
+                    _this.booksService.getBookImage(booksAll[i]._id)
+                        .subscribe(function (x) {
+                        _this.url = x;
+                        console.log("this.url", _this.url);
+                        _this.notMyBookIdImageMap.set(booksAll[i]._id, _this.url);
+                        console.log("notMyBookIdImageMap", _this.notMyBookIdImageMap);
+                    }, function (errMess) {
+                        console.log(errMess);
+                    });
+                }
+            };
+            for (var i = 0; i < booksAll.length; i++) {
+                _loop_1(i);
+            }
+            console.log("NOT MY BOOKS", _this.notMyBooks);
+            if (_this.notMyBooks === undefined || _this.notMyBooks.length == 0) {
+                _this.nobooksREQUESTEDRESERVEDBORROWED = true;
+            }
+            else {
+                console.log("inside displayRequestedBooksByStatus function");
+                _this.showRequestedBorrowedBooks = false;
+                _this.showRequestedReservedBooks = false;
+                _this.nobooksREQUESTEDRESERVEDBORROWED = false;
+                console.log("NOT MY BOOKS", _this.notMyBooks);
+                if (event.detail.value === 'Reserved') {
+                    console.log("inside REQUESTED RESERVED condition");
+                    _this.showRequestedReservedBooks = true;
+                    _this.showRequestedBorrowedBooks = false;
+                    _this.requestedReservedBooks = [];
+                    var i = 0;
+                    var j = 0;
+                    while (i < _this.notMyBooks.length) {
+                        if (_this.notMyBooks[i].bookcurrentstatus === 'reserved') {
+                            _this.requestedReservedBooks[j] = _this.notMyBooks[i];
+                            j++;
+                        }
+                        i++;
+                    }
+                    if (_this.requestedReservedBooks === undefined) {
+                        _this.nobooksREQUESTEDRESERVED = true;
+                        _this.nobooksREQUESTEDBORROWED = false;
+                    }
+                    console.log("BOOK Status & COLLECTION", event.detail.value, _this.requestedReservedBooks.length);
+                }
+                if (event.detail.value === 'Borrowed') {
+                    console.log("inside BORROWED condition");
+                    _this.showRequestedReservedBooks = false;
+                    _this.showRequestedBorrowedBooks = true;
+                    _this.requestedBorrowedBooks = [];
+                    var i = 0;
+                    var j = 0;
+                    while (i < _this.notMyBooks.length) {
+                        if (_this.notMyBooks[i].bookcurrentstatus === 'borrowed') {
+                            _this.requestedBorrowedBooks[j] = _this.notMyBooks[i];
+                            j++;
+                        }
+                        i++;
+                    }
+                    if (_this.requestedBorrowedBooks === undefined) {
+                        _this.nobooksREQUESTEDBORROWED = true;
+                        _this.nobooksREQUESTEDRESERVED = false;
+                    }
+                    console.log("BOOK Status & COLLECTION", event.detail.value, _this.requestedBorrowedBooks.length);
+                }
+            }
+        }, function (errmess) {
+            _this.errMess = errmess;
+        });
+        /*console.log("inside displayRequestedBooksByStatus function");
+        this.showRequestedBorrowedBooks = false;
+        this.showRequestedReservedBooks = false;
+        
+        console.log("NOT MY BOOKS", this.notMyBooks)
+        if (event.detail.value === 'Reserved') {
+          console.log("inside REQUESTED RESERVED condition");
+          this.showRequestedReservedBooks= true;
+          this.showRequestedBorrowedBooks = false;
+          this.requestedReservedBooks = [];
+          let i = 0;
+          let j = 0;
+          while (i < this.notMyBooks.length) {
+            
+            if (this.notMyBooks[i].bookcurrentstatus === 'reserved') {
+              this.requestedReservedBooks[j] = this.notMyBooks[i];
+              j++;
+            }
+            i++;
+          }
+          if (this.requestedReservedBooks === undefined) {
+            this.nobooksREQUESTEDRESERVED = true;
+            this.nobooksREQUESTEDBORROWED = false;
+          }
+          console.log("BOOK Status & COLLECTION", event.detail.value, this.requestedReservedBooks.length)
+        }
+    
+        if (event.detail.value === 'Borrowed') {
+          console.log("inside BORROWED condition");
+          this.showRequestedReservedBooks= false;
+          this.showRequestedBorrowedBooks = true;
+          this.requestedBorrowedBooks = [];
+          let i = 0;
+          let j = 0;
+          while (i < this.notMyBooks.length) {
+            
+            if (this.notMyBooks[i].bookcurrentstatus === 'borrowed') {
+              this.requestedBorrowedBooks[j] = this.notMyBooks[i];
+              j++;
+            }
+            i++;
+          }
+          if (this.requestedBorrowedBooks === undefined) {
+            this.nobooksREQUESTEDBORROWED = true;
+            this.nobooksREQUESTEDRESERVED = false;
+            
+          }
+          console.log("BOOK Status & COLLECTION", event.detail.value, this.requestedBorrowedBooks.length)
+         
+        }*/
     };
     Tab3Page.prototype.presentToast = function (errmsg) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -3908,106 +4236,6 @@ var Tab3Page = /** @class */ (function () {
     Tab3Page.prototype.onImageLoad = function (event) {
         console.log("image ready");
     };
-    /*displayActionCollection(event) {
-  
-  
-      console.log("EVENT DETAIL VALUE", event.detail.value);
-  
-  
-      if (event.detail.value === 'Lend Or Make Available') {
-          console.log("INSIDE LEND MAKE");
-            
-            this.lendmake = true;
-            this.remove = false;
-            this.collectionEmptyAV = false;
-            let i=0;
-            let j=0;
-            console.log("--------", this.books);
-            console.log("-----LENGTH-----", this.books.length);
-  
-            while (i<this.books.length) {
-                this.reservedService.isReserved(this.books[i]._id)
-                .subscribe(resp => {
-                console.log(resp);
-                this.reserved = <boolean>resp.exists;
-                if (this.reserved) {
-                  console.log("BOOK", resp.book);
-                  this.reservedBooks[j] = resp.book;
-                  console.log("RESERVED BOOK", this.reservedBooks[j]);
-                  j++;
-                }
-                if (this.reservedBooks.length == 0) {
-                  this.collectionEmptyLM = true;
-                }
-              },err => console.log(err));
-              i++;
-            }
-  
-            i=0; j=0;
-  
-            while (i<this.books.length) {
-              this.borrowedService.isBorrowed(this.books[i]._id)
-              .subscribe(resp => {
-              console.log(resp);
-              this.borrowed = <boolean>resp.exists;
-              if (this.borrowed) {
-                console.log("BOOK", resp.book);
-                this.borrowedBooks[j] = resp.book;
-                console.log("BORROWED BOOK", this.borrowedBooks[j]);
-                j++;
-              }
-              if (this.borrowedBooks.length == 0) {
-                this.collectionEmptyLM = true;
-              }
-            },err => console.log(err));
-            i++;
-          }
-  
-        this.bookLendMakeCollection = this.reservedBooks.concat(this.borrowedBooks);
-        console.log("bookLendMakeCollection", this.bookLendMakeCollection);
-        if (this.bookLendMakeCollection.length == 0) {
-  
-          this.collectionEmptyLM = true;
-          console.log("collectionEmptyLM", this.collectionEmptyLM)
-        }
-  
-      }
-  
-      if (event.detail.value === 'Remove') {
-          //this.ngOnInit();
-          this.remove = true;
-          this.lendmake = false;
-          this.collectionEmptyLM = false;
-          console.log("COLLECTION EMPTY AV", this.collectionEmptyAV);
-          console.log("INSIDE REMOVE");
-          let i=0;
-          let j=0;
-          console.log("--------", this.books);
-          console.log("-----LENGTH-----", this.books.length);
-          while (i<this.books.length) {
-              this.availableService.isAvailable(this.books[i]._id)
-              .subscribe(resp => {
-              console.log(resp);
-              this.available = <boolean>resp.exists;
-              if (this.available) {
-                console.log("BOOK", resp.book);
-                this.availableBooks[j] = resp.book;
-                console.log("AVAILABLE BOOK", this.availableBooks[j]);
-                j++;
-              }
-             console.log("AVAILABLE BOOKSSSS", this.availableBooks)
-             if (this.availableBooks.length == 0) {
-              this.collectionEmptyAV = true;
-            }
-            
-            },err => console.log(err));
-  
-            i++;
-          }
-  
-        
-      }
-    }*/
     Tab3Page.prototype.prepareBookIdsImagesMap = function () {
         // get all the  bookIds
         // for every  bookID get the corresponding imageURL
@@ -4018,7 +4246,7 @@ var Tab3Page = /** @class */ (function () {
             _this.bookIds = bookIds;
             _this.storeBookIds(_this.bookIds);
             _this.lbookIds = _this.loadBookIds();
-            var _loop_1 = function (i) {
+            var _loop_2 = function (i) {
                 _this.booksService.getBookImage(_this.lbookIds[i])
                     .subscribe(function (x) {
                     _this.url = x;
@@ -4030,7 +4258,7 @@ var Tab3Page = /** @class */ (function () {
                 });
             };
             for (var i = 0; i < _this.lbookIds.length; i++) {
-                _loop_1(i);
+                _loop_2(i);
             }
         }, function (errmess) { return _this.errMess = errmess; });
     };
@@ -4071,14 +4299,15 @@ var Tab3Page = /** @class */ (function () {
         this.booksService.deleteBook(id)
             .subscribe(function (removebook) {
             _this.removebook = removebook;
-            _this.presentToast("Book removed successfully");
+            _this.ngOnInit();
         }, function (errmess) {
             _this.errMess = errmess;
         });
         this.booksService.deleteBookImage(id)
             .subscribe(function (resp) { return console.log(resp); }, function (errmess) { return _this.errMess = errmess; });
-        this.delete = false;
-        this.ngOnInit();
+        this.presentToast("Book removed successfully");
+        this.bookDeleted = true;
+        //this.ngOnInit();
     };
     Tab3Page.prototype.getCodeValue = function (codeOpsName) {
         if (codeOpsName === 'xyz') {
@@ -4119,6 +4348,30 @@ var Tab3Page = /** @class */ (function () {
                         return [4 /*yield*/, alert.present()];
                     case 2:
                         _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Tab3Page.prototype.alerManagement = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert, role;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._alertController.create({
+                            message: message,
+                            header: "Please Note",
+                            buttons: ['Ok']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, alert.onDidDismiss()];
+                    case 3:
+                        role = (_a.sent()).role;
+                        console.log('onDidDismiss resolved with role', role);
                         return [2 /*return*/];
                 }
             });
@@ -4207,6 +4460,14 @@ var Tab3Page = /** @class */ (function () {
                     _this.book.bookborrowed = true;
                     _this.book.bookcurrentuser = _this.bookcurrentUsername;
                     _this.book.bookcurrentstatus = 'borrowed';
+                    _this.book.bookborroweddate = new Date().toLocaleDateString();
+                    /*var returnDate = new Date();
+                    returnDate.setDate(returnDate.getDate()+30);
+                    this.book.bookreturnbydate = returnDate.toLocaleDateString();*/
+                    var nowPlus30Days = new Date(Date.now() + (30 * 24 * 60 * 60 * 1000));
+                    _this.book.bookreturnbydate = nowPlus30Days.toLocaleDateString();
+                    console.log("BOOK BORROWED DATE", _this.book.bookborroweddate);
+                    console.log("BOOK RETURN BY DATE", _this.book.bookreturnbydate);
                     _this.booksService.lendBook(id, _this.book)
                         .subscribe(function (book) {
                         console.log(book);
@@ -4214,11 +4475,12 @@ var Tab3Page = /** @class */ (function () {
                         _this.reserved = true;
                         _this.qrCheckString = "";
                         _this.presentToast("Book is in borrowed status");
+                        _this.ngOnInit();
                     });
-                    _this.ngOnInit();
+                    //this.ngOnInit();
                 }
                 else {
-                    _this.presentToast("QR Codes mismatch. Authorization failed");
+                    _this.alerManagement("QR Codes mismatch. Authorization failed");
                     console.log("QR Codes mismatch. Authorization failed");
                 }
             })
@@ -4267,6 +4529,9 @@ var Tab3Page = /** @class */ (function () {
                         _this.book.bookborrowed = false;
                         _this.book.bookcurrentuser = "";
                         _this.book.bookcurrentstatus = 'available';
+                        _this.book.bookborroweddate = "";
+                        _this.book.bookreserveddate = "";
+                        _this.book.bookreturnbydate = "";
                         _this.booksService.releaseBook(_this.book._id, _this.book)
                             .subscribe(function (book) {
                             console.log(book);
@@ -4280,7 +4545,7 @@ var Tab3Page = /** @class */ (function () {
                 }
                 else {
                     console.log("QR CODES DON'T MATCH");
-                    _this.presentToast("QR Codes mismatch. Authorization failed");
+                    _this.alerManagement("QR Codes mismatch. Authorization failed");
                 }
             })
                 .catch(function (err) {
@@ -4288,90 +4553,93 @@ var Tab3Page = /** @class */ (function () {
             });
         }, function (errmess) { return _this.errMess = errmess; });
     };
-    /*scanForRelease1(id) {
-  
-      console.log("INSIDE SCAN FOR RELEASE");
-  
-      this.qrCheckString = this.getQRCheckString(id);
-  
-      if (this.qrCheckString) {
-          console.log("QR CHECK STRING IS", this.qrCheckString);
-  
-  
-          const options: BarcodeScannerOptions = {
-            preferFrontCamera: false,
-            showFlipCameraButton: true,
-            showTorchButton: true,
-            torchOn: false,
-            prompt: 'Place a barcode inside the scan area',
-            resultDisplayDuration: 500,
-            formats: 'EAN_13,EAN_8,QR_CODE,PDF_417 ',
-            orientation: 'portrait',
-          };
-  
-          this.barCodeScanner.scan(options).then(barcodeData => {
-            //console.log('Barcode data', barcodeData);
-            console.log("CHECK STRING IS ------>", this.qrCheckString);
-            this.scannedData = barcodeData;
-            console.log("SCANNED DATA IS ------> ", this.scannedData["text"]);
-            
-            if(this.qrCheckString === this.scannedData["text"]) {
-              console.log("MATCH SUCCESS")
-              console.log('RELEASING BOOK ' + id);
-  
-              this.booksService.getBook(id)
-              .subscribe(book => {
-                this.router.navigate([this.currentRouter]);
-                this.book = book;
-                this.book.bookavailable = true;
-                this.book.bookreserved = false;
-                this.book.bookborrowed = false;
-                this.book.bookcurrentuser = "";
-                this.booksService.releaseBook(this.book._id, this.book)
-                .subscribe(book => {
-                    console.log(book);
-                    this.available = true;
-                    this.reserved = false;
-                    this.qrCheckString = '';
-                    console.log("ABOUT TO DELETE QR IMAGE FOR THIS BOOK ID", id);
-                    this.booksService.deleteQRBookImage(id)
-                    .subscribe(resp => console.log(resp), errmess => this.errMess = <any>errmess);
-          
-                  });
-                },  errmess => this.errMess = <any>errmess);
-              this.ngOnInit();
-            }
-            else {
-              console.log("QR CODES DON'T MATCH");
-            }
-            
-          })
-          .catch(err => {console.log('Error', err);});
-                  
-      }
-      else {
-        console.log("QR CHECK STRING NOT FOUND");
-      }
-  
-    }*/
-    /*
-  
-    this.reservedService.isReserved(this.book._id)
-    .subscribe(resp => { console.log(resp); this.reserved = <boolean>resp.exists; },
-        err => console.log(err));
-  
-     this.availableService.isAvailable(this.book._id)
-     .subscribe(resp => { console.log(resp); this.available = <boolean>resp.exists; },
-        err => console.log(err));
-  
-  
-            */
+    Tab3Page.prototype.presentActionSheet = function (bookid, bookname, bookcurrentstatus) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var actionSheet, role;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.actionSheetController.create({
+                            header: 'Actions...',
+                            cssClass: 'my-custom-class',
+                            buttons: [
+                                {
+                                    text: 'Lend or Make Available',
+                                    icon: "../assets/icon/scan.svg",
+                                    handler: function () {
+                                        //*ngIf="(book.isReserved || book.isBorrowed) && !book.isAvailable"
+                                        if (bookcurrentstatus === 'borrowed' || bookcurrentstatus === 'reserved') {
+                                            _this.scanToLendOrRelease(bookid);
+                                        }
+                                        else {
+                                            _this.alerManagement("Book needs to be in 'Borrowed' or 'Reserved' status to perform this action");
+                                        }
+                                    }
+                                }, {
+                                    text: 'Enable for AR',
+                                    icon: "../assets/icon/scan-circle.svg",
+                                    handler: function () {
+                                        _this.arBookModal(bookid, bookname);
+                                        console.log('AR clicked');
+                                    }
+                                }, {
+                                    text: 'Cancel',
+                                    icon: 'close',
+                                    role: 'cancel',
+                                    handler: function () {
+                                        console.log('Cancel clicked');
+                                    }
+                                },
+                                {
+                                    text: 'Delete',
+                                    role: 'destructive',
+                                    icon: 'trash',
+                                    handler: function () {
+                                        if (bookcurrentstatus === 'available') {
+                                            _this.checkDeleteConfirmation(bookid);
+                                        }
+                                        else {
+                                            _this.alerManagement("Book can be removed only when it is in 'Available' status");
+                                        }
+                                    }
+                                }
+                            ]
+                        })];
+                    case 1:
+                        actionSheet = _a.sent();
+                        return [4 /*yield*/, actionSheet.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, actionSheet.onDidDismiss()];
+                    case 3:
+                        role = (_a.sent()).role;
+                        console.log('onDidDismiss resolved with role', role);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Tab3Page.prototype.loadMoreBooks = function (event) {
         setTimeout(function () {
             /*  this.bookList = this.books;
               const newBooks = [...this.bookList];
               this.books = this.bookList.concat(newBooks);*/
         }, 3000);
+    };
+    Tab3Page.prototype.helpModal = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var helpManageBooksModal;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modalController.create({
+                            component: _managebookshelp_managebookshelp_page__WEBPACK_IMPORTED_MODULE_19__["ManagebookshelpPage"]
+                        })];
+                    case 1:
+                        helpManageBooksModal = _a.sent();
+                        return [2 /*return*/, helpManageBooksModal.present()];
+                }
+            });
+        });
     };
     Tab3Page.prototype.addBookModal = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -4430,9 +4698,10 @@ var Tab3Page = /** @class */ (function () {
             _services_available_service__WEBPACK_IMPORTED_MODULE_12__["AvailableService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
             _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["BarcodeScanner"],
-            ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_19__["ImageLoaderService"],
+            ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_20__["ImageLoaderService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"]])
     ], Tab3Page);
     return Tab3Page;
 }());

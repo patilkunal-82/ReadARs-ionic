@@ -79,10 +79,21 @@
   }
   
   .bookimage1 {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     //margin: 5px;
     box-shadow: grey;
+  }
+
+  .bookimage2 {
+    width: 90px;
+    height: 100px;
+    //margin-left: 5px;
+    box-shadow: grey;
+  }
+
+  ion-label {
+    margin-left: 10px;
   }
   
   .my-custom-menu {

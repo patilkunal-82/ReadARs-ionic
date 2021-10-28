@@ -853,6 +853,10 @@ var map = {
 		"common",
 		"showbylanguage-showbylanguage-module"
 	],
+	"../showebooks/showebooks.module": [
+		"./src/app/showebooks/showebooks.module.ts",
+		"showebooks-showebooks-module"
+	],
 	"../showrecommendations/showrecommendations.module": [
 		"./src/app/showrecommendations/showrecommendations.module.ts",
 		"common",
@@ -1077,6 +1081,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ionic-image-loader-v5 */ "./node_modules/ionic-image-loader-v5/fesm5/ionic-image-loader-v5.js");
 /* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_document_viewer_ngx__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @ionic-native/document-viewer/ngx */ "./node_modules/@ionic-native/document-viewer/ngx/index.js");
 
 
 
@@ -1093,6 +1098,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //import { File } from '@ionic-native/file'
+
 
 
 
@@ -1164,6 +1170,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_29__["HTTP"],
                 _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_31__["ImagePicker"],
                 _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_32__["FileTransfer"],
+                _ionic_native_document_viewer_ngx__WEBPACK_IMPORTED_MODULE_33__["DocumentViewer"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_18__["AppComponent"]]
         })
@@ -1536,7 +1543,8 @@ var BooksService = /** @class */ (function () {
         console.log('inside Book Service lend book ' + bookId);
         return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
             'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
-            'bookcurrentstatus': book.bookcurrentstatus })
+            'bookcurrentstatus': book.bookcurrentstatus, 'bookborroweddate': book.bookborroweddate,
+            'bookreserveddate': book.bookreserveddate, 'bookreturnbydate': book.bookreturnbydate })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
     BooksService.prototype.releaseBook = function (bookId, book) {
@@ -1545,7 +1553,8 @@ var BooksService = /** @class */ (function () {
         console.log('inside Book Service release book ' + bookId);
         return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_5__["baseURL"] + 'mybooks/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
             'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
-            'bookcurrentstatus': book.bookcurrentstatus })
+            'bookcurrentstatus': book.bookcurrentstatus, 'bookborroweddate': book.bookborroweddate,
+            'bookreturnbydate': book.bookreturnbydate })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
     BooksService.prototype.uploadImage = function (bookId, imageData) {
@@ -1724,8 +1733,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProcessHTTPMsgService = /** @class */ (function () {
-    function ProcessHTTPMsgService(toastCtrl) {
+    function ProcessHTTPMsgService(toastCtrl, alertCtrl) {
         this.toastCtrl = toastCtrl;
+        this.alertCtrl = alertCtrl;
     }
     ProcessHTTPMsgService.prototype.handleError = function (error) {
         var errMsg;
@@ -1737,7 +1747,7 @@ var ProcessHTTPMsgService = /** @class */ (function () {
             //errMsg = `${error.status} - ${error.statusText || ''} ${error.message}`;
             if ("" + error.status == '409') {
                 console.log("inside 409");
-                errMsg = 'Conflict - User already exists';
+                errMsg = 'User Or E-mail already exists. Try entering different one';
             }
             else if ("" + error.status == '401') {
                 console.log("inside 401");
@@ -1791,7 +1801,7 @@ var ProcessHTTPMsgService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"]])
     ], ProcessHTTPMsgService);
     return ProcessHTTPMsgService;
 }());
@@ -1904,7 +1914,7 @@ var ReadarsService = /** @class */ (function () {
         var _this = this;
         return this.http.put(_shared_baseurl__WEBPACK_IMPORTED_MODULE_4__["baseURL"] + 'books/' + bookId, { 'bookavailable': book.bookavailable, 'bookreserved': book.bookreserved,
             'bookborrowed': book.bookborrowed, 'bookcurrentuser': book.bookcurrentuser,
-            'bookcurrentstatus': book.bookcurrentstatus })
+            'bookcurrentstatus': book.bookcurrentstatus, 'bookreserveddate': book.bookreserveddate })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) { return _this.processHTTPMsgService.handleError(error); }));
     };
     ReadarsService.prototype.recommendBook = function (bookId, book) {
@@ -2118,7 +2128,9 @@ var SearchedMyData = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseURL", function() { return baseURL; });
 //export const baseURL = '/api/';
-var baseURL = 'https://ec2-18-216-147-34.us-east-2.compute.amazonaws.com/api/';
+//export const baseURL = 'https://ec2-18-216-147-34.us-east-2.compute.amazonaws.com/api/';
+//export const baseURL = 'https://ec2-18-223-191-231.us-east-2.compute.amazonaws.com/api/'; 
+var baseURL = 'https://booxar.com/api/';
 //export const baseURL = 'https://localhost:3443/';
 //export const baseURL = 'http://192.168.0.15:3000/'; // currenly working for ionic app
 //export const baseURL = 'https://192.168.0.15:3443/';

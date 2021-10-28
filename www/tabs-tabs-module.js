@@ -52,7 +52,7 @@ var TabsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon src=\"../assets/icon/library.svg\"></ion-icon>\n      <ion-label>Bookshelf</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab5\">\n      <ion-icon src=\"../assets/icon/scan.svg\"></ion-icon>\n        <ion-label>ARBooks</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab4\">\n      <ion-icon src=\"../assets/icon/search.svg\"></ion-icon>\n      <ion-label>Search</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon src=\"../assets/icon/book.svg\"></ion-icon>\n      <ion-label>My Books</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon src=\"../assets/icon/person.svg\"></ion-icon>\n        <ion-label>Me</ion-label>\n    </ion-tab-button>\n   \n  </ion-tab-bar>\n\n</ion-tabs>\n"
+module.exports = "\n\n\n<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon src=\"../assets/icon/library.svg\"></ion-icon>\n      <ion-label>Bookshelf</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab5\">\n      <ion-icon src=\"../assets/icon/scan.svg\"></ion-icon>\n        <ion-label>ARBooks</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab4\">\n      <ion-icon src=\"../assets/icon/search.svg\"></ion-icon>\n      <ion-label>Search</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon src=\"../assets/icon/book.svg\"></ion-icon>\n      <ion-label>My Books</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon src=\"../assets/icon/person.svg\"></ion-icon>\n        <ion-label>Me</ion-label>\n    </ion-tab-button>\n   \n  </ion-tab-bar>\n\n</ion-tabs>\n"
 
 /***/ }),
 
@@ -91,26 +91,37 @@ __webpack_require__.r(__webpack_exports__);
 
 var TabsPage = /** @class */ (function () {
     function TabsPage(authService, booksService, readarsService, baseURL, router) {
-        var _this = this;
+        /*this.readarsService.getBooks()
+        .subscribe(books => {
+          this.books = books;
+  
+        }, errmess => this.errMess = <any>errmess);*/
         this.authService = authService;
         this.booksService = booksService;
         this.readarsService = readarsService;
         this.baseURL = baseURL;
         this.router = router;
-        this.readarsService.getBooks()
-            .subscribe(function (books) {
-            _this.books = books;
-        }, function (errmess) { return _this.errMess = errmess; });
     }
+    TabsPage.prototype.onTouchStart = function () {
+        this.restartIdleLogoutTimer();
+    };
     TabsPage.prototype.ngOnInit = function () {
         //this.showForm = false;
-        var _this = this;
-        this.readarsService.getBooks()
-            .subscribe(function (books) {
-            _this.books = books;
-        }, function (errmess) { return _this.errMess = errmess; });
+        // this.restartIdleLogoutTimer();
+        /* this.readarsService.getBooks()
+         .subscribe(books => {
+           this.books = books;
+   
+         }, errmess => this.errMess = <any>errmess);*/
     };
     TabsPage.prototype.ngAfterViewInit = function () {
+    };
+    TabsPage.prototype.restartIdleLogoutTimer = function () {
+        var _this = this;
+        clearTimeout(this.idleLogoutTimer);
+        this.idleLogoutTimer = setTimeout(function () {
+            _this.logOut();
+        }, 1800000);
     };
     TabsPage.prototype.logOut = function () {
         this.username = undefined;
@@ -118,6 +129,12 @@ var TabsPage = /** @class */ (function () {
         console.log("After authservice logout");
         this.router.navigateByUrl('/login');
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('touchstart'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], TabsPage.prototype, "onTouchStart", null);
     TabsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-tabs',
@@ -224,10 +241,20 @@ var routes = [
                             }
                         ]
                     },
+                    {
+                        path: 'showebooks',
+                        children: [
+                            {
+                                path: '',
+                                loadChildren: '../showebooks/showebooks.module#ShowebooksPageModule'
+                            }
+                        ]
+                    },
                 ]
             },
             {
                 path: 'tab2',
+                //loadChildren: '../tab2/tab2.module#Tab2PageModule'
                 children: [
                     {
                         path: '',
@@ -237,6 +264,7 @@ var routes = [
             },
             {
                 path: 'tab3',
+                //loadChildren: '../tab3/tab3.module#Tab3PageModule'
                 children: [
                     {
                         path: '',
@@ -265,7 +293,7 @@ var routes = [
                         loadChildren: '../tab5/tab5.module#Tab5PageModule'
                     }
                 ]
-            }
+            },
         ]
     },
     {

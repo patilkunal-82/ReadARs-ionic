@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { BooksService } from '../services/books.service';
 import { ReadarsService } from '../services/readars.service';
 import { Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { SearchedData } from '../services/searchbooks.service';
 import { debounceTime } from "rxjs/operators";
 import { FormControl } from "@angular/forms";
@@ -151,6 +151,8 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
 
   showGenre: boolean;
   showLanguage: boolean;
+  showSkeleton: boolean = true;
+  showSpinner: boolean = true;
 
 
   public bookIdsImages = new Map();
@@ -193,7 +195,8 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
               private imageLoaderService: ImageLoaderService,
               private toastCtrl: ToastController,
               public zone: NgZone,
-              public loadingController: LoadingController
+              public loadingController: LoadingController,
+              public alertCtrl: AlertController
               ) {
               this.searchControl = new FormControl();
 
@@ -208,7 +211,7 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
     
     
    // this.loadStoredImages();
-    this.presentLoading();
+   // this.presentLoading();
     /*this.readarsService.getBooks()
     .subscribe(books => {
 
@@ -218,16 +221,47 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
     
     }, errmess => this.errMess = <any>errmess);*/
 
+    /*this.readarsService.getRecommendedBooks()
+    .subscribe(recobooks => {
+
+      this.recobooks = recobooks;
+      console.log("RECO BOOK COLLECTION IS ---------->", this.recobooks)
+
+    }, errmess => this.errMess = <any>errmess);*/
+
+    setTimeout(() => {
+      //this.showSkeleton = false;
+      this.showSpinner = false;
+    }, 3000);
+
+    this.readarsService.getRecommendedBooks()
+    .subscribe(recobooks => {
+
+      this.recobooks = recobooks;
+      console.log("RECO BOOK COLLECTION IS ---------->", this.recobooks)
+      this.prepareBookIdsImagesMap();
+    }, errmess => this.errMess = <any>errmess);
+
+    
+
+  }
+
+  ionViewDidEnter() {
+
+    /*setTimeout(() => {
+      this.showSkeleton = false;
+    }, 3000);
+
     this.readarsService.getRecommendedBooks()
     .subscribe(recobooks => {
 
       this.recobooks = recobooks;
       console.log("RECO BOOK COLLECTION IS ---------->", this.recobooks)
 
-    }, errmess => this.errMess = <any>errmess);
+    }, errmess => this.errMess = <any>errmess);*/
+
 
     
-
   }
 
   async presentLoading() {
@@ -265,7 +299,7 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
   }
 
   ionViewWillEnter() {
-    this.prepareBookIdsImagesMap();
+    //this.prepareBookIdsImagesMap();
   }
 
   clearCache() {
@@ -350,6 +384,20 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
     if bookgenre matches with the event.detal.value, add that bookentry into genrecollection
   */
 
+    async alertManagement(message: string) {
+
+      const alert = await this.alertCtrl.create({
+        message: message,
+        header: "Please Note",
+        buttons: ['Ok']
+        
+      });
+  
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
+
   displayGenreCollection(event) {
 
     this.bookGenreCollection = [];
@@ -365,7 +413,7 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
       i++; 
     }
     if ((this.bookGenreCollection === undefined || this.bookGenreCollection.length == 0)) {
-        this.presentToast("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
+        this.alertManagement("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
     }
     console.log("BOOK GENRE & COLLECTION", event.detail.value, this.bookGenreCollection.length)
   }
@@ -385,7 +433,7 @@ export class ShowrecommendationsPage implements OnInit, AfterViewInit {
       i++; 
     }
     if ((this.bookLanguageCollection === undefined || this.bookLanguageCollection.length == 0)) {
-      this.presentToast("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
+      this.alertManagement("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
   }
     console.log("BOOK LANGUAGE & COLLECTION", event.detail.value, this.bookLanguageCollection)
   }

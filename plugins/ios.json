@@ -8,76 +8,79 @@
   },
   "installed_plugins": {
     "call-number": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "com-badrit-base64": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-base64-to-gallery": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-advanced-http": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
+    },
+    "cordova-plugin-arplugin": {
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-camera": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
+    },
+    "cordova-plugin-document-viewer": {
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-email-composer": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-file-opener2": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-filepath": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-telerik-imagepicker": {
       "PHOTO_LIBRARY_USAGE_DESCRIPTION": " ",
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-wkwebview-file-xhr": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-x-socialsharing": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-sqlite-storage": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "phonegap-plugin-barcodescanner": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-arplugin": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     }
   },
   "dependent_plugins": {
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     }
   }
 }

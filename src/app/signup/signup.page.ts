@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { ModalController} from '@ionic/angular';
+import { AlertController, ModalController} from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
@@ -23,7 +23,7 @@ export class SignupPage implements OnInit {
   constructor(private _modalController: ModalController,
               formBuilder: FormBuilder,
               private authService: AuthService, private router: Router,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController, private alertCtrl: AlertController) {
 
                 this.signupFormGroup = formBuilder.group({
                   firstname: ["", [Validators.required]],
@@ -118,13 +118,15 @@ export class SignupPage implements OnInit {
           this.router.navigateByUrl('/tabs/tab1');
         } else {
           console.log(res);
-          this.presentToast(res)
+          //this.presentToast(res)
+          this.alertManagement(res);
         }
       },
       error => {
         console.log(error);
         this.errMess = error;
-        this.presentToast(this.errMess)
+        //this.presentToast(this.errMess)
+        this.alertManagement(this.errMess);
       });
 
       this.closeModal();
@@ -138,6 +140,21 @@ export class SignupPage implements OnInit {
     });
     toast.present();
   }
+
+  async alertManagement(message: string) {
+
+    const alert = await this.alertCtrl.create({
+      message: message,
+      header: "Conflict",
+      buttons: ['Ok']
+      
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
 
   closeModal() {
     console.log("inside close modal");

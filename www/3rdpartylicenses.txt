@@ -59,6 +59,9 @@ MIT
 @ionic-native/core
 MIT
 
+@ionic-native/document-viewer
+MIT
+
 @ionic-native/email-composer
 MIT
 

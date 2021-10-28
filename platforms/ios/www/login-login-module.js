@@ -66,7 +66,7 @@ var LoginPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header  style=\"box-shadow: none;\" color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n\n  <!--<ion-toolbar *ngIf=\"flag\">\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n    Sign In\n    </ion-title>\n  </ion-toolbar>-->\n\n  <ion-card style=\"box-shadow: none;\"> \n    <ion-card-title  style=\"font:x-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    color: #145A32; font-weight: bold; font-size: 20px; margin-left: 10px; margin-top: 30px;\">\n     Boox<span style=\"background-color: #145A32; color: #FDFEFE; padding-left: 3px; padding-right: 3px;\">ar</span>\n    </ion-card-title>\n  </ion-card>\n\n</ion-header>\n\n \n<ion-content fullscreen>\n\n  \n\n  <span *ngIf=\"!flag\">\n    <!--<img class=\"displayimg\" src=\"../assets/images/homelibrary.jpeg\" style=\"height: 500px;\">-->\n        <ion-item-sliding>\n          <ion-slides [options]=\"sliderConfig\" (ionSlideDidChange)=\"slideChanged($event)\" style=\"margin-bottom: 5px;\"> \n            <ion-slide  *ngFor=\"let entry of taglinesArray\">\n              <ion-col>\n                <ion-row style=\"margin-top: 10px; margin-bottom: 5px;\">\n                  <!--<img-loader class=\"displayimg\" [src]=\"entry[0]\"  style=\"height: 450px;\"\n                  useImg (load)=\"onImageLoad($event)\"></img-loader>-->\n                  <img class=\"displayimg\" [src]=\"entry[0]\"  style=\"height: 450px;\" />\n                </ion-row>\n                <ion-label style=\"color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                font-size:20px; font-weight:bold; align-content: center;\" class=\"item-text-wrap, ion-text-center\">{{entry[1]}}</ion-label>\n              </ion-col>\n            </ion-slide>\n          </ion-slides>\n        </ion-item-sliding>\n  </span>\n  \n  <ion-card *ngIf=\"flag\" style=\"box-shadow:olivedrab\">\n    <ion-card-content>\n      <form [formGroup]=\"loginFormGroup\">\n        <ion-item>\n          <ion-label color=\"medium\">Username</ion-label>\n          <ion-input formControlName=\"username\" type=\"text\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.username\">\n          <ng-container >\n            <div style=\"color:grey; font-size: small;\">\n              {{formErrors.username}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-item>\n          <ion-label color=\"medium\">Password</ion-label>\n          <ion-input formControlName=\"password\" type=\"password\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.password\">\n          <ng-container >\n            <div style=\"color:grey; font-size: small;\">\n              {{formErrors.password}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-row>\n          <ion-col>\n            <!--<ion-button shape=\"round\" (click)=\"logIn()\" style=\"color: whitesmoke;\" [disabled]=\"loginFormGroup.invalid\" \n             expand=\"full\" margin-top class=\"center\"><strong>Sign In</strong></ion-button>\n         \n            <ion-button  shape=\"round\" size=\"mini\" (click)=\"cancel()\" expand=\"full\" \n             margin-top style=\"color: whitesmoke\" class=\"center\">\n             Cancel\n             </ion-button>-->\n             <ion-card style=\"box-shadow: none;\">\n                <ion-button shape=\"round\" (click)=\"logIn()\"  \n                style=\"color: whitesmoke;\" [disabled]=\"loginFormGroup.invalid\" margin-top class=\"center\"> \n                <strong>Sign In</strong>\n                </ion-button>\n                <ion-card-subtitle margin-top shape=\"round\" (click)=\"cancel()\" button  \n                 style=\"color: #145A32; font-size: larger; font-weight: bolder; font-style: normal\" class=\"ion-text-center\">\n                  Cancel\n              </ion-card-subtitle>\n            </ion-card>\n\n           </ion-col>\n        </ion-row>\n       <!-- <ion-button shape=\"round\" (click)=\"cancel()\" margin-top expand=\"block\" style=\"color:grey\">Cancel</ion-button>-->\n      </form>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card style=\"box-shadow: none;\">\n    <ion-button margin-top shape=\"round\" *ngIf=\"!flag\" (click)=\"signupModal()\"  expand=\"block\"\n    style=\"color: white; font-size:large; font-style: normal; \" class=\"center\"> \n     Not a member ? Join Now!\n    </ion-button>\n   <ion-card-subtitle *ngIf=\"!flag\" margin-top shape=\"round\" (click)=\"displayLogin()\" button \n   style=\"color: #145A32; font-size: larger; font-weight: bolder; font-style: normal\" class=\"ion-text-center\">\n     Sign In\n   </ion-card-subtitle>\n  </ion-card>\n  \n    \n</ion-content>\n"
+module.exports = "<ion-header  style=\"box-shadow: none;\" color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n\n  <!--<ion-toolbar *ngIf=\"flag\">\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n               color: #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n    Sign In\n    </ion-title>\n  </ion-toolbar>-->\n\n  <ion-card style=\"box-shadow: none;\"> \n    <ion-card-title  style=\"font:x-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    color: #145A32; font-weight: bold; font-size: 20px; margin-left: 10px; margin-top: 30px;\">\n     Boox<span style=\"background-color: #145A32; color: #FDFEFE; padding-left: 3px; padding-right: 3px;\">ar</span>\n    </ion-card-title>\n  </ion-card>\n\n</ion-header>\n\n \n<ion-content fullscreen>\n\n  \n\n  <span *ngIf=\"!flag\">\n    <!--<img class=\"displayimg\" src=\"../assets/images/homelibrary.jpeg\" style=\"height: 500px;\">-->\n        <ion-item-sliding>\n          <ion-slides [options]=\"sliderConfig\" (ionSlideDidChange)=\"slideChanged($event)\" style=\"margin-bottom: 5px;\"> \n            <ion-slide  *ngFor=\"let entry of taglinesArray\">\n              <ion-col>\n                <ion-row style=\"margin-top: 10px; margin-bottom: 5px;\">\n                  <!--<img-loader class=\"displayimg\" [src]=\"entry[0]\"  style=\"height: 450px;\"\n                  useImg (load)=\"onImageLoad($event)\"></img-loader>-->\n                  <img class=\"displayimg\" [src]=\"entry[0]\"  style=\"height: 450px;\" />\n                </ion-row >\n                <ion-label style=\"color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                font-size:20px; font-weight:bold; align-content: center;\" class=\"item-text-wrap, ion-text-center\">{{entry[1]}}</ion-label>\n              </ion-col>\n            </ion-slide>\n          </ion-slides>\n        </ion-item-sliding>\n  </span>\n  \n  <ion-card *ngIf=\"flag\" style=\"box-shadow:darkolivegreen\">\n    <ion-card-content>\n      <form [formGroup]=\"loginFormGroup\">\n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">Username: </ion-label>\n          <ion-input formControlName=\"username\" type=\"text\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.username\">\n          <ng-container >\n            <div style=\"color:grey; font-size: small;\">\n              {{formErrors.username}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">Password: </ion-label>\n          <ion-input formControlName=\"password\" type=\"password\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.password\">\n          <ng-container >\n            <div style=\"color:grey; font-size: small;\">\n              {{formErrors.password}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-row>\n          <ion-col>\n            <!--<ion-button shape=\"round\" (click)=\"logIn()\" style=\"color: whitesmoke;\" [disabled]=\"loginFormGroup.invalid\" \n             expand=\"full\" margin-top class=\"center\"><strong>Sign In</strong></ion-button>\n         \n            <ion-button  shape=\"round\" size=\"mini\" (click)=\"cancel()\" expand=\"full\" \n             margin-top style=\"color: whitesmoke\" class=\"center\">\n             Cancel\n             </ion-button>-->\n             <ion-card style=\"box-shadow: none;\">\n                <ion-button shape=\"round\" (click)=\"logIn()\"  \n                style=\"color: whitesmoke;\" [disabled]=\"loginFormGroup.invalid\" margin-top class=\"center\"> \n                <strong>Sign In</strong>\n                </ion-button>\n                <ion-card-subtitle margin-top shape=\"round\" (click)=\"cancel()\" button  \n                 style=\"color: #145A32; font-size: larger; font-weight: bolder; font-style: normal\" class=\"ion-text-center\">\n                  Cancel\n              </ion-card-subtitle>\n            </ion-card>\n\n           </ion-col>\n        </ion-row>\n       <!-- <ion-button shape=\"round\" (click)=\"cancel()\" margin-top expand=\"block\" style=\"color:grey\">Cancel</ion-button>-->\n      </form>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card style=\"box-shadow: none;\">\n    <ion-button margin-top shape=\"round\" *ngIf=\"!flag\" (click)=\"signupModal()\"  expand=\"block\"\n    style=\"color: white; font-size:large; font-style: normal; \" class=\"center\"> \n     Not a member ? Join Now!\n    </ion-button>\n   <ion-card-subtitle *ngIf=\"!flag\" margin-top shape=\"round\" (click)=\"displayLogin()\" button \n   style=\"color: #145A32; font-size: larger; font-weight: bolder; font-style: normal\" class=\"ion-text-center\">\n     Sign In\n   </ion-card-subtitle>\n  </ion-card>\n  \n    \n</ion-content>\n"
 
 /***/ }),
 
@@ -111,7 +111,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(formBuilder, authService, router, _modalController, imageLoaderService, toastCtrl, loadingController) {
+    function LoginPage(formBuilder, authService, router, _modalController, imageLoaderService, toastCtrl, loadingController, alertCtrl) {
         var _this = this;
         this.authService = authService;
         this.router = router;
@@ -119,6 +119,7 @@ var LoginPage = /** @class */ (function () {
         this.imageLoaderService = imageLoaderService;
         this.toastCtrl = toastCtrl;
         this.loadingController = loadingController;
+        this.alertCtrl = alertCtrl;
         this.sliderConfig = {
             initialSlide: 0,
             slidesPerView: 1,
@@ -246,6 +247,30 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
+    LoginPage.prototype.alertManagement = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert, role;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertCtrl.create({
+                            message: message,
+                            header: "Error",
+                            buttons: ['Ok']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, alert.onDidDismiss()];
+                    case 3:
+                        role = (_a.sent()).role;
+                        console.log('onDidDismiss resolved with role', role);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     LoginPage.prototype.presentLoading = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var loading, _a, role, data;
@@ -294,24 +319,30 @@ var LoginPage = /** @class */ (function () {
         }
     };
     LoginPage.prototype.logIn = function () {
-        var _this = this;
-        this.user = this.loginFormGroup.value;
-        console.log('User: ', this.user);
-        this.presentLoading();
-        this.authService.logIn(this.user)
-            .subscribe(function (res) {
-            if (res.success) {
-                console.log("Success");
-                //this.dialogRef.close(res.success);
-                _this.router.navigateByUrl('/tabs/tab1');
-            }
-            else {
-                console.log(res);
-            }
-        }, function (error) {
-            console.log(error);
-            _this.errMess = error;
-            _this.presentToast(_this.errMess);
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.user = this.loginFormGroup.value;
+                console.log('User: ', this.user);
+                this.presentLoading();
+                this.authService.logIn(this.user)
+                    .subscribe(function (res) {
+                    if (res.success) {
+                        console.log("Success");
+                        //this.dialogRef.close(res.success);
+                        _this.router.navigateByUrl('/tabs/tab1');
+                    }
+                    else {
+                        console.log(res);
+                    }
+                }, function (error) {
+                    console.log(error);
+                    _this.errMess = error;
+                    //this.presentToast(this.errMess);
+                    _this.alertManagement(_this.errMess);
+                });
+                return [2 /*return*/];
+            });
         });
     };
     LoginPage.prototype.cancel = function () {
@@ -326,7 +357,7 @@ var LoginPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"], ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_7__["ImageLoaderService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"]])
     ], LoginPage);
     return LoginPage;
 }());
@@ -387,7 +418,7 @@ var SignupPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n               color:  #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Join Booxar\n    </ion-title>\n  </ion-toolbar>\n\n\n  \n\n \n</ion-header> \n\n<ion-content>\n\n\n \n  <ion-card style=\"box-shadow:olivedrab\">\n\n    \n\n    <ion-card-content>\n\n      \n\n      <form [formGroup]=\"signupFormGroup\">\n\n        \n        <ion-item>\n          <ion-label color=\"medium\">First Name</ion-label>\n          <ion-input formControlName=\"firstname\" type=\"text\" required></ion-input>\n        </ion-item>\n        \n        <ion-item>\n          <ion-label color=\"medium\">Last Name</ion-label>\n          <ion-input formControlName=\"lastname\" type=\"text\" required></ion-input>\n        </ion-item>\n        \n        <ion-item>\n          <ion-label color=\"medium\">Username</ion-label>\n          <ion-input formControlName=\"username\" type=\"text\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.username\">\n          <ng-container >\n            <div style=\"color:grey; font-size:x-small;\">\n              {{formErrors.username}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-item>\n          <ion-label color=\"medium\">Password</ion-label>\n          <ion-input formControlName=\"password\" type=\"password\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.password\">\n          <ng-container >\n            <div style=\"color:grey; font-size:x-small;\">\n              {{formErrors.password}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-item>\n          <ion-label color=\"medium\">Email</ion-label>\n          <ion-input formControlName=\"email\" type=\"email\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.email\">\n          <ng-container >\n            <div style=\"color:grey; font-size:x-small;\">\n              {{formErrors.email}}\n            </div>\n          </ng-container>\n        </div>\n\n        <!--<ion-row>\n          <ion-col>\n            <ion-button shape=\"round\" (click)=\"onSubmit()\" style=\"color: white; background-color: darkgreen\"\n            [disabled]=\"signupFormGroup.invalid\" margin-top expand=\"full\">Join</ion-button>\n          </ion-col>\n          <ion-col>\n            <ion-button  shape=\"round\" size=\"mini\" (click)=\"closeModal()\" expand=\"block\" \n            margin-top style=\"color:grey; \">\n             Cancel\n             </ion-button>\n          </ion-col>\n        </ion-row>-->\n\n        <ion-card style=\"box-shadow: none;\">\n          <ion-button margin-top shape=\"round\" *ngIf=\"!flag\" (click)=\"onSubmit()\"  expand=\"block\"\n          [disabled]=\"signupFormGroup.invalid\" style=\"color: white; font-size:large; font-style: normal; \" class=\"center\"> \n          Join\n          </ion-button>\n         <ion-card-subtitle *ngIf=\"!flag\" margin-top shape=\"round\" (click)=\"closeModal()\" button \n         style=\"color: #145A32; font-size: larger; font-weight: bolder; font-style: normal\" class=\"ion-text-center\">\n           Cancel\n         </ion-card-subtitle>\n        </ion-card>\n\n       \n       \n      </form>\n    </ion-card-content>\n  </ion-card>  \n\n\n</ion-content>\n"
+module.exports = "<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar >\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n               color:  #FDFEFE  ; font-weight: bolder; font-size: 25px;\">\n     Join Booxar\n    </ion-title>\n  </ion-toolbar>\n\n\n  \n\n \n</ion-header> \n\n<ion-content>\n\n\n \n  <ion-card style=\"box-shadow:olivedrab\">\n\n    \n\n    <ion-card-content>\n\n      \n\n      <form [formGroup]=\"signupFormGroup\">\n\n        \n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">First Name:</ion-label>\n          <ion-input formControlName=\"firstname\" type=\"text\" required></ion-input>\n        </ion-item>\n        \n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">Last Name:</ion-label>\n          <ion-input formControlName=\"lastname\" type=\"text\" required></ion-input>\n        </ion-item>\n        \n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">Username:</ion-label>\n          <ion-input formControlName=\"username\" type=\"text\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.username\">\n          <ng-container >\n            <div style=\"color:grey; font-size:x-small;\">\n              {{formErrors.username}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">Password:</ion-label>\n          <ion-input formControlName=\"password\" type=\"password\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.password\">\n          <ng-container >\n            <div style=\"color:grey; font-size:x-small;\">\n              {{formErrors.password}}\n            </div>\n          </ng-container>\n        </div>\n        <ion-item>\n          <ion-label style=\"color:darkslategrey\">Email:</ion-label>\n          <ion-input formControlName=\"email\" type=\"email\" required></ion-input>\n        </ion-item>\n        <div *ngIf=\"formErrors.email\">\n          <ng-container >\n            <div style=\"color:grey; font-size:x-small;\">\n              {{formErrors.email}}\n            </div>\n          </ng-container>\n        </div>\n\n        <!--<ion-row>\n          <ion-col>\n            <ion-button shape=\"round\" (click)=\"onSubmit()\" style=\"color: white; background-color: darkgreen\"\n            [disabled]=\"signupFormGroup.invalid\" margin-top expand=\"full\">Join</ion-button>\n          </ion-col>\n          <ion-col>\n            <ion-button  shape=\"round\" size=\"mini\" (click)=\"closeModal()\" expand=\"block\" \n            margin-top style=\"color:grey; \">\n             Cancel\n             </ion-button>\n          </ion-col>\n        </ion-row>-->\n\n        <ion-card style=\"box-shadow: none;\">\n          <ion-button margin-top shape=\"round\" (click)=\"onSubmit()\"  expand=\"block\"\n          [disabled]=\"signupFormGroup.invalid\" style=\"color: white; font-size:large; font-style: normal; \" class=\"center\"> \n          Join\n          </ion-button>\n         <ion-card-subtitle margin-top shape=\"round\" (click)=\"closeModal()\" button \n         style=\"color: #145A32; font-size: larger; font-weight: bolder; font-style: normal\" class=\"ion-text-center\">\n           Cancel\n         </ion-card-subtitle>\n        </ion-card>\n\n       \n       \n      </form>\n    </ion-card-content>\n  </ion-card>  \n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -426,12 +457,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SignupPage = /** @class */ (function () {
-    function SignupPage(_modalController, formBuilder, authService, router, toastCtrl) {
+    function SignupPage(_modalController, formBuilder, authService, router, toastCtrl, alertCtrl) {
         var _this = this;
         this._modalController = _modalController;
         this.authService = authService;
         this.router = router;
         this.toastCtrl = toastCtrl;
+        this.alertCtrl = alertCtrl;
         this.newuser = { firstname: '', lastname: '', username: '', password: '', email: '' };
         this.formErrors = {
             'firstname': '',
@@ -511,12 +543,14 @@ var SignupPage = /** @class */ (function () {
             }
             else {
                 console.log(res);
-                _this.presentToast(res);
+                //this.presentToast(res)
+                _this.alertManagement(res);
             }
         }, function (error) {
             console.log(error);
             _this.errMess = error;
-            _this.presentToast(_this.errMess);
+            //this.presentToast(this.errMess)
+            _this.alertManagement(_this.errMess);
         });
         this.closeModal();
     };
@@ -533,6 +567,30 @@ var SignupPage = /** @class */ (function () {
                     case 1:
                         toast = _a.sent();
                         toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    SignupPage.prototype.alertManagement = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert, role;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertCtrl.create({
+                            message: message,
+                            header: "Conflict",
+                            buttons: ['Ok']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, alert.onDidDismiss()];
+                    case 3:
+                        role = (_a.sent()).role;
+                        console.log('onDidDismiss resolved with role', role);
                         return [2 /*return*/];
                 }
             });
@@ -555,7 +613,7 @@ var SignupPage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
             _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
     ], SignupPage);
     return SignupPage;
 }());

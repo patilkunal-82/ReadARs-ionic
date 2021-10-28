@@ -42,6 +42,8 @@ export class Tab4Page implements OnInit, AfterViewInit {
   descending: boolean = false;
   order: number;
   column: string = 'booklanguage';
+  showSkeleton: boolean = true;
+  showSpinner: boolean = true;
 
   constructor(public navCtrl: NavController, private authService: AuthService, private booksService: BooksService,
     private readarsService: ReadarsService, private imageLoaderService: ImageLoaderService,
@@ -52,20 +54,30 @@ export class Tab4Page implements OnInit, AfterViewInit {
   ngOnInit() {
     //this.showForm = false;
 
-      this.presentLoading();
+      /*this.presentLoading();
       this.setFilteredItems();
       this.readarsService.getBooks()
        .subscribe(books => {
-      this.books = books;
+     this.books = books;
       console.log("BOOK COLLECTION IS ---------->", this.books)
     }, errmess => this.errMess = <any>errmess);
 
-      this.prepareBookIdsImagesMap();
-    /*  this.searchControl.valueChanges
-      .pipe(debounceTime(700))
-      .subscribe(search => {
-        this.setFilteredItems(search);
-      });*/
+      this.prepareBookIdsImagesMap();*/
+
+      setTimeout(() => {
+        //this.showSkeleton = false;
+        this.showSpinner = false;
+      }, 3000);
+  
+  
+      this.readarsService.getBooks()
+      .subscribe(books => {
+        this.books = books;
+        this.prepareBookIdsImagesMap();
+          console.log("BOOK COLLECTION IS ---------->", this.books)
+      }, errmess => this.errMess = <any>errmess);
+      this.setFilteredItems();
+    
   }
 
   async presentLoading() {
@@ -80,12 +92,33 @@ export class Tab4Page implements OnInit, AfterViewInit {
     console.log('Loading dismissed!');
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
 
+    //this.showForm = false;
+
+    //this.presentLoading();
+
+    /*setTimeout(() => {
+      this.showSkeleton = false;
+    }, 3000);
+
+
+    this.readarsService.getBooks()
+      .subscribe(books => {
+     this.books = books;
+     this.prepareBookIdsImagesMap();
+      console.log("BOOK COLLECTION IS ---------->", this.books)
+    }, errmess => this.errMess = <any>errmess);
+    this.setFilteredItems();*/
+
+    
    
-      this.prepareBookIdsImagesMap();
+  
+  }
+
+  ionViewWillEnter() {
+     // this.prepareBookIdsImagesMap();
  
-   
   }
 
   

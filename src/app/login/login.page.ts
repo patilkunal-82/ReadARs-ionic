@@ -6,7 +6,7 @@ import { AuthService } from '../services/auth.service';
 //import { SignupComponent } from '../signup/signup.component';
 import { Router } from '@angular/router';
 import { SignupPage } from '../signup/signup.page';
-import { ModalController} from '@ionic/angular';
+import { AlertController, ModalController} from '@ionic/angular';
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
@@ -26,6 +26,7 @@ export class LoginPage implements OnInit, OnDestroy {
     initialSlide: 0,
     slidesPerView: 1,
     loop: true,
+  
     autoplay: {
       
      //disableOnInteraction: false,
@@ -87,7 +88,7 @@ export class LoginPage implements OnInit, OnDestroy {
   constructor(
     formBuilder: FormBuilder, private authService: AuthService, private router: Router,
     private _modalController: ModalController, private imageLoaderService: ImageLoaderService,
-    private toastCtrl: ToastController,  public loadingController: LoadingController) {
+    private toastCtrl: ToastController,  public loadingController: LoadingController, private alertCtrl:AlertController) {
 
     this.loginFormGroup = formBuilder.group({
       username: ["", [Validators.required]],
@@ -183,6 +184,20 @@ export class LoginPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  async alertManagement(message: string) {
+
+    const alert = await this.alertCtrl.create({
+      message: message,
+      header: "Error",
+      buttons: ['Ok']
+      
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
@@ -194,6 +209,8 @@ export class LoginPage implements OnInit, OnDestroy {
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
+
+  
 
   async signupModal() {
 
@@ -213,7 +230,7 @@ export class LoginPage implements OnInit, OnDestroy {
     
   }
 
-  logIn() {
+  async logIn() {
     this.user = this.loginFormGroup.value;
     console.log('User: ', this.user);
     this.presentLoading();
@@ -233,7 +250,8 @@ export class LoginPage implements OnInit, OnDestroy {
       error => {
         console.log(error);
         this.errMess = error;
-        this.presentToast(this.errMess);
+        //this.presentToast(this.errMess);
+        this.alertManagement(this.errMess);
       });
 
   }

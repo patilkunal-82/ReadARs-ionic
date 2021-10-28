@@ -11,11 +11,13 @@ import { AddbookPageModule } from '../addbook/addbook.module';
 import { IonicImageLoaderModule } from 'ionic-image-loader-v5';
 import { Tab4PageModule } from '../tab4/tab4.module';
 import { ArbookPageModule } from '../arbook/arbook.module';
+import { ManagebookshelpPageModule} from '../managebookshelp/managebookshelp.module'
 
 @NgModule({
   imports: [
     AddbookPageModule,
     ArbookPageModule,
+    ManagebookshelpPageModule,
     IonicModule,
     CommonModule,
     FormsModule,

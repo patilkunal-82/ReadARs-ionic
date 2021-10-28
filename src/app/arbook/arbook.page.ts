@@ -15,6 +15,7 @@ import { MultiFileContentUploadComponent} from '../components/multi-file-content
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 
 @Component({
@@ -375,7 +376,6 @@ export class ArbookPage implements OnInit {
     console.log("Additional Contents", this.addtlContents);
 
     
-
    this.booksService.getBookPlistXml(this.bookId)
     .subscribe(plist => {
         this.plistCopy = plist;
@@ -392,10 +392,9 @@ export class ArbookPage implements OnInit {
         let existingContentValues = [];
         for (let i=0; i<keyElLength;i++) {
           let anchorKey = xmlDocument.getElementsByTagName('key')[i].childNodes[0].nodeValue;
-          //console.log("anchorkey", anchorKey);
+         
           if (anchorKey === this.selectedAnchorName) {
-            //console.log("Success", anchorKey);
-            //console.log("Success", anchorName);
+         
             for (let j=0;j<valElLength;j++) {
               let value = xmlDocument.getElementsByTagName('value')[j].childNodes[0].nodeValue;
               if (value.includes(this.selectedAnchorName)) {
@@ -409,25 +408,19 @@ export class ArbookPage implements OnInit {
         plistMap.set(this.selectedAnchorName, []);  
         console.log("selected anchor name", this.selectedAnchorName);
         for (let j=0; j < this.addtlContents.length;j++) {
+
+          console.log("additional CONTENT", this.addtlContents[j])
+          console.log("additional CONTENT type", this.addtlContents[j].type)
+  
           let index = this.addtlContents[j].rawFile.type.indexOf("/");
           let contenttype = this.addtlContents[j].rawFile.type.substring(0,index);
           let nextContentName = this.selectedAnchorName+'content'+(existingContentValues.length+j+1)+contenttype;
           plistMap.get(this.selectedAnchorName).push(nextContentName);
+
+
         }
         console.log("plistMap", plistMap);
 
-        /*
-              for (let i=0; i<this.addtlContents.length;i++) {
-              console.log("Additional content name", this.addtlContents[i].rawFile.name);
-              let type = this.addtlContents[i].rawFile.type
-              let index = type.indexOf("/");
-              let contenttype = type.substring(0,index);
-              console.log("Additional content type", contenttype);
-            }
-
-        */
-
-       
         //append content files
         for (let i=0; i< this.addtlContents.length; i++) {
           let index = this.addtlContents[i].rawFile.type.indexOf("/");
@@ -575,6 +568,8 @@ export class ArbookPage implements OnInit {
       let plistMap = new Map<string, string[]>();
       plistMap.set(anchorName, []);   
       for (let j=0; j < contents.length;j++) {
+
+       
         let index = contents[j].type.indexOf('/');
         let contenttype = contents[j].type.substring(0,index);
         let contentName = anchorName + 'content' + (j+1) + contenttype;

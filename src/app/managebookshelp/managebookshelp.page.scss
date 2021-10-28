@@ -1,0 +1,21 @@
+
+ion-button {
+    --background: #F4F6F7 ;
+  }
+
+  ion-toolbar {
+    //--background: #1B4F72;
+    --background: #145A32;
+}
+
+ion-card{
+    border-radius: 10px;
+    border: #145A32;
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  display: block !important;
+  
+}

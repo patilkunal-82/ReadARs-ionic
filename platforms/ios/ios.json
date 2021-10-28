@@ -69,6 +69,10 @@
               "count": 1
             },
             {
+              "xml": "<feature name=\"ArPlugin\"><param name=\"ios-package\" value=\"ArPlugin\" /></feature>",
+              "count": 1
+            },
+            {
               "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
               "count": 1
             },
@@ -78,6 +82,10 @@
             },
             {
               "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"SitewaertsDocumentViewer\"><param name=\"ios-package\" value=\"SitewaertsDocumentViewer\" /></feature>",
               "count": 1
             },
             {
@@ -139,10 +147,6 @@
             {
               "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
               "count": 1
-            },
-            {
-              "xml": "<feature name=\"ArPlugin\"><param name=\"ios-package\" value=\"ArPlugin\" /></feature>",
-              "count": 1
             }
           ]
         }
@@ -151,74 +155,77 @@
   },
   "installed_plugins": {
     "call-number": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "com-badrit-base64": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-base64-to-gallery": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-advanced-http": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
+    },
+    "cordova-plugin-arplugin": {
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-camera": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
+    },
+    "cordova-plugin-document-viewer": {
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-email-composer": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-file-opener2": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-filepath": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-telerik-imagepicker": {
       "PHOTO_LIBRARY_USAGE_DESCRIPTION": " ",
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-wkwebview-file-xhr": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-plugin-x-socialsharing": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "cordova-sqlite-storage": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     },
     "phonegap-plugin-barcodescanner": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-arplugin": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "readARs82"
     }
   },
   "dependent_plugins": {},
@@ -499,6 +506,14 @@
       ]
     },
     {
+      "id": "cordova-plugin-arplugin.ArPlugin",
+      "file": "plugins/cordova-plugin-arplugin/www/ArPlugin.js",
+      "pluginId": "cordova-plugin-arplugin",
+      "clobbers": [
+        "ArPlugin"
+      ]
+    },
+    {
       "id": "cordova-plugin-camera.Camera",
       "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
       "pluginId": "cordova-plugin-camera",
@@ -536,6 +551,15 @@
       "pluginId": "cordova-plugin-device",
       "clobbers": [
         "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-document-viewer.SitewaertsDocumentViewer",
+      "file": "plugins/cordova-plugin-document-viewer/www/sitewaertsdocumentviewer.js",
+      "pluginId": "cordova-plugin-document-viewer",
+      "clobbers": [
+        "cordova.plugins.SitewaertsDocumentViewer",
+        "SitewaertsDocumentViewer"
       ]
     },
     {
@@ -647,14 +671,6 @@
       "clobbers": [
         "cordova.plugins.barcodeScanner"
       ]
-    },
-    {
-      "id": "cordova-plugin-arplugin.ArPlugin",
-      "file": "plugins/cordova-plugin-arplugin/www/ArPlugin.js",
-      "pluginId": "cordova-plugin-arplugin",
-      "clobbers": [
-        "ArPlugin"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -664,8 +680,10 @@
     "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-advanced-http": "3.1.0",
+    "cordova-plugin-arplugin": "1.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-document-viewer": "1.0.0",
     "cordova-plugin-email-composer": "0.9.2",
     "cordova-plugin-file-opener2": "3.0.5",
     "cordova-plugin-filepath": "1.6.0",
@@ -679,7 +697,6 @@
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "5.4.4",
     "cordova-sqlite-storage": "6.0.0",
-    "phonegap-plugin-barcodescanner": "8.1.1-dev",
-    "cordova-plugin-arplugin": "1.0"
+    "phonegap-plugin-barcodescanner": "8.1.1-dev"
   }
 }

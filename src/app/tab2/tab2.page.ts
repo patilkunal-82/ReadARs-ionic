@@ -36,6 +36,8 @@ export class Tab2Page {
   convertedImage: any;
   base64Data: any;
   public url: SafeResourceUrl;
+  showSkeleton: boolean = true;
+
   constructor(bookdetailService: BookdetailService, private authService: AuthService,
     private _camera: Camera,
     private _alertController: AlertController,
@@ -56,9 +58,12 @@ export class Tab2Page {
 
   ngOnInit() {
 
+    setTimeout(() => {
+      this.showSkeleton = false;
+    }, 3000);
 
     this.authService.loadUserCredentials();
-    this.presentLoading();
+    //this.presentLoading();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { 
         console.log(name); 
@@ -76,6 +81,9 @@ export class Tab2Page {
     }   
   });
   }
+
+
+
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',

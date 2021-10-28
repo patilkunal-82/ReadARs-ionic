@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 import { BooksService } from '../services/books.service';
 import { ReadarsService } from '../services/readars.service';
 import { Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { SearchedData } from '../services/searchbooks.service';
 import { debounceTime } from "rxjs/operators";
 import { FormControl } from "@angular/forms";
@@ -100,7 +100,8 @@ export class ShowbygenrePage implements OnInit, AfterViewInit {
               private imageLoaderService: ImageLoaderService,
               private toastCtrl: ToastController,
               public zone: NgZone,
-              public loadingController: LoadingController
+              public loadingController: LoadingController,
+              public alertCtrl: AlertController
               ) {
               this.searchControl = new FormControl();
 
@@ -135,6 +136,20 @@ export class ShowbygenrePage implements OnInit, AfterViewInit {
 
     
 
+  }
+
+  async alertManagement(message: string) {
+
+    const alert = await this.alertCtrl.create({
+      message: message,
+      header: "Please Note",
+      buttons: ['Ok']
+      
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
   async presentLoading() {
@@ -272,7 +287,7 @@ export class ShowbygenrePage implements OnInit, AfterViewInit {
       i++; 
     }
     if ((this.bookGenreCollection === undefined || this.bookGenreCollection.length == 0)) {
-        this.presentToast("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
+        this.alertManagement("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
     }
     console.log("BOOK GENRE & COLLECTION", event.detail.value, this.bookGenreCollection.length)
   }
@@ -292,7 +307,7 @@ export class ShowbygenrePage implements OnInit, AfterViewInit {
       i++; 
     }
     if ((this.bookLanguageCollection === undefined || this.bookLanguageCollection.length == 0)) {
-      this.presentToast("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
+      this.alertManagement("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
   }
     console.log("BOOK LANGUAGE & COLLECTION", event.detail.value, this.bookLanguageCollection)
   }

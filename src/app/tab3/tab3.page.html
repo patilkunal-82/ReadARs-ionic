@@ -1,22 +1,34 @@
 <ion-header color="success" [translucent]="true" collapse="condense">
-  <ion-toolbar >
-    <ion-title *ngIf="username" size="large" 
+  <ion-toolbar>
+    
+    <ion-title size="large" 
     style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #FDFEFE  ; font-weight: bolder; font-size: 25px;">
-     Manage
+     Manage 
+   
     </ion-title>
-  </ion-toolbar>
+    
 
+    <ion-buttons slot="end">
+     
+      <ion-icon style="color: #FDFEFE;" src="../assets/icon/information-circle.svg" size="medium" (click)="helpModal()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
   
+  
+
+
 </ion-header> 
+
+
 
 <ion-content>
 
   
     
-    <ion-button shape="round" (click)="addBookModal()" margin-top expand="block">
+    <ion-button shape="round" (click)="addBookModal()" margin-top expand="block" style="color:darkgreen">
         <ion-icon style="color: #145A32;" src="../assets/icon/add-circle.svg"></ion-icon>
-        <span style="color:  #145A32; margin-left: 5px; " class="ion-text-left">Add New Book</span>
+        <span style="color:  #145A32; margin-left: 5px; " class="ion-text-left"> Add new book in the bookshelf</span>
     </ion-button>
    
     <ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
@@ -25,99 +37,152 @@
     </ion-refresher>
 
   
-  <ion-list>
+  <!--<ion-list>-->
 
     <ion-button shape="round" margin-top expand="block">
-      <ion-icon style="color: #145A32; " src="../assets/icon/book.svg"></ion-icon>
-      <span style="color:  #145A32; margin-left: 5px; " class="ion-text-left">My books by status</span>
-   </ion-button>
+      <ion-icon style="color: olivedrab; " src="../assets/icon/book.svg"></ion-icon>
+      <span style="color:  olivedrab; margin-left: 5px; " class="ion-text-left"> My books - as Book Owner</span>
+    </ion-button>
 
-    <ion-select (ionChange)="displayBooksByStatus($event)" interface="popover" placeholder="Select ..">
+    <ion-select (ionChange)="displayBooksByStatus($event)" interface="popover" placeholder="Select current status...">
       <ion-select-option *ngFor="let status of bookcurrentstatus" [value]="status"> {{status}}</ion-select-option>
    </ion-select>
    
-  <ion-item-sliding *ngFor="let rBook of reservedBooks">
-    <ion-item *ngIf="showReserved">
-      <ion-card *ngIf="showReserved">
-       <ion-thumbnail *ngIf="showReserved">
-        
-         <img-loader [src]="(bookIdImageMap.get(rBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
-       </ion-thumbnail>
-      </ion-card>
-      <ion-label *ngIf="showReserved" class="ion-text-wrap">
-           <strong>{{rBook.bookname}}</strong>
-           <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>
-           <h3 *ngIf="rBook.bookcurrentstatus == 'available' " style="color: green;">{{rBook.bookcurrentstatus}}</h3>
-           <h3 *ngIf="rBook.bookcurrentstatus == 'borrowed' " style="color: red;">{{rBook.bookcurrentstatus}}</h3>
-           <h3 *ngIf="rBook.bookcurrentstatus == 'reserved' " style="color: orange;">{{rBook.bookcurrentstatus}}</h3>
-           <!--<span *ngIf="rBook.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{rBook.bookcurrentstatus}}</span>
-           <span *ngIf="rBook.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{rBook.bookcurrentstatus}}</span>
-           <span *ngIf="rBook.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{rBook.bookcurrentstatus}}</span>-->      
-       </ion-label>
-    </ion-item>
-   <ion-item-options side="start">
-     <ion-item-option *ngIf="showReserved">
-       <ion-icon style="color: red;" *ngIf="rBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
-       (click)="checkDeleteConfirmation(rBook._id)"></ion-icon>
-     </ion-item-option>
-   </ion-item-options>
-  <ion-item-options side="end">
-   <ion-item-option *ngIf="showReserved">
-     <ion-icon style="color: blue" *ngIf="(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable" slot="icon-only"
-     src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(rBook._id)"></ion-icon>
-   </ion-item-option>
-   <ion-item-option>
-    <!--<ion-icon style="color: darkgreen"  slot="icon-only"
-    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(rBook._id, rBook.bookname)">AR</ion-icon>-->
-    <ion-label style="color: darkgreen" (click)="arBookModal(rBook._id, rBook.bookname)">AR</ion-label>
-  </ion-item-option>
-  </ion-item-options>
-</ion-item-sliding>
+   <!--<ion-label class="ion-text-wrap" *ngIf="nobooksEXIST" style="color: green; padding: 20px; font-size: small;">You have not added any books yet</ion-label>-->
+   <ion-label class="ion-text-wrap" *ngIf="nobooksAVAILABLE" style="color: green; padding: 20px; font-size: small;">None Available OR you have not added any!</ion-label>
+   <ion-label class="ion-text-wrap"*ngIf="nobooksRESERVED" style="color: green; padding: 20px; font-size: small;">No one has Reserved your books so far..</ion-label>
+   <ion-label class="ion-text-wrap" *ngIf="nobooksBORROWED" style="color: green; padding: 20px; font-size: small;">No one has Borrowed your books so far..</ion-label>
 
-<ion-item-sliding *ngFor="let aBook of availableBooks ">
+    <ion-list *ngIf="showReserved" >
+      <ion-item *ngFor="let rBook of reservedBooks">
+        <ion-card>
+          <ion-thumbnail>
+            <img-loader [src]="(bookIdImageMap.get(rBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+          </ion-thumbnail>
+        </ion-card>
+        <ion-label class="ion-text-wrap">
+              <strong>{{rBook.bookname}}</strong>
+              <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>
+              <h3 *ngIf="rBook.bookcurrentstatus == 'available' " style="color: green;">{{rBook.bookcurrentstatus}}</h3>
+              <h3 *ngIf="rBook.bookcurrentstatus == 'borrowed' " style="color: red;">{{rBook.bookcurrentstatus}}</h3>
+              <h3 *ngIf="rBook.bookcurrentstatus == 'reserved' " style="color: orange;">{{rBook.bookcurrentstatus}}
+              <span style="font-size: small; color: darkgray;"> by : {{rBook.bookcurrentuser}}</span>
+              </h3> 
+              <ion-button shape="round" style="color:darkslategray" (click)="presentActionSheet(rBook._id, rBook.bookname, rBook.bookcurrentstatus )">Take Action..</ion-button>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+<!--<ion-item-sliding *ngFor="let rBook of reservedBooks">
+  <ion-item *ngIf="showReserved">
+    <ion-card>
+      <ion-thumbnail>
+        <img-loader [src]="(bookIdImageMap.get(rBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+      </ion-thumbnail>
+    </ion-card>
+    <ion-label class="ion-text-wrap">
+          <strong>{{rBook.bookname}}</strong>
+          <h3> in {{rBook.booklanguage}}. By - {{rBook.bookauthor}}.</h3>
+          <h3 *ngIf="rBook.bookcurrentstatus == 'available' " style="color: green;">{{rBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="rBook.bookcurrentstatus == 'borrowed' " style="color: red;">{{rBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="rBook.bookcurrentstatus == 'reserved' " style="color: orange;">{{rBook.bookcurrentstatus}}
+          <span style="font-size: small; color: darkgray;"> by : {{rBook.bookcurrentuser}}</span>
+          </h3> 
+      </ion-label>
+  </ion-item>
+  <ion-item-options *ngIf="showReserved" side="start">
+    <ion-item-option >
+      <ion-icon style="color: red;" *ngIf="rBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
+      (click)="checkDeleteConfirmation(rBook._id)"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+  <ion-item-options *ngIf="showReserved" side="end">
+    <ion-item-option>
+      <ion-icon style="color: blue" *ngIf="(rBook.isReserved || rBook.isBorrowed) && !rBook.isAvailable" slot="icon-only"
+      src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(rBook._id)"></ion-icon>
+    </ion-item-option>
+    <ion-item-option>
+      <ion-label style="color: darkgreen" (click)="arBookModal(rBook._id, rBook.bookname)">AR</ion-label>
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>-->
+
+<ion-list *ngIf="showAvailable" >
+  <ion-item *ngFor="let aBook of availableBooks">
+    <ion-card>
+      <ion-thumbnail>
+        <img-loader [src]="(bookIdImageMap.get(aBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+      </ion-thumbnail>
+    </ion-card>
+    <ion-label class="ion-text-wrap">
+          <strong>{{aBook.bookname}}</strong>
+          <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>
+          <h3 *ngIf="aBook.bookcurrentstatus == 'available' " style="color: green;">{{aBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="aBook.bookcurrentstatus == 'borrowed' " style="color: red;">{{aBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="aBook.bookcurrentstatus == 'reserved' " style="color: orange;">{{aBook.bookcurrentstatus}}
+          <span style="font-size: small; color: darkgray;"> by : {{aBook.bookcurrentuser}}</span>
+          </h3> 
+          <ion-button shape="round" style="color:darkslategray" (click)="presentActionSheet(aBook._id, aBook.bookname, aBook.bookcurrentstatus )">Take Action..</ion-button>
+    </ion-label>
+  </ion-item>
+</ion-list>
+  
+<!--<ion-item-sliding *ngFor="let aBook of availableBooks ">
   <ion-item *ngIf="showAvailable">
     <ion-card *ngIf="showAvailable">
      <ion-thumbnail *ngIf="showAvailable">
-       <!--<ion-img [src]="(bookIdImageMap.get(book._id))"></ion-img>-->
        <img-loader [src]="(bookIdImageMap.get(aBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
      </ion-thumbnail>
     </ion-card>
-    <ion-label *ngIf="showAvailable"class="ion-text-wrap">
+    <ion-label *ngIf="showAvailable" class="ion-text-wrap">
          <strong>{{aBook.bookname}}</strong>
          <h3> in {{aBook.booklanguage}}. By - {{aBook.bookauthor}}.</h3>
          <h3 *ngIf="aBook.bookcurrentstatus == 'available' " style="color: green;">{{aBook.bookcurrentstatus}}</h3>
            <h3 *ngIf="aBook.bookcurrentstatus == 'borrowed' " style="color: red;">{{aBook.bookcurrentstatus}}</h3>
            <h3 *ngIf="aBook.bookcurrentstatus == 'reserved' " style="color: orange;">{{aBook.bookcurrentstatus}}</h3>
-         
-         <!--<span *ngIf="aBook.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{aBook.bookcurrentstatus}}</span>
-         <span *ngIf="aBook.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{aBook.bookcurrentstatus}}</span>
-         <span *ngIf="aBook.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{aBook.bookcurrentstatus}}</span>-->    
-     </ion-label>
+    </ion-label>
   </ion-item>
-  <ion-item-options side="start">
-    <ion-item-option *ngIf="showAvailable">
+  <ion-item-options *ngIf="showAvailable" side="start">
+    <ion-item-option>
       <ion-icon style="color: red" *ngIf="aBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
       (click)="checkDeleteConfirmation(aBook._id)"></ion-icon>
     </ion-item-option>
   </ion-item-options>
-  <ion-item-options side="end">
-  <ion-item-option *ngIf="showAvailable">
+  <ion-item-options *ngIf="showAvailable" side="end">
+  <ion-item-option>
     <ion-icon style="color: blue" *ngIf="(aBook.isReserved || aBook.isBorrowed) && !aBook.isAvailable" slot="icon-only"
     src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(aBook._id)"></ion-icon>
   </ion-item-option>   
   <ion-item-option>
-    <!--<ion-icon style="color: darkgreen"  slot="icon-only"
-    src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(aBook._id, aBook.bookname)">AR</ion-icon>-->
     <ion-label style="color: darkgreen" (click)="arBookModal(aBook._id, aBook.bookname)">AR</ion-label>
   </ion-item-option> 
   </ion-item-options>
-</ion-item-sliding>
+</ion-item-sliding>-->
 
-<ion-item-sliding *ngFor="let bBook of borrowedBooks">
+<ion-list *ngIf="showBorrowed" >
+  <ion-item *ngFor="let bBook of borrowedBooks">
+    <ion-card>
+      <ion-thumbnail>
+        <img-loader [src]="(bookIdImageMap.get(bBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+      </ion-thumbnail>
+    </ion-card>
+    <ion-label class="ion-text-wrap">
+          <strong>{{bBook.bookname}}</strong>
+          <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>
+          <h3 *ngIf="bBook.bookcurrentstatus == 'available' " style="color: green;">{{bBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="bBook.bookcurrentstatus == 'borrowed' " style="color: red;">{{bBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="bBook.bookcurrentstatus == 'reserved' " style="color: orange;">{{bBook.bookcurrentstatus}}
+          <span style="font-size: small; color: darkgray;"> by : {{bBook.bookcurrentuser}}</span>
+          </h3> 
+          <ion-button shape="round" style="color:darkslategray" (click)="presentActionSheet(bBook._id, bBook.bookname, bBook.bookcurrentstatus )">Take Action..</ion-button>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<!--<ion-item-sliding *ngFor="let bBook of borrowedBooks">
   <ion-item *ngIf="showBorrowed">
     <ion-card *ngIf="showBorrowed">
      <ion-thumbnail *ngIf="showBorrowed">
-       <!--<ion-img [src]="(bookIdImageMap.get(book._id))"></ion-img>-->
        <img-loader [src]="(bookIdImageMap.get(bBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
      </ion-thumbnail>
     </ion-card>
@@ -125,33 +190,101 @@
          <strong>{{bBook.bookname}}</strong>
          <h3> in {{bBook.booklanguage}}. By - {{bBook.bookauthor}}.</h3>
          <h3 *ngIf="bBook.bookcurrentstatus == 'available' " style="color: green; ">{{bBook.bookcurrentstatus}}</h3>
-         <h3 *ngIf="bBook.bookcurrentstatus == 'borrowed' " style="color: red; ">{{bBook.bookcurrentstatus}}</h3>
+         <h3 *ngIf="bBook.bookcurrentstatus == 'borrowed' " style="color: red; ">{{bBook.bookcurrentstatus}}
+          <span style="font-size: small; color: darkgray;"> by : {{bBook.bookcurrentuser}}</span>
+        </h3>
           <h3 *ngIf="bBook.bookcurrentstatus == 'reserved' " style="color: orange; ">{{bBook.bookcurrentstatus}}</h3>
-         <!--<span *ngIf="bBook.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{bBook.bookcurrentstatus}}</span>
-         <span *ngIf="bBook.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{bBook.bookcurrentstatus}}</span>
-         <span *ngIf="bBook.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{bBook.bookcurrentstatus}}</span>-->   
      </ion-label>
   </ion-item>
- <ion-item-options side="start">
-   <ion-item-option *ngIf="showBorrowed">
+ <ion-item-options *ngIf="showBorrowed" side="start">
+   <ion-item-option>
      <ion-icon style="color: red" *ngIf="bBook.isAvailable" slot="icon-only" src="../assets/icon/trash.svg"
      (click)="checkDeleteConfirmation(bBook._id)"></ion-icon>
    </ion-item-option>
-</ion-item-options>
-<ion-item-options side="end">
-    <ion-item-option *ngIf="showBorrowed">
-      <ion-icon style="color: blue" *ngIf="(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable" slot="icon-only"
-      src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(bBook._id)"></ion-icon>
-    </ion-item-option>
-    <ion-item-option>
-      <!--<ion-icon style="color: darkgreen"  slot="icon-only"
-      src="../assets/icon/scan-circle-outline.svg" (click)="arBookModal(bBook._id, bBook.bookname)">AR</ion-icon>-->
-      <ion-label style="color: darkgreen" (click)="arBookModal(bBook._id, bBook.bookname)">AR</ion-label>
-    </ion-item-option>
-</ion-item-options>
-</ion-item-sliding>
+  </ion-item-options>
+  <ion-item-options *ngIf="showBorrowed" side="end">
+      <ion-item-option>
+        <ion-icon style="color: blue" *ngIf="(bBook.isReserved || bBook.isBorrowed) && !bBook.isAvailable" slot="icon-only"
+        src="../assets/icon/scan.svg" (click)="scanToLendOrRelease(bBook._id)"></ion-icon>
+      </ion-item-option>
+      <ion-item-option>
+        <ion-label style="color: darkgreen" (click)="arBookModal(bBook._id, bBook.bookname)">AR</ion-label>
+      </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>-->
+
 
 <ion-button shape="round" margin-top expand="block">
+  <ion-icon style="color: olivedrab " src="../assets/icon/book.svg"></ion-icon>
+  <span style="color:  olivedrab; margin-left: 5px; " class="ion-text-left">My books - as Book Requester </span>
+</ion-button>
+
+<ion-select *ngIf="!nobooksREQUESTEDRESERVEDBORROWED" (ionChange)="displayRequestedBooksByStatus($event)" interface="popover" placeholder="Select current status...">
+  <ion-select-option *ngFor="let status of bookrequestedstatus" [value]="status"> {{status}}</ion-select-option>
+</ion-select>
+
+<ion-label *ngIf="nobooksREQUESTEDRESERVEDBORROWED" style="color: green; padding: 20px; font-size: small;">
+  You have not reserved or borrowed any books so far</ion-label>
+<ion-label *ngIf="nobooksREQUESTEDRESERVED" style="color: green; padding: 20px; font-size: small;">
+  You haven't reserved any books yet</ion-label>
+<ion-label *ngIf="nobooksREQUESTEDBORROWED" style="color: green; padding: 20px; font-size: small;">
+  You haven't borrowed any books yet</ion-label>
+
+
+<ion-list *ngIf="showRequestedReservedBooks" >
+  <ion-item *ngFor="let rRbook of requestedReservedBooks">
+    <ion-card>
+      <ion-thumbnail>
+        <img-loader [src]="(bookIdImageMap.get(rRbook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+      </ion-thumbnail>
+    </ion-card>
+    <ion-label class="ion-text-wrap">
+      <strong>{{rRbook.bookname}}</strong>
+      <h3> in {{rRbook.booklanguage}}. By - {{rRbook.bookauthor}}</h3>
+      <h3 *ngIf="rRbook.bookcurrentstatus == 'reserved' " style="color: orange; ">{{rRbook.bookcurrentstatus}}</h3>
+      <h3 *ngIf="rRbook.bookcurrentstatus == 'borrowed' " style="color: red; ">{{rRbook.bookcurrentstatus}}</h3>
+     
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-list *ngIf="showRequestedBorrowedBooks" >
+  <ion-item *ngFor="let rBbook of requestedBorrowedBooks">
+    <ion-card>
+      <ion-thumbnail>
+        <img-loader [src]="(bookIdImageMap.get(rBbook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+      </ion-thumbnail>
+    </ion-card>
+    <ion-label class="ion-text-wrap">
+      <strong>{{rBbook.bookname}}</strong>
+      <h3> in {{rBbook.booklanguage}}. By - {{rBbook.bookauthor}}</h3>
+      <h3 *ngIf="rBbook.bookcurrentstatus == 'reserved' " style="color: orange; ">{{rBbook.bookcurrentstatus}}</h3>
+      <h3 *ngIf="rBbook.bookcurrentstatus == 'borrowed' " style="color: red; ">{{rBbook.bookcurrentstatus}}</h3>
+      <h3 *ngIf="rBbook.bookcurrentstatus == 'borrowed' " style="font-size: small;">  Return by : {{rBbook.bookreturnbydate}}</h3> 
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<!--<ion-list *ngIf="!nobooksRESERVEDBORROWED">
+  <ion-item *ngFor="let nBook of notMyBooks">
+    <ion-card>
+      <ion-thumbnail>
+        <img-loader [src]="(notMyBookIdImageMap.get(nBook._id))" useImg (load)="onImageLoad($event)"></img-loader>
+      </ion-thumbnail>
+      </ion-card>
+      <ion-label class="ion-text-wrap">
+          <h3>{{nBook.bookname}}</h3>
+          <h3> in {{nBook.booklanguage}}. By - {{nBook.bookauthor}}</h3>
+          <h3 *ngIf="nBook.bookcurrentstatus == 'reserved' " style="color: orange; ">{{nBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="nBook.bookcurrentstatus == 'borrowed' " style="color: red; ">{{nBook.bookcurrentstatus}}</h3>
+          <h3 *ngIf="nBook.bookcurrentstatus == 'borrowed' " style="font-size: small; color:orangered">  Return by : {{nBook.bookreturnbydate}}</h3>
+      </ion-label>
+  </ion-item>
+</ion-list>-->
+
+
+
+<!--<ion-button shape="round" margin-top expand="block">
   <ion-icon style="color: #145A32; " src="../assets/icon/book.svg"></ion-icon>
   <span style="color: #145A32 ; margin-left: 5px; " class="ion-text-left">All my books</span>
 </ion-button>
@@ -168,10 +301,7 @@
                 <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>
                 <h3 *ngIf="book.bookcurrentstatus == 'available' " style="color: green; ">{{book.bookcurrentstatus}}</h3>
                 <h3 *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; ">{{book.bookcurrentstatus}}</h3>
-                <h3 *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; ">{{book.bookcurrentstatus}}</h3>
-                <!--<span *ngIf="book.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{book.bookcurrentstatus}}</span>
-                <span *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{book.bookcurrentstatus}}</span>
-                <span *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{book.bookcurrentstatus}}</span>-->      
+                <h3 *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; ">{{book.bookcurrentstatus}}</h3>      
             </ion-label>
          </ion-item>
         <ion-item-options side="start">
@@ -189,12 +319,12 @@
           </ion-item-option>
         </ion-item-option>    
       </ion-item-options>
-    </ion-item-sliding>
+    </ion-item-sliding>-->
 
 
    
 
-  </ion-list>
+  <!--</ion-list>-->
   <!--<ion-infinite-scroll (ionInfinite)="loadMoreBooks($event)">
     <ion-infinite-scroll-content loadingText="..loading">
     </ion-infinite-scroll-content>

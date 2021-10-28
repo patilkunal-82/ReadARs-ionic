@@ -320,6 +320,7 @@ extension BookARViewController {
           
         }
         
+        
         let displayNode = ImagesContainerPlaneNode (mixedContent: contentArray)
         node.addChildNode(displayNode)
         
@@ -407,15 +408,16 @@ extension BookARViewController {
                          contentArray.append(assetContainer);
                      }
                      if (path.contains("video")) {
-                         /*guard let contentVideo = getVideoAtBookDirectory(atPath: path) else { continue }
+                         guard let contentVideo = getVideoAtBookDirectory(atPath: path) else { continue }
                         
                          let assetContainer = AssetContainer(type: .video, video: contentVideo, imageURL: url)
                          print("Video URL is \(url)")
-                         contentArray.append(assetContainer);*/
-                         guard let contentImage = getImageAtBookDirectory(atPath: path) else { continue }
+                         contentArray.append(assetContainer);
+                         
+                         /*guard let contentImage = getImageAtBookDirectory(atPath: path) else { continue }
                          let assetContainer = AssetContainer(type: .image, image: contentImage, imageURL: url)
                          print("Image URL is \(url)")
-                         contentArray.append(assetContainer);
+                         contentArray.append(assetContainer);*/
                      }
              }
                 anchorsAndContentData[arRefImage] = contentArray
@@ -595,23 +597,31 @@ extension BookARViewController {
     private func getVideoAtBookDirectory(atPath path: String) -> AVPlayer? {
         
         let videoURL = URL(string: path)
-        let video = AVPlayer(url: videoURL!)
-        
-        
-        
-        
-        /*let videoPlane = SCNPlane(width: 1.6, height: 0.9)
-        videoPlane.firstMaterial?.diffuse.contents = videoAsset
-        videoPlane.firstMaterial?.isDoubleSided = true
-        
-        let videoNode = SCNNode(geometry: videoPlane)
-        videoNode.position.z = -2
-        
-        sceneView.scene.rootNode.addChildNode(videoNode)
-        video.play()*/
-        
-        return video
+        print ("videoURL", videoURL)
+        print ("path", path)
+        /*let video = AVPlayer(url: videoURL!)
+        return video*/
+        /*
 
+         let player = AVPlayer(url: contentURL)
+         let playerViewController = AVPlayerViewController()
+         playerViewController.player = player
+         */
+        let video = AVPlayer(url: videoURL!)
+
+       /*let videoURL = URL(string: "https://readarsbucket.s3.us-east-2.amazonaws.com/61203bc0fb08276d4eaf70a4/anchor4content8video.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAWMAHKT2V32PPDA2L%2F20211025%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20211025T175550Z&X-Amz-Expires=86400&X-Amz-Signature=cdf74ac3f83bc3e20cc94b42c0e7b85ea7620161fc68990c66d7eb0ec62e8cf1&X-Amz-SignedHeaders=host")
+        let player = AVPlayer(url: videoURL!)
+       
+        let vc = AVPlayerViewController()
+        
+        vc.player = player
+        vc.view.frame = self.view.frame
+        self.view.addSubview(vc.view)
+        self.addChildViewController(vc)
+        player.play()*/
+      
+        return video;
+       
     }
     
     /*private func getVideoAtBookDirectory(atPath path: String) -> AVPlayer? {

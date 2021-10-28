@@ -23,6 +23,9 @@
       bookcurrentuser: string;
       bookrecommend: boolean;
       bookcurrentstatus: string;
+      bookreserveddate: string;
+      bookborroweddate: string;
+      bookreturnbydate: string;
   }
 
   export const BookActions = ['Lend Or Make Available', 'Remove'];
@@ -37,6 +40,8 @@
                               'Short Stories', 'Technology','Thriller', 'Travel', 'Women\'s Fiction', 'Other'];  
 
   export const BookCurrentStatus = ['Available', 'Reserved', 'Borrowed'];
+
+  export const BookRequestedStatus = ['Reserved', 'Borrowed'];
                               
   export const CollectionCategory = ['Genre', 'Language'];
 

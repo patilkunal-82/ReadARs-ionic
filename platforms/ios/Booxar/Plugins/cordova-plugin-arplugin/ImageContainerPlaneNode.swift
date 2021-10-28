@@ -12,14 +12,13 @@ import RealityKit
 import SwiftUI
 import AVFoundation
 import ARKit
-import UIKit
+
 
 let imageWidthDimension: CGFloat = 0.2
 var sceneView: ARSCNView!
 
 
-
-final class ImagesContainerPlaneNode: SCNNode {
+ final class ImagesContainerPlaneNode: SCNNode {
   
   let mixedContent: ArrayWithCyclingIndex
   
@@ -59,7 +58,7 @@ final class ImagesContainerPlaneNode: SCNNode {
             if let image = assetContainer.image {
               let imageAspectRatio = image.size.width / image.size.height
                geometry = SCNPlane(width: imageWidthDimension, height: imageWidthDimension / imageAspectRatio)
-               geometry?.firstMaterial?.diffuse.contents = image
+             geometry?.firstMaterial?.diffuse.contents = image
              geometry?.firstMaterial?.locksAmbientWithDiffuse = true
                 
             
@@ -89,35 +88,38 @@ final class ImagesContainerPlaneNode: SCNNode {
             
         case .video:
             if let video = assetContainer.video {
+             
                 
-                /*geometry?.firstMaterial?.diffuse.contents = video
-                geometry?.firstMaterial?.locksAmbientWithDiffuse = true
-               
                 print("VIDEO \(video)")
-                
-                geometry?.firstMaterial?.isDoubleSided = true
-                video.play()
-                 */
-                
-                let controller = AVPlayerViewController()
-                controller.player = video
-                controller.player?.play()
-                
-                
-              
-                
-                
-                //present(playerViewController, animated: true, completion: nil)
+            
+                // A SpriteKit scene to contain the SpriteKit video node
+            let spriteKitScene = SKScene(size: CGSize(width: 400, height: 400))
+            spriteKitScene.scaleMode = .aspectFit
 
-          //pev resetting
-              //   simdWorldOrientation = simd_quatf(matrix_identity_float3x3)
-            //    simdWorldOrientation = simd_quatf(angle: Float.pi/2, axis: simd_float3(x: 0, y: 0, z: -1))
-               
-               /*let controller = AVPlayerViewController()
-               controller.player = video
-               controller.player?.play()*/
-                
-      
+            
+            // To make the video loop
+            video.actionAtItemEnd = .none
+            
+
+            // Create the SpriteKit video node, containing the video player
+            let videoSpriteKitNode = SKVideoNode(avPlayer: video)
+            videoSpriteKitNode.position = CGPoint(x: spriteKitScene.size.width / 2.0, y: spriteKitScene.size.height / 2.0)
+            videoSpriteKitNode.size = spriteKitScene.size
+            videoSpriteKitNode.yScale = -1.0
+            videoSpriteKitNode.play()
+            spriteKitScene.addChild(videoSpriteKitNode)
+
+//            // Create the SceneKit scene
+//            let scene = SCNScene()
+//            sceneView.scene = scene
+//            sceneView.delegate = self
+//            sceneView.isPlaying = true
+
+            // Create a SceneKit plane and add the SpriteKit scene as its material
+                let background = SCNPlane(width: 0.2, height: 0.2)
+            background.firstMaterial?.diffuse.contents = spriteKitScene
+            self.geometry = background                
+              
             }
         break
        
@@ -144,6 +146,8 @@ final class ImagesContainerPlaneNode: SCNNode {
     
 }
 
+
+
 final class ArrayWithCyclingIndex {
     let array: [Any]
     private var index: Int = 0
@@ -165,4 +169,20 @@ final class ArrayWithCyclingIndex {
     }
     
 }
+
+class DisplayVideo: UIViewController {
+    
+    private func videoDisplay(videoData: AVPlayer) {
+       
+        let vc = AVPlayerViewController()
+        vc.player = videoData
+        vc.view.frame = self.view.frame
+        self.view.addSubview(vc.view)
+        self.addChildViewController(vc)
+        videoData.play()
+      
+        
+    }
+}
+
 

@@ -407,7 +407,7 @@ var ReservedService = /** @class */ (function () {
 /*!********************************!*\
   !*** ./src/app/shared/book.ts ***!
   \********************************/
-/*! exports provided: BookActions, BookLanguage, BookGenre, BookCurrentStatus, CollectionCategory */
+/*! exports provided: BookActions, BookLanguage, BookGenre, BookCurrentStatus, BookRequestedStatus, CollectionCategory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -416,6 +416,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookLanguage", function() { return BookLanguage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookGenre", function() { return BookGenre; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookCurrentStatus", function() { return BookCurrentStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookRequestedStatus", function() { return BookRequestedStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CollectionCategory", function() { return CollectionCategory; });
 var BookActions = ['Lend Or Make Available', 'Remove'];
 var BookLanguage = ['Bengali', 'Chinese', 'Dutch', 'English', 'French', 'German', 'Greek', 'Gujrati', 'Hindi', 'Italian',
@@ -426,6 +427,7 @@ var BookGenre = ['Action & Adventure', 'Autobiography', 'Biography', 'Classics',
     'Literary Fiction', 'Management', 'Medical Science', 'Memoir', 'Mystery', 'Poetry', 'Romance', 'Sci-Fi', 'Self-Help',
     'Short Stories', 'Technology', 'Thriller', 'Travel', 'Women\'s Fiction', 'Other'];
 var BookCurrentStatus = ['Available', 'Reserved', 'Borrowed'];
+var BookRequestedStatus = ['Reserved', 'Borrowed'];
 var CollectionCategory = ['Genre', 'Language'];
 
 

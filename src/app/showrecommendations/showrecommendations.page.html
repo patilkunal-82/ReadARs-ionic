@@ -25,13 +25,18 @@
     </ion-item>
   </ion-list-header>
 
-  <ion-list>
+  <ion-spinner *ngIf="showSpinner" class="spin"></ion-spinner>
+  <ion-list *ngIf="!showSpinner">
     <ion-virtual-scroll [items]="recobooks">
       <div *virtualItem="let book">
         <ion-list>
-          <ion-item>
-            <ion-img style="box-shadow: olivedrab;" class="bookimage1" [src]="(bookIdImageMap.get(book._id))"   
+          <ion-item [routerLink]="['bookdetail', book._id]">
+            <!--<ion-thumbnail>
+              <ion-img style="box-shadow: olivedrab;" class="bookimage1" [src]="(bookIdImageMap.get(book._id))"   
               cache="true" button></ion-img>
+            </ion-thumbnail>-->
+            <img-loader [src]="(bookIdImageMap.get(book._id))" class="bookimage2" useImg (load)="onImageLoad($event)"></img-loader>
+           
               <ion-label>
                 <h3 style="color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 " class="ion-text-wrap"> 
@@ -41,16 +46,35 @@
                   font-size: small;">
                     Author : {{book.bookauthor}}
                 </p>
-                <ion-chip style="background-color: #e9f7e9; font-size: x-small;" [routerLink]="['bookdetail', book._id]"> 
-                  More details
-                  <ion-icon  src="../assets/icon/ellipsis-horizontal.svg" style="color: darkgreen;"></ion-icon>
-                </ion-chip>
                 </ion-label>
           </ion-item>
         </ion-list>
       </div>
     </ion-virtual-scroll>
   </ion-list>
+  <!--<ion-list *ngIf="showSkeleton">
+    <ion-virtual-scroll [items]="recobooks">
+      <div *virtualItem="let book">
+        <ion-list>
+          <ion-item>
+            <ion-thumbnail>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+              <ion-label>
+                <h3 style="color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                " class="ion-text-wrap"> 
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </h3>
+                <p style="color:darkgrey; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                  font-size: small;">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </p>
+                </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-virtual-scroll>
+  </ion-list>-->
 
 
  

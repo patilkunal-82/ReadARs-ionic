@@ -26,6 +26,7 @@ export class MultiFileContentUploadComponent {
   getContentFiles(): FileLikeObject[] {
     return this.uploaderContent.queue.map((fileItem) => {
       return fileItem.file;
+      
     });
   }
 

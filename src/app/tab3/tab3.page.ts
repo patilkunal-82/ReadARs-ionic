@@ -12,7 +12,7 @@ import { SortPipe } from '../shared/sort.pipe'
 import { AlertController } from '@ionic/angular';
 import { CameraOptions, Camera } from "@ionic-native/camera/ngx";
 
-import { Book, BookActions, BookLanguage, BookCurrentStatus} from '../shared/book';
+import { Book, BookActions, BookLanguage, BookCurrentStatus, BookRequestedStatus} from '../shared/book';
 import { Feedback, ContactType } from '../shared/feedback';
 import { BookdetailService } from '../services/bookdetail.service';
 import { AuthService } from '../services/auth.service';
@@ -25,11 +25,15 @@ import { FeedbackService } from '../services/feedback.service';
 import { SearchedMyData } from '../services/searchmybooks.service';
 import { AddbookPage } from '../addbook/addbook.page';
 import { ArbookPage} from '../arbook/arbook.page';
+import { ManagebookshelpPage} from '../managebookshelp/managebookshelp.page'
 import { Subscription } from 'rxjs';
 
 import { ImageLoaderService } from 'ionic-image-loader-v5';
 import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
+
+
 
 
 enum CodeOps {
@@ -59,13 +63,18 @@ export class Tab3Page implements OnInit, AfterViewInit {
   
   bookcurrentUsername: string;
   
-  books: Book[];
+  books: Book[]= [];
+  books1: Book[] = [];
   allBooks: Book[];
+  allBooks1: Book[];
+  notMyBooks: Book[];
   
   
   reservedBooks: Book[] = [];
   availableBooks: Book[] = [];
   borrowedBooks:Book[] = [];
+  requestedReservedBooks: Book[] = [];
+  requestedBorrowedBooks: Book[] = [];
   bookList: Book[];
   bookIds: Book[];
   bookLendMakeCollection: Book[];
@@ -83,11 +92,12 @@ export class Tab3Page implements OnInit, AfterViewInit {
 
   public bookIdsImages = new Map();
   public bookIdImageMap = new Map();
+  public notMyBookIdImageMap = new Map();
   public url: SafeResourceUrl;
 
   name = 'Angular';
   //favorites: Favorite;
-  delete: boolean;
+  bookDeleted: boolean;
   currentRouter = this.router.url;
 
 
@@ -101,23 +111,38 @@ export class Tab3Page implements OnInit, AfterViewInit {
   booklanguage = BookLanguage;
   bookactions = BookActions;
   bookcurrentstatus = BookCurrentStatus;
+  bookrequestedstatus = BookRequestedStatus;
+
   //feedback: Feedback;
   contactType = ContactType;
   submitted = null;
   showForm = true;
+  returnDate: string;
+  collectByDate: string;
 
   borrowed: boolean;
   reserved: boolean;
   available: boolean;
   lendmake: boolean;
   remove: boolean;
-  showAvailable: boolean;
-  showReserved: boolean;
-  showBorrowed: boolean;
-  showAll: boolean;
+  showAvailable: boolean = false;
+  showReserved: boolean = false;
+  showBorrowed: boolean = false;
+  showAll: boolean = false;
+  showNotMyBooks: boolean = false;
+  showRequestedReservedBooks: boolean = false;
+  showRequestedBorrowedBooks: boolean = false;
   collectionEmptyAV: boolean;
   collectionEmptyLM: boolean;
+  noBorrowedReservedExists: boolean = false;
   panelOpenState = false;
+  nobooksAVAILABLE: boolean;
+  nobooksRESERVED: boolean;
+  nobooksBORROWED: boolean;
+  nobooksEXIST: boolean = false;;
+  nobooksREQUESTEDRESERVED: boolean;
+  nobooksREQUESTEDBORROWED: boolean;
+  nobooksREQUESTEDRESERVEDBORROWED: boolean = true;
 
   constructor(
     private _camera: Camera,
@@ -140,35 +165,65 @@ export class Tab3Page implements OnInit, AfterViewInit {
     private barCodeScanner: BarcodeScanner,
     private imageLoaderService: ImageLoaderService,
     private toastCtrl: ToastController, 
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public actionSheetController: ActionSheetController
     ) {
         this.searchControl = new FormControl();
   }
 
   ngOnInit() {
     this.setFilteredItems();
-
-    this.presentLoading();
+    
+    //this.presentLoading();
     this.authService.loadUserCredentials();
     this.subscription = this.authService.getUsername()
-      .subscribe(name => { 
-        
+    .subscribe(name => { 
+
         console.log(name); 
         this.username = name; 
-        if (this.username) {
+      //  if (name) {
           this.booksService.getBooks()
           .subscribe(books => {
            this.allBooks = books;
-           console.log("TAB3 BOOKS", this.allBooks);
-       }, errmess => {
-             this.errMess = <any>errmess
-            
-           });
-
            this.prepareBookIdsImagesMap();
-        }
-      });
+           console.log("TAB3 BOOKS", this.allBooks);
+           if (this.allBooks.length == 0 || this.allBooks === undefined) {
+            this.nobooksEXIST = true;
+          } else {
+            this.nobooksEXIST = false;
+          }
+          
+           //this.getBooksBoorowedOrReservedByMe();
+          }, errmess => {
+             this.errMess = <any>errmess 
+          });
 
+     //   }
+
+
+        this.readarsService.getBooks()
+        .subscribe(books1 => {
+          this.allBooks1 = books1;
+          console.log("allbooks1", this.allBooks1);
+          for (let i=0; i<this.allBooks1.length;i++) {
+            console.log("Book Current user", this.allBooks1[i].bookcurrentuser)
+            console.log("this.username", this.username)
+          if (this.allBooks1[i].bookcurrentuser === this.username) {
+            this.nobooksREQUESTEDRESERVEDBORROWED = false;
+            console.log(" this.nobooksREQUESTEDRESERVEDBORROWED",  this.nobooksREQUESTEDRESERVEDBORROWED)
+          }
+        }
+
+
+        });
+       
+    });
+
+
+
+    
+    
+    
   }
 
   async presentLoading() {
@@ -185,19 +240,62 @@ export class Tab3Page implements OnInit, AfterViewInit {
 
   ionViewWillEnter() {
 
-    this.prepareBookIdsImagesMap();
+    
+   
     this.booksService.getBooks()
       .subscribe(books => {
           this.allBooks = books;
+          this.prepareBookIdsImagesMap();
+          if (this.allBooks.length == 0 || this.allBooks === undefined) {
+            this.nobooksEXIST = true;
+          } else {
+            this.nobooksEXIST = false;
+          }
           console.log("TAB3 BOOKS", this.allBooks);
       }, errmess => { 
-
+        
         this.errMess = <any>errmess 
       
       });
 
+     
+
   }
 
+  /*getBooksBoorowedOrReservedByMe() {
+
+    this.nobooksREQUESTEDRESERVEDBORROWED = false;
+    this.readarsService.getBooks()
+    .subscribe(booksAll => {
+      console.log("booksALL", booksAll);
+      for (let i=0; i<booksAll.length;i++) {
+        //console.log("Book Current user", booksAll[i].bookcurrentuser)
+        //console.log("this.username", this.username)
+        if (booksAll[i].bookcurrentuser === this.username) {
+          
+          this.notMyBooks.push(booksAll[i]);
+          console.log("FOUND books current user", booksAll[i].bookcurrentuser);
+          this.booksService.getBookImage(booksAll[i]._id)
+          .subscribe(x => {
+              this.url = x;
+              console.log("this.url", this.url);
+              this.notMyBookIdImageMap.set(booksAll[i]._id, this.url);
+              console.log("notMyBookIdImageMap", this.notMyBookIdImageMap);
+           }, errMess => {
+            console.log(errMess)
+          });
+          
+        }
+      }
+      console.log("NOT MY BOOKS", this.notMyBooks)
+      if (this.notMyBooks === undefined || this.notMyBooks.length == 0) {
+        this.nobooksREQUESTEDRESERVEDBORROWED = true;  
+      }
+    }, errmess => {
+      this.errMess = <any>errmess
+     
+    });
+  }*/
   
 
   displayBooksByStatus(event) {
@@ -207,10 +305,16 @@ export class Tab3Page implements OnInit, AfterViewInit {
     this.showReserved = false;
     this.showBorrowed = false;
     this.showAll = false;
+    this.nobooksAVAILABLE = false;
+    this.nobooksBORROWED = false;
+    this.nobooksRESERVED = false;
+    
 
     if (event.detail.value === 'Available') {
         console.log("inside AVAILABLE condition");
         this.showAvailable = true;
+        this.showBorrowed = false;
+        this.showReserved = false;
         this.availableBooks = [];
         let i = 0;
         let j = 0;
@@ -224,7 +328,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
         }
 
         if (this.availableBooks === undefined || this.availableBooks.length == 0) {
-          this.presentToast(event.detail.value + " - None exists");
+          //this.presentToast(event.detail.value + " - None exists");
+          this.nobooksAVAILABLE = true;
+          this.nobooksBORROWED = false;
+          this.nobooksRESERVED = false;
         }
         console.log("BOOK Status & COLLECTION", event.detail.value, this.availableBooks.length)
 
@@ -233,6 +340,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
     if (event.detail.value === 'Reserved') {
       console.log("inside RESERVED condition");
       this.showReserved = true;
+      this.showAvailable = false;
+      this.showBorrowed = false;
       this.reservedBooks = [];
       let i = 0;
       let j = 0;
@@ -245,7 +354,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
         i++;
       }
       if (this.reservedBooks === undefined || this.reservedBooks.length == 0) {
-        this.presentToast(event.detail.value + " - None exists");
+        //this.presentToast(event.detail.value + " - None exists");
+        this.nobooksRESERVED = true;
+        this.nobooksAVAILABLE = false;
+        this.nobooksBORROWED = false;
       }
       console.log("BOOK Status & COLLECTION", event.detail.value, this.reservedBooks.length)
     }
@@ -253,6 +365,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
     if (event.detail.value === 'Borrowed') {
       console.log("inside BORROWED condition");
       this.showBorrowed = true;
+      this.showAvailable = false;
+      this.showReserved = false;
       this.borrowedBooks = [];
       let i = 0;
       let j = 0;
@@ -265,7 +379,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
         i++;
       }
       if (this.borrowedBooks === undefined || this.borrowedBooks.length == 0) {
-        this.presentToast(event.detail.value + " - None exists");
+        //this.presentToast(event.detail.value + " - None exists");
+        this.nobooksBORROWED = true;
+        this.nobooksRESERVED = false;
+        this.nobooksAVAILABLE = false;
       }
       console.log("BOOK Status & COLLECTION", event.detail.value, this.borrowedBooks.length)
      
@@ -275,6 +392,147 @@ export class Tab3Page implements OnInit, AfterViewInit {
       this.showAll = true;
      
     }
+  }
+
+  displayRequestedBooksByStatus(event) {
+
+    this.notMyBooks = [];
+   // this.nobooksREQUESTEDRESERVEDBORROWED = false;
+    this.readarsService.getBooks()
+    .subscribe(booksAll => {
+      console.log("booksALL", booksAll);
+      for (let i=0; i<booksAll.length;i++) {
+        //console.log("Book Current user", booksAll[i].bookcurrentuser)
+        //console.log("this.username", this.username)
+        if (booksAll[i].bookcurrentuser === this.username) {
+          
+          this.notMyBooks.push(booksAll[i]);
+          console.log("FOUND books current user", booksAll[i].bookcurrentuser);
+          this.booksService.getBookImage(booksAll[i]._id)
+          .subscribe(x => {
+              this.url = x;
+              console.log("this.url", this.url);
+              this.notMyBookIdImageMap.set(booksAll[i]._id, this.url);
+              console.log("notMyBookIdImageMap", this.notMyBookIdImageMap);
+           }, errMess => {
+            console.log(errMess)
+          });
+          
+        }
+      }
+      console.log("NOT MY BOOKS", this.notMyBooks)
+      if (this.notMyBooks === undefined || this.notMyBooks.length == 0) {
+        this.nobooksREQUESTEDRESERVEDBORROWED = true;  
+      }
+      else {
+        console.log("inside displayRequestedBooksByStatus function");
+          this.showRequestedBorrowedBooks = false;
+          this.showRequestedReservedBooks = false;
+          this.nobooksREQUESTEDRESERVEDBORROWED = false; 
+          console.log("NOT MY BOOKS", this.notMyBooks)
+          if (event.detail.value === 'Reserved') {
+            console.log("inside REQUESTED RESERVED condition");
+            this.showRequestedReservedBooks= true;
+            this.showRequestedBorrowedBooks = false;
+            this.requestedReservedBooks = [];
+            let i = 0;
+            let j = 0;
+            while (i < this.notMyBooks.length) {
+              
+              if (this.notMyBooks[i].bookcurrentstatus === 'reserved') {
+                this.requestedReservedBooks[j] = this.notMyBooks[i];
+                j++;
+              }
+              i++;
+            }
+            if (this.requestedReservedBooks === undefined) {
+              this.nobooksREQUESTEDRESERVED = true;
+              this.nobooksREQUESTEDBORROWED = false;
+            }
+            console.log("BOOK Status & COLLECTION", event.detail.value, this.requestedReservedBooks.length)
+          }
+
+          if (event.detail.value === 'Borrowed') {
+            console.log("inside BORROWED condition");
+            this.showRequestedReservedBooks= false;
+            this.showRequestedBorrowedBooks = true;
+            this.requestedBorrowedBooks = [];
+            let i = 0;
+            let j = 0;
+            while (i < this.notMyBooks.length) {
+              
+              if (this.notMyBooks[i].bookcurrentstatus === 'borrowed') {
+                this.requestedBorrowedBooks[j] = this.notMyBooks[i];
+                j++;
+              }
+              i++;
+            }
+            if (this.requestedBorrowedBooks === undefined) {
+              this.nobooksREQUESTEDBORROWED = true;
+              this.nobooksREQUESTEDRESERVED = false;
+              
+            }
+            console.log("BOOK Status & COLLECTION", event.detail.value, this.requestedBorrowedBooks.length)
+          
+          }
+
+      }
+    }, errmess => {
+      this.errMess = <any>errmess
+     
+    });
+
+    /*console.log("inside displayRequestedBooksByStatus function");
+    this.showRequestedBorrowedBooks = false;
+    this.showRequestedReservedBooks = false;
+    
+    console.log("NOT MY BOOKS", this.notMyBooks)
+    if (event.detail.value === 'Reserved') {
+      console.log("inside REQUESTED RESERVED condition");
+      this.showRequestedReservedBooks= true;
+      this.showRequestedBorrowedBooks = false;
+      this.requestedReservedBooks = [];
+      let i = 0;
+      let j = 0;
+      while (i < this.notMyBooks.length) {
+        
+        if (this.notMyBooks[i].bookcurrentstatus === 'reserved') {
+          this.requestedReservedBooks[j] = this.notMyBooks[i];
+          j++;
+        }
+        i++;
+      }
+      if (this.requestedReservedBooks === undefined) {
+        this.nobooksREQUESTEDRESERVED = true;
+        this.nobooksREQUESTEDBORROWED = false;
+      }
+      console.log("BOOK Status & COLLECTION", event.detail.value, this.requestedReservedBooks.length)
+    }
+
+    if (event.detail.value === 'Borrowed') {
+      console.log("inside BORROWED condition");
+      this.showRequestedReservedBooks= false;
+      this.showRequestedBorrowedBooks = true;
+      this.requestedBorrowedBooks = [];
+      let i = 0;
+      let j = 0;
+      while (i < this.notMyBooks.length) {
+        
+        if (this.notMyBooks[i].bookcurrentstatus === 'borrowed') {
+          this.requestedBorrowedBooks[j] = this.notMyBooks[i];
+          j++;
+        }
+        i++;
+      }
+      if (this.requestedBorrowedBooks === undefined) {
+        this.nobooksREQUESTEDBORROWED = true;
+        this.nobooksREQUESTEDRESERVED = false;
+        
+      }
+      console.log("BOOK Status & COLLECTION", event.detail.value, this.requestedBorrowedBooks.length)
+     
+    }*/
+
   }
 
   async presentToast(errmsg) {
@@ -296,106 +554,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
     console.log("image ready");
   }
 
-  /*displayActionCollection(event) {
-
-
-    console.log("EVENT DETAIL VALUE", event.detail.value);
-
-
-    if (event.detail.value === 'Lend Or Make Available') {
-        console.log("INSIDE LEND MAKE");
-          
-          this.lendmake = true;
-          this.remove = false;
-          this.collectionEmptyAV = false;
-          let i=0;
-          let j=0;
-          console.log("--------", this.books);
-          console.log("-----LENGTH-----", this.books.length);
-
-          while (i<this.books.length) {
-              this.reservedService.isReserved(this.books[i]._id)
-              .subscribe(resp => { 
-              console.log(resp); 
-              this.reserved = <boolean>resp.exists;
-              if (this.reserved) {
-                console.log("BOOK", resp.book);
-                this.reservedBooks[j] = resp.book;
-                console.log("RESERVED BOOK", this.reservedBooks[j]);
-                j++;
-              }
-              if (this.reservedBooks.length == 0) {
-                this.collectionEmptyLM = true;
-              }
-            },err => console.log(err));
-            i++;          
-          }
-
-          i=0; j=0;
-
-          while (i<this.books.length) {
-            this.borrowedService.isBorrowed(this.books[i]._id)
-            .subscribe(resp => { 
-            console.log(resp); 
-            this.borrowed = <boolean>resp.exists;
-            if (this.borrowed) {
-              console.log("BOOK", resp.book);
-              this.borrowedBooks[j] = resp.book;
-              console.log("BORROWED BOOK", this.borrowedBooks[j]);
-              j++;
-            }
-            if (this.borrowedBooks.length == 0) {
-              this.collectionEmptyLM = true;
-            }
-          },err => console.log(err));
-          i++;          
-        }
-
-      this.bookLendMakeCollection = this.reservedBooks.concat(this.borrowedBooks);
-      console.log("bookLendMakeCollection", this.bookLendMakeCollection);
-      if (this.bookLendMakeCollection.length == 0) {
-
-        this.collectionEmptyLM = true;
-        console.log("collectionEmptyLM", this.collectionEmptyLM)
-      }
-
-    }
-
-    if (event.detail.value === 'Remove') {
-        //this.ngOnInit();
-        this.remove = true;
-        this.lendmake = false;
-        this.collectionEmptyLM = false;
-        console.log("COLLECTION EMPTY AV", this.collectionEmptyAV);
-        console.log("INSIDE REMOVE");
-        let i=0;
-        let j=0;
-        console.log("--------", this.books);
-        console.log("-----LENGTH-----", this.books.length);
-        while (i<this.books.length) {
-            this.availableService.isAvailable(this.books[i]._id)
-            .subscribe(resp => { 
-            console.log(resp); 
-            this.available = <boolean>resp.exists;
-            if (this.available) {
-              console.log("BOOK", resp.book);
-              this.availableBooks[j] = resp.book;
-              console.log("AVAILABLE BOOK", this.availableBooks[j]);
-              j++;
-            }
-           console.log("AVAILABLE BOOKSSSS", this.availableBooks)
-           if (this.availableBooks.length == 0) {
-            this.collectionEmptyAV = true;
-          }
-          
-          },err => console.log(err));
-
-          i++;          
-        }
-
-      
-    }
-  }*/
+  
 
   prepareBookIdsImagesMap() {
 
@@ -473,7 +632,8 @@ export class Tab3Page implements OnInit, AfterViewInit {
     this.booksService.deleteBook(id)
     .subscribe(removebook => {
       this.removebook = <Book>removebook
-      this.presentToast("Book removed successfully");
+      
+      this.ngOnInit();
       },
       errmess => {
         this.errMess = <any>errmess
@@ -483,9 +643,10 @@ export class Tab3Page implements OnInit, AfterViewInit {
 
     this.booksService.deleteBookImage(id)
     .subscribe(resp => console.log(resp), errmess => this.errMess = <any>errmess);
-
-      this.delete = false;
-      this.ngOnInit();
+      this.presentToast("Book removed successfully");
+      this.bookDeleted = true;
+      //this.ngOnInit();
+      
   }
 
   getCodeValue(codeOpsName: string): CodeOps {
@@ -524,6 +685,20 @@ export class Tab3Page implements OnInit, AfterViewInit {
     });
 
     await alert.present();
+  }
+
+  async alerManagement(message: string) {
+
+    const alert = await this._alertController.create({
+      message: message,
+      header: "Please Note",
+      buttons: ['Ok']
+      
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
   
 
@@ -615,23 +790,34 @@ export class Tab3Page implements OnInit, AfterViewInit {
                           this.book.bookborrowed = true;
                           this.book.bookcurrentuser = this.bookcurrentUsername;
                           this.book.bookcurrentstatus = 'borrowed';
+                          this.book.bookborroweddate = new Date().toLocaleDateString();
+                          /*var returnDate = new Date();
+                          returnDate.setDate(returnDate.getDate()+30);
+                          this.book.bookreturnbydate = returnDate.toLocaleDateString();*/
+                          var nowPlus30Days = new Date(Date.now() + (30 * 24 * 60 * 60 * 1000));
+                          this.book.bookreturnbydate = nowPlus30Days.toLocaleDateString();
+                          console.log("BOOK BORROWED DATE", this.book.bookborroweddate)
+                          console.log("BOOK RETURN BY DATE", this.book.bookreturnbydate)
                           this.booksService.lendBook(id, this.book)
                           .subscribe(book => {
+                            
                             console.log(book); 
                             this.borrowed = true; 
                             this.reserved = true;
                             this.qrCheckString = "";
                             this.presentToast("Book is in borrowed status")
+                            
+                            this.ngOnInit();
                           });
               
                           
-                          this.ngOnInit();
+                          //this.ngOnInit();
               
                          
                       
                     }
                     else {
-                      this.presentToast("QR Codes mismatch. Authorization failed")
+                      this.alerManagement("QR Codes mismatch. Authorization failed")
                       console.log("QR Codes mismatch. Authorization failed");
                     }
                     
@@ -700,6 +886,9 @@ export class Tab3Page implements OnInit, AfterViewInit {
                             this.book.bookborrowed = false;
                             this.book.bookcurrentuser = "";
                             this.book.bookcurrentstatus = 'available';
+                            this.book.bookborroweddate = "";
+                            this.book.bookreserveddate = "";
+                            this.book.bookreturnbydate = "";
                             this.booksService.releaseBook(this.book._id, this.book)
                             .subscribe(book => {
                                 console.log(book); 
@@ -719,7 +908,7 @@ export class Tab3Page implements OnInit, AfterViewInit {
                     }
                     else {
                       console.log("QR CODES DON'T MATCH");
-                      this.presentToast("QR Codes mismatch. Authorization failed")
+                      this.alerManagement("QR Codes mismatch. Authorization failed")
                     }
                     
                   })
@@ -735,92 +924,67 @@ export class Tab3Page implements OnInit, AfterViewInit {
         
   }
 
+  async presentActionSheet(bookid: string, bookname: string, bookcurrentstatus: string) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Actions...',
+      cssClass: 'my-custom-class',
+      buttons: [
+      {
+        text: 'Lend or Make Available',
+        icon: "../assets/icon/scan.svg",
+        handler: () => {
 
-
-
-  /*scanForRelease1(id) {
-
-    console.log("INSIDE SCAN FOR RELEASE");
-
-    this.qrCheckString = this.getQRCheckString(id);
-
-    if (this.qrCheckString) {
-        console.log("QR CHECK STRING IS", this.qrCheckString);
-
-
-        const options: BarcodeScannerOptions = {
-          preferFrontCamera: false,
-          showFlipCameraButton: true,
-          showTorchButton: true,
-          torchOn: false,
-          prompt: 'Place a barcode inside the scan area',
-          resultDisplayDuration: 500,
-          formats: 'EAN_13,EAN_8,QR_CODE,PDF_417 ',
-          orientation: 'portrait',
-        };
-
-        this.barCodeScanner.scan(options).then(barcodeData => {
-          //console.log('Barcode data', barcodeData);
-          console.log("CHECK STRING IS ------>", this.qrCheckString);
-          this.scannedData = barcodeData;
-          console.log("SCANNED DATA IS ------> ", this.scannedData["text"]);
-          
-          if(this.qrCheckString === this.scannedData["text"]) {
-            console.log("MATCH SUCCESS")
-            console.log('RELEASING BOOK ' + id);
-
-            this.booksService.getBook(id)
-            .subscribe(book => {
-              this.router.navigate([this.currentRouter]);
-              this.book = book;
-              this.book.bookavailable = true;
-              this.book.bookreserved = false;
-              this.book.bookborrowed = false;
-              this.book.bookcurrentuser = "";
-              this.booksService.releaseBook(this.book._id, this.book)
-              .subscribe(book => {
-                  console.log(book); 
-                  this.available = true; 
-                  this.reserved = false;
-                  this.qrCheckString = '';
-                  console.log("ABOUT TO DELETE QR IMAGE FOR THIS BOOK ID", id);
-                  this.booksService.deleteQRBookImage(id)
-                  .subscribe(resp => console.log(resp), errmess => this.errMess = <any>errmess);
-        
-                });
-              },  errmess => this.errMess = <any>errmess);
-            this.ngOnInit();
+          //*ngIf="(book.isReserved || book.isBorrowed) && !book.isAvailable"
+          if (bookcurrentstatus === 'borrowed' || bookcurrentstatus === 'reserved') {
+            this.scanToLendOrRelease(bookid);
           }
           else {
-            console.log("QR CODES DON'T MATCH");
+            this.alerManagement("Book needs to be in 'Borrowed' or 'Reserved' status to perform this action");
+          }
+         
+        }
+      }, {
+        text: 'Enable for AR',
+        icon: "../assets/icon/scan-circle.svg",
+        handler: () => {
+          this.arBookModal(bookid, bookname);
+          console.log('AR clicked');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+
+         
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+
+          if (bookcurrentstatus === 'available') {
+            this.checkDeleteConfirmation(bookid);
+          }
+          else {
+            this.alerManagement("Book can be removed only when it is in 'Available' status");
           }
           
-        })
-        .catch(err => {console.log('Error', err);});
-                
-    } 
-    else {
-      console.log("QR CHECK STRING NOT FOUND");
-    }
+          
+        }
+      }]
+    });
+    await actionSheet.present();
 
-  }*/
-
- 
-
-  /*
-
-  this.reservedService.isReserved(this.book._id)
-  .subscribe(resp => { console.log(resp); this.reserved = <boolean>resp.exists; },
-      err => console.log(err));
-
-   this.availableService.isAvailable(this.book._id)
-   .subscribe(resp => { console.log(resp); this.available = <boolean>resp.exists; },
-      err => console.log(err));
+    const { role } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
 
 
-          */
 
-  
 
   loadMoreBooks(event) {
     setTimeout(() => {
@@ -830,14 +994,21 @@ export class Tab3Page implements OnInit, AfterViewInit {
     }, 3000);
   }
 
+  async helpModal() {
 
+    const helpManageBooksModal = await this._modalController.create({
+      component: ManagebookshelpPage
+    });
+
+    return helpManageBooksModal.present();
+  }
 
   async addBookModal() {
 
     const addbookModal = await this._modalController.create({
       component: AddbookPage
     });
-
+    
     return addbookModal.present();
   }
 

@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar >
+      <ion-title size="large" text-center
+             style="font:xx-large; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+             color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;">
+            HOWTO - Manage Books
+       </ion-title>
+       <ion-buttons slot="end">
+        <ion-icon style="color: whitesmoke;" src="../assets/icon/close-outline.svg" 
+        size="medium" (click)="closeModal()"></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-title style="font-weight: bold; padding: 10px;">
+      Add New Book in the bookshelf
+    </ion-card-title>
+    <ion-card-content>
+      The dialogue provided for you to add your books in <strong>Booxar</strong> bookshelf. 
+    </ion-card-content>
+    <ion-card-content>
+      After successful entry, newly added book will be made available for others to borrow.
+      You will start seeing it in the <strong>'Bookshelf'</strong> tab in the app.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-title style="font-weight: bold; padding: 10px;">
+      My books - as Book Owner
+    </ion-card-title>
+    <ion-card-content>
+      Dropdown list containing all the books logged in user has added in the bookshelf as <strong>
+      'Book Owner'</strong>.
+    </ion-card-content>
+    <ion-card-content>
+      Books, for which the logged in user is not the owner,  will not be listed. User can filter the books as per 
+      the current status - <strong>'Available', 'Borrowed', 'Reserved'</strong>. 
+    </ion-card-content>
+
+    <ion-card-content>
+     <strong>Take Action</strong>: As a book owner you can perform following actions on the book.
+     <ion-card-content>
+      <strong> 1. Lend or Make Available </strong>: Scan the QR code presented by the book requester. 
+      If the QR code matches, requester or bnorrower authorization is successful. 
+      Lend the book to the borrower OR accept the book back from the borrower.
+     </ion-card-content>
+     <ion-card-content>
+      <strong> 2. Enanble for AR (Augmented Reality)</strong>: The dialogues provided here enable the book owner to add Anchors
+      and corresponding content to be augmented. 
+      <ion-card-content>
+        <strong>Anchors</strong>: Anchors are the makrers on top of which additional contextual content is augmented. i.e. 
+      when the app user points smart device on the anchors, augmented content is rendered. For the <strong>Booxar</strong>
+      app, Anchor can be existing images in the book. 
+      </ion-card-content>
+      <ion-card-content>
+        <strong>Content</strong>: Conten is the media content you want to attach and upload so that it is augmented on the existing
+        anchors in the book. When the app user points  smart device on the anchors, this content is rendered.
+      </ion-card-content>
+      Once <strong>Anchor</strong> and <strong>Content</strong> are uploaded for the book, the book is 'AR Enabled' and it
+      starts appearing in the <strong>ARBooks</strong> tab of the app. 
+     </ion-card-content>
+     <ion-card-content>
+      <strong> 3. Delete</strong>: The dialogue provided for the <strong>book owner</strong> to remove the book from bookshelf. 
+      Once the book is removed, other app users will not see this book listed in the <strong>Bookshelf</strong> tab.
+     </ion-card-content>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-title style="font-weight: bold; padding: 10px;">
+      My books - as Book Requester
+    </ion-card-title>
+    <ion-card-content>
+      The dialogue provided for you to view the books you have <strong>reserved</strong> or <strong>
+      borrowed</strong> from other book owners. If the book has been borrowed, it also lists the 'Return By' date.
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
+

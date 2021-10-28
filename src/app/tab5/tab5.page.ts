@@ -50,6 +50,8 @@ export class Tab5Page implements OnInit {
   loaded: boolean = false;
   showGenre: boolean;
   showLanguage: boolean;
+  showSkeleton: boolean = true;
+  showSpinner: boolean = true;
 
 
   public bookIdsImages = new Map();
@@ -77,13 +79,33 @@ export class Tab5Page implements OnInit {
       this.prepareBookIdsImagesMap();
       console.log("BOOK COLLECTION IS ---------->", this.books)
     }, errmess => this.errMess = <any>errmess);*/
-    this.presentLoading();
+   // this.presentLoading();
+
+   setTimeout(() => {
+    //this.showSkeleton = false;
+    this.showSpinner = false;
+   }, 3000);
     this.arenabledService.getARenabledBooks()
     .subscribe(arbooks => {
       this.arbooks = arbooks;
       console.log("AR Books", this.arbooks)
       this.prepareBookIdsImagesMap();
     }, errmess => this.errMess = <any>errmess);
+    
+
+  }
+
+  ionViewDidEnter() {
+
+    /*setTimeout(() => {
+      this.showSkeleton = false;
+    }, 3000);
+    this.arenabledService.getARenabledBooks()
+    .subscribe(arbooks => {
+      this.arbooks = arbooks;
+      console.log("AR Books", this.arbooks)
+      this.prepareBookIdsImagesMap();
+    }, errmess => this.errMess = <any>errmess);*/
 
   }
 

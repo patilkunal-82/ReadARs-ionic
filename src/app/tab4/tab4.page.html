@@ -12,72 +12,58 @@
 
 <ion-content>
 
-
-<!--  <ion-card>
-    <ion-card-title style="color: green;" class="display_heading">Search books in ReadARs Library</ion-card-title>
-  </ion-card> -->
-
-
   <ion-searchbar shape="round" no-margin [(ngModel)]="searchTerm"
       (ionChange)="setFilteredItems()" placeholder="Search..">
   </ion-searchbar>
-
-
-  <!--<button ion-button type="button" (click)="sort()">Sort</button> -->
-
-  
-
 
   <ion-refresher slot="fixed" (ionRefresh)="refreshBookList($event)">
     <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
     </ion-refresher-content>
   </ion-refresher>
 
-  <!--<ion-refresher slot="fixed" (ionRefresh)="clearCache($event)">
-    <ion-refresher-content pullingText="pull for update" refreshingText= "...updating">
-    </ion-refresher-content>
-  </ion-refresher>-->
+  <ion-spinner *ngIf="showSpinner" class="spin"></ion-spinner>
+   <ion-list *ngIf="!showSpinner">
+      <ion-virtual-scroll [items]="books | sort: {property: column, order: order}">
+        <div *virtualItem="let book">
+            <ion-item [routerLink]="['bookdetail', book._id]"> 
+              <ion-avatar>
+                <!--<ion-img [src]="(bookIdImageMap.get(book._id))"></ion-img>-->
+                <img-loader [src]="(bookIdImageMap.get(book._id))" useImg (load)="onImageLoad($event)"></img-loader>
+              </ion-avatar>
+               <ion-label class="book-display">
+                <span class="ion-text-wrap"><h3><strong>{{book.bookname}}</strong></h3></span>
+                <h4 style="color:darkgrey"> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h4>
+                <span *ngIf="book.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{book.bookcurrentstatus}}</span>
+                <span *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{book.bookcurrentstatus}}</span>
+                <span *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{book.bookcurrentstatus}}</span>
+              </ion-label>
+            </ion-item>
+        </div>
+      </ion-virtual-scroll>
+    </ion-list>
+ 
+  
+  
+    <!--<ion-list *ngIf="showSkeleton">
+      <ion-virtual-scroll [items]="books | sort: {property: column, order: order}">
+        <div *virtualItem="let book">
+            <ion-item> 
+              <ion-avatar>
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-avatar>
+               <ion-label class="book-display">
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-label>
+            </ion-item>
+          </div>
+        </ion-virtual-scroll>
+    </ion-list>-->
 
   
-
-  <!--<ion-list>
-       <ion-item [routerLink]="['bookdetail', book._id]" button  
-          *ngFor="let book of books | sort: {property: column, order: order}">
-         <ion-thumbnail>
-          <img-loader [src]="(bookIdImageMap.get(book._id))" useImg (load)="onImageLoad($event)"></img-loader>
-         </ion-thumbnail> 
-         <ion-label class="book-display">
-           <strong class="ion-text-wrap">{{book.bookname}}</strong>
-           <h3> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h3>
-           <ion-note *ngIf="book.bookcurrentstatus == 'available' " style="color: green">{{book.bookcurrentstatus}}</ion-note>
-           <ion-note *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red">{{book.bookcurrentstatus}}</ion-note>
-           <ion-note *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange">{{book.bookcurrentstatus}}</ion-note>
-         </ion-label>
-       </ion-item>
-  </ion-list>-->
-
-  <ion-list>
-    <ion-virtual-scroll [items]="books | sort: {property: column, order: order}">
-      <div *virtualItem="let book">
-          <ion-item [routerLink]="['bookdetail', book._id]"> 
-            <ion-avatar>
-              <ion-img [src]="(bookIdImageMap.get(book._id))"></ion-img>
-              <!--<img-loader [src]="(bookIdImageMap.get(book._id))" useImg (load)="onImageLoad($event)"></img-loader>-->
-            </ion-avatar>
-             <ion-label class="book-display">
-              <span class="ion-text-wrap"><h3><strong>{{book.bookname}}</strong></h3></span>
-              <h4 style="color:darkgrey"> in {{book.booklanguage}}. By - {{book.bookauthor}}.</h4>
-              <!--<h5 *ngIf="book.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{book.bookcurrentstatus}}</h5>
-              <h5 *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{book.bookcurrentstatus}}</h5>
-              <h5 *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{book.bookcurrentstatus}}</h5>-->
-              <span *ngIf="book.bookcurrentstatus == 'available' " style="color: green; font-size: small;">{{book.bookcurrentstatus}}</span>
-              <span *ngIf="book.bookcurrentstatus == 'borrowed' " style="color: red; font-size: small;">{{book.bookcurrentstatus}}</span>
-              <span *ngIf="book.bookcurrentstatus == 'reserved' " style="color: orange; font-size: small;">{{book.bookcurrentstatus}}</span>
-            </ion-label>
-          </ion-item>
-      </div>
-    </ion-virtual-scroll>
-  </ion-list>
 
  
 
@@ -90,20 +76,3 @@
 </ion-content>
 
 
-<!--
-
-<span [ngClass]="row.isAvailable == true ? 'hide': '' " style="color: red;" class="fa fa-times fa-lg"></span>
-<span [ngClass]="row.isReserved == true || row.isBorrowed == true ? 'hide': '' " style="color: green;" class="fa fa-check-circle fa-lg"></span>
-
-
-
-<ion-skeleton-text animated></ion-skeleton-text>
-<ion-card >
-      <ion-card-content> <strong> As a book reader, follow simple 3 step process.</strong></ion-card-content>
-      <ion-img src="/assets/images/finalimages/searchbooks.jpeg"></ion-img>
-      <ion-card-header>
-        <ion-card-content> <strong>Step1: Search and select book of your interest !</strong></ion-card-content>
-      </ion-card-header>
-</ion-card>
-
--->

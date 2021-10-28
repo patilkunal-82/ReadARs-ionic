@@ -4,12 +4,13 @@ import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 
 
 const routes: Routes = [
+  
+  
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   {
     path: 'login',
     loadChildren: './login/login.module#LoginPageModule',
   }
-  
 ];
 @NgModule({
   imports: [

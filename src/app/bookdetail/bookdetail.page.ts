@@ -102,6 +102,7 @@ export class BookdetailPage implements OnInit {
   recommended = false;
   showQRButtonFlag = false;
   showCommentFlag = true;
+  showSpinner: boolean = true;
 
   //version = VERSION;
   panelOpenState = false;
@@ -152,16 +153,7 @@ export class BookdetailPage implements OnInit {
    // private ref: ChangeDetectorRef,
     
     ) {
-    /* const bookID = activatedRoute.snapshot.params["bookID"];
-      console.log(bookID);
-      //this.bookDetail = bookdetailService.getBook(bookID);
-      this.bookDetail = readarsService.getBook(bookID);
-      console.log("Book Details", this.bookDetail);*/
-      /*this.commentFormGroup = formBuilder.group({
-        comment: ["", [Validators.required]],
-        rating: ["", [Validators.required]]
-      });*/
-
+   
       this.qrFormGroup = formBuilder.group({
         text: ["", [Validators.required]]
       })
@@ -181,8 +173,22 @@ export class BookdetailPage implements OnInit {
 
 
 
+  ionViewDidEnter() {
+
+    
+  }
   ionViewWillEnter() {
 
+    
+  }
+
+  ngOnInit() {
+
+    setTimeout(() => {
+      //this.showSkeleton = false;
+      this.showSpinner = false;
+    }, 3000);
+   
     this.authService.loadUserCredentials();
     this.subscription = this.authService.getUsername()
       .subscribe(name => { console.log(name); this.username = name; });
@@ -200,86 +206,60 @@ export class BookdetailPage implements OnInit {
      this.route.params.pipe(switchMap((params: Params) => {
        this.visibility = 'hidden';
        return this.readarsService.getBook(params['bookID']); }))
-     .subscribe(book => {
-       this.book = book;
-       this.bookCopy = this.book;
-       console.log("Book found for id:"+ this.book._id);
-       this.setPrevNext(this.book._id);
-       this.visibility = 'shown';
-       if (this.bookCopy.comments.length == 0) {
-         this.showCommentFlag = false;
-       }
+       .subscribe(book => {
+                this.book = book;
+                this.bookCopy = this.book;
+                console.log("Book found for id:"+ this.book._id);
+                this.setPrevNext(this.book._id);
+                this.visibility = 'shown';
+                if (this.bookCopy.comments.length == 0) {
+                  this.showCommentFlag = false;
+                }
 
-       this.favoriteService.isFavorite(this.book._id)
-       .subscribe(resp => { console.log(resp); this.favorite = <boolean>resp.exists; },
-           err => console.log(err));
+                this.favoriteService.isFavorite(this.book._id)
+                .subscribe(resp => { console.log(resp); this.favorite = <boolean>resp.exists; },
+                    err => console.log(err));
 
-       this.reservedService.isReserved(this.book._id)
-       .subscribe(resp => { 
-            console.log(resp); 
-            this.reserved = <boolean>resp.exists; 
-          },err => console.log(err));
+                this.reservedService.isReserved(this.book._id)
+                .subscribe(resp => { 
+                      console.log(resp); 
+                      this.reserved = <boolean>resp.exists; 
+                    },err => console.log(err));
 
-        this.availableService.isAvailable(this.book._id)
-        .subscribe(resp => { 
-            console.log(resp); 
-            this.available = <boolean>resp.exists; 
-          }, err => console.log(err));
+                  this.availableService.isAvailable(this.book._id)
+                  .subscribe(resp => { 
+                      console.log(resp); 
+                      this.available = <boolean>resp.exists; 
+                    }, err => console.log(err));
 
-        this.borrowedService.isBorrowed(this.book._id)
-        .subscribe(resp => {
-            this.borrowed = <boolean>resp.exists;
-        }, err => console.log(err));
+                  this.borrowedService.isBorrowed(this.book._id)
+                  .subscribe(resp => {
+                      this.borrowed = <boolean>resp.exists;
+                  }, err => console.log(err));
 
-        this.recommendService.isRecommended(this.book._id)
-        .subscribe(resp => {
-          this.recommended = <boolean>resp.exists;
-      }, err => console.log(err));
+                  this.recommendService.isRecommended(this.book._id)
+                  .subscribe(resp => {
+                    this.recommended = <boolean>resp.exists;
+                }, err => console.log(err));
 
-        console.log("BOOK CURRENT USER", this.book.bookcurrentuser);
-        console.log("CURRENT USER NAME", this.username);
-        console.log("SHOWQRBUTTON FLAG", this.showQRButtonFlag)
-        if (this.book.bookcurrentuser === this.username) {
-          console.log("INSIDE IF CONDITION FOR CURRENT USER & CURRERNT USER")
-          
-          this.showQRButtonFlag = true;
-          console.log("SHOWQRBUTTON FLAG", this.showQRButtonFlag)
-        }
+                console.log("BOOK CURRENT USER", this.book.bookcurrentuser);
+                console.log("CURRENT USER NAME", this.username);
+                console.log("SHOWQRBUTTON FLAG", this.showQRButtonFlag)
+                if (this.book.bookcurrentuser === this.username) {
+                  console.log("INSIDE IF CONDITION FOR CURRENT USER & CURRERNT USER")
+                  
+                  this.showQRButtonFlag = true;
+                  console.log("SHOWQRBUTTON FLAG", this.showQRButtonFlag)
+                }
 
-
-        /*this.readarsService.getBookImage(this.book._id)
-        .subscribe(x => this.url = x);*/
 
      },
      errmess => this.errMess = <any>errmess);
-    
+
+   
   }
 
-  ngOnInit() {
-    //this.createForm();
 
-   this.presentLoading();
-    
-   /* this.plt.ready().then(() => {
-     this.loadStoredImages();
-    })*/
-
-  }
-
-  /*loadStoredImages() {
-    this.storage.get(STORAGE_KEY).then(images => {
-
-      if(images) {
-        let arr = JSON.parse(images);
-        this.images = [];
-        for (let img of arr) {
-          let filePath = this.file.dataDirectory + img;
-          let resPath = this.pathForImage(filePath);
-          this.images.push({name :img, path: resPath, filePath: filePath});
-        }
-      }
-    });
-  }*/
 
   refreshBookList(event) {
     setTimeout(() => {
@@ -404,6 +384,19 @@ export class BookdetailPage implements OnInit {
     
   }
 
+  async alerManagement(message: string) {
+
+    const alert = await this._alertController.create({
+      message: message,
+      header: "Book Reserved",
+      buttons: ['Ok']
+      
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
  
 
   async reserveBook() {
@@ -422,9 +415,12 @@ export class BookdetailPage implements OnInit {
     this.book.bookborrowed = false;
     this.book.bookcurrentuser = this.username;
     this.book.bookcurrentstatus = 'reserved';
+    this.book.bookreserveddate = new Date().toLocaleDateString();
+    console.log("BOOK RESERVED DATE", this.book.bookreserveddate);
     this.readarsService.reserveBook(this.book._id, this.book)
       .subscribe(book => { 
-        this.presentToast("Book Reserved. Collect the book from the owner in next 48 hours. Failing which, it will be made available to others !")
+        this.router.navigateByUrl('/tabs/tab1/showallbooks');
+        this.alerManagement("Book Reserved. Collect the book from the owner in next 48 hours. Failing which, it will be made available to others !")
         console.log(book); 
         this.reserved = true;
         this.createQRcode();

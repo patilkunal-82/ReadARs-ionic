@@ -36,6 +36,10 @@
   
   }
 
+  ion-label {
+    margin-left: 10px;
+  }
+
   ion-back-button {
     color: #FDFEFE;
 }
@@ -76,7 +80,14 @@
   }
   
   .bookimage1 {
-    width: 100px;
+    width: 50px;
+    height: 50px;
+    //margin-left: 5px;
+    box-shadow: grey;
+  }
+
+  .bookimage2 {
+    width: 90px;
     height: 100px;
     //margin-left: 5px;
     box-shadow: grey;
@@ -106,3 +117,25 @@
     display: block !important;
     
   }
+
+      /* Custom Skeleton Line Height and Margin */
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+  margin-bottom: 5px;
+}
+
+.spin{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+ion-spinner {
+  width: 28px;
+  height: 28px;
+  stroke: #444;
+  fill: #222;
+}

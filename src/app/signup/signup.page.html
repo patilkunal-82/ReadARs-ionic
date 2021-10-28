@@ -29,17 +29,17 @@
 
         
         <ion-item>
-          <ion-label color="medium">First Name</ion-label>
+          <ion-label style="color:darkslategrey">First Name:</ion-label>
           <ion-input formControlName="firstname" type="text" required></ion-input>
         </ion-item>
         
         <ion-item>
-          <ion-label color="medium">Last Name</ion-label>
+          <ion-label style="color:darkslategrey">Last Name:</ion-label>
           <ion-input formControlName="lastname" type="text" required></ion-input>
         </ion-item>
         
         <ion-item>
-          <ion-label color="medium">Username</ion-label>
+          <ion-label style="color:darkslategrey">Username:</ion-label>
           <ion-input formControlName="username" type="text" required></ion-input>
         </ion-item>
         <div *ngIf="formErrors.username">
@@ -50,7 +50,7 @@
           </ng-container>
         </div>
         <ion-item>
-          <ion-label color="medium">Password</ion-label>
+          <ion-label style="color:darkslategrey">Password:</ion-label>
           <ion-input formControlName="password" type="password" required></ion-input>
         </ion-item>
         <div *ngIf="formErrors.password">
@@ -61,7 +61,7 @@
           </ng-container>
         </div>
         <ion-item>
-          <ion-label color="medium">Email</ion-label>
+          <ion-label style="color:darkslategrey">Email:</ion-label>
           <ion-input formControlName="email" type="email" required></ion-input>
         </ion-item>
         <div *ngIf="formErrors.email">
@@ -86,11 +86,11 @@
         </ion-row>-->
 
         <ion-card style="box-shadow: none;">
-          <ion-button margin-top shape="round" *ngIf="!flag" (click)="onSubmit()"  expand="block"
+          <ion-button margin-top shape="round" (click)="onSubmit()"  expand="block"
           [disabled]="signupFormGroup.invalid" style="color: white; font-size:large; font-style: normal; " class="center"> 
           Join
           </ion-button>
-         <ion-card-subtitle *ngIf="!flag" margin-top shape="round" (click)="closeModal()" button 
+         <ion-card-subtitle margin-top shape="round" (click)="closeModal()" button 
          style="color: #145A32; font-size: larger; font-weight: bolder; font-style: normal" class="ion-text-center">
            Cancel
          </ion-card-subtitle>

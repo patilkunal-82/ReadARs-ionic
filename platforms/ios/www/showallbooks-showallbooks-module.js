@@ -64,7 +64,7 @@ var ShowallbooksPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n               color: white; font-weight: bolder;\">\n    \n    </ion-title>\n  </ion-toolbar>\n\n  \n  \n</ion-header> \n\n<ion-content>\n\n  \n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list-header color=\"\" style=\"margin-bottom: 10px;\"> \n    <ion-item class=\"\">\n     <ion-icon style=\"color: #145A32; margin-right: 5px;\" src=\"../assets/icon/list.svg\"></ion-icon>\n      <ion-label style=\"color: #145A32; margin-left: 5px; \"> All books in the shelf </ion-label>\n    </ion-item>\n  </ion-list-header>\n\n  <ion-list>\n    <ion-virtual-scroll [items]=\"books\">\n      <div *virtualItem=\"let book\">\n        <ion-list>\n          <ion-item>\n            \n            <ion-img style=\"box-shadow: olivedrab;\" class=\"bookimage1\" [src]=\"(bookIdImageMap.get(book._id))\"   \n              cache=\"true\" button></ion-img>\n\n           \n              <ion-label>\n                <h3 style=\"color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                \" class=\"ion-text-wrap\"> \n                  {{book.bookname}}\n                </h3>\n                <p style=\"color:darkgrey; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                  font-size: small;\">\n                    Author : {{book.bookauthor}}\n                </p>\n\n              <!--<ion-chip style=\"color: darkgreen; background: #E9F7EF ; font-size: smaller; margin-left: 20px;\">\n                Book Details...\n              </ion-chip>-->\n              <ion-chip style=\"background-color: #e9f7e9; font-size: x-small;\" [routerLink]=\"['bookdetail', book._id]\"> \n                More details\n                <ion-icon  src=\"../assets/icon/ellipsis-horizontal.svg\" style=\"color: darkgreen;\" size=\"mini\"></ion-icon>\n              </ion-chip>\n\n\n                </ion-label>\n          </ion-item>\n        </ion-list>\n      </div>\n    </ion-virtual-scroll>\n  </ion-list>\n\n  <!--<ion-list>\n    <ion-list-header color=\"\">\n      <ion-item class=\"\">\n       <ion-icon style=\"color: #145A32; margin-right: 5px;\" src=\"../assets/icon/list.svg\"></ion-icon>\n        <ion-label style=\"color: #145A32; margin-left: 5px; \"> ALL THE BOOKS </ion-label>\n      </ion-item>\n    </ion-list-header>\n    \n    <ion-item-sliding>\n      <ion-slides [options]=\"sliderConfig\">\n        <ion-slide *ngFor=\"let book of books\">\n            <img-loader class=\"bookimage\" [src]=\"(bookIdImageMap.get(book._id))\" [routerLink]=\"['bookdetail', book._id]\"  \n            useImg (load)=\"onImageLoad($event)\" button></img-loader>\n        </ion-slide>\n      </ion-slides> \n    </ion-item-sliding>\n  </ion-list>-->\n \n\n \n\n\n  \n\n  <ion-infinite-scroll (ionInfinite)=\"loadMoreBooks($event)\">\n    <!--<ion-infinite-scroll-content loadingText=\"..loading\">\n    </ion-infinite-scroll-content> -->\n  </ion-infinite-scroll>\n\n</ion-content>\n"
+module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collapse=\"condense\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title size=\"large\" \n               style=\"font:xx-large; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n               color: white; font-weight: bolder;\">\n    \n    </ion-title>\n  </ion-toolbar>\n\n  \n  \n</ion-header> \n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshBookList($event)\">\n    <ion-refresher-content pullingText=\"pull for update\" refreshingText= \"...updating\">\n    </ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list-header color=\"\" style=\"margin-bottom: 10px;\"> \n    <ion-item class=\"\">\n     <ion-icon style=\"color: #145A32; margin-right: 5px;\" src=\"../assets/icon/list.svg\"></ion-icon>\n      <ion-label style=\"color: #145A32; margin-left: 5px; \"> All books in the shelf </ion-label>\n    </ion-item>\n  </ion-list-header>\n\n  <ion-spinner *ngIf=\"showSpinner\" class=\"spin\"></ion-spinner>\n\n <ion-list *ngIf=\"!showSpinner\">\n    <ion-virtual-scroll [items]=\"allbooks\">\n      <div *virtualItem=\"let book\">\n        <ion-list>\n          <ion-item [routerLink]=\"['bookdetail', book._id]\">\n            <!--<ion-thumbnail>-->\n              <!--<ion-img style=\"box-shadow: olivedrab;\" class=\"bookimage1\" [src]=\"(bookIdImageMap.get(book._id))\"   \n              cache=\"true\" button></ion-img>-->\n              <img-loader [src]=\"(bookIdImageMap.get(book._id))\" class=\"bookimage2\" useImg (load)=\"onImageLoad($event)\"></img-loader>\n            <!--</ion-thumbnail>-->\n              <ion-label>\n                <h3 style=\"color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                \" class=\"ion-text-wrap\"> \n                  {{book.bookname}}\n                </h3>\n                <p style=\"color:darkgrey; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                  font-size: small;\">\n                    Author : {{book.bookauthor}}\n                </p>\n                </ion-label>\n          </ion-item>\n        </ion-list>\n      </div>\n    </ion-virtual-scroll>\n  </ion-list>\n\n  <!--<ion-list *ngIf=\"showSkeleton\">\n    <ion-virtual-scroll  [items]=\"allbooks\">\n      <div *virtualItem=\"let book\">\n        <ion-list>\n          <ion-item>\n            \n            <ion-thumbnail>\n              <ion-skeleton-text animated></ion-skeleton-text>\n            </ion-thumbnail>\n              <ion-label>\n                <h3 style=\"color: black; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                \" class=\"ion-text-wrap\"> \n                  <ion-skeleton-text animated></ion-skeleton-text>\n                </h3>\n                <p style=\"color:darkgrey; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n                  font-size: small;\">\n                   <ion-skeleton-text animated></ion-skeleton-text>\n                </p>\n                </ion-label>\n          </ion-item>\n        </ion-list>\n      </div>\n    </ion-virtual-scroll>\n  </ion-list>-->\n    \n  <ion-infinite-scroll (ionInfinite)=\"loadMoreBooks($event)\">\n    <!--<ion-infinite-scroll-content loadingText=\"..loading\">\n    </ion-infinite-scroll-content> -->\n  </ion-infinite-scroll>\n\n</ion-content>\n\n"
 
 /***/ }),
 
@@ -75,7 +75,7 @@ module.exports = "\n<ion-header color=\"success\" [translucent]=\"true\" collaps
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px; }\n\n.displayinnercard {\n  margin-top: auto;\n  padding: 5px; }\n\nion-select {\n  width: 100%;\n  max-width: 100% !important;\n  padding-left: 20px; }\n\nion-list-header {\n  padding-left: 0px;\n  display: block;\n  text-align: center; }\n\nion-back-button {\n  color: #FDFEFE; }\n\n.display_heading {\n  margin-left: 0px;\n  padding: 0px; }\n\n.spinner-container {\n  width: 100%;\n  text-align: center;\n  padding: 10px; }\n\n.book-image {\n  width: 300px;\n  height: 300px;\n  margin: 10px auto; }\n\n.bookimage {\n  width: 225%;\n  height: 4%;\n  margin: 10px auto; }\n\n.bookcard {\n  width: 20%;\n  height: 20%;\n  margin: 10px;\n  text-align: center; }\n\n.bookimage1 {\n  width: 100px;\n  height: 100px;\n  box-shadow: grey; }\n\n.my-custom-menu {\n  --width: 500px; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n.center {\n  margin-left: auto;\n  margin-right: auto;\n  display: block !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9zaG93YWxsYm9va3Mvc2hvd2FsbGJvb2tzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQjtFQUNoQixnQkFBZ0IsRUFBQTs7QUFHbEI7RUFJRSxXQUFXO0VBQ1gsWUFBWSxFQUFBOztBQUlkO0VBSUcsZ0JBQWdCO0VBRWhCLFlBQVksRUFBQTs7QUFJZDtFQUNDLFdBQVU7RUFDViwwQkFBMEI7RUFDMUIsa0JBQWlCLEVBQUE7O0FBR25CO0VBRUUsaUJBQWdCO0VBQ2hCLGNBQWE7RUFDYixrQkFBa0IsRUFBQTs7QUFJcEI7RUFDRSxjQUFjLEVBQUE7O0FBR2hCO0VBQ0UsZ0JBQWdCO0VBQ2hCLFlBQVksRUFBQTs7QUFHZDtFQUNFLFdBQVc7RUFDWCxrQkFBa0I7RUFDbEIsYUFBYSxFQUFBOztBQUdmO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFFYixpQkFBaUIsRUFBQTs7QUFHckI7RUFDRSxXQUFXO0VBRVgsVUFBVTtFQUVWLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLFVBQVU7RUFDVixXQUFXO0VBQ1gsWUFBWTtFQUNaLGtCQUFrQixFQUFBOztBQUtwQjtFQUNFLFlBQVk7RUFDWixhQUFhO0VBRWIsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsY0FBUSxFQUFBOztBQUdWO0VBRUUscUJBQWEsRUFBQTs7QUFHZjtFQUNFLGtCQUFhO0VBQ2IscUJBQWdCO0VBRWhCLFdBQVcsRUFBQTs7QUFLYjtFQUNFLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIseUJBQXlCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zaG93YWxsYm9va3Mvc2hvd2FsbGJvb2tzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi53ZWxjb21lLWNhcmQgaW9uLWltZyB7XG4gICAgbWF4LWhlaWdodDogMzV2aDtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICB9XG4gIFxuICAuZGlzcGxheWNhcmQge1xuICAgLy8gd2lkdGg6IDMwdnc7XG4gICAgLy9oZWlnaHQ6MzB2aDtcbiAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgbWFyZ2luOiA1cHg7XG4gICAgcGFkZGluZzogNXB4O1xuICAgIC8vYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgfVxuICBcbiAgLmRpc3BsYXlpbm5lcmNhcmQge1xuICAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgICAvL2hlaWdodDozMHZoO1xuICAgIC8vIGJvcmRlcjogZ3JleSBzb2xpZCAxcHg7XG4gICAgIG1hcmdpbi10b3A6IGF1dG87XG4gICAgIC8vbWFyZ2luLWxlZnQ6IDMwcHg7XG4gICAgIHBhZGRpbmc6IDVweDtcbiAgICAgLy9iYWNrZ3JvdW5kLWNvbG9yOmdob3N0d2hpdGU7XG4gICB9XG4gIFxuICAgaW9uLXNlbGVjdCB7XG4gICAgd2lkdGg6MTAwJTtcbiAgICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbiAgICBwYWRkaW5nLWxlZnQ6MjBweDtcbiAgfVxuICBcbiAgaW9uLWxpc3QtaGVhZGVyIHtcbiAgXG4gICAgcGFkZGluZy1sZWZ0OjBweDtcbiAgICBkaXNwbGF5OmJsb2NrO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgXG4gIH1cblxuICBpb24tYmFjay1idXR0b24ge1xuICAgIGNvbG9yOiAjRkRGRUZFO1xufVxuICBcbiAgLmRpc3BsYXlfaGVhZGluZyB7XG4gICAgbWFyZ2luLWxlZnQ6IDBweDtcbiAgICBwYWRkaW5nOiAwcHg7XG4gIH1cbiAgXG4gIC5zcGlubmVyLWNvbnRhaW5lciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHBhZGRpbmc6IDEwcHg7XG4gIH1cbiAgXG4gIC5ib29rLWltYWdlIHtcbiAgICAgIHdpZHRoOiAzMDBweDtcbiAgICAgIGhlaWdodDogMzAwcHg7XG4gICAgICAvL2JvcmRlcjogZ3JheSBzb2xpZCAxcHg7XG4gICAgICBtYXJnaW46IDEwcHggYXV0bztcbiAgfVxuICBcbiAgLmJvb2tpbWFnZSB7XG4gICAgd2lkdGg6IDIyNSU7XG4gICAgLy9oZWlnaHQ6IGF1dG87XG4gICAgaGVpZ2h0OiA0JTtcbiAgICAvL21hcmdpbi10b3A6IDI1dmg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG87XG4gIH1cbiAgXG4gIC5ib29rY2FyZCB7XG4gICAgd2lkdGg6IDIwJTtcbiAgICBoZWlnaHQ6IDIwJTtcbiAgICBtYXJnaW46IDEwcHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIC8vb2JqZWN0LWZpdDogY292ZXI7XG4gICAgXG4gIH1cbiAgXG4gIC5ib29raW1hZ2UxIHtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgICAvL21hcmdpbi1sZWZ0OiA1cHg7XG4gICAgYm94LXNoYWRvdzogZ3JleTtcbiAgfVxuICBcbiAgLm15LWN1c3RvbS1tZW51IHtcbiAgICAtLXdpZHRoOiA1MDBweDtcbiAgfVxuICBcbiAgaW9uLXRvb2xiYXIge1xuICAgIC8vLS1iYWNrZ3JvdW5kOiAjMUI0RjcyO1xuICAgIC0tYmFja2dyb3VuZDogIzE0NUEzMjtcbiAgfVxuICBcbiAgLm15LWN1c3RvbS1jbGFzcyB7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMjIyO1xuICAgIC0tc3Bpbm5lci1jb2xvcjogI2ZmZjtcbiAgXG4gICAgY29sb3I6ICNmZmY7XG4gIH1cbiAgXG4gXG4gIFxuICAuY2VudGVye1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBibG9jayAhaW1wb3J0YW50O1xuICAgIFxuICB9Il19 */"
+module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n.displaycard {\n  margin: 5px;\n  padding: 5px; }\n\n.displayinnercard {\n  margin-top: auto;\n  padding: 5px; }\n\nion-select {\n  width: 100%;\n  max-width: 100% !important;\n  padding-left: 20px; }\n\nion-list-header {\n  padding-left: 0px;\n  display: block;\n  text-align: center; }\n\nion-label {\n  margin-left: 10px; }\n\nion-back-button {\n  color: #FDFEFE; }\n\n.display_heading {\n  margin-left: 0px;\n  padding: 0px; }\n\n.spinner-container {\n  width: 100%;\n  text-align: center;\n  padding: 10px; }\n\n.book-image {\n  width: 300px;\n  height: 300px;\n  margin: 10px auto; }\n\n.bookimage {\n  width: 225%;\n  height: 4%;\n  margin: 10px auto; }\n\n.bookcard {\n  width: 20%;\n  height: 20%;\n  margin: 10px;\n  text-align: center; }\n\n.bookimage1 {\n  width: 50px;\n  height: 50px;\n  box-shadow: grey; }\n\n.bookimage2 {\n  width: 90px;\n  height: 100px;\n  box-shadow: grey; }\n\n.my-custom-menu {\n  --width: 500px; }\n\nion-toolbar {\n  --background: #145A32; }\n\n.my-custom-class {\n  --background: #222;\n  --spinner-color: #fff;\n  color: #fff; }\n\n.center {\n  margin-left: auto;\n  margin-right: auto;\n  display: block !important; }\n\n/* Custom Skeleton Line Height and Margin */\n\n.custom-skeleton ion-skeleton-text {\n  line-height: 13px; }\n\n.custom-skeleton ion-skeleton-text:last-child {\n  margin-bottom: 5px; }\n\n.spin {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%); }\n\nion-spinner {\n  width: 28px;\n  height: 28px;\n  stroke: #444;\n  fill: #222; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rdW5hbHBhdGlsL1BlcnNvbmFsRmFtaWx5L1dvcmtSZWxhdGVkL1Byb2dyYW1taW5nL0lvbmljL1JlYWRBUnNfSW9uaWMvc3JjL2FwcC9zaG93YWxsYm9va3Mvc2hvd2FsbGJvb2tzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQjtFQUNoQixnQkFBZ0IsRUFBQTs7QUFHbEI7RUFJRSxXQUFXO0VBQ1gsWUFBWSxFQUFBOztBQUlkO0VBSUcsZ0JBQWdCO0VBRWhCLFlBQVksRUFBQTs7QUFJZDtFQUNDLFdBQVU7RUFDViwwQkFBMEI7RUFDMUIsa0JBQWlCLEVBQUE7O0FBR25CO0VBRUUsaUJBQWdCO0VBQ2hCLGNBQWE7RUFDYixrQkFBa0IsRUFBQTs7QUFJcEI7RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSxjQUFjLEVBQUE7O0FBR2hCO0VBQ0UsZ0JBQWdCO0VBQ2hCLFlBQVksRUFBQTs7QUFHZDtFQUNFLFdBQVc7RUFDWCxrQkFBa0I7RUFDbEIsYUFBYSxFQUFBOztBQUdmO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFFYixpQkFBaUIsRUFBQTs7QUFHckI7RUFDRSxXQUFXO0VBRVgsVUFBVTtFQUVWLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLFVBQVU7RUFDVixXQUFXO0VBQ1gsWUFBWTtFQUNaLGtCQUFrQixFQUFBOztBQUtwQjtFQUNFLFdBQVc7RUFDWCxZQUFZO0VBRVosZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsV0FBVztFQUNYLGFBQWE7RUFFYixnQkFBZ0IsRUFBQTs7QUFHbEI7RUFDRSxjQUFRLEVBQUE7O0FBR1Y7RUFFRSxxQkFBYSxFQUFBOztBQUdmO0VBQ0Usa0JBQWE7RUFDYixxQkFBZ0I7RUFFaEIsV0FBVyxFQUFBOztBQUtiO0VBQ0UsaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQix5QkFBeUIsRUFBQTs7QUFJdkIsMkNBQUE7O0FBQ047RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxlQUFlO0VBQ2YsUUFBUTtFQUNSLFNBQVM7RUFDVCx3Q0FBZ0M7VUFBaEMsZ0NBQWdDLEVBQUE7O0FBRWxDO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZO0VBQ1osVUFBVSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hvd2FsbGJvb2tzL3Nob3dhbGxib29rcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2VsY29tZS1jYXJkIGlvbi1pbWcge1xuICAgIG1heC1oZWlnaHQ6IDM1dmg7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgfVxuICBcbiAgLmRpc3BsYXljYXJkIHtcbiAgIC8vIHdpZHRoOiAzMHZ3O1xuICAgIC8vaGVpZ2h0OjMwdmg7XG4gICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgIG1hcmdpbjogNXB4O1xuICAgIHBhZGRpbmc6IDVweDtcbiAgICAvL2JhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gIH1cbiAgXG4gIC5kaXNwbGF5aW5uZXJjYXJkIHtcbiAgICAvLyB3aWR0aDogMzB2dztcbiAgICAgLy9oZWlnaHQ6MzB2aDtcbiAgICAvLyBib3JkZXI6IGdyZXkgc29saWQgMXB4O1xuICAgICBtYXJnaW4tdG9wOiBhdXRvO1xuICAgICAvL21hcmdpbi1sZWZ0OiAzMHB4O1xuICAgICBwYWRkaW5nOiA1cHg7XG4gICAgIC8vYmFja2dyb3VuZC1jb2xvcjpnaG9zdHdoaXRlO1xuICAgfVxuICBcbiAgIGlvbi1zZWxlY3Qge1xuICAgIHdpZHRoOjEwMCU7XG4gICAgbWF4LXdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XG4gICAgcGFkZGluZy1sZWZ0OjIwcHg7XG4gIH1cbiAgXG4gIGlvbi1saXN0LWhlYWRlciB7XG4gIFxuICAgIHBhZGRpbmctbGVmdDowcHg7XG4gICAgZGlzcGxheTpibG9jaztcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIFxuICB9XG5cbiAgaW9uLWxhYmVsIHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgfVxuXG4gIGlvbi1iYWNrLWJ1dHRvbiB7XG4gICAgY29sb3I6ICNGREZFRkU7XG59XG4gIFxuICAuZGlzcGxheV9oZWFkaW5nIHtcbiAgICBtYXJnaW4tbGVmdDogMHB4O1xuICAgIHBhZGRpbmc6IDBweDtcbiAgfVxuICBcbiAgLnNwaW5uZXItY29udGFpbmVyIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgcGFkZGluZzogMTBweDtcbiAgfVxuICBcbiAgLmJvb2staW1hZ2Uge1xuICAgICAgd2lkdGg6IDMwMHB4O1xuICAgICAgaGVpZ2h0OiAzMDBweDtcbiAgICAgIC8vYm9yZGVyOiBncmF5IHNvbGlkIDFweDtcbiAgICAgIG1hcmdpbjogMTBweCBhdXRvO1xuICB9XG4gIFxuICAuYm9va2ltYWdlIHtcbiAgICB3aWR0aDogMjI1JTtcbiAgICAvL2hlaWdodDogYXV0bztcbiAgICBoZWlnaHQ6IDQlO1xuICAgIC8vbWFyZ2luLXRvcDogMjV2aDtcbiAgICBtYXJnaW46IDEwcHggYXV0bztcbiAgfVxuICBcbiAgLmJvb2tjYXJkIHtcbiAgICB3aWR0aDogMjAlO1xuICAgIGhlaWdodDogMjAlO1xuICAgIG1hcmdpbjogMTBweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgLy9vYmplY3QtZml0OiBjb3ZlcjtcbiAgICBcbiAgfVxuICBcbiAgLmJvb2tpbWFnZTEge1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGhlaWdodDogNTBweDtcbiAgICAvL21hcmdpbi1sZWZ0OiA1cHg7XG4gICAgYm94LXNoYWRvdzogZ3JleTtcbiAgfVxuXG4gIC5ib29raW1hZ2UyIHtcbiAgICB3aWR0aDogOTBweDtcbiAgICBoZWlnaHQ6IDEwMHB4O1xuICAgIC8vbWFyZ2luLWxlZnQ6IDVweDtcbiAgICBib3gtc2hhZG93OiBncmV5O1xuICB9XG4gIFxuICAubXktY3VzdG9tLW1lbnUge1xuICAgIC0td2lkdGg6IDUwMHB4O1xuICB9XG4gIFxuICBpb24tdG9vbGJhciB7XG4gICAgLy8tLWJhY2tncm91bmQ6ICMxQjRGNzI7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMTQ1QTMyO1xuICB9XG4gIFxuICAubXktY3VzdG9tLWNsYXNzIHtcbiAgICAtLWJhY2tncm91bmQ6ICMyMjI7XG4gICAgLS1zcGlubmVyLWNvbG9yOiAjZmZmO1xuICBcbiAgICBjb2xvcjogI2ZmZjtcbiAgfVxuICBcbiBcbiAgXG4gIC5jZW50ZXJ7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIGRpc3BsYXk6IGJsb2NrICFpbXBvcnRhbnQ7XG4gICAgXG4gIH1cblxuICAgICAgLyogQ3VzdG9tIFNrZWxldG9uIExpbmUgSGVpZ2h0IGFuZCBNYXJnaW4gKi9cbi5jdXN0b20tc2tlbGV0b24gaW9uLXNrZWxldG9uLXRleHQge1xuICBsaW5lLWhlaWdodDogMTNweDtcbn1cblxuLmN1c3RvbS1za2VsZXRvbiBpb24tc2tlbGV0b24tdGV4dDpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogNXB4O1xufVxuXG4uc3BpbntcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDUwJTtcbiAgbGVmdDogNTAlO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbn1cbmlvbi1zcGlubmVyIHtcbiAgd2lkdGg6IDI4cHg7XG4gIGhlaWdodDogMjhweDtcbiAgc3Ryb2tlOiAjNDQ0O1xuICBmaWxsOiAjMjIyO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -131,7 +131,7 @@ var ShowallbooksPage = /** @class */ (function () {
     //private storage: Storage,
     plt, 
     // private ref: ChangeDetectorRef, 
-    filePath, httpClient, imageLoaderService, toastCtrl, zone, loadingController) {
+    filePath, httpClient, imageLoaderService, toastCtrl, zone, loadingController, alertCtrl) {
         this.navCtrl = navCtrl;
         this.authService = authService;
         this.booksService = booksService;
@@ -151,8 +151,9 @@ var ShowallbooksPage = /** @class */ (function () {
         this.toastCtrl = toastCtrl;
         this.zone = zone;
         this.loadingController = loadingController;
+        this.alertCtrl = alertCtrl;
         this.images = [];
-        this.books = [];
+        this.allbooks = [];
         this.recobooks = [];
         this.bookGenreCollection = [];
         this.bookLanguageCollection = [];
@@ -161,6 +162,9 @@ var ShowallbooksPage = /** @class */ (function () {
         this.bookgenre = _shared_book__WEBPACK_IMPORTED_MODULE_3__["BookGenre"];
         this.booklanguage = _shared_book__WEBPACK_IMPORTED_MODULE_3__["BookLanguage"];
         this.collectonCategory = _shared_book__WEBPACK_IMPORTED_MODULE_3__["CollectionCategory"];
+        this.showBooks = false;
+        this.showSkeleton = true;
+        this.showSpinner = true;
         this.bookIdsImages = new Map();
         this.bookIdImageMap = new Map();
         this.searchTerm = "";
@@ -169,18 +173,22 @@ var ShowallbooksPage = /** @class */ (function () {
         this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
     }
     ShowallbooksPage.prototype.ngOnInit = function () {
-        var _this = this;
         //this.showForm = false;
-        this.createForm();
-        this.setFilteredItems();
-        // this.loadStoredImages();
-        this.presentLoading();
-        this.readarsService.getBooks()
-            .subscribe(function (books) {
-            _this.books = books;
-            _this.prepareBookIdsImagesMap();
-            console.log("BOOK COLLECTION IS ---------->", _this.books);
-        }, function (errmess) { return _this.errMess = errmess; });
+        //this.createForm();
+        //this.setFilteredItems();
+        var _this = this;
+        //this.presentLoading();
+        /*this.readarsService.getBooks()
+        .subscribe(books => {
+          this.showBooks = true;
+          this.allbooks = books;
+          this.prepareBookIdsImagesMap();
+          console.log("BOOK COLLECTION IS ---------->", this.allbooks)
+        
+        }, errmess => {
+          this.showBooks = false;
+          this.errMess = <any>errmess
+        });*/
         /*this.readarsService.getRecommendedBooks()
         .subscribe(recobooks => {
     
@@ -188,6 +196,37 @@ var ShowallbooksPage = /** @class */ (function () {
           console.log("RECO BOOK COLLECTION IS ---------->", this.recobooks)
     
         }, errmess => this.errMess = <any>errmess);*/
+        setTimeout(function () {
+            //this.showSkeleton = false;
+            _this.showSpinner = false;
+        }, 3000);
+        this.readarsService.getBooks()
+            .subscribe(function (books) {
+            _this.showBooks = true;
+            _this.allbooks = books;
+            _this.prepareBookIdsImagesMap();
+            console.log("BOOK COLLECTION IS ---------->", _this.allbooks);
+        }, function (errmess) {
+            _this.showBooks = false;
+            _this.errMess = errmess;
+        });
+    };
+    ShowallbooksPage.prototype.ionViewDidEnter = function () {
+        /*setTimeout(() => {
+          this.showSkeleton = false;
+        }, 3000);
+    
+        this.readarsService.getBooks()
+        .subscribe(books => {
+          this.showBooks = true;
+          this.allbooks = books;
+          this.prepareBookIdsImagesMap();
+          console.log("BOOK COLLECTION IS ---------->", this.allbooks)
+        
+        }, errmess => {
+          this.showBooks = false;
+          this.errMess = <any>errmess
+        });*/
     };
     ShowallbooksPage.prototype.presentLoading = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -237,7 +276,7 @@ var ShowallbooksPage = /** @class */ (function () {
         });
     };
     ShowallbooksPage.prototype.ionViewWillEnter = function () {
-        this.prepareBookIdsImagesMap();
+        //this.prepareBookIdsImagesMap();
     };
     ShowallbooksPage.prototype.clearCache = function () {
         this.imageLoaderService.clearCache();
@@ -301,20 +340,44 @@ var ShowallbooksPage = /** @class */ (function () {
       for every book in books, check the bookgenre.
       if bookgenre matches with the event.detal.value, add that bookentry into genrecollection
     */
+    ShowallbooksPage.prototype.alertManagement = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert, role;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertCtrl.create({
+                            message: message,
+                            header: "Please note",
+                            buttons: ['Ok']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, alert.onDidDismiss()];
+                    case 3:
+                        role = (_a.sent()).role;
+                        console.log('onDidDismiss resolved with role', role);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ShowallbooksPage.prototype.displayGenreCollection = function (event) {
         this.bookGenreCollection = [];
         console.log("EVENT DETAIL VALUE", event.detail.value);
         var i = 0;
         var j = 0;
-        while (i < this.books.length) {
-            if (this.books[i].bookgenre === event.detail.value) {
-                this.bookGenreCollection[j] = this.books[i];
+        while (i < this.allbooks.length) {
+            if (this.allbooks[i].bookgenre === event.detail.value) {
+                this.bookGenreCollection[j] = this.allbooks[i];
                 j++;
             }
             i++;
         }
         if ((this.bookGenreCollection === undefined || this.bookGenreCollection.length == 0)) {
-            this.presentToast("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
+            this.alertManagement("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
         }
         console.log("BOOK GENRE & COLLECTION", event.detail.value, this.bookGenreCollection.length);
     };
@@ -323,15 +386,15 @@ var ShowallbooksPage = /** @class */ (function () {
         console.log("EVENT DETAIL VALUE", event.detail.value);
         var i = 0;
         var j = 0;
-        while (i < this.books.length) {
-            if (this.books[i].booklanguage === event.detail.value) {
-                this.bookLanguageCollection[j] = this.books[i];
+        while (i < this.allbooks.length) {
+            if (this.allbooks[i].booklanguage === event.detail.value) {
+                this.bookLanguageCollection[j] = this.allbooks[i];
                 j++;
             }
             i++;
         }
         if ((this.bookLanguageCollection === undefined || this.bookLanguageCollection.length == 0)) {
-            this.presentToast("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
+            this.alertManagement("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
         }
         console.log("BOOK LANGUAGE & COLLECTION", event.detail.value, this.bookLanguageCollection);
     };
@@ -344,15 +407,15 @@ var ShowallbooksPage = /** @class */ (function () {
         setTimeout(function () {
             _this.readarsService.getBooks()
                 .subscribe(function (books) {
-                _this.books = books;
+                _this.allbooks = books;
             }, function (errmess) { return _this.errMess = errmess; });
             _this.clearCache();
             event.target.complete();
         }, 2000);
     };
     ShowallbooksPage.prototype.setFilteredItems = function () {
-        this.books = this.searchedData.filterItems(this.searchTerm);
-        console.log("Searched data", this.books);
+        this.allbooks = this.searchedData.filterItems(this.searchTerm);
+        console.log("Searched data", this.allbooks);
     };
     ShowallbooksPage.prototype.loadMoreBooks = function (event) {
         setTimeout(function () {
@@ -388,7 +451,8 @@ var ShowallbooksPage = /** @class */ (function () {
             ionic_image_loader_v5__WEBPACK_IMPORTED_MODULE_15__["ImageLoaderService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["ToastController"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["LoadingController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["LoadingController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"]])
     ], ShowallbooksPage);
     return ShowallbooksPage;
 }());

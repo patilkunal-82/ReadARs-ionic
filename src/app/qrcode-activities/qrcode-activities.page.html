@@ -18,7 +18,8 @@
             color: #FDFEFE  ; font-weight: bolder; font-size: 15px; text-align: start;">
           QR Code of the book
       </ion-title>
-   
+      
+     
       <ion-buttons slot="end">
         <ion-icon style="color: whitesmoke;" src="../assets/icon/close-outline.svg" size="medium" (click)="closeQRModal()"></ion-icon>
       </ion-buttons>
@@ -34,34 +35,16 @@
 
   <ion-card style="box-shadow: none;">
   <ion-card-header>
-    <!--<ion-card-title>QR Code from Server</ion-card-title>-->
-    <ion-card-subtitle>Book : {{bookname}}</ion-card-subtitle>
+    <ion-card-title>{{bookname}}</ion-card-title>
+    <ion-card-subtitle style="color:darkgray; margin-top: 20px;">Show this QR code while collecting or returning the book</ion-card-subtitle>
   </ion-card-header>
-  <!--<ion-card-content>
-    <ion-button expand="full" color="primary" (click)="showServerQRcode()">Show QR code</ion-button>
-  </ion-card-content> -->
+  
   <ion-card>
     <ion-img [src]="this.urlQR"></ion-img> 
   </ion-card>
- <!-- <div *ngIf="this.urlQR" [@expand]>
-    <h3>Receiving QR Code</h3>
-    <ion-spinner></ion-spinner><h4>Receiving...</h4>
-  </div>
-  <div *ngIf="errMess" [@expand]>
-    <h3>QR code not found</h3>
-  </div> -->
+ 
 </ion-card> 
 
-  <!--<ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button color="danger" (click)="closeQRModal()">
-      <ion-icon name="close"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
-
-
-  <!--<ion-button  shape="round" size="mini" (click)="closeQRModal()" expand="block" 
-  margin-top style="color:grey">
-   Close
-  </ion-button>-->
+  
 
 </ion-content>

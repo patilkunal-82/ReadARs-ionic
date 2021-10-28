@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Inject, ChangeDetectionStrategy } from '@
 import { ModalController } from '@ionic/angular';
 import { BooksService } from '../services/books.service'
 import { ImageLoaderService } from 'ionic-image-loader-v5';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-viewaranchorindex',
@@ -26,7 +27,8 @@ export class ViewaranchorindexPage implements OnInit {
 
   constructor(private _modalController: ModalController,
               private booksService: BooksService,
-              private imageLoaderService: ImageLoaderService) { }
+              private imageLoaderService: ImageLoaderService,
+              private loadingController: LoadingController) { }
 
   ngOnInit() {
 
@@ -46,8 +48,21 @@ export class ViewaranchorindexPage implements OnInit {
    // refresher.complete();
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...please wait',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
   readPlistForIndex() {
 
+    this.presentLoading()
     this.booksService.getBookARContent(this.bookid)
     .subscribe( x => {
        this.imgURLs = x;    

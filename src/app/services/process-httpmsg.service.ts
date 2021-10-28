@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProcessHTTPMsgService {
 
-  constructor( private toastCtrl: ToastController) { }
+  constructor( private toastCtrl: ToastController, private alertCtrl: AlertController) { }
 
   public handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
@@ -21,7 +21,8 @@ export class ProcessHTTPMsgService {
 
     if (`${error.status}` == '409') {
         console.log("inside 409");
-        errMsg = 'Conflict - User already exists';
+        errMsg = 'User Or E-mail already exists. Try entering different one';
+       
 
      }
     else if (`${error.status}` == '401') {
@@ -68,6 +69,7 @@ export class ProcessHTTPMsgService {
     toast.present();
   }
 
+ 
     //console.log("after handle error method");
 
 }

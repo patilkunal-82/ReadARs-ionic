@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { BooksService } from '../services/books.service';
 import { ReadarsService } from '../services/readars.service';
 import { Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { SearchedData } from '../services/searchbooks.service';
 import { debounceTime } from "rxjs/operators";
 import { FormControl } from "@angular/forms";
@@ -40,8 +40,9 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
 
   images = [];
   bookImages: Array<any>;
-  books: Book[] = [];
+  allbooks: Book[] = [];
   recobooks: Book[] = [];
+  book: Book;
   bookGenreCollection: Book[] = [];
   bookLanguageCollection: Book[] = [];
   favorites: Favorite[] = [];
@@ -57,6 +58,9 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
 
   showGenre: boolean;
   showLanguage: boolean;
+  showBooks: boolean = false;
+  showSkeleton: boolean = true;
+  showSpinner: boolean = true;
 
 
   public bookIdsImages = new Map();
@@ -99,7 +103,8 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
               private imageLoaderService: ImageLoaderService,
               private toastCtrl: ToastController,
               public zone: NgZone,
-              public loadingController: LoadingController
+              public loadingController: LoadingController,
+              public alertCtrl: AlertController
               ) {
               this.searchControl = new FormControl();
 
@@ -108,21 +113,24 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
     //this.showForm = false;
-    this.createForm();
-    this.setFilteredItems();
+    //this.createForm();
+    //this.setFilteredItems();
 
-    
-    
-   // this.loadStoredImages();
-    this.presentLoading();
-    this.readarsService.getBooks()
+    //this.presentLoading();
+    /*this.readarsService.getBooks()
     .subscribe(books => {
-
-      this.books = books;
+      this.showBooks = true;
+      this.allbooks = books;
       this.prepareBookIdsImagesMap();
-      console.log("BOOK COLLECTION IS ---------->", this.books)
+      console.log("BOOK COLLECTION IS ---------->", this.allbooks)
     
-    }, errmess => this.errMess = <any>errmess);
+    }, errmess => {
+      this.showBooks = false;
+      this.errMess = <any>errmess
+    });*/
+
+   
+
 
     /*this.readarsService.getRecommendedBooks()
     .subscribe(recobooks => {
@@ -132,8 +140,47 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
 
     }, errmess => this.errMess = <any>errmess);*/
 
-    
+    setTimeout(() => {
+      //this.showSkeleton = false;
+      this.showSpinner = false;
+    }, 3000);
 
+    this.readarsService.getBooks()
+    .subscribe(books => {
+      this.showBooks = true;
+      this.allbooks = books;
+      this.prepareBookIdsImagesMap();
+      console.log("BOOK COLLECTION IS ---------->", this.allbooks)
+    
+    }, errmess => {
+      this.showBooks = false;
+      this.errMess = <any>errmess
+    });
+
+    
+  }
+
+  
+
+  ionViewDidEnter() {
+
+    /*setTimeout(() => {
+      this.showSkeleton = false;
+    }, 3000);
+
+    this.readarsService.getBooks()
+    .subscribe(books => {
+      this.showBooks = true;
+      this.allbooks = books;
+      this.prepareBookIdsImagesMap();
+      console.log("BOOK COLLECTION IS ---------->", this.allbooks)
+    
+    }, errmess => {
+      this.showBooks = false;
+      this.errMess = <any>errmess
+    });*/
+
+    
   }
 
   async presentLoading() {
@@ -171,7 +218,7 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
   }
 
   ionViewWillEnter() {
-    this.prepareBookIdsImagesMap();
+    //this.prepareBookIdsImagesMap();
   }
 
   clearCache() {
@@ -256,22 +303,36 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
     if bookgenre matches with the event.detal.value, add that bookentry into genrecollection
   */
 
+    async alertManagement(message: string) {
+
+      const alert = await this.alertCtrl.create({
+        message: message,
+        header: "Please note",
+        buttons: ['Ok']
+        
+      });
+  
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
+
   displayGenreCollection(event) {
 
     this.bookGenreCollection = [];
     console.log("EVENT DETAIL VALUE", event.detail.value)
     let i=0;
     let j=0;
-    while (i < this.books.length) {
+    while (i < this.allbooks.length) {
 
-      if (this.books[i].bookgenre === event.detail.value) {
-        this.bookGenreCollection[j] = this.books[i];
+      if (this.allbooks[i].bookgenre === event.detail.value) {
+        this.bookGenreCollection[j] = this.allbooks[i];
         j++;
       }
       i++; 
     }
     if ((this.bookGenreCollection === undefined || this.bookGenreCollection.length == 0)) {
-        this.presentToast("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
+        this.alertManagement("Books of genre " + event.detail.value + " are NOT AVAILABLE in the bookshelf currently");
     }
     console.log("BOOK GENRE & COLLECTION", event.detail.value, this.bookGenreCollection.length)
   }
@@ -282,16 +343,16 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
     console.log("EVENT DETAIL VALUE", event.detail.value)
     let i=0;
     let j=0;
-    while (i < this.books.length) {
+    while (i < this.allbooks.length) {
 
-      if (this.books[i].booklanguage === event.detail.value) {
-        this.bookLanguageCollection[j] = this.books[i];
+      if (this.allbooks[i].booklanguage === event.detail.value) {
+        this.bookLanguageCollection[j] = this.allbooks[i];
         j++;
       }
       i++; 
     }
     if ((this.bookLanguageCollection === undefined || this.bookLanguageCollection.length == 0)) {
-      this.presentToast("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
+      this.alertManagement("Books in " + event.detail.value + " language are NOT AVAILABLE in the bookshelf currently");
   }
     console.log("BOOK LANGUAGE & COLLECTION", event.detail.value, this.bookLanguageCollection)
   }
@@ -306,7 +367,7 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
 
       this.readarsService.getBooks()
       .subscribe(books => {
-        this.books = books;
+        this.allbooks = books;
       }, errmess => this.errMess = <any>errmess);
 
       this.clearCache();
@@ -318,8 +379,8 @@ export class ShowallbooksPage implements OnInit, AfterViewInit {
 
   setFilteredItems() {
 
-    this.books = this.searchedData.filterItems(this.searchTerm);
-    console.log("Searched data", this.books)
+    this.allbooks = this.searchedData.filterItems(this.searchTerm);
+    console.log("Searched data", this.allbooks)
 
   }
 

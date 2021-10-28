@@ -43,7 +43,7 @@ import { FileTransfer} from '@ionic-native/file-transfer/ngx'
 import { SearchPipe } from './shared/search.pipe';
 import { SortPipe } from './shared/sort.pipe'
 
-
+import { DocumentViewer} from '@ionic-native/document-viewer/ngx'
 
 
 
@@ -98,7 +98,7 @@ import { SortPipe } from './shared/sort.pipe'
     HTTP,
     ImagePicker,
     FileTransfer,
-    
+    DocumentViewer
   
     
     
